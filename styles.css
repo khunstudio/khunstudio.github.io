@@ -359,6 +359,8 @@ em { font-style: italic; }
 .cp-out { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: start; padding: clamp(24px, 3vw, 48px) 0; border-top: 1px solid var(--line); }
 .cp-out img { display: block; width: 100%; border: 1px solid var(--line); }
 .cp-out__imgs { display: grid; gap: 12px; }
+.cp-out img.light { background: #f4efe8; }
+.cp-out video { display: block; width: 100%; border: 1px solid var(--line); background: #000; }
 .cp-out__no { margin: 0 0 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--acc); }
 .cp-out h3 { margin: 0 0 12px; font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 2.8vw, 46px); line-height: 1.1; }
 .cp-out p { margin: 0 0 20px; color: #b9d6c5; font-weight: 300; line-height: 1.75; }
