@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio KHUN — So, Revive</title>
+  <meta name="description" content="Studio KHUN 유경훈 포트폴리오. 소생 [revive] : 되살아나다, 활기를 되찾다. 브랜드가 다시 보이고 기억되는 방식을 설계합니다.">
+  <meta name="theme-color" content="#020a06">
+  <link rel="icon" href="assets/icon.png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://khunstudio.github.io/">
+  <meta property="og:site_name" content="Studio KHUN">
+  <meta property="og:title" content="Studio KHUN — So, Revive">
+  <meta property="og:description" content="소생 [revive] : 되살아나다, 활기를 되찾다. 브랜드가 다시 보이고 기억되는 방식을 설계합니다.">
+  <meta property="og:image" content="https://khunstudio.github.io/assets/share.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
+  <link rel="stylesheet" href="styles.css?v=8">
+</head>
+<body>
+  <header class="hud">
+    <a class="hud__id" href="#top">STUDIO KHUN <span>// RVB</span></a>
+    <nav class="hud__nav">
+      <a href="#concept">Concept</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="hud__vital" aria-hidden="true">
+      <span class="hud__dot"></span>
+      <span>HR <b id="bpm">---</b> BPM</span>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ── HERO: 스크롤하면 원 → 두 눈 → 놀란 눈 → 회전 → 로고 순서로 바뀝니다 ── -->
+    <div class="intro" id="intro">
+      <section class="hero">
+        <canvas class="hero__ecg" id="ecg" aria-hidden="true"></canvas>
+
+        <div class="hero__corner hero__corner--tl">Brand · Content · Web · Visual Communication</div>
+        <div class="hero__corner hero__corner--tr">2026</div>
+
+        <div class="hero__mark">
+          <!-- 모션 콘티: 픽셀 매트릭스. main.js의 mountIntro가 스크롤 위치에 맞춰 그립니다 -->
+          <canvas class="hero__morph" id="morph" aria-hidden="true"></canvas>
+          <!-- 리퀴드 로고가 들어가는 자리 -->
+          <div class="hero__logo" id="logo" role="img" aria-label="Studio KHUN 로고">
+            <img class="hero__logo-fallback" src="assets/logo.png" alt="">
+          </div>
+        </div>
+
+        <div class="hero__below">
+        <!-- 인트로 동안 보이는 단계 캡션 -->
+        <div class="hero__step" id="step" aria-hidden="true">
+          <span class="hero__step-no"></span>
+          <b class="hero__step-en"></b>
+        </div>
+        <div class="hero__text">
+          <p class="hero__def"><b>소생 [revive]</b> : 되살아나다, 활기를 되찾다</p>
+          <h1 class="hero__title">So, <em>Revive</em></h1>
+          <p class="hero__sub">Brand Revival Portfolio</p>
+          <p class="hero__role">Brand &amp; Content Designer</p>
+        </div>
+        </div>
+
+        <p class="hero__log" id="log" aria-hidden="true"></p>
+
+        <dl class="hero__corner hero__corner--bl readout">
+          <div><dt>PATIENT</dt><dd>BRAND</dd></div>
+          <div><dt>STATUS</dt><dd id="status">REVIVED</dd></div>
+        </dl>
+        <dl class="hero__corner hero__corner--br readout">
+          <div><dt>UNIT</dt><dd>RVB — Re:vibe the Brand</dd></div>
+          <div><dt>OPERATOR</dt><dd>KHUN / 유경훈</dd></div>
+        </dl>
+      </section>
+    </div>
+
+    <!-- ── CONCEPT ── -->
+    <section class="section" id="concept">
+      <header class="section__head"><span>[ 01 ]</span><h2>Concept</h2><i></i><span>DIAGNOSIS</span></header>
+
+      <div class="concept">
+        <article class="panel">
+          <p class="panel__tag">MAIN IDENTITY</p>
+          <h3 class="panel__title">소생 <em>So, Revive</em></h3>
+          <p class="panel__body">죽어가는 브랜드를 되살립니다. <b>소생</b>은 ‘되살아나다, 활기를 되찾다’라는 뜻이자, <b>소</b>통하고 <b>생</b>각하는 커뮤니케이션 디자이너라는 저의 이름입니다.</p>
+        </article>
+        <article class="panel">
+          <p class="panel__tag">SUB BRAND</p>
+          <h3 class="panel__title">RVB <em>Re:vibe the Brand</em></h3>
+          <p class="panel__body">브랜드에 새로운 진동을 줍니다. 멈춘 심장에 충격을 주듯, 흐릿해진 브랜드에 다시 박동을 만들어 살려내는 Studio KHUN의 서브 브랜드입니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── WORK ── -->
+    <section class="section" id="work">
+      <header class="section__head"><span>[ 02 ]</span><h2>Work</h2><i></i><span>CASE FILES</span></header>
+
+      <article class="case">
+        <div class="case__visual case__visual--empty"><span>VISUAL PENDING</span></div>
+        <div class="case__info">
+          <p class="case__no">CASE 01 — MAIN</p>
+          <h3 class="case__title">대한민국 공군 <em>Republic of Korea Air Force</em></h3>
+          <p class="case__body">대한민국 공군본부 인재획득과 콘텐츠제작병으로 복무하며 공군의 브랜딩과 콘텐츠를 제작했습니다.</p>
+          <dl class="readout">
+            <div><dt>PERIOD</dt><dd>2024 — 2026</dd></div>
+            <div><dt>ROLE</dt><dd>Branding · Contents</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case__visual"><img class="px" src="assets/work/wingspeaking-px.jpg" alt="윙스피킹 브랜드 디자인" loading="lazy"><img class="full" src="assets/work/wingspeaking.jpg" alt="" loading="lazy"></div>
+        <div class="case__info">
+          <p class="case__no">CASE 02 — MAIN</p>
+          <h3 class="case__title">윙스피킹 <em>WingSpeaking</em></h3>
+          <p class="case__body">강남 유학 전문 어학원. 브랜드 컨셉 논의부터 BX 디자인, 웹 디자인과 빌드(약 40페이지), 온라인 콘텐츠와 마케팅까지 맡았습니다. 2호점 유학 센터 개원으로 이어졌습니다.</p>
+          <dl class="readout">
+            <div><dt>PERIOD</dt><dd>2023 — 2024</dd></div>
+            <div><dt>ROLE</dt><dd>Branding · Web · Contents · Graphic</dd></div>
+          </dl>
+          <a class="case__link" href="work/wingspeaking.html">VIEW CASE →</a>
+        </div>
+      </article>
+
+      <article class="case case--sub">
+        <div class="case__visual case__visual--empty"><span>VISUAL PENDING</span></div>
+        <div class="case__info">
+          <p class="case__no">CASE 03</p>
+          <h3 class="case__title">모각 <em>MOGAK</em></h3>
+          <p class="case__body">한국 프리미엄 개성약과 브랜딩.</p>
+          <dl class="readout">
+            <div><dt>ROLE</dt><dd>Branding</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <header class="section__sub"><h3>Studio KHUN Works</h3><span>스튜디오 쿤에서 전개한 브랜딩</span></header>
+      <ul class="grid">
+        <li class="tile">
+          <div class="tile__visual"><img class="px" src="assets/work/connect-coffee-px.jpg" alt="Connect Coffee 로고 디자인" loading="lazy"><img class="full" src="assets/work/connect-coffee.jpg" alt="" loading="lazy"></div>
+          <p class="tile__no">S-01</p>
+          <h4>Connect Coffee</h4>
+          <p>‘잇다, 연결하다’를 담은 커피 브랜드 로고 디자인.</p>
+        </li>
+        <li class="tile">
+          <div class="tile__visual"><img class="px" src="assets/work/jungdam-px.jpg" alt="정담 F&amp;B 로고 리디자인" loading="lazy"><img class="full" src="assets/work/jungdam.jpg" alt="" loading="lazy"></div>
+          <p class="tile__no">S-02</p>
+          <h4>정담 F&amp;B</h4>
+          <p>동서양 맛과 문화의 조화를 표현한 F&amp;B 브랜드 로고 리디자인.</p>
+        </li>
+        <li class="tile">
+          <div class="tile__visual"><img class="px" src="assets/work/recurve-px.jpg" alt="Recurve 로고 리디자인" loading="lazy"><img class="full" src="assets/work/recurve.jpg" alt="" loading="lazy"></div>
+          <p class="tile__no">S-03</p>
+          <h4>Recurve</h4>
+          <p>리커브 활에서 출발한 온라인 마케팅 회사 로고 리디자인.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ── ABOUT ── -->
+    <section class="section" id="about">
+      <header class="section__head"><span>[ 03 ]</span><h2>About</h2><i></i><span>OPERATOR RECORD</span></header>
+
+      <div class="about">
+        <div class="about__lead">
+          <p class="about__hello">안녕하세요! <b>유경훈</b>입니다.</p>
+          <p class="about__body">다양한 경험과 관점을 연결해 브랜드에 새로운 가능성을 불어넣는 콘텐츠 디렉터입니다. 방송과 영상, 패션, 글로벌 캠페인, 마케팅을 거쳐 브랜드 아이덴티티와 콘텐츠 디자인에 이르기까지, 서로 다른 영역에서 쌓아온 경험은 디자인을 바라보는 저만의 시각이 되었습니다. 단순히 아름다운 결과물을 만드는 것을 넘어, 브랜드가 가진 본질과 전달하고자하는 메시지를 발견하고 이를 새로운 시각적 경험으로 풀어내고자 합니다. 익숙한 것에 새로운 시선을, 흐릿해진 가치에 선명한 울림을 더하는 것. 다양한 분야의 경험을 하나의 감각으로 연결하며, 브랜드가 다시 보이고 기억되는 방식을 설계합니다.</p>
+        </div>
+
+        <div class="records">
+          <section class="record">
+            <h3>Work Experiences</h3>
+            <dl>
+              <div><dt>2022 — 2026</dt><dd>STUDIO KHUN 프리랜서 디자이너 활동</dd></div>
+              <div><dt>2024 — 2026</dt><dd>대한민국 공군본부 인재획득과 콘텐츠제작병</dd></div>
+              <div><dt>2023 — 2024</dt><dd>유학 전문 어학원 윙스피킹 브랜딩, 디자인, 마케팅</dd></div>
+              <div><dt>2021 — 2022</dt><dd>영어·일본어 어학원 글로벌 랭귀지 캠퍼스 브랜딩, 디자인, 마케팅</dd></div>
+              <div><dt>2019</dt><dd>2030 패션 브랜드 SY패션 Comspace 디자인, 마케팅</dd></div>
+              <div><dt>2017</dt><dd>MBC 드라마 자체발광 오피스, 왕은 사랑한다 데이터 매니저 STAFF</dd></div>
+              <div><dt>2016</dt><dd>승마 패션복 브랜드 PENACOBA 디자인, 영상, 마케팅</dd></div>
+            </dl>
+          </section>
+
+          <section class="record">
+            <h3>Education</h3>
+            <dl>
+              <div><dt>2015 — 2021</dt><dd>건국대학교 미디어콘텐츠학과 방송영상전공 &amp; 광고홍보전공 졸업</dd></div>
+            </dl>
+          </section>
+
+          <section class="record">
+            <h3>Software Skills</h3>
+            <ul class="chips">
+              <li>Photoshop</li><li>Illustrator</li><li>InDesign</li><li>Lightroom</li><li>Figma</li><li>Adobe XD</li><li>Premiere Pro</li><li>After Effects</li><li>Blender</li><li>Nomad Sculpt</li><li>Office 365</li><li>한컴 오피스</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ── -->
+    <section class="section contact" id="contact">
+      <header class="section__head"><span>[ 04 ]</span><h2>Contact</h2><i></i><span>CODE BLUE</span></header>
+      <p class="contact__lead">되살리고 싶은 브랜드가 있나요?</p>
+      <a class="contact__mail" href="mailto:gyeonghun424@naver.com">gyeonghun424@naver.com</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© 2026 STUDIO KHUN</span>
+    <span>소통하고 생각하는 디자이너, 유경훈</span>
+  </footer>
+
+  <script type="module" src="main.js?v=11"></script>
+</body>
+</html>
