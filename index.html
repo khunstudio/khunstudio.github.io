@@ -19,15 +19,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="styles.css?v=13">
 </head>
 <body>
   <header class="hud">
     <a class="hud__id" href="#top">STUDIO KHUN <span>// RVB</span></a>
     <nav class="hud__nav">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#work">Case Files</a>
+      <a href="#about">Operator</a>
+      <a href="#contact">Code Blue</a>
     </nav>
     <div class="hud__vital" aria-hidden="true">
       <span class="hud__dot"></span>
@@ -37,7 +37,7 @@
 
   <main id="top">
     <!-- ── HERO: 스크롤하면 원 → 두 눈 → 놀란 눈 → 회전 → 로고 순서로 바뀝니다 ── -->
-    <div class="intro" id="intro">
+    <div class="intro" id="intro" data-vital="INTAKE">
       <section class="hero">
         <canvas class="hero__ecg" id="ecg" aria-hidden="true"></canvas>
 
@@ -63,7 +63,7 @@
           <p class="hero__def"><b>소생 [revive]</b> : 되살아나다, 활기를 되찾다</p>
           <h1 class="hero__title">So, <em>Revive</em></h1>
           <p class="hero__sub">Brand Revival Portfolio</p>
-          <p class="hero__role">Brand &amp; Content Designer</p>
+          <p class="hero__role">소통하고 생각하는 디자이너 — Brand &amp; Content Designer</p>
         </div>
         </div>
 
@@ -75,72 +75,67 @@
         </dl>
         <dl class="hero__corner hero__corner--br readout">
           <div><dt>UNIT</dt><dd>RVB — Re:vibe the Brand</dd></div>
-          <div><dt>OPERATOR</dt><dd>KHUN / 유경훈</dd></div>
+          <div><dt>PROCEDURE</dt><dd>BRAND CPR</dd></div>
         </dl>
       </section>
     </div>
 
-    <!-- ── WORK ── -->
-    <section class="section" id="work">
-      <header class="section__head"><span>[ 01 ]</span><h2>Work</h2><i></i><span>CASE FILES</span></header>
+    <!-- ── CASE FILES: 프로젝트 하나하나가 되살린 브랜드의 차트입니다 ── -->
+    <section class="section" id="work" data-vital="CASE FILES">
+      <header class="section__head"><span>[ 01 ]</span><h2>Case Files</h2><i></i><span>BRAND CPR RECORDS</span></header>
 
       <article class="case">
-        <div class="case__visual"><img src="assets/work/airforce.jpg" alt="대한민국 공군 모집 브랜드 ‘내일은 하늘색’" loading="lazy"></div>
+        <div class="case__visual"><img src="assets/work/airforce.jpg" alt="대한민국 공군 모집 브랜드 ‘내일은 하늘색’" loading="lazy"><span class="case__status"></span></div>
         <div class="case__info">
-          <p class="case__no">CASE 01 — MAIN</p>
+          <p class="case__no">CHART 01 — MAIN</p>
           <h3 class="case__title">대한민국 공군 <em>ROKAF — Recruitment Brand Identity</em></h3>
           <p class="case__body">공군모집 브랜드 아이덴티티 리뉴얼 및 통합 커뮤니케이션 시스템을 구축했습니다. 리브랜딩, 홍보영상 기획 및 제작, 온·오프라인 캠페인 비주얼 디렉션, 굿즈와 브랜드 경험까지.</p>
-          <dl class="readout">
-            <div><dt>PERIOD</dt><dd>2024 — 2026</dd></div>
-            <div><dt>ROLE</dt><dd>Rebranding · Film · Campaign · Goods</dd></div>
-          </dl>
-          <a class="case__link" href="work/airforce.html">VIEW CASE →</a>
+          <dl class="readout"><div><dt>SYMPTOM</dt><dd>보여주기 이상의 체계가 없던 모집 브랜드</dd></div><div><dt>TREATMENT</dt><dd>Rebranding · Film · Campaign · Goods</dd></div><div><dt>VITALS</dt><dd>홍보영상 580만 · 289만 조회</dd></div><div><dt>PERIOD</dt><dd>2024 — 2026</dd></div></dl>
+          <a class="case__link" href="work/airforce.html">OPEN CHART →</a>
         </div>
+        <svg class="case__ecg" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true"><path class="flat" d="M0 40H1000"/><path class="beat" pathLength="1" d="M0 40H120l10-6 10 6h30l6 8 10-44 10 54 8-18h40l14-10 14 10H460l10-6 10 6h30l6 8 10-44 10 54 8-18h40l14-10 14 10H800l10-6 10 6h30l6 8 10-44 10 54 8-18h40l14-10 14 10h28"/></svg>
       </article>
 
       <article class="case">
-        <div class="case__visual"><img src="assets/work/wingspeaking.jpg" alt="윙스피킹 브랜드 디자인" loading="lazy"></div>
+        <div class="case__visual"><img src="assets/work/wingspeaking.jpg" alt="윙스피킹 브랜드 디자인" loading="lazy"><span class="case__status"></span></div>
         <div class="case__info">
-          <p class="case__no">CASE 02 — MAIN</p>
+          <p class="case__no">CHART 02 — MAIN</p>
           <h3 class="case__title">윙스피킹 <em>WingSpeaking</em></h3>
-          <p class="case__body">강남 유학 전문 어학원. 브랜드 컨셉 논의부터 BX 디자인, 웹 디자인과 빌드(약 40페이지), 온라인 콘텐츠와 마케팅까지 맡았습니다. 2호점 유학 센터 개원으로 이어졌습니다.</p>
-          <dl class="readout">
-            <div><dt>PERIOD</dt><dd>2023 — 2024</dd></div>
-            <div><dt>ROLE</dt><dd>Branding · Web · Contents · Graphic</dd></div>
-          </dl>
-          <a class="case__link" href="work/wingspeaking.html">VIEW CASE →</a>
+          <p class="case__body">강남 유학 전문 어학원. 브랜드 컨셉 논의부터 BX 디자인, 웹 디자인과 빌드(약 40페이지), 온라인 콘텐츠와 마케팅까지 맡았습니다.</p>
+          <dl class="readout"><div><dt>TREATMENT</dt><dd>Branding · Web · Contents · Graphic</dd></div><div><dt>VITALS</dt><dd>2호점 개원 · 3호점 준비</dd></div><div><dt>PERIOD</dt><dd>2023 — 2024</dd></div></dl>
+          <a class="case__link" href="work/wingspeaking.html">OPEN CHART →</a>
         </div>
+        <svg class="case__ecg" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true"><path class="flat" d="M0 40H1000"/><path class="beat" pathLength="1" d="M0 40H120l10-6 10 6h30l6 8 10-44 10 54 8-18h40l14-10 14 10H460l10-6 10 6h30l6 8 10-44 10 54 8-18h40l14-10 14 10H800l10-6 10 6h30l6 8 10-44 10 54 8-18h40l14-10 14 10h28"/></svg>
       </article>
 
       <article class="case case--sub">
-        <div class="case__visual"><img src="assets/work/mogak.jpg" alt="모각 약과 세트 구성" loading="lazy"></div>
+        <div class="case__visual"><img src="assets/work/mogak.jpg" alt="모각 약과 세트 구성" loading="lazy"><span class="case__status"></span></div>
         <div class="case__info">
-          <p class="case__no">CASE 03</p>
+          <p class="case__no">CHART 03</p>
           <h3 class="case__title">모각 <em>MOGAK</em></h3>
           <p class="case__body">정성을 깨닫는 한 조각. 한국 프리미엄 개성약과 브랜드의 아이덴티티와 패키지, 안내문을 만들었습니다.</p>
-          <dl class="readout">
-            <div><dt>ROLE</dt><dd>Brand Identity · Package · Print</dd></div>
-          </dl>
-          <a class="case__link" href="work/mogak.html">VIEW CASE →</a>
+          <dl class="readout"><div><dt>TREATMENT</dt><dd>Brand Identity · Package · Print</dd></div><div><dt>PERIOD</dt><dd>2026</dd></div></dl>
+          <a class="case__link" href="work/mogak.html">OPEN CHART →</a>
         </div>
+        <svg class="case__ecg" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden="true"><path class="flat" d="M0 40H1000"/><path class="beat" pathLength="1" d="M0 40H120l10-6 10 6h30l6 8 10-44 10 54 8-18h40l14-10 14 10H460l10-6 10 6h30l6 8 10-44 10 54 8-18h40l14-10 14 10H800l10-6 10 6h30l6 8 10-44 10 54 8-18h40l14-10 14 10h28"/></svg>
       </article>
 
-      <header class="section__sub"><h3>Studio KHUN Works</h3><span>스튜디오 쿤에서 전개한 브랜딩</span></header>
+      <header class="section__sub"><h3>Studio KHUN Works</h3><span>스튜디오 쿤에서 되살린 브랜드</span></header>
       <ul class="grid">
         <li class="tile">
-          <div class="tile__visual"><img src="assets/work/connect-coffee.jpg" alt="Connect Coffee 로고 디자인" loading="lazy"></div>
+          <div class="tile__visual"><img src="assets/work/connect-coffee.jpg" alt="Connect Coffee 로고 디자인" loading="lazy"><span class="case__status"></span></div>
           <p class="tile__no">S-01</p>
           <h4>Connect Coffee</h4>
           <p>‘잇다, 연결하다’를 담은 커피 브랜드 로고 디자인.</p>
         </li>
         <li class="tile">
-          <div class="tile__visual"><img src="assets/work/jungdam.jpg" alt="정담 F&amp;B 로고 리디자인" loading="lazy"></div>
+          <div class="tile__visual"><img src="assets/work/jungdam.jpg" alt="정담 F&amp;B 로고 리디자인" loading="lazy"><span class="case__status"></span></div>
           <p class="tile__no">S-02</p>
           <h4>정담 F&amp;B</h4>
           <p>동서양 맛과 문화의 조화를 표현한 F&amp;B 브랜드 로고 리디자인.</p>
         </li>
         <li class="tile">
-          <div class="tile__visual"><img src="assets/work/recurve.jpg" alt="Recurve 로고 리디자인" loading="lazy"></div>
+          <div class="tile__visual"><img src="assets/work/recurve.jpg" alt="Recurve 로고 리디자인" loading="lazy"><span class="case__status"></span></div>
           <p class="tile__no">S-03</p>
           <h4>Recurve</h4>
           <p>리커브 활에서 출발한 온라인 마케팅 회사 로고 리디자인.</p>
@@ -149,12 +144,13 @@
     </section>
 
     <!-- ── ABOUT ── -->
-    <section class="section" id="about">
-      <header class="section__head"><span>[ 02 ]</span><h2>About</h2><i></i><span>OPERATOR RECORD</span></header>
+    <section class="section" id="about" data-vital="OPERATOR">
+      <header class="section__head"><span>[ 02 ]</span><h2>Operator</h2><i></i><span>소생 디자이너</span></header>
 
       <div class="about">
         <div class="about__lead">
-          <p class="about__hello">안녕하세요! <b>유경훈</b>입니다.</p>
+          <p class="about__hello"><b>소</b>통하고 <b>생</b>각하는<br>디자이너, 유경훈입니다.</p>
+          <p class="about__tag">브랜드 심폐소생술 — 멈춘 브랜드에 새로운 진동을 줍니다.</p>
           <p class="about__body">다양한 경험과 관점을 연결해 브랜드에 새로운 가능성을 불어넣는 콘텐츠 디렉터입니다. 방송과 영상, 패션, 글로벌 캠페인, 마케팅을 거쳐 브랜드 아이덴티티와 콘텐츠 디자인에 이르기까지, 서로 다른 영역에서 쌓아온 경험은 디자인을 바라보는 저만의 시각이 되었습니다. 단순히 아름다운 결과물을 만드는 것을 넘어, 브랜드가 가진 본질과 전달하고자하는 메시지를 발견하고 이를 새로운 시각적 경험으로 풀어내고자 합니다. 익숙한 것에 새로운 시선을, 흐릿해진 가치에 선명한 울림을 더하는 것. 다양한 분야의 경험을 하나의 감각으로 연결하며, 브랜드가 다시 보이고 기억되는 방식을 설계합니다.</p>
         </div>
 
@@ -179,21 +175,29 @@
             </dl>
           </section>
 
+          <section class="record record--ai">
+            <h3>AI Workflow</h3>
+            <ul class="chips"><li>Claude</li><li>ChatGPT</li><li>Midjourney</li><li>Higgsfield</li><li>Google Flow</li></ul>
+          </section>
+
           <section class="record">
-            <h3>Software Skills</h3>
-            <ul class="chips">
-              <li>Photoshop</li><li>Illustrator</li><li>InDesign</li><li>Lightroom</li><li>Figma</li><li>Adobe XD</li><li>Premiere Pro</li><li>After Effects</li><li>Blender</li><li>Nomad Sculpt</li><li>Office 365</li><li>한컴 오피스</li>
-            </ul>
+            <h3>Design Instruments</h3>
+            <ul class="chips"><li>Photoshop</li><li>Illustrator</li><li>InDesign</li><li>Lightroom</li><li>Figma</li><li>Adobe XD</li></ul>
+            <h3 class="record__sub">Motion &amp; 3D</h3>
+            <ul class="chips"><li>Premiere Pro</li><li>After Effects</li><li>Blender</li><li>Nomad Sculpt</li></ul>
+            <h3 class="record__sub">Office</h3>
+            <ul class="chips"><li>Office 365</li><li>한컴 오피스</li></ul>
           </section>
         </div>
       </div>
     </section>
 
-    <!-- ── CONTACT ── -->
-    <section class="section contact" id="contact">
-      <header class="section__head"><span>[ 03 ]</span><h2>Contact</h2><i></i><span>CODE BLUE</span></header>
-      <p class="contact__lead">되살리고 싶은 브랜드가 있나요?</p>
-      <a class="contact__mail" href="mailto:gyeonghun424@naver.com">gyeonghun424@naver.com</a>
+    <!-- ── CODE BLUE: 연락 ── -->
+    <section class="section contact" id="contact" data-vital="CODE BLUE">
+      <header class="section__head"><span>[ 03 ]</span><h2>Code Blue</h2><i></i><span>CONTACT</span></header>
+      <p class="contact__lead">멈춰 있는 브랜드가 있나요?</p>
+      <a class="contact__mail" href="mailto:khunstudio@gmail.com">khunstudio@gmail.com</a>
+      <p class="contact__cta"><a href="mailto:khunstudio@gmail.com">CHARGE — CLEAR — <b>START CPR →</b></a></p>
     </section>
   </main>
 
@@ -202,6 +206,7 @@
     <span>소통하고 생각하는 디자이너, 유경훈</span>
   </footer>
 
-  <script type="module" src="main.js?v=11"></script>
+  <script type="module" src="main.js?v=12"></script>
+  <script src="vital.js?v=1" defer></script>
 </body>
 </html>

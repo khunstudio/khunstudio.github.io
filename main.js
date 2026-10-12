@@ -399,6 +399,7 @@ function mountIntro(img) {
 
   if (reduceMotion.matches) {
     vital.alive = true;
+    document.documentElement.dataset.alive = '1';
     return;
   }
 
@@ -447,6 +448,7 @@ function mountIntro(img) {
     const alive = p >= INTRO.morph[1];
     if (alive && !vital.alive) vital.flash = 1; // 제세동: 로고가 완성되는 순간 번쩍
     vital.alive = alive;
+    document.documentElement.dataset.alive = alive ? '1' : '0'; // 아래 바이탈 모니터(vital.js)가 읽습니다
 
     let n = 0;
     while (n < STEPS.length - 1 && p >= STEPS[n + 1].from) n++;
