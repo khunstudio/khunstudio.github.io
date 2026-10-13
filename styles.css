@@ -376,6 +376,8 @@ body { padding-bottom: 44px; }
 .cp-steps p { margin: 16px 0 12px; color: #b9d6c5; }
 .cp-steps ul { margin: 0; padding: 16px 0 0; list-style: none; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; line-height: 1.7; }
 .cp-steps ul li::before { content: "· "; color: var(--acc); }
+.cp-vitals.cp-vitals--film { grid-template-columns: 1fr 1fr; }
+.cp-vitals--film img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 24px; border: 1px solid var(--line); }
 .cp-after { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr); gap: 24px; align-items: start; }
 .cp-after .cp-vitals { grid-template-columns: 1fr 1fr; }
 .cp-after img { display: block; width: 100%; border: 1px solid var(--line); }
@@ -446,7 +448,7 @@ body { padding-bottom: 44px; }
   .cp-steps > li:nth-child(n) { margin-top: 0; }
   .cp-out__info { position: static; }
   .cp-meta { grid-template-columns: 1fr 1fr; }
-  .cp-vitals { grid-template-columns: 1fr; }
+  .cp-vitals, .cp-vitals.cp-vitals--film { grid-template-columns: 1fr; }
 }
 
 /* ── 좁은 화면 ── */
