@@ -347,7 +347,7 @@ body { padding-bottom: 44px; }
 .cp-back { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
 .cp-back:hover { color: var(--acc); }
 .cp-no { margin: 40px 0 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--acc); }
-.cp-title { margin: 0; font-weight: 500; font-size: clamp(48px, 8vw, 132px); line-height: 1; letter-spacing: -0.03em; }
+.cp-title { margin: 0; font-weight: 500; font-size: clamp(36px, 4.6vw, 76px); line-height: 1.05; letter-spacing: -0.03em; }
 .cp-title em { display: block; margin-top: 12px; font-family: var(--serif); font-weight: 400; font-size: .42em; letter-spacing: 0; color: var(--acc); }
 .cp-lead { margin: 28px 0 40px; max-width: 34em; color: #b9d6c5; font-weight: 300; font-size: clamp(17px, 1.5vw, 22px); line-height: 1.7; }
 .cp-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0; }
@@ -401,6 +401,23 @@ body { padding-bottom: 44px; }
 .cp-out img { display: block; width: 100%; border: 1px solid var(--line); }
 .cp-out__imgs { display: grid; gap: 12px; }
 .cp-out img.light { background: #f4efe8; }
+.cp-out__imgs--2 { grid-template-columns: 1fr 1fr; }
+.cp-out--wide { grid-template-columns: 1fr; }
+.cp-out--wide .cp-out__info { position: static; max-width: 46em; }
+
+/* 하늘색 카드 월 */
+.skywall { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(10px, 1.4vw, 22px); margin: 16px 0 0; padding: 12px 0; perspective: 1800px; }
+.skycard { position: relative; aspect-ratio: 840 / 1180; cursor: pointer; animation: skyfloat var(--d, 6s) ease-in-out var(--delay, 0s) infinite alternate; outline: none; }
+.skycard:nth-child(even) { animation-direction: alternate-reverse; }
+@keyframes skyfloat { from { transform: translateY(-9px); } to { transform: translateY(9px); } }
+.skycard__in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.skycard.is-flipped .skycard__in,
+.skycard:hover .skycard__in,
+.skycard:focus-visible .skycard__in { transform: rotateY(180deg); }
+.skycard__face { position: absolute; inset: 0; overflow: hidden; border-radius: clamp(8px, 1vw, 16px); backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 14px 30px rgba(0, 0, 0, .45); }
+.skycard__face--back { transform: rotateY(180deg); }
+.cp-out .skycard__face img { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
+.skycard__face:not(.skycard__face--back) img { transform: scale(1.22); }
 .cp-out video { display: block; width: 100%; border: 1px solid var(--line); background: #000; }
 .cp-out__no { margin: 0 0 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--acc); }
 .cp-out h3 { margin: 0 0 12px; font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 2.8vw, 46px); line-height: 1.1; }
@@ -425,6 +442,7 @@ body { padding-bottom: 44px; }
 @media (max-width: 1100px) {
   .cp-cols, .cp-out { grid-template-columns: 1fr; }
   .cp-split, .cp-steps, .cp-after { grid-template-columns: 1fr; }
+  .skywall { grid-template-columns: repeat(5, 1fr); gap: 8px; }
   .cp-steps > li:nth-child(n) { margin-top: 0; }
   .cp-out__info { position: static; }
   .cp-meta { grid-template-columns: 1fr 1fr; }
@@ -448,6 +466,10 @@ body { padding-bottom: 44px; }
   .grid { grid-template-columns: 1fr; }
   .record dl div { grid-template-columns: 1fr; gap: 0; }
   .section__head span:last-child { display: none; }
+}
+
+@media (max-width: 700px) {
+  .skywall { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

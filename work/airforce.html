@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
-  <link rel="stylesheet" href="../styles.css?v=13">
+  <link rel="stylesheet" href="../styles.css?v=14">
 </head>
 <body>
   <header class="hud">
@@ -47,7 +47,7 @@
       <dl class="cp-meta">
         <div><dt>CLIENT</dt><dd>대한민국 공군본부 인재획득과</dd></div>
         <div><dt>DATE</dt><dd>2024 ~ 2026</dd></div>
-        <div><dt>TOOLS</dt><dd>Adobe Illustrator, Photoshop, Premiere Pro, Midjourney, Google Flow, ChatGPT</dd></div>
+        <div><dt>TOOLS</dt><dd>Adobe Illustrator, Photoshop, Premiere Pro, Google Flow, ChatGPT, Midjourney</dd></div>
         <div><dt>STATUS</dt><dd style="color: var(--acc)">REVIVED</dd></div>
       </dl>
     </section>
@@ -130,21 +130,83 @@
     <section class="section" id="output" data-vital="TREATMENT">
       <header class="section__head"><span>[ 03 ]</span><h2>Output</h2><i></i><span>TREATMENT</span></header>
       <article class="cp-out">
-        <div class="cp-out__imgs"><img class="light" src="../assets/work/airforce/typo.jpg" alt="내일은 하늘색 타이포그래피" loading="lazy"></div>
+        <div class="cp-out__imgs"><img class="light" src="../assets/work/airforce/logo-grid.png" alt="‘내일은 하늘색’ 기본 로고와 그리드" loading="lazy"></div>
         <div class="cp-out__info">
           <p class="cp-out__no">T-01</p>
           <h3>Slogan &amp; Typography</h3>
           <p>브랜드 슬로건 ‘내일은 하늘색’을 도출하고 전용 타이포그래피를 디자인했습니다.</p>
         </div>
       </article>
-      <article class="cp-out">
-        <div class="cp-out__imgs"><img src="../assets/work/airforce/color-system.jpg" alt="전형별 하늘색 색상 체계와 포스터" loading="lazy"></div>
+      <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
           <p class="cp-out__no">T-02</p>
           <h3>Brand Transformation</h3>
           <p class="cp-hl">다채로운 하늘색처럼, 다양한 공군의 길</p>
           <p>모집 전형별 고유의 가치와 타깃 특성을 반영하여 전용 색상 체계를 기획했습니다. 시간의 흐름에 따라 변화하는 다양한 하늘의 스펙트럼을 적용하여, 확립된 키비주얼을 기반으로 시각 홍보물 원스톱 디자인물을 제작했습니다.</p>
         </div>
+        <!-- 하늘색 카드: 떠다니다가 저절로 뒤집히고, 마우스를 올리면 그 전형의 표지가 나옵니다 -->
+        <ul class="skywall" id="skywall">
+          <li class="skycard" style="--d: 5s; --delay: -0.0s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s01.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p01.jpg" alt="2025 공군모집 종합 표지" loading="lazy"></div>
+            </div>
+          </li>
+          <li class="skycard" style="--d: 8s; --delay: -2.0s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s02.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p02.jpg" alt="공군사관학교 표지" loading="lazy"></div>
+            </div>
+          </li>
+          <li class="skycard" style="--d: 7s; --delay: -4.0s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s03.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p03.jpg" alt="조종분야 가산복무 지원금 지급대상자 표지" loading="lazy"></div>
+            </div>
+          </li>
+          <li class="skycard" style="--d: 6s; --delay: -1.5s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s04.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p04.jpg" alt="학군사관후보생 ROTC 표지" loading="lazy"></div>
+            </div>
+          </li>
+          <li class="skycard" style="--d: 5s; --delay: -3.5s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s05.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p05.jpg" alt="학사사관후보생 · 예비장교후보생 표지" loading="lazy"></div>
+            </div>
+          </li>
+          <li class="skycard" style="--d: 8s; --delay: -1.0s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s06.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p06.jpg" alt="항공과학고등학교 표지" loading="lazy"></div>
+            </div>
+          </li>
+          <li class="skycard" style="--d: 7s; --delay: -3.0s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s07.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p07.jpg" alt="부사관후보생 표지" loading="lazy"></div>
+            </div>
+          </li>
+          <li class="skycard" style="--d: 6s; --delay: -0.5s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s08.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p08.jpg" alt="학군부사관후보생 RNTC 표지" loading="lazy"></div>
+            </div>
+          </li>
+          <li class="skycard" style="--d: 5s; --delay: -2.5s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s09.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p09.jpg" alt="임기제부사관 표지" loading="lazy"></div>
+            </div>
+          </li>
+          <li class="skycard" style="--d: 8s; --delay: -0.0s" tabindex="0">
+            <div class="skycard__in">
+              <div class="skycard__face"><img src="../assets/work/airforce/sky/s10.jpg" alt="" loading="lazy"></div>
+              <div class="skycard__face skycard__face--back"><img src="../assets/work/airforce/sky/p10.jpg" alt="병 표지" loading="lazy"></div>
+            </div>
+          </li>
+        </ul>
       </article>
       <article class="cp-out">
         <div class="cp-out__imgs"><img src="../assets/work/airforce/poster-main.jpg" alt="2025 공군모집 종합 포스터" loading="lazy"><img src="../assets/work/airforce/poster-255.jpg" alt="부사관후보생 모집 포스터" loading="lazy"><img src="../assets/work/airforce/poster-rotc.jpg" alt="학군사관 모집 포스터" loading="lazy"></div>
@@ -179,11 +241,26 @@
         </div>
       </article>
       <article class="cp-out">
-        <div class="cp-out__imgs"><img class="light" src="../assets/work/airforce/mug.jpg" alt="머그컵" loading="lazy"><img src="../assets/work/airforce/bookmark.jpg" alt="책갈피" loading="lazy"><img src="../assets/work/airforce/postcard.jpg" alt="엽서" loading="lazy"><img src="../assets/work/airforce/case.jpg" alt="자개 명함 케이스" loading="lazy"></div>
+        <div class="cp-out__imgs"><img class="light" src="../assets/work/airforce/mug.jpg" alt="머그컵" loading="lazy"><img src="../assets/work/airforce/bookmark.jpg" alt="책갈피" loading="lazy"><img src="../assets/work/airforce/case.jpg" alt="자개 명함 케이스" loading="lazy"></div>
         <div class="cp-out__info">
           <p class="cp-out__no">T-07</p>
           <h3>Goods &amp; Welcome Kit</h3>
           <p>브랜드 아이덴티티를 투영한 굿즈와 웰컴키트 등 패키지를 디자인했습니다.</p>
+        </div>
+      </article>
+
+      <article class="cp-out">
+        <div class="cp-out__imgs cp-out__imgs--2">
+          <img src="../assets/work/airforce/postcard-1.jpg" alt="‘내일은 하늘색’ 엽서 1" loading="lazy">
+          <img src="../assets/work/airforce/postcard-2.jpg" alt="‘내일은 하늘색’ 엽서 2" loading="lazy">
+          <img src="../assets/work/airforce/postcard-3.jpg" alt="‘내일은 하늘색’ 엽서 3" loading="lazy">
+          <img src="../assets/work/airforce/postcard-8.jpg" alt="‘내일은 하늘색’ 엽서 4" loading="lazy">
+          <img class="light" src="../assets/work/airforce/postcard-back.jpg" alt="엽서 뒷면" loading="lazy">
+        </div>
+        <div class="cp-out__info">
+          <p class="cp-out__no">T-08</p>
+          <h3>Postcards</h3>
+          <p>‘내일은 하늘색’ 키비주얼로 만든 A6 엽서 4종. 하늘의 시간대마다 다른 색을 담았습니다.</p>
         </div>
       </article>
     </section>
@@ -212,5 +289,26 @@
     <span>소통하고 생각하는 디자이너, 유경훈</span>
   </footer>
   <script src="../vital.js?v=1" defer></script>
+  <script>
+    // 하늘색 카드: 화면에 보이는 동안 몇 장씩 저절로 뒤집혔다가 돌아옵니다
+    (() => {
+      const wall = document.getElementById('skywall');
+      if (!wall) return;
+      const cards = [...wall.children];
+      cards.forEach((c) => c.addEventListener('click', () => c.classList.toggle('is-flipped')));
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      let on = false, last = -1;
+      new IntersectionObserver(([e]) => { on = e.isIntersecting; }, { threshold: 0.2 }).observe(wall);
+      setInterval(() => {
+        if (!on) return;
+        let i; do { i = Math.floor(Math.random() * cards.length); } while (i === last);
+        last = i;
+        const c = cards[i];
+        if (c.matches(':hover')) return;
+        c.classList.add('is-flipped');
+        setTimeout(() => c.classList.remove('is-flipped'), 2600);
+      }, 1100);
+    })();
+  </script>
 </body>
 </html>
