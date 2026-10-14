@@ -19,12 +19,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
-  <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
   <header class="hud">
     <a class="hud__id" href="#top">STUDIO KHUN <span>// RVB</span></a>
     <nav class="hud__nav">
+      <a href="#symbol">Symbol</a>
       <a href="#work">Case Files</a>
       <a href="#about">Operator</a>
       <a href="#contact">Code Blue</a>
@@ -80,9 +81,32 @@
       </section>
     </div>
 
+    <!-- ── SYMBOL: 로고의 두 고리를 3D 모션으로 ── -->
+    <section class="section" id="symbol" data-vital="SYMBOL">
+      <header class="section__head"><span>[ 01 ]</span><h2>Symbol</h2><i></i><span>THE REVIVE MARK</span></header>
+      <div class="sym-hero" data-symbol="full" aria-label="Studio KHUN 심볼 모션"></div>
+      <ul class="sym-cards">
+        <li>
+          <div class="sym-card__stage" data-symbol="eyes" aria-hidden="true"></div>
+          <h3>TWO EYES</h3>
+          <p>소통하고 생각하는 두 시선. 서로를 마주 본 두 고리가 얽혀 하나의 표식이 됩니다.</p>
+        </li>
+        <li>
+          <div class="sym-card__stage" data-symbol="pulse" aria-hidden="true"></div>
+          <h3>RE:VIBE</h3>
+          <p>멈춘 브랜드에 보내는 새로운 진동. 72 BPM으로 퍼져 나가는 박동입니다.</p>
+        </li>
+        <li>
+          <div class="sym-card__stage" data-symbol="sphere" aria-hidden="true"></div>
+          <h3>CORE</h3>
+          <p>되살아난 브랜드의 핵. 단단한 겉과 살아 움직이는 속을 함께 품습니다.</p>
+        </li>
+      </ul>
+    </section>
+
     <!-- ── CASE FILES: 프로젝트 하나하나가 되살린 브랜드의 차트입니다 ── -->
     <section class="section" id="work" data-vital="CASE FILES">
-      <header class="section__head"><span>[ 01 ]</span><h2>Case Files</h2><i></i><span>BRAND CPR RECORDS</span></header>
+      <header class="section__head"><span>[ 02 ]</span><h2>Case Files</h2><i></i><span>BRAND CPR RECORDS</span></header>
 
       <article class="case">
         <div class="case__visual"><img src="assets/work/airforce.jpg" alt="대한민국 공군 모집 브랜드 ‘내일은 하늘색’" loading="lazy"><span class="case__status"></span></div>
@@ -145,7 +169,7 @@
 
     <!-- ── ABOUT ── -->
     <section class="section" id="about" data-vital="OPERATOR">
-      <header class="section__head"><span>[ 02 ]</span><h2>Operator</h2><i></i><span>소생 디자이너</span></header>
+      <header class="section__head"><span>[ 03 ]</span><h2>Operator</h2><i></i><span>소생 디자이너</span></header>
 
       <div class="about">
         <div class="about__lead">
@@ -194,7 +218,7 @@
 
     <!-- ── CODE BLUE: 연락 ── -->
     <section class="section contact" id="contact" data-vital="CODE BLUE">
-      <header class="section__head"><span>[ 03 ]</span><h2>Code Blue</h2><i></i><span>CONTACT</span></header>
+      <header class="section__head"><span>[ 04 ]</span><h2>Code Blue</h2><i></i><span>CONTACT</span></header>
       <p class="contact__lead">멈춰 있는 브랜드가 있나요?</p>
       <a class="contact__mail" href="mailto:hello.khunstudio@gmail.com">hello.khunstudio@gmail.com</a>
       <p class="contact__cta"><a href="mailto:hello.khunstudio@gmail.com">CHARGE — CLEAR — <b>START CPR →</b></a></p>
@@ -206,7 +230,9 @@
     <span>소통하고 생각하는 디자이너, 유경훈</span>
   </footer>
 
+  <script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
   <script type="module" src="main.js?v=12"></script>
   <script src="vital.js?v=1" defer></script>
+  <script type="module" src="symbol.js?v=3"></script>
 </body>
 </html>
