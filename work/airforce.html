@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>대한민국 공군 ROKAF — Studio KHUN</title>
+  <title>대한민국 공군 ROKAF — KHUN studio</title>
   <meta name="description" content="대한민국 공군 모집 브랜드 리브랜딩. 슬로건 ‘내일은 하늘색’과 영상, 인쇄물, 공간, 굿즈.">
   <meta name="theme-color" content="#020a06">
   <link rel="icon" href="../assets/icon.png">
   <link rel="apple-touch-icon" href="../assets/icon.png">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Studio KHUN">
-  <meta property="og:title" content="대한민국 공군 Republic of Korea Air Force — Studio KHUN">
+  <meta property="og:site_name" content="KHUN studio">
+  <meta property="og:title" content="대한민국 공군 Republic of Korea Air Force — KHUN studio">
   <meta property="og:description" content="대한민국 공군 모집 브랜드 리브랜딩. 슬로건 ‘내일은 하늘색’과 영상, 인쇄물, 공간, 굿즈.">
   <meta property="og:image" content="https://khunstudio.github.io/assets/work/airforce/hero.jpg">
   <meta name="twitter:card" content="summary_large_image">
@@ -18,11 +18,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
-  <link rel="stylesheet" href="../styles.css?v=22">
+  <link rel="stylesheet" href="../styles.css?v=23">
 </head>
 <body>
   <header class="hud">
-    <a class="hud__id" href="../index.html">STUDIO KHUN <span>// RVB</span></a>
+    <a class="hud__id" href="../index.html">KHUN studio <span>// RVB</span></a>
     <nav class="hud__nav">
       <a href="#before">Before</a>
       <a href="#revibe">Re:vibe</a>
@@ -237,41 +237,52 @@
         <div class="cp-out__info">
           <p class="cp-out__no">T-06</p>
           <h3>Leaflets</h3>
-          <p>전형별 3단 리플렛 7종. 표지면은 키비주얼과 전형별 하늘색을 그대로 쓰고, 안쪽은 캐릭터와 아이콘으로 혜택과 지원 자격, 모집 일정을 정리했습니다. 리플렛을 누르면 펼쳐집니다.</p>
+          <p>전형별 3단 리플렛 7종. 표지면은 키비주얼과 전형별 하늘색을 그대로 쓰고, 안쪽은 캐릭터와 아이콘으로 혜택과 지원 자격, 모집 일정을 정리했습니다. 대표 리플렛을 누르면 펼쳐지고, 나머지는 누르면 바깥면과 안쪽면을 볼 수 있습니다.</p>
+        </div>
+        <!-- 대표 리플렛: 누르면 접고 펼칩니다 (leaflet.js) -->
+        <div class="lf-feature">
+          <div class="lf-feature__stage">
+            <div class="lf" id="lf-feature" role="button" tabindex="0" aria-label="조종분야 가산복무 지원금 지급대상자 리플렛 — 눌러서 펼치기">
+              <div class="lf__turn">
+                <div class="lf__panel lf__mid"><div class="lf__face" style="background-image: url(../assets/work/airforce/leaflets/l3-mi.jpg)"></div><div class="lf__face lf__face--back" style="background-image: url(../assets/work/airforce/leaflets/l3-mo.jpg)"></div></div>
+                <div class="lf__panel lf__right"><div class="lf__face" style="background-image: url(../assets/work/airforce/leaflets/l3-ri.jpg)"></div><div class="lf__face lf__face--back" style="background-image: url(../assets/work/airforce/leaflets/l3-lo.jpg)"></div></div>
+                <div class="lf__panel lf__left"><div class="lf__face" style="background-image: url(../assets/work/airforce/leaflets/l3-li.jpg)"></div><div class="lf__face lf__face--back" style="background-image: url(../assets/work/airforce/leaflets/l3-ro.jpg)"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="lf-feature__bar">
+            <span><b>조종분야 가산복무 지원금 지급대상자</b> · 장교 · 2026</span>
+            <span class="lf-feature__ctrl"><button type="button" data-act="fold">UNFOLD</button><button type="button" data-act="flip">FLIP — 바깥면</button></span>
+          </div>
         </div>
         <ul class="lf-list" id="leaflets" data-base="../assets/work/airforce/leaflets/">
           <li><button type="button" class="lf-item" data-id="l1">
-            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l1-ro.jpg" alt="학사사관후보생 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l1-out.jpg" alt="학사사관후보생 리플렛 표지" loading="lazy"></span>
             <span class="lf-item__tag">장교 · 157기</span>
             <h4>학사사관후보생</h4>
           </button></li>
           <li><button type="button" class="lf-item" data-id="l2">
-            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l2-ro.jpg" alt="예비장교후보생 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l2-out.jpg" alt="예비장교후보생 리플렛 표지" loading="lazy"></span>
             <span class="lf-item__tag">장교 · 26-1차</span>
             <h4>예비장교후보생</h4>
           </button></li>
-          <li><button type="button" class="lf-item" data-id="l3">
-            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l3-ro.jpg" alt="조종분야 가산복무 지원금 지급대상자 리플렛 표지" loading="lazy"></span>
-            <span class="lf-item__tag">장교 · 2026</span>
-            <h4>조종분야 가산복무 지원금 지급대상자</h4>
-          </button></li>
           <li><button type="button" class="lf-item" data-id="l4">
-            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l4-ro.jpg" alt="학군사관후보생 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l4-out.jpg" alt="학군사관후보생 리플렛 표지" loading="lazy"></span>
             <span class="lf-item__tag">장교 · 56/57기</span>
             <h4>학군사관후보생</h4>
           </button></li>
           <li><button type="button" class="lf-item" data-id="l5">
-            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l5-ro.jpg" alt="부사관후보생 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l5-out.jpg" alt="부사관후보생 리플렛 표지" loading="lazy"></span>
             <span class="lf-item__tag">부사관 · 256기</span>
             <h4>부사관후보생</h4>
           </button></li>
           <li><button type="button" class="lf-item" data-id="l6">
-            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l6-ro.jpg" alt="예비부사관후보생 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l6-out.jpg" alt="예비부사관후보생 리플렛 표지" loading="lazy"></span>
             <span class="lf-item__tag">부사관 · 2026</span>
             <h4>예비부사관후보생</h4>
           </button></li>
           <li><button type="button" class="lf-item" data-id="l7">
-            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l7-ro.jpg" alt="학군부사관후보생 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__cover"><img src="../assets/work/airforce/leaflets/l7-out.jpg" alt="학군부사관후보생 리플렛 표지" loading="lazy"></span>
             <span class="lf-item__tag">부사관 · 12기</span>
             <h4>학군부사관후보생</h4>
           </button></li>
@@ -345,7 +356,7 @@
   </nav>
 
   <footer class="footer">
-    <span>© 2026 STUDIO KHUN</span>
+    <span>© 2026 KHUN studio</span>
     <span>소통하고 생각하는 디자이너, 유경훈</span>
   </footer>
   <script src="../vital.js?v=1" defer></script>
@@ -370,6 +381,6 @@
       }, 1100);
     })();
   </script>
-  <script src="../leaflet.js?v=1" defer></script>
+  <script src="../leaflet.js?v=3" defer></script>
 </body>
 </html>

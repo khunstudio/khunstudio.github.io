@@ -1,4 +1,4 @@
-// Studio KHUN 브랜드 심볼 모션 (Three.js)
+// KHUN studio 브랜드 심볼 모션 (Three.js)
 // 인트로의 체계(FLATLINE → EYES OPEN → RE:VIBE)를 그대로 3D로 옮깁니다.
 //  - CORE (FLATLINE): 0의 상태. 단단한 유리 겉과, 그 안에서 평평했다가 살아나는 픽셀 파동
 //  - EYES OPEN: 하나로 굴러다니던 눈동자가 두 개로 나뉩니다

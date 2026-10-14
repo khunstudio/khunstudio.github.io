@@ -1,4 +1,4 @@
-/* Studio KHUN — So, Revive. 바이탈 모니터 / 사이버 톤. */
+/* KHUN studio — So, Revive. 바이탈 모니터 / 사이버 톤. */
 :root {
   --bg: #020a06;
   --panel: #05140c;
@@ -71,7 +71,8 @@ em { font-style: italic; }
   text-transform: uppercase;
   background: linear-gradient(var(--bg) 40%, transparent);
 }
-.hud__id { color: var(--fg); font-weight: 500; }
+.hud__id { color: var(--fg); font-weight: 500; text-transform: none; }
+.bn { text-transform: none; }
 .hud__id span { color: var(--acc); }
 .hud__nav { display: flex; gap: clamp(14px, 2.4vw, 36px); }
 .hud__nav a { color: var(--muted); transition: color .2s; }
@@ -354,47 +355,50 @@ em { font-style: italic; }
 .sym-cards p { margin: 0 auto; max-width: 22em; padding: 0 20px; color: var(--muted); font-size: 14px; line-height: 1.7; }
 
 /* ── 3단 리플렛 목업 (leaflet.js) ── */
-.lf-list { list-style: none; display: grid; grid-template-columns: repeat(7, 1fr); gap: clamp(12px, 1.4vw, 22px); margin: 16px 0 0; padding: 0; }
+.lf-list { list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(12px, 1.4vw, 22px); margin: 16px 0 0; padding: 0; }
 .lf-item { all: unset; display: block; cursor: pointer; text-align: left; }
-.lf-item__cover { position: relative; display: block; aspect-ratio: 800 / 1710; transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+.lf-item__cover { position: relative; display: block; aspect-ratio: 800 / 1710; overflow: visible; transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
 /* 접힌 종이의 두께: 아래로 겹쳐 보이는 두 장 */
 .lf-item__cover::before, .lf-item__cover::after { content: ""; position: absolute; inset: 0; background: #e9eef0; border-radius: 2px; z-index: -1; }
 .lf-item__cover::before { transform: translate(3px, 2px); filter: brightness(.82); }
 .lf-item__cover::after { transform: translate(6px, 4px); filter: brightness(.65); }
-.lf-item__cover img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 2px; box-shadow: 0 14px 28px rgba(0, 0, 0, .5); }
+.lf-item__cover img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; border-radius: 2px; box-shadow: 0 14px 28px rgba(0, 0, 0, .5); }
 .lf-item:hover .lf-item__cover, .lf-item:focus-visible .lf-item__cover { transform: translateY(-8px) rotate(-1.5deg); }
 .lf-item:focus-visible { outline: 1px solid var(--acc); outline-offset: 6px; }
 .lf-item__tag { display: block; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--acc); }
 .lf-item h4 { margin: 4px 0 0; font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--fg); }
 
 .lf-lock, .lf-lock body { overflow: hidden; }
-.lf-box { position: fixed; inset: 0; z-index: 40; display: grid; grid-template-rows: auto 1fr auto; background: rgba(2, 8, 5, .92); backdrop-filter: blur(10px); opacity: 0; transition: opacity .35s; }
+/* 앞뒤 보기 창 */
+.lf-box { position: fixed; inset: 0; z-index: 40; overflow-y: auto; background: rgba(2, 8, 5, .95); opacity: 0; transition: opacity .3s; }
 .lf-box.is-on { opacity: 1; }
-.lf-box__bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 18px clamp(16px, 3vw, 40px); border-bottom: 1px solid var(--line); }
+.lf-box__bar { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px clamp(16px, 3vw, 40px); background: var(--bg); border-bottom: 1px solid var(--line); }
 .lf-box__title { font-size: 16px; font-weight: 500; }
-.lf-box__ctrl { display: flex; gap: 8px; flex-wrap: wrap; }
-.lf-box__ctrl button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--fg); background: transparent; border: 1px solid var(--line); padding: 9px 12px; cursor: pointer; }
-.lf-box__ctrl button:hover { border-color: var(--acc); color: var(--acc); }
-.lf-box__hint { margin: 0; padding: 14px; text-align: center; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
-.lf-stage { display: grid; place-items: center; perspective: 2600px; overflow: hidden; padding: 20px; }
+.lf-box__close, .lf-feature__ctrl button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--fg); background: transparent; border: 1px solid var(--line); padding: 9px 12px; cursor: pointer; }
+.lf-box__close:hover, .lf-feature__ctrl button:hover { border-color: var(--acc); color: var(--acc); }
+.lf-box__body { display: grid; gap: 32px; max-width: 1400px; margin: 0 auto; padding: 32px clamp(16px, 3vw, 40px) 64px; }
+.lf-box figure { margin: 0; }
+.lf-box figcaption { margin-bottom: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--acc); }
+.lf-box figure img { display: block; width: 100%; box-shadow: 0 20px 50px rgba(0, 0, 0, .5); }
 
-/* 리플렛 한 장: 한 면의 크기를 기준으로 가운데 면이 화면 가운데 */
-.lf { --h: min(72svh, 760px, calc((100vw - 48px) / 3 * 1710 / 800)); --w: calc(var(--h) * 800 / 1710); position: relative; width: var(--w); height: var(--h); cursor: pointer; transform: scale(.9); transition: transform 1s cubic-bezier(.2, .7, .2, 1); }
-.lf-box.is-on .lf { transform: scale(1); }
-.lf__turn { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 1.1s cubic-bezier(.3, .7, .2, 1); }
+/* 대표 리플렛: 페이지 안에서 접고 펼치기 */
+.lf-feature { margin-top: 16px; border: 1px solid var(--line); border-radius: 18px; background: radial-gradient(ellipse at 50% 40%, #0d2a1d, #000 75%); }
+.lf-feature__stage { display: grid; place-items: center; padding: clamp(28px, 4vw, 56px) 16px; perspective: 2600px; -webkit-perspective: 2600px; }
+.lf-feature__bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 16px 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+.lf-feature__bar b { color: var(--fg); font-weight: 500; }
+.lf-feature__ctrl { display: flex; gap: 8px; }
+.lf { --h: min(64svh, 640px, calc((100vw - 64px) / 3 * 1710 / 800)); --w: calc(var(--h) * 800 / 1710); position: relative; width: var(--w); height: var(--h); cursor: pointer; outline: none; transform-style: preserve-3d; -webkit-transform-style: preserve-3d; }
+.lf:focus-visible { outline: 1px solid var(--acc); outline-offset: 12px; }
+.lf__turn { position: absolute; inset: 0; transform-style: preserve-3d; -webkit-transform-style: preserve-3d; transition: transform 1.1s cubic-bezier(.3, .7, .2, 1); }
 .lf.is-flipped .lf__turn { transform: rotateY(180deg); }
-.lf__panel { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 1s cubic-bezier(.45, .05, .2, 1); }
-.lf__face { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, .55); }
+.lf__panel { position: absolute; inset: 0; transform-style: preserve-3d; -webkit-transform-style: preserve-3d; transition: transform 1s cubic-bezier(.45, .05, .2, 1); }
+.lf__face { position: absolute; inset: 0; background: #e9eef0 center / cover no-repeat; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, .55); }
 .lf__face--back { transform: rotateY(180deg); }
-.lf__left { transform-origin: 0 50%; transform: translateX(-100%) translateZ(2px); transform-origin: 100% 50%; }
-.lf__right { transform: translateX(100%) translateZ(1px); transform-origin: 0 50%; }
 /* 접힌 상태: 오른쪽 날개가 먼저 안으로, 그 위에 왼쪽 날개(표지)가 덮습니다 */
-.lf .lf__right { transform: translateX(100%) translateZ(1px) rotateY(-179.6deg); }
-.lf .lf__left { transform: translateX(-100%) translateZ(3px) rotateY(179.6deg); }
+.lf__left { transform-origin: 100% 50%; transform: translateX(-100%) translateZ(3px) rotateY(179.5deg); }
+.lf__right { transform-origin: 0 50%; transform: translateX(100%) translateZ(1px) rotateY(-179.5deg); }
 .lf.is-open-left .lf__left { transform: translateX(-100%) translateZ(0) rotateY(0deg); }
 .lf.is-open-right .lf__right { transform: translateX(100%) translateZ(0) rotateY(0deg); }
-/* 접힌 상태에서는 표지 그림자만, 펼쳐지면 접은 자국이 은은하게 */
-.lf__mid .lf__face:first-child { box-shadow: 0 30px 60px rgba(0, 0, 0, .55), inset 10px 0 18px -14px rgba(0, 0, 0, .5), inset -10px 0 18px -14px rgba(0, 0, 0, .5); }
 
 /* ── 바이탈 모니터 (모든 페이지 아래 고정, vital.js) ── */
 .vitalbar { position: fixed; inset: auto 0 0 0; z-index: 15; display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; height: 44px; padding: 0 clamp(16px, 3vw, 40px); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
@@ -515,7 +519,7 @@ body { padding-bottom: 44px; }
 @media (max-width: 1100px) {
   .cp-cols, .cp-out { grid-template-columns: 1fr; }
   .cp-split, .cp-steps, .cp-after { grid-template-columns: 1fr; }
-  .lf-list { grid-template-columns: repeat(4, 1fr); }
+  .lf-list { grid-template-columns: repeat(3, 1fr); }
   .skywall { grid-template-columns: repeat(5, 1fr); gap: 10px; }
   .cp-steps > li:nth-child(n) { margin-top: 0; }
   .cp-out__info { position: static; }
@@ -547,6 +551,7 @@ body { padding-bottom: 44px; }
 @media (max-width: 700px) {
   .skywall { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .lf-list { grid-template-columns: repeat(2, 1fr); gap: 24px 16px; }
+  .lf { --h: calc((100vw - 64px) / 3 * 1710 / 800); }
   .skycard:nth-child(n) { animation-delay: 0s; }
   .skycard:nth-child(even) { animation-delay: -2.8s; }
 }
