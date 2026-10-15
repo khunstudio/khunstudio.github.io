@@ -12,12 +12,13 @@ const onView = (el, fn, opt = { threshold: 0.35 }) => new IntersectionObserver((
   if (!book) return;
   const base = book.dataset.base;
   const spreads = +book.dataset.spreads; // 표지(1) 다음 안쪽 펼침면 수
-  const pg = (n, side) => `${base}p${String(n).padStart(2, '0')}${side}.jpg`;
+  const pg = (n, side) => `${base}p${String(n).padStart(2, '0')}${side}.jpg?v=2`; // v: 쪽 이미지를 바꾸면 올립니다
   // 앞표지 = 1번 펼침면 오른쪽, 뒤표지 = 1번 펼침면 왼쪽
   const fronts = [pg(1, 'R')], backs = [];
   for (let s = 2; s <= spreads + 1; s++) { backs.push(pg(s, 'L')); fronts.push(pg(s, 'R')); }
   backs.push(pg(1, 'L'));
   const N = fronts.length;
+  [...fronts, ...backs].forEach((src) => { new Image().src = src; }); // 넘길 때 빈 쪽이 보이지 않게 미리 받아 둡니다
   const stack = book.querySelector('.book__leaves');
   const leaves = fronts.map((f, i) => {
     const el = document.createElement('div');
