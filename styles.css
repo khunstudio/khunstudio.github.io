@@ -408,7 +408,7 @@ em { font-style: italic; }
 .kv__poster img { display: block; width: 100%; box-shadow: 0 24px 50px rgba(0, 0, 0, .5); }
 .kv__label { margin: 0 0 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--acc); }
 .kv .lf-feature { margin-top: 0; }
-.kv .lf-list { grid-template-columns: repeat(6, 1fr); gap: 24px 14px; margin-top: 28px; }
+.kv .lf-list { grid-template-columns: repeat(7, 1fr); gap: 24px 12px; margin-top: 28px; }
 .kv .lf-item h4 { font-size: 12px; }
 
 /* 홍보영상 */
@@ -661,7 +661,9 @@ body { padding-bottom: 44px; }
 @media (max-width: 700px) {
   .skywall { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .lf-list { grid-template-columns: repeat(2, 1fr); gap: 24px 16px; }
-  .kv .lf-list { grid-template-columns: repeat(2, 1fr); }
+  /* 휴대폰: 7종을 옆으로 밀어 보는 한 줄 */
+  .kv .lf-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding: 12px 4px 8px; }
+  .kv .lf-list li { flex: 0 0 38%; scroll-snap-align: start; }
   .skycard:nth-child(n) { animation-delay: 0s; }
   .skycard:nth-child(even) { animation-delay: -2.8s; }
 }
