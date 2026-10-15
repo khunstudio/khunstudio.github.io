@@ -452,6 +452,7 @@ em { font-style: italic; }
 .goods__set--pc img { aspect-ratio: 1400 / 993; }
 .goods__set--kit { grid-template-columns: 1fr 1fr; }
 .goods__set--kit img { aspect-ratio: 4 / 3; }
+.goods__set--tall img { aspect-ratio: 3 / 4; }
 .goods__mug img { aspect-ratio: 16 / 9; }
 /* 카드 케이스: 왼쪽 세로 1장(3:4) = 오른쪽 가로 2장(3:2) 높이, 자르지 않고 맞물립니다 */
 .goods__set--case { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
@@ -464,8 +465,9 @@ em { font-style: italic; }
 .goods__set--strap { grid-template-columns: repeat(3, 1fr); }
 /* 음악회: 포스터 높이 = 리플렛 두 장 높이 */
 .concert { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-.concert__lf { display: grid; grid-template-rows: 1fr 1fr; gap: 12px; height: 0; min-height: 100%; } /* 높이는 포스터가 정하고 리플렛이 맞춥니다 */
-.concert__lf img { height: 100%; min-height: 0; object-fit: cover; }
+.concert { align-items: stretch; }
+.concert .lf-feature { display: flex; flex-direction: column; margin-top: 0; } /* 카드 높이는 포스터에 맞춥니다 */
+.concert .lf-feature__stage { flex: 1; }
 
 /* ── 바이탈 모니터 (모든 페이지 아래 고정, vital.js) ── */
 .vitalbar { position: fixed; inset: auto 0 0 0; z-index: 15; display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; height: 44px; padding: 0 clamp(16px, 3vw, 40px); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
@@ -526,8 +528,8 @@ body { padding-bottom: 44px; }
 .film__result ul { list-style: none; display: flex; gap: 12px; margin: 0; padding: 0; }
 .film__result li { width: 180px; }
 .film__result img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); }
-.film__result span { display: block; margin-top: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--muted); }
-.film__result b { display: block; font-family: var(--serif); font-weight: 400; font-size: 32px; line-height: 1.1; color: var(--acc); }
+.film__result li span { display: block; margin-top: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .08em; color: var(--muted); }
+.film__result li b { display: block; font-family: var(--serif); font-weight: 400; font-size: 32px; line-height: 1.1; color: var(--acc); }
 .film__result p { margin: 0 !important; max-width: 40em; }
 .cp-vitals--film img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 24px; border: 1px solid var(--line); }
 .cp-after { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .8fr); gap: 24px; align-items: start; }
@@ -616,7 +618,6 @@ body { padding-bottom: 44px; }
   .cp-cols, .cp-out { grid-template-columns: 1fr; }
   .cp-split, .cp-steps, .cp-after { grid-template-columns: 1fr; }
   .kv, .film__acts, .goods, .concert { grid-template-columns: 1fr; }
-  .concert__lf { height: auto; min-height: 0; }
   .goods__set { grid-template-columns: 1fr 1fr; }
   .goods__set--pc, .goods__set--kit { grid-template-columns: 1fr; }
   .goods__set--case { grid-template-columns: 1fr; grid-template-rows: none; }
@@ -707,3 +708,12 @@ body { padding-bottom: 44px; }
 
 .theme-btn { all: unset; cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--muted); padding: 4px 10px; border: 1px solid var(--line); border-radius: 99px; transition: color .2s, border-color .2s; }
 .theme-btn:hover, .theme-btn:focus-visible { color: var(--acc); border-color: var(--acc); }
+
+/* 강조: 본문 속 핵심 구절 */
+:is(.cp-lead, .cp-out p, .cp-body, .cp-steps p, .film__acts p, .cp-type figcaption p, .case__body, .about__body) b { font-weight: 600; color: var(--fg); }
+
+/* 리플렛 안내: 흐르는 한 줄 */
+.lf-hint { display: flex; overflow: hidden; margin: 24px 0 0 !important; padding: 10px 0; border-block: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--acc) !important; white-space: nowrap; }
+.lf-hint span { flex: none; padding-right: 0; animation: lfhint 28s linear infinite; }
+@keyframes lfhint { to { transform: translateX(-100%); } }
+@media (prefers-reduced-motion: reduce) { .lf-hint span { animation: none; } }

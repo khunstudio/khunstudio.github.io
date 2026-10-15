@@ -1,13 +1,12 @@
 // 3단 리플렛
-//  1) 대표 리플렛(조종분야): 페이지 안에서 바로 접고 펼칩니다.
+//  1) 펼쳐 보는 리플렛(.lf-feature 안의 .lf — 조종분야, 음악회): 페이지 안에서 바로 접고 펼칩니다.
 //     종이 구조 — 가운데 면을 기준으로 양 날개가 접힙니다.
 //       왼쪽 날개: 앞 = 안쪽 왼쪽, 뒤 = 앞표지 → 맨 위에 덮여 표지가 보입니다
 //       오른쪽 날개: 앞 = 안쪽 오른쪽, 뒤 = 바깥 왼쪽 → 안쪽으로 먼저 접혀 들어갑니다
 //  2) 나머지 리플렛: 누르면 바깥면과 안쪽면을 크게 보여 줍니다.
 (() => {
-  // ── 1) 대표 리플렛
-  const lf = document.getElementById('lf-feature');
-  if (lf) {
+  // ── 1) 펼쳐 보는 리플렛
+  document.querySelectorAll('.lf-feature .lf').forEach((lf) => {
     let timers = [];
     const later = (fn, ms) => timers.push(setTimeout(fn, ms));
     const clear = () => { timers.forEach(clearTimeout); timers = []; };
@@ -32,7 +31,7 @@
         else lf.classList.toggle('is-flipped');
       }
     });
-  }
+  });
 
   // ── 2) 나머지 리플렛: 앞뒤 보기
   const list = document.getElementById('leaflets');
