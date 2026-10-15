@@ -41,7 +41,7 @@ const onView = (el, fn, opt = { threshold: 0.35 }) => new IntersectionObserver((
     book.classList.toggle('is-back', at === N);
     if (count) count.textContent = at === 0 ? 'COVER' : at === N ? 'BACK' : `${String(at * 2 - 1).padStart(2, '0')}–${String(at * 2).padStart(2, '0')} / ${String((N - 1) * 2).padStart(2, '0')}`;
   }
-  const stop = () => { auto = false; clearInterval(timer); };
+  const stop = () => { auto = false; riffled = true; clearInterval(timer); };
   const play = () => { clearInterval(timer); if (!auto) return; timer = setInterval(() => show(at >= N ? 0 : at + 1), 2400); };
   book.addEventListener('click', (e) => {
     stop();
@@ -57,5 +57,14 @@ const onView = (el, fn, opt = { threshold: 0.35 }) => new IntersectionObserver((
     if (act === 'play') { auto = true; play(); }
   });
   show(0);
-  onView(book, (v) => (v ? play() : clearInterval(timer)));
+  // 화면에 도착하면 한 번 차라락 넘겨 펼친 뒤(앞으로 6장 → 다시 첫 펼침면), 천천히 자동 넘김
+  let riffled = reduce;
+  function riffle() {
+    riffled = true;
+    book.classList.add('is-riffle');
+    const seq = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1];
+    seq.forEach((n, i) => setTimeout(() => show(n), 140 + i * 110));
+    setTimeout(() => { book.classList.remove('is-riffle'); play(); }, 140 + seq.length * 110 + 600);
+  }
+  onView(book, (v) => { if (!v) return clearInterval(timer); riffled ? play() : riffle(); });
 })();

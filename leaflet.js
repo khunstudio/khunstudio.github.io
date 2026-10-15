@@ -16,10 +16,16 @@
     const sync = (open) => { if (label) label.textContent = open ? 'FOLD' : 'UNFOLD'; };
     const unfold = () => { clear(); sync(true); lf.classList.add('is-open-left'); later(() => lf.classList.add('is-open-right'), 600); };
     const fold = () => { clear(); sync(false); lf.classList.remove('is-flipped', 'is-open-right'); later(() => lf.classList.remove('is-open-left'), 550); };
-    lf.addEventListener('click', () => (isOpen() ? fold() : unfold()));
+    // 화면에 도착하면 한 번: 접힌 표지 → 펼쳐 안쪽 → 뒤집어 바깥면
+    let shown = false;
+    const reveal = () => { unfold(); later(() => lf.classList.add('is-flipped'), 2200); };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { sync(true); lf.classList.add('is-open-left', 'is-open-right', 'is-flipped'); shown = true; }
+    new IntersectionObserver(([e], io) => { if (e.isIntersecting && !shown) { shown = true; io.disconnect(); later(reveal, 300); } }, { threshold: 0.55 }).observe(lf);
+    lf.addEventListener('click', () => { shown = true; isOpen() ? fold() : unfold(); });
     lf.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lf.click(); } });
     lf.closest('.lf-feature').querySelector('.lf-feature__bar').addEventListener('click', (e) => {
       const act = e.target.closest('button')?.dataset.act;
+      shown = true;
       if (act === 'fold') isOpen() ? fold() : unfold();
       if (act === 'flip') {
         if (!lf.classList.contains('is-open-right')) { unfold(); later(() => lf.classList.add('is-flipped'), 1200); }
