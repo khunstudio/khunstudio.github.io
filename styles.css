@@ -632,3 +632,41 @@ body { padding-bottom: 44px; }
   html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
 }
+
+/* ── 밝은 화면 (기본). 어두운 화면은 상단 버튼으로 바꿉니다 ── */
+:root[data-theme="light"] {
+  --bg: #f4f2ec;
+  --panel: #ffffff;
+  --fg: #17211b;
+  --muted: #6f7a72;
+  --line: #dcdcd3;
+  --acc: #0a8f55;
+  --acc-soft: rgba(10, 143, 85, .07);
+  --alert: #e5394a;
+  color-scheme: light;
+}
+[data-theme="light"] body::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(10, 143, 85, .06), transparent 60%),
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 60px 60px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 60px 60px;
+  opacity: .45;
+}
+[data-theme="light"] body::after { display: none; }
+[data-theme="light"] :is(.hero__step-en, .hero__title, .hero__title em, .contact__mail:hover) { text-shadow: none; }
+[data-theme="light"] :is(.case:hover .case__link, .record--ai, .contact__cta a:hover) { box-shadow: 0 8px 24px rgba(10, 143, 85, .15); }
+[data-theme="light"] .record--ai .chips li { border-color: rgba(10, 143, 85, .4); }
+[data-theme="light"] :is(.case__body, .about__body, .chips li, .film__acts p, .cp-lead, .cp-steps p, .cp-body, .cp-type figcaption p, .cp-out p, .cp-vitals p) { color: #3f4b44; }
+[data-theme="light"] .case__visual { background: #e9e8e1; }
+[data-theme="light"] .case__visual--empty { background-color: #e9e8e1; }
+[data-theme="light"] :is(.lf-feature, .book-wrap, .goods figure) { background: radial-gradient(ellipse at 50% 40%, #ffffff, #e6e5dd 80%); }
+[data-theme="light"] :is(.kv__poster img, .lf__face, .book__face, .lf-box figure img) { box-shadow: 0 20px 40px rgba(30, 40, 30, .18); }
+[data-theme="light"] .lf-item__cover img { box-shadow: 0 10px 22px rgba(30, 40, 30, .18); }
+[data-theme="light"] .lf-item__cover::before { box-shadow: 0 16px 26px -10px rgba(30, 40, 30, .25); }
+[data-theme="light"] .skycard__face { box-shadow: 0 12px 26px rgba(30, 40, 30, .16); }
+[data-theme="light"] .bm__face { box-shadow: 0 14px 26px rgba(30, 40, 30, .2), inset 0 0 0 1px rgba(0, 0, 0, .06); }
+[data-theme="light"] .lf-box { background: rgba(244, 242, 236, .97); }
+[data-theme="light"] .hero__logo-fallback { filter: none; mix-blend-mode: multiply; }
+
+.theme-btn { all: unset; cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--muted); padding: 4px 10px; border: 1px solid var(--line); border-radius: 99px; transition: color .2s, border-color .2s; }
+.theme-btn:hover, .theme-btn:focus-visible { color: var(--acc); border-color: var(--acc); }

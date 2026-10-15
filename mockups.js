@@ -89,7 +89,7 @@ document.querySelectorAll('.bm').forEach((el) => el.addEventListener('click', ()
     const d = x.getImageData(0, 0, w, h), p = d.data;
     for (let i = 0; i < p.length; i += 4) {
       const lum = 0.299 * p[i] + 0.587 * p[i + 1] + 0.114 * p[i + 2];
-      const a = Math.max(0, Math.min(1, (224 - lum) / 55));
+      const a = Math.max(0, Math.min(1, (200 - lum) / 50)); // 바탕(밝기 약 215)은 완전히 투명하게
       p[i + 3] = a * 255;
       p[i] = p[i + 1] = p[i + 2] = lum * 0.5 + tone; // 스테인리스 각인처럼 어두운 은회색
     }

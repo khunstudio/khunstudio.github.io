@@ -122,12 +122,14 @@ async function mountLogo(img) {
 // ─────────────────────────────────────────────
 // 심전도(ECG) 선 — 픽셀 단위로 찍습니다
 // ─────────────────────────────────────────────
+const LIGHT = document.documentElement.dataset.theme !== 'dark';
+
 const ECG = {
   speed: 190,     // 초당 이동 픽셀
   beat: 300,      // 박동 한 번의 가로 길이(px)
   height: 0.16,   // 화면 높이 대비 R파 높이
   dot: 3,         // 픽셀 한 칸 크기(px)
-  color: '#3dffa2',
+  color: LIGHT ? '#0a8f55' : '#3dffa2',
 };
 
 // PQRST 파형: [중심, 폭, 높이]
@@ -160,7 +162,7 @@ function mountEcg() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.fillStyle = ECG.color;
     ctx.shadowColor = ECG.color;
-    ctx.shadowBlur = 10;
+    ctx.shadowBlur = LIGHT ? 0 : 10;
     // 선이 로고 칸의 한가운데를 지나가게 맞춥니다
     const m = mark.getBoundingClientRect(), c = canvas.getBoundingClientRect();
     base = m.top - c.top + m.height / 2;
@@ -220,8 +222,9 @@ const INTRO = {
   spins: 1,                // 회전 바퀴 수
   startSize: 1.5,          // 처음 원 크기 (로고 칸 대비 배율)
   grid: 132,               // 픽셀 칸 수 (가로·세로). 줄이면 더 굵은 픽셀
-  dead: [96, 116, 104],    // 살아나기 전 색
-  live: [61, 255, 162],    // 살아난 색
+  dead: LIGHT ? [178, 186, 180] : [96, 116, 104], // 살아나기 전 색
+  live: LIGHT ? [10, 143, 85] : [61, 255, 162],   // 살아난 색
+  flash: LIGHT ? 20 : 235,                         // 충격 순간 번쩍이는 색
 };
 
 // 화면 좌표: 로고 칸이 -200…200, 픽셀 무대는 그 두 배인 -400…400 입니다.
@@ -333,7 +336,7 @@ function paintFrame(ctx, size, cells, view, p, logoField, o = {}) {
     return i < 0 || j < 0 || i >= G || j >= G ? 999 : logoField[j * G + i] - 2;
   };
 
-  const c = INTRO.dead.map((v, k) => Math.round(lerp(lerp(v, INTRO.live[k], energy), 235, flash * 0.8)));
+  const c = INTRO.dead.map((v, k) => Math.round(lerp(lerp(v, INTRO.live[k], energy), INTRO.flash, flash * 0.8)));
   const cell = size / cells;
   const gapPx = cell > 4 ? 1 : 0.5;
 

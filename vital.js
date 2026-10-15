@@ -9,6 +9,23 @@
   bar.setAttribute('aria-hidden', 'true');
   bar.innerHTML = '<span class="vitalbar__status"></span><canvas></canvas><span class="vitalbar__where"></span>';
   document.body.appendChild(bar);
+
+  // 밝은/어두운 화면 전환 버튼 (상단 바)
+  // shortcut: 바꾸면 새로고침해서 캔버스·셰이더 색을 다시 잡습니다. 깜빡임이 거슬리면 각 캔버스가 색을 다시 읽게 바꿉니다.
+  const hud = document.querySelector('.hud');
+  if (hud) {
+    const dark = document.documentElement.dataset.theme === 'dark';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'theme-btn';
+    btn.textContent = dark ? '○ LIGHT' : '● DARK';
+    btn.setAttribute('aria-label', dark ? '밝은 화면으로 보기' : '어두운 화면으로 보기');
+    btn.addEventListener('click', () => {
+      try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch (e) {}
+      location.reload();
+    });
+    hud.appendChild(btn);
+  }
   const statusEl = bar.children[0], canvas = bar.children[1], whereEl = bar.children[2];
   const ctx = canvas.getContext('2d');
   const zones = [...document.querySelectorAll('[data-vital]')];
@@ -36,7 +53,9 @@
     x = 0; prevY = yAt(dist, amp);
     if (reduce) { ctx.clearRect(0, 0, w, h); prevY = yAt(0, 1); paint(1); for (let px = 0; px < w; px += D) plot(px, yAt(px, 1)); }
   }
-  function paint(a) { ctx.fillStyle = a > 0.5 ? '#3dffa2' : '#5f9478'; }
+  const css = getComputedStyle(document.documentElement);
+  const ACC = css.getPropertyValue('--acc').trim(), MUTED = css.getPropertyValue('--muted').trim();
+  function paint(a) { ctx.fillStyle = a > 0.5 ? ACC : MUTED; }
   function plot(px, y) { ctx.fillRect(px, Math.min(y, prevY), D, Math.abs(y - prevY) + D); prevY = y; }
 
   function readout() {
