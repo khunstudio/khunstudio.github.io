@@ -6,7 +6,7 @@
   <title>KHUN studio — So, Revive</title>
   <meta name="description" content="소통하고 생각하는 디자이너, 유경훈의 셀프 브랜딩. 소생 [revive]의 심볼과 스튜디오 쿤에서 되살린 브랜드들.">
   <meta name="theme-color" content="#f4f2ec">
-  <script>try { document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"; } catch (e) { document.documentElement.dataset.theme = "light"; }</script>
+  <script>/* 주소 끝에 ?theme=dark 또는 ?theme=light를 붙이면 그 화면으로 열리고, 다른 페이지로 가도 유지됩니다 */ (function (d) { var t = new URLSearchParams(location.search).get("theme"); try { if (t === "dark" || t === "light") localStorage.setItem("theme", t); else t = localStorage.getItem("theme"); } catch (e) {} d.dataset.theme = t === "dark" ? "dark" : "light"; })(document.documentElement);</script>
   <link rel="icon" href="../assets/icon.png">
   <link rel="apple-touch-icon" href="../assets/icon.png">
   <meta property="og:type" content="website">
@@ -142,7 +142,7 @@
     <span>© 2026 KHUN studio</span>
     <span>소통하고 생각하는 디자이너, 유경훈</span>
   </footer>
-  <script src="../vital.js?v=2" defer></script>
+  <script src="../vital.js?v=3" defer></script>
   <script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
   <script type="module" src="../symbol.js?v=5"></script>
 </body>

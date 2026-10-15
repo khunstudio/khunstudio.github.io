@@ -6,7 +6,7 @@
   <title>KHUN studio — So, Revive</title>
   <meta name="description" content="KHUN studio 유경훈 포트폴리오. 소생 [revive] : 되살아나다, 활기를 되찾다. 브랜드가 다시 보이고 기억되는 방식을 설계합니다.">
   <meta name="theme-color" content="#f4f2ec">
-  <script>try { document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"; } catch (e) { document.documentElement.dataset.theme = "light"; }</script>
+  <script>/* 주소 끝에 ?theme=dark 또는 ?theme=light를 붙이면 그 화면으로 열리고, 다른 페이지로 가도 유지됩니다 */ (function (d) { var t = new URLSearchParams(location.search).get("theme"); try { if (t === "dark" || t === "light") localStorage.setItem("theme", t); else t = localStorage.getItem("theme"); } catch (e) {} d.dataset.theme = t === "dark" ? "dark" : "light"; })(document.documentElement);</script>
   <link rel="icon" href="assets/icon.png">
   <link rel="apple-touch-icon" href="assets/icon.png">
   <meta property="og:type" content="website">
@@ -86,7 +86,7 @@
       <header class="section__head"><span>[ 01 ]</span><h2>Case Files</h2><i></i><span>BRAND CPR RECORDS</span></header>
 
       <article class="case">
-        <div class="case__visual"><img src="assets/work/airforce.jpg" alt="대한민국 공군 모집 브랜드 ‘내일은 하늘색’" loading="lazy"><span class="case__status"></span></div>
+        <div class="case__visual"><img src="assets/work/airforce.jpg" style="object-position: 50% 90%" alt="대한민국 공군 모집 브랜드 ‘내일은 하늘색’" loading="lazy"><span class="case__status"></span></div>
         <div class="case__info">
           <p class="case__no">CHART 01 — MAIN</p>
           <h3 class="case__title">대한민국 공군 <em>ROKAF — Recruitment Brand Identity</em></h3>
@@ -186,6 +186,6 @@
   </footer>
 
   <script type="module" src="main.js?v=13"></script>
-  <script src="vital.js?v=2" defer></script>
+  <script src="vital.js?v=3" defer></script>
 </body>
 </html>

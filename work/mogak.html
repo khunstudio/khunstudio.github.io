@@ -6,7 +6,7 @@
   <title>모각 MOGAK — KHUN studio</title>
   <meta name="description" content="한국 프리미엄 개성약과 브랜드 모각의 브랜드 아이덴티티와 패키지.">
   <meta name="theme-color" content="#f4f2ec">
-  <script>try { document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"; } catch (e) { document.documentElement.dataset.theme = "light"; }</script>
+  <script>/* 주소 끝에 ?theme=dark 또는 ?theme=light를 붙이면 그 화면으로 열리고, 다른 페이지로 가도 유지됩니다 */ (function (d) { var t = new URLSearchParams(location.search).get("theme"); try { if (t === "dark" || t === "light") localStorage.setItem("theme", t); else t = localStorage.getItem("theme"); } catch (e) {} d.dataset.theme = t === "dark" ? "dark" : "light"; })(document.documentElement);</script>
   <link rel="icon" href="../assets/icon.png">
   <link rel="apple-touch-icon" href="../assets/icon.png">
   <meta property="og:type" content="website">
@@ -103,6 +103,6 @@
     <span>© 2026 KHUN studio</span>
     <span>소통하고 생각하는 디자이너, 유경훈</span>
   </footer>
-  <script src="../vital.js?v=2" defer></script>
+  <script src="../vital.js?v=3" defer></script>
 </body>
 </html>

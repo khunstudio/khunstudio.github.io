@@ -11,7 +11,7 @@
   document.body.appendChild(bar);
 
   // 밝은/어두운 화면 전환 버튼 (상단 바)
-  // shortcut: 바꾸면 새로고침해서 캔버스·셰이더 색을 다시 잡습니다. 깜빡임이 거슬리면 각 캔버스가 색을 다시 읽게 바꿉니다.
+  // shortcut: 바꾸면 새로 열어서 캔버스·셰이더 색을 다시 잡습니다. 깜빡임이 거슬리면 각 캔버스가 색을 다시 읽게 바꿉니다.
   const hud = document.querySelector('.hud');
   if (hud) {
     const dark = document.documentElement.dataset.theme === 'dark';
@@ -21,8 +21,10 @@
     btn.textContent = dark ? '○ LIGHT' : '● DARK';
     btn.setAttribute('aria-label', dark ? '밝은 화면으로 보기' : '어두운 화면으로 보기');
     btn.addEventListener('click', () => {
-      try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch (e) {}
-      location.reload();
+      // 주소의 ?theme=도 같이 바꿔야 새로고침 뒤에 되돌아가지 않습니다
+      const url = new URL(location.href);
+      url.searchParams.set('theme', dark ? 'light' : 'dark');
+      location.replace(url);
     });
     hud.appendChild(btn);
   }
