@@ -713,7 +713,8 @@ body { padding-bottom: 44px; }
 :is(.cp-lead, .cp-out p, .cp-body, .cp-steps p, .film__acts p, .cp-type figcaption p, .case__body, .about__body) b { font-weight: 600; color: var(--fg); }
 
 /* 리플렛 안내: 흐르는 한 줄 */
-.lf-hint { display: flex; overflow: hidden; margin: 24px 0 0 !important; padding: 10px 0; border-block: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--acc) !important; white-space: nowrap; }
+.kv > * { min-width: 0; } /* 흐르는 안내 줄이 칸을 밀어내지 않게 */
+.lf-hint { display: flex; overflow: hidden; width: 100%; min-width: 0; contain: inline-size; margin: 24px 0 0 !important; padding: 10px 0; border-block: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--acc) !important; white-space: nowrap; }
 .lf-hint span { flex: none; padding-right: 0; animation: lfhint 28s linear infinite; }
 @keyframes lfhint { to { transform: translateX(-100%); } }
 @media (prefers-reduced-motion: reduce) { .lf-hint span { animation: none; } }
