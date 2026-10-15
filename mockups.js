@@ -1,4 +1,4 @@
-// 공군 페이지 목업: 종합책자 넘김, 책갈피
+// 공군 페이지 목업: 종합책자 넘김
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const onView = (el, fn, opt = { threshold: 0.35 }) => new IntersectionObserver(([e]) => fn(e.isIntersecting), opt).observe(el);
@@ -59,8 +59,3 @@ const onView = (el, fn, opt = { threshold: 0.35 }) => new IntersectionObserver((
   show(0);
   onView(book, (v) => (v ? play() : clearInterval(timer)));
 })();
-
-// ─────────────────────────────────────────────
-// 2) 책갈피: 둥실 떠서 천천히 돌며 앞뒤를 보여 줍니다. 누르면 그 자리에서 뒤집힙니다.
-// ─────────────────────────────────────────────
-document.querySelectorAll('.bm').forEach((el) => el.addEventListener('click', () => el.classList.toggle('is-flipped')));
