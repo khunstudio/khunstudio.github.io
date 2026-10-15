@@ -400,8 +400,11 @@ em { font-style: italic; }
 .lf.is-open-right .lf__right { transform: translateX(100%) translateZ(0) rotateY(0deg); }
 
 /* 키비주얼 + 리플렛 */
-.kv { display: grid; grid-template-columns: minmax(220px, 340px) 1fr; gap: clamp(20px, 3vw, 44px); align-items: start; margin-top: 16px; }
-.kv__poster { margin: 0; position: sticky; top: 96px; }
+.kv { display: grid; gap: clamp(28px, 4vw, 56px); margin-top: 16px; }
+.kv__posters { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 28px); max-width: 880px; }
+.kv__poster { margin: 0; }
+.kv__poster figcaption { margin-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
+.kv__poster figcaption b { margin-right: 8px; color: var(--acc); font-weight: 400; }
 .kv__poster img { display: block; width: 100%; box-shadow: 0 24px 50px rgba(0, 0, 0, .5); }
 .kv__label { margin: 0 0 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--acc); }
 .kv .lf-feature { margin-top: 0; }
@@ -596,7 +599,6 @@ body { padding-bottom: 44px; }
   .concert__lf { height: auto; min-height: 0; }
   .goods__set { grid-template-columns: 1fr 1fr; }
   .goods__set--pc, .goods__set--kit { grid-template-columns: 1fr; }
-  .kv__poster { position: static; max-width: 340px; }
   .film__meta { grid-template-columns: 1fr 1fr; }
   .cp-type { grid-template-columns: 1fr; }
   .lf-list { grid-template-columns: repeat(3, 1fr); }
