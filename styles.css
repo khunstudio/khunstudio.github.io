@@ -445,6 +445,9 @@ em { font-style: italic; }
 .goods__set img { aspect-ratio: 3 / 4; }
 .goods__set--pc { grid-template-columns: 1fr 1fr; }
 .goods__set--pc img { aspect-ratio: 1400 / 993; }
+.goods__set--kit { grid-template-columns: 1fr 1fr; }
+.goods__set--kit img { aspect-ratio: 4 / 3; }
+.goods__mug img { aspect-ratio: 16 / 9; }
 /* 음악회: 포스터 높이 = 리플렛 두 장 높이 */
 .concert { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
 .concert__lf { display: grid; grid-template-rows: 1fr 1fr; gap: 12px; height: 0; min-height: 100%; } /* 높이는 포스터가 정하고 리플렛이 맞춥니다 */
@@ -592,7 +595,7 @@ body { padding-bottom: 44px; }
   .kv, .film__acts, .goods, .concert { grid-template-columns: 1fr; }
   .concert__lf { height: auto; min-height: 0; }
   .goods__set { grid-template-columns: 1fr 1fr; }
-  .goods__set--pc { grid-template-columns: 1fr; }
+  .goods__set--pc, .goods__set--kit { grid-template-columns: 1fr; }
   .kv__poster { position: static; max-width: 340px; }
   .film__meta { grid-template-columns: 1fr 1fr; }
   .cp-type { grid-template-columns: 1fr; }
