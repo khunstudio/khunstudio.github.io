@@ -548,6 +548,8 @@ body { padding-bottom: 44px; }
 .cp-out__imgs { display: grid; gap: 12px; }
 .cp-out img.light { background: #f4efe8; }
 .cp-out__imgs--2 { grid-template-columns: 1fr 1fr; }
+.booth { margin-top: 12px; }
+.booth__cap { margin: 12px 0 0 !important; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted) !important; }
 .cp-out__grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .cp-out--wide { grid-template-columns: 1fr; }
 .cp-out--wide .cp-out__info { position: static; max-width: 46em; }
