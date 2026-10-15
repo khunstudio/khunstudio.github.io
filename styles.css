@@ -425,7 +425,7 @@ em { font-style: italic; }
 
 /* 종합책자 넘김 */
 .book-wrap { margin-top: 16px; border: 1px solid var(--line); border-radius: 18px; background: radial-gradient(ellipse at 50% 40%, #0d2a1d, #000 75%); overflow: hidden; }
-.book { --h: min(62svh, 620px, calc((100vw - 64px) / 2 * 998 / 700)); --pw: calc(var(--h) * 700 / 998); position: relative; width: calc(var(--pw) * 2); height: var(--h); margin: clamp(28px, 4vw, 56px) auto; perspective: 3200px; cursor: pointer; outline: none; transform: translateX(-25%); transition: transform .9s cubic-bezier(.4, .1, .2, 1); }
+.book { --h: min(62svh, 620px, calc((100vw - 64px) / 2 * 1426 / 1000)); --pw: calc(var(--h) * 1000 / 1426); position: relative; width: calc(var(--pw) * 2); height: var(--h); margin: clamp(28px, 4vw, 56px) auto; perspective: 3200px; cursor: pointer; outline: none; transform: translateX(-25%); transition: transform .9s cubic-bezier(.4, .1, .2, 1); }
 .book.is-open { transform: none; }
 .book.is-back { transform: translateX(25%); }
 .book__leaves { position: absolute; inset: 0; transform-style: preserve-3d; }
@@ -441,9 +441,7 @@ em { font-style: italic; }
 .goods { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(16px, 2vw, 28px); margin-top: 16px; }
 .goods figure { margin: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: radial-gradient(ellipse at 50% 40%, #0d2a1d, #000 75%); }
 .goods figcaption { padding: 14px 20px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
-.mug { position: relative; aspect-ratio: 1 / 1; cursor: grab; touch-action: pan-y; }
-.mug:active { cursor: grabbing; }
-.mug canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
+.mug { display: block; width: 100%; height: auto; }
 .goods__case { grid-column: 1 / -1; }
 .goods__case img { display: block; width: 100%; }
 .bms { list-style: none; margin: 0; padding: clamp(28px, 4vw, 48px) clamp(16px, 2vw, 28px); display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(18px, 2.4vw, 32px); perspective: 1600px; }
@@ -623,7 +621,7 @@ body { padding-bottom: 44px; }
   .lf-list { grid-template-columns: repeat(2, 1fr); gap: 24px 16px; }
   .lf { --h: calc((100vw - 64px) / 3 * 1710 / 800); }
   .kv .lf-list { grid-template-columns: repeat(2, 1fr); }
-  .book { --h: calc((100vw - 48px) / 2 * 998 / 700); }
+  .book { --h: calc((100vw - 48px) / 2 * 1426 / 1000); }
   .skycard:nth-child(n) { animation-delay: 0s; }
   .skycard:nth-child(even) { animation-delay: -2.8s; }
 }
