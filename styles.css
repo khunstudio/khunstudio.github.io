@@ -935,3 +935,35 @@ body { padding-bottom: 44px; }
 @media (prefers-reduced-motion: reduce) { .origin-mark img { animation: none !important; } }
 [data-theme="dark"] .origin-mark { background: #0b1a14; }
 [data-theme="dark"] .origin-mark img { filter: invert(1); }
+/* KHUN studio 아이덴티티 가이드 */
+.kg { margin-top: clamp(24px, 3vw, 40px); }
+.kg-cons { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: clamp(16px, 2.4vw, 32px); align-items: center; }
+.kg-cons__stage { position: relative; display: grid; margin: 0; aspect-ratio: 1; background: #fff; border: 1px solid var(--line); overflow: hidden; }
+.kg-cons__stage img { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; }
+.kg-cons__grid { animation: kgspin 14s ease-in-out infinite alternate; }
+.kg-cons__mark { animation: kgreveal 7s ease-in-out infinite; }
+@keyframes kgspin { from { transform: rotate(-4deg) scale(.98); } to { transform: rotate(4deg) scale(1.02); } }
+@keyframes kgreveal { 0%, 20% { opacity: 0; } 45%, 80% { opacity: 1; } 100% { opacity: 0; } }
+.kg-cons figcaption { font-size: 14px; line-height: 1.8; color: var(--muted); }
+.kg-cons figcaption b { color: var(--fg); font-weight: 600; }
+.guide .kg-cons + .guide__label, .guide .kg-mean + .guide__label, .guide .kg-var + .guide__label { margin-top: 28px !important; }
+.kg-mean { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0; padding: 0; }
+.kg-mean li { font-size: 12px; color: var(--muted); }
+.kg-mean li span { display: block; margin-top: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--acc); }
+.kg-mean li b { display: block; margin: 2px 0; font-size: 18px; font-weight: 600; color: var(--fg); }
+.kg-tile { position: relative; display: grid; aspect-ratio: 4 / 3; overflow: hidden; background: #383838; border: 1px solid var(--line); }
+.kg-tile img { grid-area: 1 / 1; place-self: center; width: 78%; }
+.kg-tile--vib img:nth-child(1) { opacity: .3; animation: kgvib 1.6s ease-in-out infinite; }
+.kg-tile--vib img:nth-child(2) { opacity: .5; animation: kgvib 1.6s ease-in-out -.8s infinite reverse; }
+@keyframes kgvib { 0%, 100% { transform: translate(-2%, 1%) rotate(-1.5deg); } 50% { transform: translate(2%, -1%) rotate(1.5deg); } }
+.kg-tile--wheel img { width: 70%; animation: kgwheel 6s linear infinite; }
+@keyframes kgwheel { to { transform: rotate(360deg); } }
+.kg-tile--khun img { width: 70%; opacity: 0; animation: kgkhun 7.5s ease-in-out infinite; }
+.kg-tile--khun img:nth-child(2) { animation-delay: 2.5s; }
+.kg-tile--khun img:nth-child(3) { animation-delay: 5s; }
+@keyframes kgkhun { 0% { opacity: 0; transform: scale(.94); } 8%, 30% { opacity: 1; transform: scale(1); } 40%, 100% { opacity: 0; transform: scale(1.04); } }
+.kg-v img { position: absolute; inset: 12%; width: 76%; height: 76%; object-fit: contain; }
+.kg-v--chrome { background: #000; } .kg-v--line { background: #383838; } .kg-v--rev { background: #020a06; } .kg-v--rev img { filter: invert(1); }
+.kg-v:not(.kg-v--chrome):not(.kg-v--line):not(.kg-v--rev) { background: #fff; }
+@media (prefers-reduced-motion: reduce) { .kg img { animation: none !important; } .kg-tile--khun img:first-child, .kg-cons__mark { opacity: 1; } }
+@media (max-width: 700px) { .kg-cons { grid-template-columns: 1fr; } .kg-mean { grid-template-columns: repeat(3, 1fr); gap: 6px; } .kg-mean li { font-size: 10px; } .kg-mean li b { font-size: 14px; } }
