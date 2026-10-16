@@ -940,23 +940,27 @@ body { padding-bottom: 44px; }
 .kg-cons { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: clamp(16px, 2.4vw, 32px); align-items: center; }
 .kg-cons__stage { position: relative; display: grid; margin: 0; aspect-ratio: 1; background: #fff; border: 1px solid var(--line); overflow: hidden; }
 .kg-cons__stage img { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; }
-.kg-cons__grid { animation: kgspin 14s ease-in-out infinite alternate; }
+.kg-cons__grid { opacity: .9; }
 .kg-cons__mark { animation: kgreveal 7s ease-in-out infinite; }
-@keyframes kgspin { from { transform: rotate(-4deg) scale(.98); } to { transform: rotate(4deg) scale(1.02); } }
 @keyframes kgreveal { 0%, 20% { opacity: 0; } 45%, 80% { opacity: 1; } 100% { opacity: 0; } }
 .kg-cons figcaption { font-size: 14px; line-height: 1.8; color: var(--muted); }
 .kg-cons figcaption b { color: var(--fg); font-weight: 600; }
 .guide .kg-cons + .guide__label, .guide .kg-mean + .guide__label, .guide .kg-var + .guide__label { margin-top: 28px !important; }
-.kg-mean { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0; padding: 0; }
+.kg-mean { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 0; padding: 0; }
 .kg-mean li { font-size: 12px; color: var(--muted); }
 .kg-mean li span { display: block; margin-top: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--acc); }
 .kg-mean li b { display: block; margin: 2px 0; font-size: 18px; font-weight: 600; color: var(--fg); }
 .kg-tile { position: relative; display: grid; aspect-ratio: 4 / 3; overflow: hidden; background: #383838; border: 1px solid var(--line); }
 .kg-tile img { grid-area: 1 / 1; place-self: center; width: 78%; }
-.kg-tile--vib img:nth-child(1) { opacity: .3; animation: kgvib 1.6s ease-in-out infinite; }
-.kg-tile--vib img:nth-child(2) { opacity: .5; animation: kgvib 1.6s ease-in-out -.8s infinite reverse; }
-@keyframes kgvib { 0%, 100% { transform: translate(-2%, 1%) rotate(-1.5deg); } 50% { transform: translate(2%, -1%) rotate(1.5deg); } }
-.kg-tile--wheel img { width: 70%; animation: kgwheel 6s linear infinite; }
+/* 심볼을 두 고리로 나눠: 진동 = 서로 반대로 떨림, 바퀴 = 두 바퀴가 함께 굴러감 */
+.kg-loop { grid-area: 1 / 1; place-self: center; width: 72%; aspect-ratio: 1200 / 799; background: center / contain no-repeat; filter: invert(1); }
+.kg-loop--l { clip-path: inset(0 48% 0 0); transform-origin: 32% 46%; }
+.kg-loop--r { clip-path: inset(0 0 0 50%); transform-origin: 67% 55%; }
+.kg-tile--vib .kg-loop--l { animation: kgvibl .9s ease-in-out infinite alternate; }
+.kg-tile--vib .kg-loop--r { animation: kgvibr .9s ease-in-out infinite alternate; }
+@keyframes kgvibl { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+@keyframes kgvibr { from { transform: rotate(14deg); } to { transform: rotate(-14deg); } }
+.kg-tile--wheel .kg-loop { animation: kgwheel 6s linear infinite; }
 @keyframes kgwheel { to { transform: rotate(360deg); } }
 .kg-tile--khun img { width: 70%; opacity: 0; animation: kgkhun 7.5s ease-in-out infinite; }
 .kg-tile--khun img:nth-child(2) { animation-delay: 2.5s; }
@@ -966,4 +970,9 @@ body { padding-bottom: 44px; }
 .kg-v--chrome { background: #000; } .kg-v--line { background: #383838; } .kg-v--rev { background: #020a06; } .kg-v--rev img { filter: invert(1); }
 .kg-v:not(.kg-v--chrome):not(.kg-v--line):not(.kg-v--rev) { background: #fff; }
 @media (prefers-reduced-motion: reduce) { .kg img { animation: none !important; } .kg-tile--khun img:first-child, .kg-cons__mark { opacity: 1; } }
-@media (max-width: 700px) { .kg-cons { grid-template-columns: 1fr; } .kg-mean { grid-template-columns: repeat(3, 1fr); gap: 6px; } .kg-mean li { font-size: 10px; } .kg-mean li b { font-size: 14px; } }
+@media (max-width: 700px) { .kg-cons { grid-template-columns: 1fr; } .kg-mean { grid-template-columns: repeat(2, 1fr); gap: 10px; } .kg-mean li { font-size: 10px; } .kg-mean li b { font-size: 14px; } }
+.kg-tile--x { grid-auto-flow: column; place-content: center; align-items: center; gap: 4%; }
+.kg-tile--x > * { grid-area: auto; }
+.kg-tile--x img { grid-area: auto; place-self: center; width: 100%; max-width: 150px; justify-self: center; filter: invert(1); animation: kgx 3.2s ease-in-out infinite; }
+.kg-tile--x em { font-family: var(--serif); font-size: clamp(28px, 3vw, 44px); color: #9fe8c4; }
+@keyframes kgx { 0%, 100% { transform: scale(.94); opacity: .85; } 50% { transform: scale(1.04); opacity: 1; } }
