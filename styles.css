@@ -953,14 +953,15 @@ body { padding-bottom: 44px; }
 .kg-tile { position: relative; display: grid; aspect-ratio: 4 / 3; overflow: hidden; background: #383838; border: 1px solid var(--line); }
 .kg-tile img { grid-area: 1 / 1; place-self: center; width: 78%; }
 /* 심볼을 두 고리로 나눠: 진동 = 서로 반대로 떨림, 바퀴 = 두 바퀴가 함께 굴러감 */
-.kg-loop { grid-area: 1 / 1; place-self: center; width: 72%; aspect-ratio: 1200 / 799; background: center / contain no-repeat; filter: invert(1); }
-.kg-loop--l { clip-path: inset(0 48% 0 0); transform-origin: 32% 46%; }
-.kg-loop--r { clip-path: inset(0 0 0 50%); transform-origin: 67% 55%; }
-.kg-tile--vib .kg-loop--l { animation: kgvibl .9s ease-in-out infinite alternate; }
-.kg-tile--vib .kg-loop--r { animation: kgvibr .9s ease-in-out infinite alternate; }
-@keyframes kgvibl { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
-@keyframes kgvibr { from { transform: rotate(14deg); } to { transform: rotate(-14deg); } }
-.kg-tile--wheel .kg-loop { animation: kgwheel 6s linear infinite; }
+.kg-loop { grid-area: 1 / 1; place-self: center; width: 72%; height: auto; }
+.kg-loop--l { transform-origin: 24.2% 35.3%; }  /* 'ㅋ' 무게중심 */
+.kg-loop--r { transform-origin: 61% 49.4%; }    /* 'ㅜㄴ' 무게중심 */
+.kg-tile--vib .kg-loop--l { animation: kgvibl .7s ease-in-out infinite alternate; }
+.kg-tile--vib .kg-loop--r { animation: kgvibr .7s ease-in-out infinite alternate; }
+@keyframes kgvibl { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
+@keyframes kgvibr { from { transform: rotate(10deg); } to { transform: rotate(-10deg); } }
+.kg-tile--wheel .kg-loop { animation: kgwheel 5s linear infinite; }
+.kg-tile--wheel .kg-loop--r { animation-duration: 5s; animation-delay: -1.2s; }
 @keyframes kgwheel { to { transform: rotate(360deg); } }
 .kg-tile--khun img { width: 70%; opacity: 0; animation: kgkhun 7.5s ease-in-out infinite; }
 .kg-tile--khun img:nth-child(2) { animation-delay: 2.5s; }
