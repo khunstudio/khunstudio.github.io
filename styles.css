@@ -576,7 +576,7 @@ body { padding-bottom: 44px; }
 .cp-type figure { margin: 0; }
 .cp-type__main { grid-column: 1 / -1; background: #fff; border: 1px solid var(--line); padding: clamp(16px, 4vw, 64px); }
 .cp-type__main img { display: block; width: min(100%, 980px); margin: 0 auto; }
-.cp-type figure:not(.cp-type__main):not(.cp-type__apply) img { display: block; width: 100%; aspect-ratio: 1036 / 752; object-fit: contain; padding: clamp(16px, 3vw, 40px); background: #fff; border: 1px solid var(--line); } /* 투명 PNG라 어느 화면에서든 흰 바탕 위에 */
+.cp-type figure:not(.cp-type__main):not(.cp-type__apply) img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: contain; padding: clamp(12px, 1.6vw, 22px); background: #fff; border: 1px solid var(--line); } /* 투명 PNG라 어느 화면에서든 흰 바탕 위에 */
 .cp-type figcaption { padding-top: 20px; }
 .cp-type__apply { grid-column: 1 / -1; }
 .cp-type__apply figcaption { padding: 0 0 20px; max-width: 46em; }
