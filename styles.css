@@ -876,3 +876,10 @@ body { padding-bottom: 44px; }
   .mkt__row--a, .mkt__row--b { grid-template-columns: 1fr; }
   .mkt__row--a figure:last-child img { width: 60%; margin: 0 auto; }
 }
+
+/* 윙스피킹 공간 · 문구 */
+.space { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.space figure { margin: 0; }
+.cp-out .space img { display: block; width: 100%; aspect-ratio: 7 / 5; object-fit: cover; }
+.space figcaption { padding-top: 8px; font-size: 12px; color: var(--muted); }
+.space figcaption span { margin-right: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--acc); }
