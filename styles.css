@@ -509,6 +509,7 @@ body { padding-bottom: 44px; }
 
 .cp-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: clamp(32px, 5vw, 96px); align-items: center; margin-bottom: clamp(32px, 4vw, 64px); }
 .cp-split .cp-cover { margin-top: 0; }
+.cp-cover--wide { aspect-ratio: 21 / 9; object-fit: cover; } /* 넓은 화면에서도 꽉 차게, 위아래 하늘만 조금 잘림 */
 /* 윙스피킹 표지: 흐린 외벽 위에 로고가 입체로 떠 있습니다 */
 .ws-hero { position: relative; overflow: hidden; perspective: 1000px; }
 .ws-hero__bg { display: block; width: 100%; }
@@ -802,3 +803,4 @@ body { padding-bottom: 44px; }
 /* 큰 화면에서 내용이 끝없이 퍼지지 않게: 본문 폭 최대 1280px, 가운데 정렬 */
 .section, .cp-hero, .cp-next { padding-inline: max(var(--gutter), calc((100% - 1280px) / 2)); }
 .kv__posters { margin-inline: auto; }
+@media (max-width: 700px) { .cp-cover--wide { aspect-ratio: 16 / 10; } }
