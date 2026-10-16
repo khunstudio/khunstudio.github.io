@@ -411,9 +411,8 @@ em { font-style: italic; }
 .kv .lf-list { grid-template-columns: repeat(7, 1fr); gap: 24px 12px; margin-top: 28px; }
 .kv .lf-item h4 { font-size: 12px; }
 .kv__label--banners { margin-top: 48px !important; }
-/* 배너: 게시대 목업(4:5) 높이 = 배너 6장 높이 */
-.kv__banners { display: grid; grid-template-columns: .74fr 1fr; gap: 10px; align-items: start; }
-.kv__banners-mock { display: block; width: 100%; border: 1px solid var(--line); }
+.kv__banners { display: grid; gap: 10px; }
+.kv__banners-mock { display: block; width: min(100%, 560px); margin: 14px auto 0; border: 1px solid var(--line); }
 .kv__banners-list { display: grid; gap: 10px; }
 .kv__banners img { display: block; width: 100%; border: 1px solid var(--line); }
 
@@ -461,10 +460,18 @@ em { font-style: italic; }
 .goods__set--tall img { aspect-ratio: 3 / 4; }
 .goods__set--wide img { aspect-ratio: 16 / 9; }
 .goods__mug img { aspect-ratio: 16 / 9; }
-/* 카드 케이스: 왼쪽 세로 1장(3:4) = 오른쪽 가로 2장(3:2) 높이, 자르지 않고 맞물립니다 */
-.goods__set--case { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
-.goods__set--case img { aspect-ratio: auto; height: 100%; }
-.goods__set--case img:first-child { grid-row: 1 / 3; }
+/* 카드 케이스: 왼쪽 세로 1장(3:4) = 오른쪽 가로 2장(3:2) 높이 */
+.goods__set--case { grid-template-columns: 1fr 1fr; align-items: start; }
+.goods__set--case img { aspect-ratio: 3 / 2; }
+.goods__set--case img:first-child { grid-row: span 2; aspect-ratio: 3 / 4; }
+/* 볼펜: 세로(3:4) + 가로(4:3), 높이 맞춤 → 폭 9 : 16 */
+.goods__set--pen2 { grid-template-columns: 9fr 16fr; }
+.goods__set--pen2 img:first-child { aspect-ratio: 3 / 4; }
+.goods__set--pen2 img:last-child { aspect-ratio: 4 / 3; }
+/* 엽서 번호 */
+.pc { position: relative; }
+.pc span { position: absolute; top: 12px; left: 14px; z-index: 1; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: #fff; text-shadow: 0 1px 6px rgba(0, 0, 0, .45); }
+.pc span b { margin-right: 8px; font-weight: 400; }
 /* 볼펜: 체커보드 — 전체(2:1) + 확대(1:1) / 디테일(1:1) + 확대(2:1) */
 .goods__set--pen { grid-template-columns: repeat(3, 1fr); }
 .goods__set--pen img { aspect-ratio: 1; }
@@ -600,13 +607,13 @@ body { padding-bottom: 44px; }
 .cv-w-navy { background: #0E284F; } .cv-w-navy .mk { background: #fff; }
 .cv-black-w { background: #fff; } .cv-black-w .mk { background: #000; }
 .cv-w-black { background: #000; } .cv-w-black .mk { background: #fff; }
-.guide__palette { list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin: 0; padding: 0; }
-.sw i { display: block; aspect-ratio: 1; border: 1px solid var(--line); }
+.guide__palette { list-style: none; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; }
+.sw i { display: block; height: clamp(44px, 4.4vw, 64px); border: 1px solid var(--line); }
 .sw span { display: block; margin-top: 10px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--muted); }
 .sw.is-campaign span { color: var(--acc); }
-.sw b { display: block; margin-top: 2px; font-size: 14px; font-weight: 600; color: var(--fg); }
+.sw b { display: block; margin-top: 2px; font-size: 13px; font-weight: 600; color: var(--fg); }
 .sw em { display: block; font-style: normal; font-size: 11px; color: var(--muted); }
-.sw dl { margin: 10px 0 0; padding-top: 8px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 10px; letter-spacing: .04em; }
+.sw dl { margin: 8px 0 0; padding-top: 6px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 9.5px; letter-spacing: 0; }
 .sw dl div { display: flex; justify-content: space-between; gap: 6px; }
 .sw dt { color: var(--muted); }
 .sw dd { margin: 0; color: var(--fg); }
@@ -693,7 +700,7 @@ body { padding-bottom: 44px; }
   .cp-type { grid-template-columns: 1fr; }
   .kv__banners { grid-template-columns: 1fr; }
   .guide__grid { grid-template-columns: 1fr 1fr; }
-  .guide__palette { grid-template-columns: repeat(3, 1fr); }
+  .guide__palette { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .cp-symbols { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
   .lf-list { grid-template-columns: repeat(3, 1fr); }
   .skywall { grid-template-columns: repeat(5, 1fr); gap: 10px; }
