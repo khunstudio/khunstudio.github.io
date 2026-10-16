@@ -804,3 +804,25 @@ body { padding-bottom: 44px; }
 .section, .cp-hero, .cp-next { padding-inline: max(var(--gutter), calc((100% - 1280px) / 2)); }
 .kv__posters { margin-inline: auto; }
 @media (max-width: 700px) { .cp-cover--wide { aspect-ratio: 16 / 10; } }
+
+/* 윙스피킹 브랜드 가이드 */
+.ws-primary { display: grid; place-items: center; aspect-ratio: 21 / 8; background: #031465; border: 1px solid var(--line); }
+.ws-primary img { width: min(40%, 360px); border: 0 !important; }
+.ws-cons-wrap { margin: 0; }
+.ws-cons { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+.ws-cons-wrap figcaption { margin-top: 10px; font-size: 13px; line-height: 1.7; color: var(--muted); }
+.ws-cons-wrap figcaption b { color: var(--fg); font-weight: 600; }
+.guide .tile img { position: absolute; inset: 14% 10%; width: 80%; height: 72%; object-fit: contain; border: 0 !important; }
+.tile--navy { background: #031465; }
+.tile--photo img { inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; }
+.ws-apps { grid-template-columns: repeat(4, 1fr); }
+.ws-apps li.w3 { grid-column: span 3; }
+.ws-apps .tile { height: auto; aspect-ratio: 1200 / 630; }
+.ws-apps li:not(.w3) .tile { aspect-ratio: auto; height: 100%; min-height: 0; }
+.ws-apps li:not(.w3) { display: grid; grid-template-rows: 1fr auto auto; }
+@media (max-width: 700px) {
+  .ws-primary img { width: 62%; }
+  .ws-apps li.w3 { grid-column: 1 / -1; }
+  .ws-apps li:not(.w3) .tile { aspect-ratio: 1; height: auto; }
+}
+.guide > :is(.ws-primary, figure, .guide__palette) + .guide__label { margin-top: 28px !important; }
