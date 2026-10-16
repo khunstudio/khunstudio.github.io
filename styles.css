@@ -456,6 +456,7 @@ em { font-style: italic; }
 .goods__set--kit { grid-template-columns: 1fr 1fr; }
 .goods__set--kit img { aspect-ratio: 4 / 3; }
 .goods__set--tall img { aspect-ratio: 3 / 4; }
+.goods__set--wide img { aspect-ratio: 16 / 9; }
 .goods__mug img { aspect-ratio: 16 / 9; }
 /* 카드 케이스: 왼쪽 세로 1장(3:4) = 오른쪽 가로 2장(3:2) 높이, 자르지 않고 맞물립니다 */
 .goods__set--case { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
