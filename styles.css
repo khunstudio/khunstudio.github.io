@@ -575,6 +575,15 @@ body { padding-bottom: 44px; }
 .cp-type__main img { display: block; width: min(100%, 980px); margin: 0 auto; }
 .cp-type figure:not(.cp-type__main) img { display: block; width: 100%; aspect-ratio: 1036 / 752; object-fit: contain; padding: clamp(16px, 3vw, 40px); background: #fff; border: 1px solid var(--line); } /* 투명 PNG라 어느 화면에서든 흰 바탕 위에 */
 .cp-type figcaption { padding-top: 20px; }
+.cp-type__apply { grid-column: 1 / -1; }
+.cp-type__apply ul { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(12px, 1.6vw, 20px); margin: 0; padding: 0; }
+.cp-type__apply li { font-size: 13px; color: var(--muted); }
+.cp-type__apply img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 10px; border: 1px solid var(--line); }
+.cp-type__apply li span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--acc); }
+/* 어두운 화면: 흰 카드 대신 어두운 판 + 그림 색 반전(네이비 → 밝은 하늘, 그리드색은 유지) */
+[data-theme="dark"] .cp-type__main { background: var(--panel); }
+[data-theme="dark"] .cp-type figure:not(.cp-type__main):not(.cp-type__apply) img { background: transparent; } /* 반전 필터가 바탕까지 뒤집지 않게 */
+[data-theme="dark"] .cp-type__main img, [data-theme="dark"] .cp-type figure:not(.cp-type__main):not(.cp-type__apply) img { filter: invert(1) hue-rotate(180deg); }
 .cp-type figcaption span { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--acc); }
 .cp-type h4 { margin: 8px 0 10px; font-size: clamp(20px, 1.7vw, 26px); font-weight: 500; letter-spacing: -0.01em; }
 .cp-type figcaption p { margin: 0; color: #b9d6c5; font-weight: 300; line-height: 1.8; }
@@ -631,6 +640,7 @@ body { padding-bottom: 44px; }
   .goods__set--strap { grid-template-columns: 1fr 1fr 1fr; }
   .film__meta { grid-template-columns: 1fr 1fr; }
   .cp-type { grid-template-columns: 1fr; }
+  .cp-type__apply ul { grid-template-columns: 1fr 1fr; }
   .lf-list { grid-template-columns: repeat(3, 1fr); }
   .skywall { grid-template-columns: repeat(5, 1fr); gap: 10px; }
   .cp-steps > li:nth-child(n) { margin-top: 0; }
