@@ -690,7 +690,7 @@ body { padding-bottom: 44px; }
   .cp-split, .cp-steps, .cp-after { grid-template-columns: 1fr; }
   .kv, .film__acts, .goods, .concert { grid-template-columns: 1fr; }
   .goods__set { grid-template-columns: 1fr 1fr; }
-  .goods__set--pc, .goods__set--kit { grid-template-columns: 1fr; }
+  /* 휴대폰에서도 2열 유지: 사진이 길게 늘어지지 않게 */
   .goods__set--case { grid-template-columns: 1fr; grid-template-rows: none; }
   .goods__set--case img:first-child { grid-row: auto; }
   .goods__set--pen { grid-template-columns: 1fr 1fr; }
@@ -700,7 +700,10 @@ body { padding-bottom: 44px; }
   .cp-type { grid-template-columns: 1fr; }
   .kv__banners { grid-template-columns: 1fr; }
   .guide__grid { grid-template-columns: 1fr 1fr; }
-  .guide__palette { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .guide__palette { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 10px; }
+  .book__bar { padding: 12px 14px; }
+  .book__bar .lf-feature__ctrl button { padding: 8px 9px; white-space: nowrap; }
+  .book__count { white-space: nowrap; }
   .cp-symbols { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
   .lf-list { grid-template-columns: repeat(3, 1fr); }
   .skywall { grid-template-columns: repeat(5, 1fr); gap: 10px; }
@@ -795,3 +798,7 @@ body { padding-bottom: 44px; }
 .lf-hint span { flex: none; padding-right: 0; animation: lfhint 28s linear infinite; }
 @keyframes lfhint { to { transform: translateX(-100%); } }
 @media (prefers-reduced-motion: reduce) { .lf-hint span { animation: none; } }
+
+/* 큰 화면에서 내용이 끝없이 퍼지지 않게: 본문 폭 최대 1280px, 가운데 정렬 */
+.section, .cp-hero, .cp-next { padding-inline: max(var(--gutter), calc((100% - 1280px) / 2)); }
+.kv__posters { margin-inline: auto; }
