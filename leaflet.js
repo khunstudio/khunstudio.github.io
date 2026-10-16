@@ -22,6 +22,21 @@
     new IntersectionObserver(([e], io) => { if (e.isIntersecting && !shown) { shown = true; io.disconnect(); later(reveal, 300); } }, { threshold: 0.55 }).observe(lf);
     lf.addEventListener('click', () => { shown = true; isOpen() ? fold() : unfold(); });
     lf.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lf.click(); } });
+    // 세트 고르기(윙스피킹): 버튼을 누르면 접었다가 다른 색의 리플렛으로 바꿔 다시 펼칩니다
+    const sets = lf.closest('.lf-feature').querySelector('.lf-sets');
+    if (sets) sets.addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-set]');
+      if (!b || b.classList.contains('is-on')) return;
+      sets.querySelectorAll('button').forEach((x) => x.classList.toggle('is-on', x === b));
+      shown = true;
+      fold();
+      later(() => {
+        const faces = lf.querySelectorAll('.lf__face');
+        ['mi', 'mo', 'ri', 'lo', 'li', 'ro'].forEach((k, i) => { faces[i].style.backgroundImage = `url(${b.dataset.set}${k}.jpg)`; });
+        lf.closest('.lf-feature').style.setProperty('--tone', b.dataset.tone);
+        reveal();
+      }, 1200);
+    });
     lf.closest('.lf-feature').querySelector('.lf-feature__bar').addEventListener('click', (e) => {
       const act = e.target.closest('button')?.dataset.act;
       shown = true;

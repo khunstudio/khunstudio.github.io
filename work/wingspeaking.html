@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
-  <link rel="stylesheet" href="../styles.css?v=69">
+  <link rel="stylesheet" href="../styles.css?v=70">
 </head>
 <body>
   <header class="hud">
@@ -177,6 +177,56 @@
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
           <p class="cp-out__no">T-05</p>
+          <h3>Leaflet Series</h3>
+          <p class="cp-hl">하나의 날개, 세 가지 하늘</p>
+          <p>첫 리플렛 <b>‘영어에 날개를 달다’</b>에서 출발해, 날개 그래픽을 <b>빛을 머금은 크롬 질감</b>으로 다시 그리고 과정마다 하늘의 색을 달리 입혔습니다. 유학 아카데미 종합반은 <b>바이올렛</b>, 유학 주니어는 <b>골드</b>, 유학 시험센터는 <b>스카이</b>. 접지와 그리드, 정보의 순서는 그대로 두고 색만 바꿔, 어느 리플렛을 집어도 한 브랜드로 읽히게 했습니다.</p>
+        </div>
+        <div class="lf-feature lf-feature--sets" style="--tone: #6a4fd6">
+          <div class="lf-feature__stage">
+            <div class="lf" role="button" tabindex="0" aria-label="윙스피킹 리플렛 — 눌러서 펼치기">
+              <div class="lf__turn">
+                <div class="lf__panel lf__mid"><div class="lf__face" style="background-image: url(../assets/work/wingspeaking/leaflets/acad-mi.jpg)"></div><div class="lf__face lf__face--back" style="background-image: url(../assets/work/wingspeaking/leaflets/acad-mo.jpg)"></div></div>
+                <div class="lf__panel lf__right"><div class="lf__face" style="background-image: url(../assets/work/wingspeaking/leaflets/acad-ri.jpg)"></div><div class="lf__face lf__face--back" style="background-image: url(../assets/work/wingspeaking/leaflets/acad-lo.jpg)"></div></div>
+                <div class="lf__panel lf__left"><div class="lf__face" style="background-image: url(../assets/work/wingspeaking/leaflets/acad-li.jpg)"></div><div class="lf__face lf__face--back" style="background-image: url(../assets/work/wingspeaking/leaflets/acad-ro.jpg)"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="lf-feature__bar">
+            <span class="lf-sets" role="tablist" aria-label="리플렛 고르기">
+              <button type="button" class="is-on" data-set="../assets/work/wingspeaking/leaflets/acad-" data-tone="#6a4fd6" aria-label="유학 아카데미 종합반"><i style="background:#6a4fd6"></i>ACADEMIC</button>
+              <button type="button" data-set="../assets/work/wingspeaking/leaflets/jun-" data-tone="#d9a432" aria-label="유학 주니어"><i style="background:#d9a432"></i>JUNIOR</button>
+              <button type="button" data-set="../assets/work/wingspeaking/leaflets/test-" data-tone="#5aa9e6" aria-label="유학 시험센터"><i style="background:#5aa9e6"></i>TEST CENTER</button>
+            </span>
+            <span class="lf-feature__ctrl"><button type="button" data-act="fold">UNFOLD</button><button type="button" data-act="flip">FLIP — 바깥면</button></span>
+          </div>
+        </div>
+        <p class="lf-hint" aria-hidden="true"><span>CLICK ✦ 리플렛을 누르면 바깥면과 안쪽면을 크게 볼 수 있습니다 &nbsp;&nbsp;&nbsp; CLICK ✦ 리플렛을 누르면 바깥면과 안쪽면을 크게 볼 수 있습니다 &nbsp;&nbsp;&nbsp; CLICK ✦ 리플렛을 누르면 바깥면과 안쪽면을 크게 볼 수 있습니다 &nbsp;&nbsp;&nbsp; CLICK ✦ 리플렛을 누르면 바깥면과 안쪽면을 크게 볼 수 있습니다 &nbsp;&nbsp;&nbsp; </span><span>CLICK ✦ 리플렛을 누르면 바깥면과 안쪽면을 크게 볼 수 있습니다 &nbsp;&nbsp;&nbsp; CLICK ✦ 리플렛을 누르면 바깥면과 안쪽면을 크게 볼 수 있습니다 &nbsp;&nbsp;&nbsp; CLICK ✦ 리플렛을 누르면 바깥면과 안쪽면을 크게 볼 수 있습니다 &nbsp;&nbsp;&nbsp; CLICK ✦ 리플렛을 누르면 바깥면과 안쪽면을 크게 볼 수 있습니다 &nbsp;&nbsp;&nbsp; </span></p>
+        <ul class="lf-list lf-list--4" id="leaflets" data-base="../assets/work/wingspeaking/leaflets/">
+          <li><button type="button" class="lf-item" data-id="acad">
+            <span class="lf-item__cover"><img src="../assets/work/wingspeaking/leaflets/acad-out.jpg" alt="유학 아카데미 종합반 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__tag">ACADEMIC · 바이올렛</span>
+            <h4>유학 아카데미 종합반</h4>
+          </button></li>
+          <li><button type="button" class="lf-item" data-id="jun">
+            <span class="lf-item__cover"><img src="../assets/work/wingspeaking/leaflets/jun-out.jpg" alt="유학 주니어 출국반 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__tag">JUNIOR · 골드</span>
+            <h4>유학 주니어 출국반</h4>
+          </button></li>
+          <li><button type="button" class="lf-item" data-id="test">
+            <span class="lf-item__cover"><img src="../assets/work/wingspeaking/leaflets/test-out.jpg" alt="유학 시험센터 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__tag">TEST CENTER · 스카이</span>
+            <h4>유학 시험센터</h4>
+          </button></li>
+          <li><button type="button" class="lf-item" data-id="main">
+            <span class="lf-item__cover"><img src="../assets/work/wingspeaking/leaflets/main-out.jpg" alt="영어에 날개를 달다 리플렛 표지" loading="lazy"></span>
+            <span class="lf-item__tag">ORIGIN · 첫 리플렛</span>
+            <h4>영어에 날개를 달다</h4>
+          </button></li>
+        </ul>
+      </article>
+      <article class="cp-out cp-out--wide">
+        <div class="cp-out__info">
+          <p class="cp-out__no">T-06</p>
           <h3>Brochure</h3>
           <p class="cp-hl">영어에 날개를 달다</p>
           <p>2025 유학 · 스피킹 콤보 브로슈어. 표지의 큰 날개로 시작해 <b>Academic Speaking, Wing Survival, Exchange Prep, Working Holiday</b>까지 과정마다 같은 그리드와 아이콘 체계로 정리해, <b>상담 자리에서 한 권으로 전 과정을 설명</b>할 수 있게 했습니다. 책을 누르거나 버튼으로 넘겨 볼 수 있습니다.</p>
@@ -194,7 +244,7 @@
 
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
-          <p class="cp-out__no">T-06</p>
+          <p class="cp-out__no">T-07</p>
           <h3>Space &amp; Stationery</h3>
           <p>로고가 화면 밖에서도 같은 얼굴로 보이도록, <b>건물 간판과 학원 인테리어 사인</b>까지 직접 디자인했습니다. 유리문에는 반투명 시트지로 날개를 새기고, 상담실 벽에는 입체 로고를 세웠습니다. <b>명함과 봉투, 펜</b> 같은 작은 접점도 네이비 바탕에 날개 하나로 맞춰, 문을 열고 들어와 명함을 받는 순간까지 <b>하나의 경험</b>으로 이어지게 했습니다.</p>
         </div>
@@ -212,7 +262,7 @@
           <img src="../assets/work/wingspeaking/12.jpg" alt="윙스피킹 소셜 미디어 콘텐츠" loading="lazy">
         </div>
         <div class="cp-out__info">
-          <p class="cp-out__no">T-07</p>
+          <p class="cp-out__no">T-08</p>
           <h3>Online Contents</h3>
           <p>소셜 미디어를 비롯한 온라인 콘텐츠를 만들고, <b>콘텐츠 기획과 마케팅까지</b> 함께 맡았습니다.</p>
           <dl class="bars">
@@ -237,6 +287,7 @@
     <span>소통하고 생각하는 디자이너, 유경훈</span>
   </footer>
   <script src="../vital.js?v=3" defer></script>
+  <script src="../leaflet.js?v=7" defer></script>
   <script type="module" src="../mockups.js?v=8"></script>
 </body>
 </html>

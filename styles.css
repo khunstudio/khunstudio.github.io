@@ -883,3 +883,14 @@ body { padding-bottom: 44px; }
 .cp-out .space img { display: block; width: 100%; aspect-ratio: 7 / 5; object-fit: cover; }
 .space figcaption { padding-top: 8px; font-size: 12px; color: var(--muted); }
 .space figcaption span { margin-right: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--acc); }
+
+/* 윙스피킹 리플렛 시리즈: 색 고르기 + 4종 목록 */
+.lf-feature--sets { transition: background .8s; }
+[data-theme] .lf-feature--sets { background: radial-gradient(ellipse at 50% 45%, color-mix(in srgb, var(--tone) 22%, #fff), color-mix(in srgb, var(--tone) 6%, #e9e8e1) 78%); }
+[data-theme="dark"] .lf-feature--sets { background: radial-gradient(ellipse at 50% 45%, color-mix(in srgb, var(--tone) 35%, #000), #000 78%); }
+.lf-sets { display: flex; flex-wrap: wrap; gap: 6px; }
+.lf-sets button { display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); background: transparent; border: 1px solid var(--line); cursor: pointer; transition: color .2s, border-color .2s; }
+.lf-sets button i { width: 10px; height: 10px; border-radius: 50%; }
+.lf-sets button.is-on, .lf-sets button:hover { color: var(--fg); border-color: var(--fg); }
+.lf-list--4 { grid-template-columns: repeat(4, 1fr) !important; max-width: 760px; }
+@media (max-width: 700px) { .lf-list--4 { grid-template-columns: repeat(2, 1fr) !important; } }
