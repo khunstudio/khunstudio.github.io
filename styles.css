@@ -924,3 +924,14 @@ body { padding-bottom: 44px; }
 .yts__cap { margin: -4px 0 0 !important; font-size: 12px; color: var(--muted) !important; }
 .yts__cap span { margin-right: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--acc); }
 @media (max-width: 700px) { .web__pages, .yts { grid-template-columns: 1fr; } .mkt__row--f { grid-template-columns: 1fr 1fr; } .mkt__row--f figure:first-child { grid-row: span 2; } }
+/* KHUN studio 원형 심볼: 숨 쉬듯 뛰고, 겉으로 진동이 퍼져 나갑니다 */
+.origin-mark { position: relative; display: grid; aspect-ratio: 3 / 2; overflow: hidden; border: 1px solid var(--line); background: #f4efe8; }
+.origin-mark img { grid-area: 1 / 1; place-self: center; width: 70%; padding: 0 !important; border: 0 !important; background: none !important; }
+.origin-mark__main { animation: markbeat 2.4s cubic-bezier(.3, .7, .3, 1) infinite; }
+.origin-mark__echo { opacity: 0; animation: markecho 2.4s ease-out infinite; }
+.origin-mark__echo--2 { animation-delay: .35s; }
+@keyframes markbeat { 0%, 100% { transform: scale(1) rotate(0deg); } 12% { transform: scale(1.05) rotate(-1.5deg); } 24% { transform: scale(.98) rotate(.8deg); } 36% { transform: scale(1.03) rotate(-.6deg); } 55% { transform: scale(1) rotate(0deg); } }
+@keyframes markecho { 0% { opacity: .35; transform: scale(1) rotate(0deg); } 70%, 100% { opacity: 0; transform: scale(1.32) rotate(-6deg); } }
+@media (prefers-reduced-motion: reduce) { .origin-mark img { animation: none !important; } }
+[data-theme="dark"] .origin-mark { background: #0b1a14; }
+[data-theme="dark"] .origin-mark img { filter: invert(1); }
