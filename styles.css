@@ -410,6 +410,9 @@ em { font-style: italic; }
 .kv .lf-feature { margin-top: 0; }
 .kv .lf-list { grid-template-columns: repeat(7, 1fr); gap: 24px 12px; margin-top: 28px; }
 .kv .lf-item h4 { font-size: 12px; }
+.kv__label--banners { margin-top: 48px !important; }
+.kv__banners { display: grid; gap: 10px; }
+.kv__banners img { display: block; width: 100%; border: 1px solid var(--line); }
 
 /* 홍보영상 */
 .film { margin-top: 16px; display: grid; gap: 24px; }
