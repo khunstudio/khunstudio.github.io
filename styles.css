@@ -977,3 +977,16 @@ body { padding-bottom: 44px; }
 .kg-tile--x img { grid-area: auto; place-self: center; width: 100%; max-width: 150px; justify-self: center; filter: invert(1); animation: kgx 3.2s ease-in-out infinite; }
 .kg-tile--x em { font-family: var(--serif); font-size: clamp(28px, 3vw, 44px); color: #9fe8c4; }
 @keyframes kgx { 0%, 100% { transform: scale(.94); opacity: .85; } 50% { transform: scale(1.04); opacity: 1; } }
+/* 취업용: 직무 정체성 · 프로젝트 요약 */
+.hero__role b { font-weight: 600; }
+.hero__pos { position: relative; margin: 8px 0 0; font-size: clamp(13px, 1vw, 16px); color: var(--muted); }
+.contact__note { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+.section__head h2 small { margin-left: 8px; font-size: .7em; color: var(--muted); }
+.cp-brief { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: clamp(20px, 2.4vw, 32px) 0 0; padding: 0; counter-reset: none; }
+.cp-brief li { padding: 16px 18px; border: 1px solid var(--line); border-top: 2px solid var(--acc); background: color-mix(in srgb, var(--panel) 70%, transparent); }
+.cp-brief span { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--acc); }
+.cp-brief b { display: block; margin: 4px 0 8px; font-size: 16px; font-weight: 600; }
+.cp-brief p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--muted); }
+.cp-brief p b { display: inline; margin: 0; font-size: inherit; color: var(--fg); }
+@media (max-width: 900px) { .cp-brief { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .cp-brief { grid-template-columns: 1fr; } }
