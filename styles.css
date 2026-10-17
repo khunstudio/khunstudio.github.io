@@ -950,18 +950,13 @@ body { padding-bottom: 44px; }
 .kg-mean li b { display: block; margin: 2px 0; font-size: 18px; font-weight: 600; color: var(--fg); }
 .kg-tile { position: relative; display: grid; aspect-ratio: 4 / 3; overflow: hidden; background: #383838; border: 1px solid var(--line); }
 .kg-tile img { grid-area: 1 / 1; place-self: center; width: 78%; }
-/* 두 고리(ㅋ · ㅜㄴ)를 원본 위치에 겹쳐 두고, 각자 자기 무게중심을 축으로 따로 움직입니다 */
-.kg-pair { grid-area: 1 / 1; place-self: center; position: relative; width: 70%; aspect-ratio: 1200 / 799; }
-.kg-pair img { position: absolute; height: auto; filter: invert(1); }
-.kg-pair__a { left: 39%; top: 4.47%; width: 61.36%; transform-origin: 37.5% 54.1%; }
-.kg-pair__b { left: -.08%; top: -.35%; width: 60.32%; transform-origin: 55.2% 36.8%; }
-.kg-tile--vib .kg-pair__a { animation: kgjitA .52s linear infinite; }
-.kg-tile--vib .kg-pair__b { animation: kgjitB .67s linear infinite; }
-@keyframes kgjitA { 0%, 100% { transform: none; } 20% { transform: translate(1.6%, -1.2%) rotate(-5deg); } 45% { transform: translate(-1.2%, 1.4%) rotate(4deg); } 70% { transform: translate(1%, .8%) rotate(-3deg); } 85% { transform: translate(-1.4%, -.6%) rotate(5deg); } }
-@keyframes kgjitB { 0%, 100% { transform: none; } 25% { transform: translate(-1.4%, 1%) rotate(6deg); } 50% { transform: translate(1.2%, -1.5%) rotate(-4deg); } 75% { transform: translate(-.8%, -.8%) rotate(3deg); } }
-.kg-tile--wheel .kg-pair { width: 50%; }
-.kg-tile--wheel .kg-pair__a { animation: kgwheel 4s linear infinite; }
-.kg-tile--wheel .kg-pair__b { animation: kgwheel 5.5s linear infinite; }
+/* 의미 타일: 진동 = 바이탈 선의 격동, 바퀴 = 두 고리가 각자 돈다 */
+.kg-vib { grid-area: 1 / 1; width: 100%; height: 100%; }
+/* 바퀴: 두 고리를 나란히 떼어 놓고, 각자 자기 중심에서 다른 속도로 빙글빙글 */
+.kg-wheels { grid-area: 1 / 1; place-self: center; display: flex; align-items: center; justify-content: center; gap: 4%; width: 86%; }
+.kg-wheels img { width: 46%; height: auto; filter: invert(1); transform-origin: 50% 50%; }
+.kg-tile--wheel .kg-pair__b { animation: kgwheel 3.2s cubic-bezier(.55, .05, .45, .95) infinite; }
+.kg-tile--wheel .kg-pair__a { animation: kgwheel 4.7s cubic-bezier(.7, 0, .3, 1) infinite reverse; }
 @keyframes kgwheel { to { transform: rotate(360deg); } }
 .kg-tile--khun img { width: 70%; opacity: 0; animation: kgkhun 7.5s ease-in-out infinite; }
 .kg-tile--khun img:nth-child(2) { animation-delay: 2.5s; }

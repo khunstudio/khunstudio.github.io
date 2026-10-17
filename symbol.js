@@ -155,30 +155,41 @@ function core(r = 1) {
   return g;
 }
 
-// ── EYES: 하나로 굴러다니다가 두 눈동자로 나뉩니다
-function eyes(scale = 1) {
-  const g = new THREE.Group();
-  const geo = new THREE.SphereGeometry(0.17 * scale, 48, 48);
-  const a = new THREE.Mesh(geo, pupilMat()), b = new THREE.Mesh(geo, pupilMat());
-  const ringGeo = new THREE.TorusGeometry(0.27 * scale, 0.006 * scale, 8, 120);
-  const ra = new THREE.Mesh(ringGeo, glass()), rb = new THREE.Mesh(ringGeo, glass());
-  g.add(a, b, ra, rb);
-  g.userData = { a, b, ra, rb, scale };
+// ── EYES OPEN: 로고의 두 고리(ㅋ · ㅜㄴ)가 각자 빙글빙글 돌며 풀려 두 개의 눈이 됩니다
+async function eyes() {
+  const H = await fetch(new URL('assets/studiokhun/khun-halves.json', base)).then((r) => r.json());
+  const g = new THREE.Group(), parts = [];
+  for (const [k, spin] of [['b', 2], ['a', -1.5]]) {
+    const shape = new THREE.Shape(H[k].map(([x, y]) => new THREE.Vector2(x, y)));
+    const geo = new THREE.ExtrudeGeometry(shape, { depth: 0.1, bevelEnabled: true, bevelThickness: 0.035, bevelSize: 0.012, bevelSegments: 4, curveSegments: 4 });
+    geo.computeBoundingBox();
+    const home = geo.boundingBox.getCenter(new THREE.Vector3()); home.z = 0;
+    geo.translate(-home.x, -home.y, -0.05); // 고리마다 자기 중심을 축으로 돕니다
+    const ring = new THREE.Mesh(geo, glass());
+    const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.15, 48, 48), pupilMat());
+    const piece = new THREE.Group(); piece.add(ring, pupil);
+    g.add(piece);
+    parts.push({ piece, ring, pupil, home, spin, side: k === 'a' ? 1 : -1 });
+  }
+  g.userData.parts = parts;
   return g;
 }
-const CYCLE = 9; // 초: 굴러다님 → 나뉨 → 두리번 → 다시 합쳐짐
-function updateEyes(g, t, roam = 0.42) {
-  const { a, b, ra, rb, scale } = g.userData;
+const CYCLE = 10; // 초: 로고 → 돌며 풀림 → 두 눈 → 두리번 → 돌며 다시 로고
+function updateEyes(g, t) {
   const p = (t % CYCLE) / CYCLE;
-  const split = smooth(0.3, 0.42, p) * (1 - smooth(0.86, 0.98, p));
-  const roll = 1 - split;
-  const cx = roam * Math.sin(t * 0.9) * Math.cos(t * 0.37) * roll, cy = roam * 0.7 * Math.sin(t * 1.3 + 1) * roll, cz = 0.2 * Math.sin(t * 0.7) * roll;
-  const d = 0.42 * scale * split;
-  const lx = 0.06 * scale * Math.sin(t * 1.7) * split, ly = 0.04 * scale * Math.sin(t * 1.1) * split; // 두리번
-  a.position.set(cx - d + lx, cy + ly + d * 0.18, cz); b.position.set(cx + d + lx, cy + ly - d * 0.18, cz);
-  a.rotation.set(t * 1.3 * roll, t * 0.8, 0); b.rotation.copy(a.rotation);
-  for (const [r, m] of [[ra, a], [rb, b]]) { r.position.copy(m.position); r.scale.setScalar(0.4 + 0.6 * split); r.material.opacity = split; r.visible = split > 0.02; r.rotation.y = t * 0.5; }
-  return split;
+  const open = smooth(0.1, 0.42, p) * (1 - smooth(0.76, 0.98, p)); // 0 = 로고, 1 = 두 눈
+  const pop = smooth(0.4, 0.48, p) * (1 - smooth(0.72, 0.78, p));
+  for (const { piece, ring, pupil, home, spin, side } of g.userData.parts) {
+    const eye = new THREE.Vector3(side * 0.62, 0, 0);
+    piece.position.lerpVectors(home, eye, open);
+    piece.scale.setScalar(1 - 0.22 * open);
+    // 풀릴 때와 돌아올 때 각자 다른 바퀴 수로 돌고, 눈일 때는 제자리에서 살짝 흔들립니다
+    ring.rotation.z = spin * Math.PI * 2 * (p < 0.6 ? smooth(0.1, 0.42, p) : 1 - smooth(0.76, 0.98, p)) + 0.06 * Math.sin(t * 1.7 + side) * open;
+    ring.rotation.y = 0.5 * Math.sin(Math.PI * open) * side;
+    pupil.scale.setScalar(Math.max(0.001, pop * (1 + 0.25 * Math.sin(Math.min(pop, 1) * Math.PI))));
+    pupil.position.set(0.05 * Math.sin(t * 1.3) * pop, 0.035 * Math.sin(t * 0.9 + 1) * pop, 0.08);
+  }
+  return open;
 }
 
 // ── RE:VIBE: 실제 로고 윤곽선 여러 겹이 인피니트 심볼처럼 요동칩니다 (+ 가운데 유리 로고)
@@ -235,7 +246,7 @@ async function mount(el) {
   const root = new THREE.Group(); scene.add(root);
   const P = {};
   if (mode === 'full' || mode === 'core') { P.core = core(1); root.add(P.core); }
-  if (mode === 'eyes') { P.eyes = eyes(1.6); root.add(P.eyes); }
+  if (mode === 'eyes') { P.eyes = await eyes(); P.eyes.scale.setScalar(0.92); root.add(P.eyes); }
   if (mode === 'core') {
     // 단단한 코어 안에서 쿤의 유리 심볼이 돕니다
     P.inner = await revibe(await loadMark(), 0, true);
@@ -272,7 +283,7 @@ async function mount(el) {
     const b = beat(t);
     // 0의 상태(평평함)와 살아남을 천천히 오갑니다. 눈동자가 나뉘면 살아납니다.
     let life = 0.5 + 0.5 * Math.sin(t * 0.35);
-    if (P.eyes) life = Math.max(updateEyes(P.eyes, t, mode === 'eyes' ? 0.55 : 0.42), mode === 'eyes' ? 0 : 0.15);
+    if (P.eyes) life = updateEyes(P.eyes, t);
     if (mode === 'revibe') life = 1;
     uniforms.uTime.value = t; uniforms.uBeat.value = b; uniforms.uLife.value = life;
     uniforms.uPx.value = renderer.getPixelRatio() * (h / 500);
