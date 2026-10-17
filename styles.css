@@ -1000,7 +1000,8 @@ body { padding-bottom: 44px; }
 .mg-v--blush { background: #DCC3B0; } .mg-v--blush .mk { background: #40210D; }
 .mg-pack { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
 .cp-out .mg-pack img { height: 100%; object-fit: cover; }
-.cp-out .mg-pack :is(.mg-pack__die, .mg-pack__lf) { height: auto; align-self: center; }
+.cp-out .mg-pack img { aspect-ratio: 4 / 3; }
+.cp-out .mg-pack .mg-pack__hero { grid-column: 1 / -1; aspect-ratio: 16 / 8; }
 .mg-detail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 12px; margin-top: 16px; align-items: stretch; }
 .mg-detail__full .web__screen { min-height: 0; height: 100%; }
 .cp-out .mg-detail__full .web__screen img { animation-duration: 70s; }
