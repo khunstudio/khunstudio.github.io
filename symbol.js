@@ -1,7 +1,7 @@
 // KHUN studio 브랜드 심볼 모션 (Three.js)
 // 인트로의 체계(FLATLINE → EYES OPEN → RE:VIBE)를 그대로 3D로 옮깁니다.
 //  - CORE (FLATLINE): 0의 상태. 단단한 유리 겉과, 그 안에서 평평했다가 살아나는 픽셀 파동
-//  - EYES OPEN: 하나로 굴러다니던 눈동자가 두 개로 나뉩니다
+//  - CORE 카드에서는 구 안에서 유리 심볼이 돕니다 (EYES OPEN은 상세 페이지의 픽셀 모션이 맡습니다)
 //  - RE:VIBE: 실제 로고 윤곽선 여러 겹이 인피니트 심볼처럼 요동칩니다
 // data-symbol="full | core | eyes | revibe" 인 요소마다 하나씩 그립니다. 화면에 보일 때만 움직입니다.
 import * as THREE from 'three';
@@ -235,7 +235,14 @@ async function mount(el) {
   const root = new THREE.Group(); scene.add(root);
   const P = {};
   if (mode === 'full' || mode === 'core') { P.core = core(1); root.add(P.core); }
-  if (mode === 'full' || mode === 'eyes') { P.eyes = eyes(mode === 'eyes' ? 1.6 : 1); root.add(P.eyes); }
+  if (mode === 'eyes') { P.eyes = eyes(1.6); root.add(P.eyes); }
+  if (mode === 'core') {
+    // 단단한 코어 안에서 쿤의 유리 심볼이 돕니다
+    P.inner = await revibe(await loadMark(), 0, true);
+    P.inner.scale.setScalar(0.62);
+    P.inner.traverse((o) => { if (o.isMesh) o.material = glass(); }); // 더 또렷한 유리
+    root.add(P.inner);
+  }
   if (mode === 'full' || mode === 'revibe') {
     const mark = await loadMark();
     P.revibe = await revibe(mark, mode === 'full' ? 5 : 7, mode === 'revibe');
@@ -274,6 +281,7 @@ async function mount(el) {
     root.rotation.x += (pointer.y * 0.25 - root.rotation.x) * 0.05;
     root.rotation.y += (pointer.x * 0.35 + Math.sin(t * 0.2) * 0.25 - root.rotation.y) * 0.05;
     if (P.core) P.core.rotation.y = t * 0.12;
+    if (P.inner) { P.inner.rotation.y = t * 0.6; P.inner.rotation.x = Math.sin(t * 0.5) * 0.25; }
     if (P.revibe) { P.revibe.rotation.y = Math.sin(t * 0.45) * 0.5; P.revibe.rotation.x = Math.sin(t * 0.3) * 0.2; }
     bloom.strength = (mode === 'revibe' ? 0.3 : 0.45) + 0.3 * b;
     composer.render();

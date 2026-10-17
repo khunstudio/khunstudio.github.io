@@ -927,14 +927,12 @@ body { padding-bottom: 44px; }
 /* KHUN studio 원형 심볼: 숨 쉬듯 뛰고, 겉으로 진동이 퍼져 나갑니다 */
 .origin-mark { position: relative; display: grid; aspect-ratio: 3 / 2; overflow: hidden; border: 1px solid var(--line); background: #f4efe8; }
 .origin-mark img { grid-area: 1 / 1; place-self: center; width: 70%; padding: 0 !important; border: 0 !important; background: none !important; }
-.origin-mark__main { animation: markbeat 2.4s cubic-bezier(.3, .7, .3, 1) infinite; }
-.origin-mark__echo { opacity: 0; animation: markecho 2.4s ease-out infinite; }
-.origin-mark__echo--2 { animation-delay: .35s; }
-@keyframes markbeat { 0%, 100% { transform: scale(1) rotate(0deg); } 12% { transform: scale(1.05) rotate(-1.5deg); } 24% { transform: scale(.98) rotate(.8deg); } 36% { transform: scale(1.03) rotate(-.6deg); } 55% { transform: scale(1) rotate(0deg); } }
-@keyframes markecho { 0% { opacity: .35; transform: scale(1) rotate(0deg); } 70%, 100% { opacity: 0; transform: scale(1.32) rotate(-6deg); } }
-@media (prefers-reduced-motion: reduce) { .origin-mark img { animation: none !important; } }
+.origin-mark__chrome { grid-area: 1 / 1; position: relative; height: 92%; aspect-ratio: 1; place-self: center; }
+.origin-mark__chrome canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
+.origin-mark .origin-mark__fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 6% !important; transition: opacity .6s; }
+.origin-mark__chrome.is-live .origin-mark__fallback { opacity: 0; }
 [data-theme="dark"] .origin-mark { background: #0b1a14; }
-[data-theme="dark"] .origin-mark img { filter: invert(1); }
+[data-theme="dark"] .origin-mark__fallback { filter: invert(1); }
 /* KHUN studio 아이덴티티 가이드 */
 .kg { margin-top: clamp(24px, 3vw, 40px); }
 .kg-cons { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: clamp(16px, 2.4vw, 32px); align-items: center; }
@@ -952,16 +950,18 @@ body { padding-bottom: 44px; }
 .kg-mean li b { display: block; margin: 2px 0; font-size: 18px; font-weight: 600; color: var(--fg); }
 .kg-tile { position: relative; display: grid; aspect-ratio: 4 / 3; overflow: hidden; background: #383838; border: 1px solid var(--line); }
 .kg-tile img { grid-area: 1 / 1; place-self: center; width: 78%; }
-/* 심볼을 두 고리로 나눠: 진동 = 서로 반대로 떨림, 바퀴 = 두 바퀴가 함께 굴러감 */
-.kg-loop { grid-area: 1 / 1; place-self: center; width: 72%; height: auto; }
-.kg-loop--l { transform-origin: 24.2% 35.3%; }  /* 'ㅋ' 무게중심 */
-.kg-loop--r { transform-origin: 61% 49.4%; }    /* 'ㅜㄴ' 무게중심 */
-.kg-tile--vib .kg-loop--l { animation: kgvibl .7s ease-in-out infinite alternate; }
-.kg-tile--vib .kg-loop--r { animation: kgvibr .7s ease-in-out infinite alternate; }
-@keyframes kgvibl { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
-@keyframes kgvibr { from { transform: rotate(10deg); } to { transform: rotate(-10deg); } }
-.kg-tile--wheel .kg-loop { animation: kgwheel 5s linear infinite; }
-.kg-tile--wheel .kg-loop--r { animation-duration: 5s; animation-delay: -1.2s; }
+/* 두 고리(ㅋ · ㅜㄴ)를 원본 위치에 겹쳐 두고, 각자 자기 무게중심을 축으로 따로 움직입니다 */
+.kg-pair { grid-area: 1 / 1; place-self: center; position: relative; width: 70%; aspect-ratio: 1200 / 799; }
+.kg-pair img { position: absolute; height: auto; filter: invert(1); }
+.kg-pair__a { left: 39%; top: 4.47%; width: 61.36%; transform-origin: 37.5% 54.1%; }
+.kg-pair__b { left: -.08%; top: -.35%; width: 60.32%; transform-origin: 55.2% 36.8%; }
+.kg-tile--vib .kg-pair__a { animation: kgjitA .52s linear infinite; }
+.kg-tile--vib .kg-pair__b { animation: kgjitB .67s linear infinite; }
+@keyframes kgjitA { 0%, 100% { transform: none; } 20% { transform: translate(1.6%, -1.2%) rotate(-5deg); } 45% { transform: translate(-1.2%, 1.4%) rotate(4deg); } 70% { transform: translate(1%, .8%) rotate(-3deg); } 85% { transform: translate(-1.4%, -.6%) rotate(5deg); } }
+@keyframes kgjitB { 0%, 100% { transform: none; } 25% { transform: translate(-1.4%, 1%) rotate(6deg); } 50% { transform: translate(1.2%, -1.5%) rotate(-4deg); } 75% { transform: translate(-.8%, -.8%) rotate(3deg); } }
+.kg-tile--wheel .kg-pair { width: 50%; }
+.kg-tile--wheel .kg-pair__a { animation: kgwheel 4s linear infinite; }
+.kg-tile--wheel .kg-pair__b { animation: kgwheel 5.5s linear infinite; }
 @keyframes kgwheel { to { transform: rotate(360deg); } }
 .kg-tile--khun img { width: 70%; opacity: 0; animation: kgkhun 7.5s ease-in-out infinite; }
 .kg-tile--khun img:nth-child(2) { animation-delay: 2.5s; }
@@ -1024,3 +1024,7 @@ body { padding-bottom: 44px; }
   .mg-photo img:first-child { grid-row: auto; grid-column: 1 / -1; }
   .mg-photo img:last-child { grid-column: 1 / -1; }
 }
+
+/* 심볼 카드: 검은 카드 위 제목이 묻히지 않게 */
+.sym-cards h3 { color: #eef5f1; }
+.sym-cards p { color: #9aa8a1; }

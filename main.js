@@ -67,8 +67,7 @@ function drawLogoInk(img, size, box = size) {
   return { canvas, data: d };
 }
 
-async function mountLogo(img) {
-  const el = document.getElementById('logo');
+async function mountLogo(img, el = document.getElementById('logo')) {
   if (!el) return;
   try {
     const { canvas } = drawLogoInk(img, 1400);
@@ -483,8 +482,13 @@ function mountIntro(img) {
   requestAnimationFrame(frame);
 }
 
-loadImage(LOGO.src).then((img) => {
-  mountIntro(img);
-  mountLogo(img);
-});
-mountEcg();
+// 메인 페이지에서만 실행합니다. KHUN studio 상세 페이지는 아래 export를 가져다 씁니다.
+if (document.getElementById('intro')) {
+  loadImage(LOGO.src).then((img) => {
+    mountIntro(img);
+    mountLogo(img);
+  });
+  mountEcg();
+}
+
+export { INTRO, STAGE, paintFrame, buildLogoField, mountLogo, loadImage };

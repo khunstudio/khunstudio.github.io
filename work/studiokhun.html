@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css">
-  <link rel="stylesheet" href="../styles.css?v=84">
+  <link rel="stylesheet" href="../styles.css?v=85">
 </head>
 <body>
   <header class="hud">
@@ -67,7 +67,7 @@
           </div>
         </div>
         <div class="cp-origin">
-          <div class="origin-mark" role="img" aria-label="KHUN studio 심볼 원형"><img class="origin-mark__echo" src="../assets/studiokhun/khun-mark.svg" alt=""><img class="origin-mark__echo origin-mark__echo--2" src="../assets/studiokhun/khun-mark.svg" alt=""><img class="origin-mark__main" src="../assets/studiokhun/khun-mark.svg" alt=""></div>
+          <div class="origin-mark" role="img" aria-label="KHUN studio 크롬 심볼"><div class="origin-mark__chrome" id="origin-chrome"><img class="origin-mark__fallback" src="../assets/studiokhun/khun-mark.svg" alt=""></div></div>
           <ol class="cp-flow">
             <li><span>01</span>FLATLINE</li>
             <li><span>03</span>EYES OPEN</li>
@@ -96,8 +96,8 @@
         </div>
         <p class="guide__label"><b>02</b> MEANING</p>
         <ul class="kg-mean">
-          <li><div class="kg-tile kg-tile--vib"><canvas class="kg-loop kg-loop--l" width="1200" height="799"></canvas><canvas class="kg-loop kg-loop--r" width="1200" height="799"></canvas></div><span>VIBRATION</span><b>진동</b>멈춘 브랜드를 흔드는 새로운 떨림</li>
-          <li><div class="kg-tile kg-tile--wheel"><canvas class="kg-loop kg-loop--l" width="1200" height="799"></canvas><canvas class="kg-loop kg-loop--r" width="1200" height="799"></canvas></div><span>DRIVE</span><b>바퀴</b>브랜드를 다시 굴러가게 하는 원동력</li>
+          <li><div class="kg-tile kg-tile--vib"><div class="kg-pair"><img class="kg-pair__b" src="../assets/studiokhun/guide/loop-b.png" alt=""><img class="kg-pair__a" src="../assets/studiokhun/guide/loop-a.png" alt=""></div></div><span>VIBRATION</span><b>진동</b>멈춘 브랜드를 흔드는 새로운 떨림</li>
+          <li><div class="kg-tile kg-tile--wheel"><div class="kg-pair"><img class="kg-pair__b" src="../assets/studiokhun/guide/loop-b.png" alt=""><img class="kg-pair__a" src="../assets/studiokhun/guide/loop-a.png" alt=""></div></div><span>DRIVE</span><b>바퀴</b>브랜드를 다시 굴러가게 하는 원동력</li>
           <li><div class="kg-tile kg-tile--khun"><img src="../assets/studiokhun/guide/k-mark.png" alt="심볼"><img src="../assets/studiokhun/guide/k-hand.png" alt="손으로 풀어 쓴 쿤"><img src="../assets/studiokhun/guide/k-bold.png" alt="굵게 다듬은 쿤"></div><span>NAME</span><b>쿤</b>풀어 쓰면 드러나는 이름</li>
           <li><div class="kg-tile kg-tile--x"><em>f(</em><img src="../assets/studiokhun/khun-mark.svg" alt="미지수 x처럼 보이는 심볼"><em>)</em></div><span>UNKNOWN</span><b>x</b>아직 정해지지 않은 브랜드의 값</li>
         </ul>
@@ -109,7 +109,7 @@
           <li><div class="tile kg-v kg-v--rev"><img src="../assets/studiokhun/khun-mark.svg" alt="화이트 심볼"></div><span>SOLID WHITE</span>어두운 바탕</li>
         </ul>
         <p class="guide__label"><b>04</b> COLOR CODE</p>
-        <ul class="guide__palette"><li class="sw is-campaign"><i style="background:#3DFFA2"></i><span>PRIMARY</span><b>리바이브 그린</b><em>심볼 · 심전도 · 강조</em><dl><div><dt>HEX</dt><dd>#3DFFA2</dd></div><div><dt>RGB</dt><dd>61 255 162</dd></div><div><dt>CMYK</dt><dd>76 0 36 0</dd></div></dl></li><li class="sw"><i style="background:#0A8F55"></i><span>PRIMARY · LIGHT</span><b>펄스 그린</b><em>밝은 화면의 강조</em><dl><div><dt>HEX</dt><dd>#0A8F55</dd></div><div><dt>RGB</dt><dd>10 143 85</dd></div><div><dt>CMYK</dt><dd>93 0 41 44</dd></div></dl></li><li class="sw"><i style="background:#020A06"></i><span>BASE</span><b>모니터 블랙</b><em>어두운 화면 바탕</em><dl><div><dt>HEX</dt><dd>#020A06</dd></div><div><dt>RGB</dt><dd>2 10 6</dd></div><div><dt>CMYK</dt><dd>80 0 40 96</dd></div></dl></li><li class="sw"><i style="background:#F4F2EC"></i><span>BASE</span><b>페이퍼 아이보리</b><em>밝은 화면 바탕</em><dl><div><dt>HEX</dt><dd>#F4F2EC</dd></div><div><dt>RGB</dt><dd>244 242 236</dd></div><div><dt>CMYK</dt><dd>0 1 3 4</dd></div></dl></li><li class="sw"><i style="background:#17211B"></i><span>TEXT</span><b>잉크</b><em>본문 · 로고</em><dl><div><dt>HEX</dt><dd>#17211B</dd></div><div><dt>RGB</dt><dd>23 33 27</dd></div><div><dt>CMYK</dt><dd>30 0 18 87</dd></div></dl></li><li class="sw"><i style="background:#FF4D5E"></i><span>SIGNAL</span><b>플랫라인 레드</b><em>멈춤 · 경고 신호</em><dl><div><dt>HEX</dt><dd>#FF4D5E</dd></div><div><dt>RGB</dt><dd>255 77 94</dd></div><div><dt>CMYK</dt><dd>0 70 63 0</dd></div></dl></li></ul>
+        <ul class="guide__palette"><li class="sw is-campaign"><i style="background:#3DFFA2"></i><span>PRIMARY</span><b>그린</b><em>심볼 · 심전도 · 강조</em><dl><div><dt>HEX</dt><dd>#3DFFA2</dd></div><div><dt>RGB</dt><dd>61 255 162</dd></div><div><dt>CMYK</dt><dd>76 0 36 0</dd></div></dl></li><li class="sw"><i style="background:#0A8F55"></i><span>PRIMARY · LIGHT</span><b>다크 그린</b><em>밝은 화면의 강조</em><dl><div><dt>HEX</dt><dd>#0A8F55</dd></div><div><dt>RGB</dt><dd>10 143 85</dd></div><div><dt>CMYK</dt><dd>93 0 41 44</dd></div></dl></li><li class="sw"><i style="background:#020A06"></i><span>BASE</span><b>블랙</b><em>어두운 화면 바탕</em><dl><div><dt>HEX</dt><dd>#020A06</dd></div><div><dt>RGB</dt><dd>2 10 6</dd></div><div><dt>CMYK</dt><dd>80 0 40 96</dd></div></dl></li><li class="sw"><i style="background:#F4F2EC"></i><span>BASE</span><b>아이보리</b><em>밝은 화면 바탕</em><dl><div><dt>HEX</dt><dd>#F4F2EC</dd></div><div><dt>RGB</dt><dd>244 242 236</dd></div><div><dt>CMYK</dt><dd>0 1 3 4</dd></div></dl></li><li class="sw"><i style="background:#17211B"></i><span>TEXT</span><b>차콜</b><em>본문 · 로고</em><dl><div><dt>HEX</dt><dd>#17211B</dd></div><div><dt>RGB</dt><dd>23 33 27</dd></div><div><dt>CMYK</dt><dd>30 0 18 87</dd></div></dl></li><li class="sw"><i style="background:#FF4D5E"></i><span>SIGNAL</span><b>레드</b><em>멈춤 · 경고 신호</em><dl><div><dt>HEX</dt><dd>#FF4D5E</dd></div><div><dt>RGB</dt><dd>255 77 94</dd></div><div><dt>CMYK</dt><dd>0 70 63 0</dd></div></dl></li></ul>
       </div>
     </section>
 
@@ -122,13 +122,13 @@
           <div class="sym-card__stage" data-symbol="core" aria-hidden="true"></div>
           <p class="sym-card__no">01 — FLATLINE · CORE</p>
           <h3>Core</h3>
-          <p>멈춤이자 0의 상태. 단단한 겉 안에 살아 움직이는 파동과 모든 가능성을 품은 구체.</p>
+          <p>멈춤이자 0의 상태. 단단한 코어 안에서 쿤의 심볼이 천천히 돌며 깨어날 순간을 기다립니다.</p>
         </li>
         <li>
-          <div class="sym-card__stage" data-symbol="eyes" aria-hidden="true"></div>
+          <div class="sym-card__stage" data-pixel-eyes aria-hidden="true"><canvas></canvas></div>
           <p class="sym-card__no">03 — EYES OPEN</p>
           <h3>Eyes Open</h3>
-          <p>하나로 굴러다니던 눈동자가 두 개로 나뉩니다. 소통하고 생각하는 두 시선.</p>
+          <p>로고의 두 고리가 각자 빙글빙글 돌며 풀려, 두 개의 눈으로 깨어납니다. 소통하고 생각하는 두 시선.</p>
         </li>
         <li>
           <div class="sym-card__stage" data-symbol="revibe" aria-hidden="true"></div>
@@ -151,29 +151,30 @@
   </footer>
   <script src="../vital.js?v=3" defer></script>
   <script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-  <script type="module" src="../symbol.js?v=5"></script>
-  <script>
-    // 심볼을 'ㅋ'(왼쪽 고리)과 'ㅜㄴ'(오른쪽 고리)으로 나눠 그립니다. 각 조각은 CSS에서 자기 무게중심을 축으로 돕니다.
-    (function () {
-      var loops = document.querySelectorAll('.kg-loop');
-      if (!loops.length) return;
-      var img = new Image();
-      img.onload = function () {
-        var W = 1200, H = 799, c = document.createElement('canvas'); c.width = W; c.height = H;
-        var x = c.getContext('2d'); x.drawImage(img, 0, 0, W, H);
-        var src = x.getImageData(0, 0, W, H).data;
-        loops.forEach(function (cv) {
-          var left = cv.classList.contains('kg-loop--l'), g = cv.getContext('2d'), out = g.createImageData(W, H);
-          for (var Y = 0; Y < H; Y++) for (var X = 0; X < W; X++) {
-            var i = (Y * W + X) * 4, a = src[i + 3]; if (!a) continue;
-            if ((X < 560 - Y / H * 90) !== left) continue; // 가운데 교차부를 비스듬히 가르는 선
-            out.data[i] = out.data[i + 1] = out.data[i + 2] = 255; out.data[i + 3] = a;
-          }
-          g.putImageData(out, 0, 0);
-        });
-      };
-      img.src = '../assets/studiokhun/khun-mark.svg';
-    })();
+  <script type="module" src="../symbol.js?v=7"></script>
+  <script type="module">
+    // 메인 페이지와 같은 코드: 크롬(리퀴드 메탈) 심볼, 그리고 두 고리가 돌며 눈으로 바뀌는 픽셀 모션
+    import { INTRO, STAGE, paintFrame, buildLogoField, mountLogo, loadImage } from '../main.js?v=14';
+    loadImage('../assets/studiokhun/khun-mark.svg').then((img) => mountLogo(img, document.getElementById('origin-chrome')));
+
+    const stage = document.querySelector('[data-pixel-eyes]');
+    if (stage) loadImage('../assets/logo.png').then((img) => {
+      Object.assign(INTRO, { dead: [96, 116, 104], live: [61, 255, 162], flash: 235 }); // 검은 카드 위라 밝은 민트로
+      const field = buildLogoField(img, INTRO.grid);
+      const cv = stage.querySelector('canvas'), ctx = cv.getContext('2d');
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let size = 0, visible = false;
+      const resize = () => { const d = Math.min(devicePixelRatio || 1, 2); size = stage.clientWidth; cv.width = cv.height = Math.round(size * d); ctx.setTransform(d, 0, 0, d, 0, 0); };
+      // 10초 주기: 로고 → 두 고리가 돌며 풀림 → 두 눈 → 두리번 → 다시 돌며 로고로
+      const EYES = 0.3, LOGO = INTRO.morph[1];
+      const sm = (x) => x * x * (3 - 2 * x);
+      const phase = (t) => { const k = (t % 10) / 10; return k < 0.15 ? LOGO : k < 0.45 ? LOGO + (EYES - LOGO) * sm((k - 0.15) / 0.3) : k < 0.65 ? EYES : k < 0.95 ? EYES + (LOGO - EYES) * sm((k - 0.65) / 0.3) : LOGO; };
+      const draw = (now) => { const t = now / 1000; paintFrame(ctx, size, 110, STAGE * 0.29, reduce ? EYES : phase(t), field, { now, tick: Math.floor(now / 80), lookX: Math.sin(t * 1.1) * 7, lookY: Math.cos(t * 0.8) * 4 }); };
+      const loop = (now) => { requestAnimationFrame(loop); if (visible && size) draw(now); };
+      new ResizeObserver(() => { resize(); draw(performance.now()); }).observe(stage);
+      new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(stage);
+      if (!reduce) requestAnimationFrame(loop);
+    });
   </script>
 </body>
 </html>
