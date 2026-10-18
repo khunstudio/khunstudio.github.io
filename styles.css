@@ -465,7 +465,7 @@ em { font-style: italic; }
 .goods__set--case img { aspect-ratio: 3 / 2; }
 .goods__set--case img:first-child { grid-row: span 2; aspect-ratio: 3 / 4; }
 /* 볼펜: 세로(3:4) + 가로(4:3), 높이 맞춤 → 폭 9 : 16 */
-.goods__set--pen2 { grid-template-columns: 9fr 16fr; }
+.goods__set.goods__set--pen2 { grid-template-columns: 9fr 16fr; } /* 모바일에서도 두 사진 높이가 같게 */
 .goods__set--pen2 img:first-child { aspect-ratio: 3 / 4; }
 .goods__set--pen2 img:last-child { aspect-ratio: 4 / 3; }
 /* 엽서 번호 */
@@ -711,6 +711,7 @@ body { padding-bottom: 44px; }
   .cp-steps > li:nth-child(n) { margin-top: 0; }
   .cp-out__info { position: static; }
   .cp-meta { grid-template-columns: 1fr 1fr; }
+  .cp-meta div:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .cp-vitals, .cp-vitals.cp-vitals--film { grid-template-columns: 1fr; }
   .film__result { grid-template-columns: 1fr; }
   .film__result li { width: auto; flex: 1; }
@@ -941,8 +942,10 @@ body { padding-bottom: 44px; }
 .kg-cons__stage { position: relative; display: grid; margin: 0; aspect-ratio: 1; background: #fff; border: 1px solid var(--line); overflow: hidden; }
 .kg-cons__stage img { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; }
 .kg-cons__grid { opacity: .9; }
-.kg-cons__mark { animation: kgreveal 7s ease-in-out infinite; }
-@keyframes kgreveal { 0%, 20% { opacity: 0; } 45%, 80% { opacity: 1; } 100% { opacity: 0; } }
+.kg-cons__line { animation: kgline 8s ease-in-out infinite; }
+.kg-cons__mark { animation: kgreveal 8s ease-in-out infinite; }
+@keyframes kgline { 0%, 12% { opacity: 0; } 28%, 88% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes kgreveal { 0%, 40% { opacity: 0; } 56%, 86% { opacity: 1; } 100% { opacity: 0; } }
 .kg-cons figcaption { font-size: 14px; line-height: 1.8; color: var(--muted); }
 .kg-cons figcaption b { color: var(--fg); font-weight: 600; }
 .guide .kg-cons + .guide__label, .guide .kg-mean + .guide__label, .guide .kg-var + .guide__label { margin-top: 28px !important; }
@@ -953,7 +956,7 @@ body { padding-bottom: 44px; }
 .kg-tile { position: relative; display: grid; aspect-ratio: 4 / 3; overflow: hidden; background: #383838; border: 1px solid var(--line); }
 .kg-tile img { grid-area: 1 / 1; place-self: center; width: 78%; }
 /* 의미 타일: 진동 = 바이탈 선의 격동, 바퀴 = 두 고리가 각자 돈다 */
-.kg-vib { grid-area: 1 / 1; width: 100%; height: 100%; }
+.kg-vib { position: absolute; inset: 0; width: 100%; height: 100%; } /* 일부 모바일 브라우저에서 높이 0이 되던 문제 */
 /* 바퀴: 두 고리를 나란히 떼어 놓고, 각자 자기 중심에서 다른 속도로 빙글빙글 */
 .kg-wheels { grid-area: 1 / 1; place-self: center; display: flex; align-items: center; justify-content: center; gap: 4%; width: 86%; }
 .kg-wheels img { width: 46%; height: auto; filter: invert(1); transform-origin: 50% 50%; }
@@ -967,7 +970,7 @@ body { padding-bottom: 44px; }
 .kg-v img { position: absolute; inset: 12%; width: 76%; height: 76%; object-fit: contain; }
 .kg-v--chrome { background: #000; } .kg-v--line { background: #383838; } .kg-v--rev { background: #020a06; } .kg-v--rev img { filter: invert(1); }
 .kg-v:not(.kg-v--chrome):not(.kg-v--line):not(.kg-v--rev) { background: #fff; }
-@media (prefers-reduced-motion: reduce) { .kg img { animation: none !important; } .kg-tile--khun img:first-child, .kg-cons__mark { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .kg img { animation: none !important; } .kg-tile--khun img:first-child, .kg-cons__mark, .kg-cons__line { opacity: 1; } }
 @media (max-width: 700px) { .kg-cons { grid-template-columns: 1fr; } .kg-mean { grid-template-columns: repeat(2, 1fr); gap: 10px; } .kg-mean li { font-size: 10px; } .kg-mean li b { font-size: 14px; } }
 .kg-tile--x { grid-auto-flow: column; place-content: center; align-items: center; gap: 4%; }
 .kg-tile--x > * { grid-area: auto; }
@@ -1010,19 +1013,18 @@ body { padding-bottom: 44px; }
 .mg-detail__cuts { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0; padding: 0; }
 .cp-out .mg-detail__cuts img { aspect-ratio: 3 / 4; object-fit: cover; object-position: top; }
 .mg-detail__cuts span { display: block; margin-top: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--acc); }
-.mg-photo { display: grid; grid-template-columns: 1.1fr 1fr 1fr; grid-template-rows: auto auto; gap: 12px; margin-top: 16px; }
+.mg-photo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
 .cp-out .mg-photo img { height: 100%; object-fit: cover; }
-.mg-photo img:first-child { grid-row: span 2; }
-.mg-photo img:last-child { grid-column: 2 / 4; aspect-ratio: 2 / 1; }
+.cp-out .mg-photo img:not(:last-child) { aspect-ratio: 3 / 2; }
+.mg-photo img:last-child { grid-column: 1 / -1; aspect-ratio: 2 / 1; }
 @media (max-width: 760px) {
   .mg-detail { grid-template-columns: 1fr; }
   .mg-detail__full .web__screen { height: 460px; }
   .mg-detail__cuts { grid-template-columns: 1fr 1fr; }
-  .mg-photo { grid-template-columns: 1fr 1fr; }
-  .mg-photo img:first-child { grid-row: auto; grid-column: 1 / -1; }
-  .mg-photo img:last-child { grid-column: 1 / -1; }
 }
 
 /* 심볼 카드: 검은 카드 위 제목이 묻히지 않게 */
 .sym-cards h3 { color: #eef5f1; }
 .sym-cards p { color: #9aa8a1; }
+
+.kg-var { grid-template-columns: repeat(3, 1fr); }
