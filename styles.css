@@ -1028,3 +1028,4 @@ body { padding-bottom: 44px; }
 .sym-cards p { color: #9aa8a1; }
 
 .kg-var { grid-template-columns: repeat(3, 1fr); }
+.cp-credit { margin-top: 6px !important; font-size: 12px !important; color: var(--muted); opacity: .7; }
