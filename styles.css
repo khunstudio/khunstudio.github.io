@@ -963,7 +963,7 @@ body { padding-bottom: 44px; }
 .kg-tile--wheel .kg-pair__b { animation: kgwheel 3.2s cubic-bezier(.55, .05, .45, .95) infinite; }
 .kg-tile--wheel .kg-pair__a { animation: kgwheel 4.7s cubic-bezier(.7, 0, .3, 1) infinite reverse; }
 @keyframes kgwheel { to { transform: rotate(360deg); } }
-.kg-tile--khun img { width: 70%; opacity: 0; animation: kgkhun 7.5s ease-in-out infinite; }
+.kg-tile--khun img { width: auto; max-width: 64%; max-height: 56%; opacity: 0; /* 다른 세 칸과 같은 높이감 */ animation: kgkhun 7.5s ease-in-out infinite; }
 .kg-tile--khun img:nth-child(2) { animation-delay: 2.5s; }
 .kg-tile--khun img:nth-child(3) { animation-delay: 5s; }
 @keyframes kgkhun { 0% { opacity: 0; transform: scale(.94); } 8%, 30% { opacity: 1; transform: scale(1); } 40%, 100% { opacity: 0; transform: scale(1.04); } }
