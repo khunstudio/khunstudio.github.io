@@ -1029,3 +1029,13 @@ body { padding-bottom: 44px; }
 
 .kg-var { grid-template-columns: repeat(3, 1fr); }
 .cp-credit { margin-top: 6px !important; font-size: 12px !important; color: var(--muted); opacity: .7; }
+
+/* ── 아주 좁은 화면 (갤럭시 폴드 접은 화면 · 작은 폰) ── */
+@media (max-width: 420px) {
+  .hud { gap: 10px; }
+  .hud__vital { display: none; } /* 같은 정보가 아래 바이탈 바에 있습니다 */
+  /* 윙스피킹 웹 목업: 도구 칸을 한 줄씩 쌓아 화면 밖으로 밀리지 않게 */
+  .web { grid-template-columns: minmax(0, 1fr); }
+  .web__tools { grid-template-columns: 1fr; }
+  .web__live { flex-wrap: wrap; text-align: center; }
+}

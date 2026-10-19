@@ -32,7 +32,7 @@
       fold();
       later(() => {
         const faces = lf.querySelectorAll('.lf__face');
-        ['mi', 'mo', 'ri', 'lo', 'li', 'ro'].forEach((k, i) => { faces[i].style.backgroundImage = `url(${b.dataset.set}${k}.jpg)`; });
+        ['mi', 'mo', 'ri', 'lo', 'li', 'ro'].forEach((k, i) => { faces[i].style.backgroundImage = `url(${b.dataset.set}${k}.webp)`; });
         lf.closest('.lf-feature').style.setProperty('--tone', b.dataset.tone);
         reveal();
       }, 1200);
@@ -71,8 +71,8 @@
   function open(item) {
     const id = item.dataset.id, name = item.querySelector('h4').textContent;
     box.querySelector('.lf-box__title').textContent = name;
-    Object.assign(box.querySelector('.lf-box__out'), { src: `${base}${id}-out.jpg`, alt: `${name} 리플렛 바깥면` });
-    Object.assign(box.querySelector('.lf-box__in'), { src: `${base}${id}-in.jpg`, alt: `${name} 리플렛 안쪽면` });
+    Object.assign(box.querySelector('.lf-box__out'), { src: `${base}${id}-out.webp`, alt: `${name} 리플렛 바깥면` });
+    Object.assign(box.querySelector('.lf-box__in'), { src: `${base}${id}-in.webp`, alt: `${name} 리플렛 안쪽면` });
     lastFocus = document.activeElement;
     box.hidden = false;
     box.scrollTop = 0;
