@@ -939,7 +939,7 @@ body { padding-bottom: 44px; }
 /* KHUN studio 아이덴티티 가이드 */
 .kg { margin-top: clamp(24px, 3vw, 40px); }
 .kg-cons { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: clamp(16px, 2.4vw, 32px); align-items: center; }
-.kg-cons__stage { position: relative; display: grid; margin: 0; aspect-ratio: 918 / 511; background: #fff; border: 1px solid var(--line); overflow: hidden; }
+.kg-cons__stage { position: relative; display: grid; margin: 0; aspect-ratio: 2000 / 1108; background: #fff; border: 1px solid var(--line); overflow: hidden; }
 .kg-cons__stage img { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; }
 .kg-cons__grid { opacity: .9; }
 .kg-cons__line { animation: kgline 8s ease-in-out infinite; }
@@ -1038,3 +1038,4 @@ body { padding-bottom: 44px; }
 .web__thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .cp-out .web__prog img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
 @media (max-width: 700px) { .web__banners { grid-template-columns: 1fr; } .web__thumbs { grid-template-columns: 1fr 1fr; } }
+.kg-wheels--eyes img { filter: none; } /* 흰 눈 원본을 그대로 */
