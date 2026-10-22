@@ -157,7 +157,7 @@ function core(r = 1) {
 
 // ── EYES OPEN: 로고의 두 고리(ㅋ · ㅜㄴ)가 각자 빙글빙글 돌며 풀려 두 개의 눈이 됩니다
 async function eyes() {
-  const H = await fetch(new URL('assets/studiokhun/khun-halves.json', base)).then((r) => r.json());
+  const H = await fetch(new URL('assets/studiokhun/khun-halves.json?v=3', base)).then((r) => r.json());
   const g = new THREE.Group(), parts = [];
   for (const [k, spin] of [['b', 2], ['a', -1.5]]) {
     const shape = new THREE.Shape(H[k].map(([x, y]) => new THREE.Vector2(x, y)));
@@ -232,7 +232,7 @@ async function revibe(mark, copies = 6, solid = true) {
 }
 
 let markPoints = null;
-const loadMark = () => (markPoints ||= fetch(new URL('assets/studiokhun/khun-mark.json', base)).then((r) => r.json()));
+const loadMark = () => (markPoints ||= fetch(new URL('assets/studiokhun/khun-mark.json?v=3', base)).then((r) => r.json()));
 
 async function mount(el) {
   const mode = el.dataset.symbol || 'full';

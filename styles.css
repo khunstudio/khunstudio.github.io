@@ -939,7 +939,7 @@ body { padding-bottom: 44px; }
 /* KHUN studio 아이덴티티 가이드 */
 .kg { margin-top: clamp(24px, 3vw, 40px); }
 .kg-cons { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: clamp(16px, 2.4vw, 32px); align-items: center; }
-.kg-cons__stage { position: relative; display: grid; margin: 0; aspect-ratio: 1; background: #fff; border: 1px solid var(--line); overflow: hidden; }
+.kg-cons__stage { position: relative; display: grid; margin: 0; aspect-ratio: 2000 / 1108; background: #fff; border: 1px solid var(--line); overflow: hidden; }
 .kg-cons__stage img { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; }
 .kg-cons__grid { opacity: .9; }
 .kg-cons__line { animation: kgline 8s ease-in-out infinite; }
@@ -969,7 +969,7 @@ body { padding-bottom: 44px; }
 @keyframes kgkhun { 0% { opacity: 0; transform: scale(.94); } 8%, 30% { opacity: 1; transform: scale(1); } 40%, 100% { opacity: 0; transform: scale(1.04); } }
 .kg-v img { position: absolute; inset: 12%; width: 76%; height: 76%; object-fit: contain; }
 .kg-v--chrome { background: #000; } .kg-v--line { background: #383838; } .kg-v--rev { background: #020a06; } .kg-v--rev img { filter: invert(1); }
-.kg-v:not(.kg-v--chrome):not(.kg-v--line):not(.kg-v--rev) { background: #fff; }
+.kg-v:not(.kg-v--chrome):not(.kg-v--line):not(.kg-v--rev):not(.kg-v--sight) { background: #fff; }
 @media (prefers-reduced-motion: reduce) { .kg img { animation: none !important; } .kg-tile--khun img:first-child, .kg-cons__mark, .kg-cons__line { opacity: 1; } }
 @media (max-width: 700px) { .kg-cons { grid-template-columns: 1fr; } .kg-mean { grid-template-columns: repeat(2, 1fr); gap: 10px; } .kg-mean li { font-size: 10px; } .kg-mean li b { font-size: 14px; } }
 .kg-tile--x { grid-auto-flow: column; place-content: center; align-items: center; gap: 4%; }
@@ -1027,8 +1027,29 @@ body { padding-bottom: 44px; }
 .sym-cards h3 { color: #eef5f1; }
 .sym-cards p { color: #9aa8a1; }
 
-.kg-var { grid-template-columns: repeat(3, 1fr); }
+.kg-var { grid-template-columns: repeat(4, 1fr); }
+.kg-v--sight { background: #020a06; }
+@media (max-width: 700px) { .kg-var { grid-template-columns: 1fr 1fr; } }
 .cp-credit { margin-top: 6px !important; font-size: 12px !important; color: var(--muted); opacity: .7; }
+.web__prog { grid-column: 1 / -1; }
+.web__cap { margin: 18px 0 8px !important; font-size: 12px !important; color: var(--muted); }
+.web__cap span { margin-right: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--acc); }
+.web__banners { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.web__thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.cp-out .web__prog img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+@media (max-width: 700px) { .web__banners { grid-template-columns: 1fr; } .web__thumbs { grid-template-columns: 1fr 1fr; } }
+.kg-wheels--eyes img { filter: none; } /* 흰 눈 원본을 그대로 */
+/* SIGHT: 두 궤도 위를 두 눈이 같은 박자로 빙글빙글 — 고개 대신 시선만 굴리는 느낌 */
+.kg-orbits { grid-area: 1 / 1; place-self: center; display: flex; justify-content: center; gap: 2%; width: 92%; }
+.kg-orbit { position: relative; width: 48%; aspect-ratio: 1853 / 1717; container-type: inline-size; }
+.kg-tile .kg-orbit__path { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .7; }
+.kg-orbit__track { position: absolute; left: var(--cx); top: var(--cy); width: 0; height: 0; transform: rotate(var(--t)); }
+.kg-orbit__x { animation: kgox 2.2s ease-in-out infinite alternate; }
+.kg-orbit__y { animation: kgoy 2.2s ease-in-out -1.1s infinite alternate; }
+.kg-tile .kg-orbit__eye { position: absolute; width: 48cqw; left: -24cqw; top: -29cqw; transform: rotate(calc(var(--t) * -1)); filter: none !important; }
+@keyframes kgox { from { transform: translateX(-15cqw); } to { transform: translateX(15cqw); } }
+@keyframes kgoy { from { transform: translateY(-9cqw); } to { transform: translateY(9cqw); } }
+@media (prefers-reduced-motion: reduce) { .kg-orbit__x, .kg-orbit__y { animation: none; } }
 
 /* ── 아주 좁은 화면 (갤럭시 폴드 접은 화면 · 작은 폰) ── */
 @media (max-width: 420px) {
@@ -1039,3 +1060,20 @@ body { padding-bottom: 44px; }
   .web__tools { grid-template-columns: 1fr; }
   .web__live { flex-wrap: wrap; text-align: center; }
 }
+
+/* ── KHUN 심볼 칸 크기 통일 (CODE · VARIATION) ──
+   기준: 진동 칸 캔버스의 로고가 칸 너비의 54% → 모든 로고를 같은 54%로.
+   두 눈(SIGHT)은 궤도 선까지 포함해 68% — 안쪽 두 눈이 로고와 같은 크기로 보입니다.
+   칸은 위아래 줄 모두 4:3. */
+.kg-mean, .kg-var { --mk: 54%; --mk-sight: 68%; }
+.kg-tile, .guide .kg-v { container-type: inline-size; }
+.guide .kg-v { height: auto; aspect-ratio: 4 / 3; }
+.guide .kg-v img { inset: auto; left: 50%; top: 50%; width: var(--mk); height: auto; transform: translate(-50%, -50%); object-fit: contain; }
+.guide .kg-v--sight img { width: var(--mk-sight); }
+.kg-orbits { width: var(--mk-sight); gap: 0; }
+.kg-orbit { width: 50%; }
+.kg-tile--khun img { max-width: var(--mk); max-height: 38%; }
+.kg-tile--khun img:first-child { max-height: 52%; } /* 세로로 긴 손글씨 쿤은 높이로 맞춥니다 */
+.kg-tile--x { display: flex; justify-content: center; align-items: center; gap: 2cqw; }
+.kg-tile--x img { width: 54cqw; max-width: none; flex: none; }
+.kg-tile--x em { font-size: 13cqw; line-height: 1; margin: 0 -2cqw; } /* 기울어진 글자의 빈 옆 공간을 당겨 괄호를 로고에 붙입니다 */
