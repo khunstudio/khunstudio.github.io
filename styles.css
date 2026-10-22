@@ -1039,3 +1039,14 @@ body { padding-bottom: 44px; }
 .cp-out .web__prog img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
 @media (max-width: 700px) { .web__banners { grid-template-columns: 1fr; } .web__thumbs { grid-template-columns: 1fr 1fr; } }
 .kg-wheels--eyes img { filter: none; } /* 흰 눈 원본을 그대로 */
+/* SIGHT: 두 궤도 위를 두 눈이 같은 박자로 빙글빙글 — 고개 대신 시선만 굴리는 느낌 */
+.kg-orbits { grid-area: 1 / 1; place-self: center; display: flex; justify-content: center; gap: 2%; width: 92%; }
+.kg-orbit { position: relative; width: 48%; aspect-ratio: 1853 / 1717; container-type: inline-size; }
+.kg-tile .kg-orbit__path { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .7; }
+.kg-orbit__track { position: absolute; left: var(--cx); top: var(--cy); width: 0; height: 0; transform: rotate(var(--t)); }
+.kg-orbit__x { animation: kgox 2.2s ease-in-out infinite alternate; }
+.kg-orbit__y { animation: kgoy 2.2s ease-in-out -1.1s infinite alternate; }
+.kg-tile .kg-orbit__eye { position: absolute; width: 48cqw; left: -24cqw; top: -29cqw; transform: rotate(calc(var(--t) * -1)); filter: none !important; }
+@keyframes kgox { from { transform: translateX(-15cqw); } to { transform: translateX(15cqw); } }
+@keyframes kgoy { from { transform: translateY(-9cqw); } to { transform: translateY(9cqw); } }
+@media (prefers-reduced-motion: reduce) { .kg-orbit__x, .kg-orbit__y { animation: none; } }
