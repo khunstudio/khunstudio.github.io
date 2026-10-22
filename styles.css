@@ -1077,3 +1077,4 @@ body { padding-bottom: 44px; }
 .kg-tile--x { display: flex; justify-content: center; align-items: center; gap: 2cqw; }
 .kg-tile--x img { width: 54cqw; max-width: none; flex: none; }
 .kg-tile--x em { font-size: 13cqw; line-height: 1; margin: 0 -2cqw; } /* 기울어진 글자의 빈 옆 공간을 당겨 괄호를 로고에 붙입니다 */
+.kg-tile--x img { animation: none; transform: none; opacity: 1; } /* 미지수: 크기 변화 없이 고정 */
