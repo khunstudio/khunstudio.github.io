@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css">
-  <link rel="stylesheet" href="../styles.css?v=100">
+  <link rel="stylesheet" href="../styles.css?v=101">
 </head>
 <body>
   <header class="hud">
@@ -503,24 +503,25 @@
   </footer>
   <script src="../vital.js?v=3" defer></script>
   <script>
-    // 하늘색 카드: 화면에 보이는 동안 몇 장씩 저절로 뒤집혔다가 돌아옵니다
+    // 하늘색 카드: 절반은 처음부터 뒤집혀 있고, 보이는 동안 앞·뒤 한 장씩 맞바꿔 늘 절반쯤이 포스터를 보입니다
     (() => {
       const wall = document.getElementById('skywall');
       if (!wall) return;
       const cards = [...wall.children];
       cards.forEach((c) => c.addEventListener('click', () => c.classList.toggle('is-flipped')));
+      const pick = (list) => list[Math.floor(Math.random() * list.length)];
+      [...cards].sort(() => Math.random() - 0.5).slice(0, Math.ceil(cards.length / 2)).forEach((c) => c.classList.add('is-flipped'));
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      let on = false, last = -1;
+      let on = false;
       new IntersectionObserver(([e]) => { on = e.isIntersecting; }, { threshold: 0.2 }).observe(wall);
       setInterval(() => {
         if (!on) return;
-        let i; do { i = Math.floor(Math.random() * cards.length); } while (i === last);
-        last = i;
-        const c = cards[i];
-        if (c.matches(':hover')) return;
-        c.classList.add('is-flipped');
-        setTimeout(() => c.classList.remove('is-flipped'), 2600);
-      }, 1100);
+        const idle = cards.filter((c) => !c.matches(':hover'));
+        const up = pick(idle.filter((c) => !c.classList.contains('is-flipped')));
+        const down = pick(idle.filter((c) => c.classList.contains('is-flipped')));
+        up?.classList.add('is-flipped');
+        if (down) setTimeout(() => down.classList.remove('is-flipped'), 180);
+      }, 750);
     })();
   </script>
   <script src="../leaflet.js?v=8" defer></script>

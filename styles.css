@@ -657,7 +657,7 @@ body { padding-bottom: 44px; }
 .skycard:nth-child(5n + 4) { animation-delay: -3.3s; }
 .skycard:nth-child(5n + 5) { animation-delay: -4.4s; }
 @keyframes skyfloat { from { transform: translateY(-7px); } to { transform: translateY(7px); } }
-.skycard__in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.skycard__in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .55s cubic-bezier(.45, 1.6, .5, 1); } /* 빠르게 넘기고 끝에서 살짝 튕김 */
 .skycard.is-flipped .skycard__in,
 .skycard:hover .skycard__in,
 .skycard:focus-visible .skycard__in { transform: rotateY(180deg); }
