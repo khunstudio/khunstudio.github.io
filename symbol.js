@@ -155,39 +155,77 @@ function core(r = 1) {
   return g;
 }
 
-// ── EYES OPEN: 로고의 두 고리(ㅋ · ㅜㄴ)가 각자 빙글빙글 돌며 풀려 두 개의 눈이 됩니다
+// ── EYES OPEN: 로고의 두 고리(ㅋ · ㅜㄴ)가 각자 빙글빙글 돌며 풀려, 궤도 위를 도는 두 개의 눈(SIGHT)이 됩니다
+// 하얀 진주 눈동자: 가운데는 밝고, 가장자리에 무지개빛
+const pearl = () => new THREE.ShaderMaterial({
+  uniforms, vertexShader: VERT,
+  fragmentShader: IRI + /* glsl */`
+    varying vec3 vN; varying vec3 vV; varying vec3 vP;
+    void main() {
+      vec3 n = normalize(vN);
+      float rim = 1.0 - abs(dot(n, normalize(vV)));
+      vec3 c = mix(vec3(0.93, 1.0, 0.97), iri(vP * 3.0, rim), pow(rim, 1.6) * 0.85);
+      c += vec3(1.0) * pow(max(dot(n, normalize(vec3(-0.45, 0.55, 0.7))), 0.0), 40.0) * 0.8;
+      gl_FragColor = vec4(c * (1.0 + 0.25 * uBeat), 1.0);
+    }`,
+});
+const TILT = 0.68; // 고리와 궤도의 기울기 (오른쪽 위로)
 async function eyes() {
-  const H = await fetch(new URL('assets/studiokhun/khun-halves.json?v=3', base)).then((r) => r.json());
+  const H = await fetch(new URL('assets/studiokhun/khun-halves.json?v=4', base)).then((r) => r.json());
   const g = new THREE.Group(), parts = [];
   for (const [k, spin] of [['b', 2], ['a', -1.5]]) {
     const shape = new THREE.Shape(H[k].map(([x, y]) => new THREE.Vector2(x, y)));
-    const geo = new THREE.ExtrudeGeometry(shape, { depth: 0.1, bevelEnabled: true, bevelThickness: 0.035, bevelSize: 0.012, bevelSegments: 4, curveSegments: 4 });
+    const geo = new THREE.ExtrudeGeometry(shape, { depth: 0.12, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.012, bevelSegments: 5, curveSegments: 4 });
     geo.computeBoundingBox();
     const home = geo.boundingBox.getCenter(new THREE.Vector3()); home.z = 0;
-    geo.translate(-home.x, -home.y, -0.05); // 고리마다 자기 중심을 축으로 돕니다
-    const ring = new THREE.Mesh(geo, glass());
-    const pupil = new THREE.Mesh(new THREE.SphereGeometry(0.15, 48, 48), pupilMat());
-    const piece = new THREE.Group(); piece.add(ring, pupil);
-    g.add(piece);
-    parts.push({ piece, ring, pupil, home, spin, side: k === 'a' ? 1 : -1 });
+    geo.translate(-home.x, -home.y, -0.06); // 고리마다 자기 중심을 축으로 돕니다
+    const m = glass(); m.fragmentShader = m.fragmentShader.replace('float a = 0.55 + 0.45 * rim;', 'float a = 0.7 + 0.3 * rim; c *= 1.15;');
+    const ring = new THREE.Mesh(geo, m);
+    // 눈동자: 고리 안쪽 아래에 비스듬히 누운 타원
+    const pupil = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 32), pearl());
+    pupil.rotation.z = TILT - 0.35;
+    const eyeball = new THREE.Group(); eyeball.add(pupil);
+    // 궤도: 눈을 감싸는 두 겹의 얇은 타원
+    const orbits = new THREE.Group();
+    for (const [rx, ry, dx] of [[0.62, 0.34, -0.04], [0.5, 0.27, 0.05]]) {
+      const c = new THREE.EllipseCurve(dx, 0, rx, ry, 0, Math.PI * 2, false, 0);
+      const pts = c.getPoints(160).map((v) => new THREE.Vector3(v.x, v.y, 0));
+      const om = glass(); om.fragmentShader = om.fragmentShader.replace('float a = 0.55 + 0.45 * rim;', 'float a = 0.85; c *= 1.6;');
+      orbits.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 200, 0.006, 6, true), om));
+    }
+    orbits.rotation.z = TILT;
+    const piece = new THREE.Group(); piece.add(ring, eyeball);
+    g.add(piece, orbits);
+    parts.push({ piece, ring, pupil, eyeball, orbits, home, spin, side: k === 'a' ? 1 : -1 });
   }
   g.userData.parts = parts;
   return g;
 }
-const CYCLE = 10; // 초: 로고 → 돌며 풀림 → 두 눈 → 두리번 → 돌며 다시 로고
+const CYCLE = 11; // 초: 로고 → 돌며 풀림 → 궤도 위의 두 눈 → 돌며 다시 로고
+const _v = new THREE.Vector3();
 function updateEyes(g, t) {
   const p = (t % CYCLE) / CYCLE;
-  const open = smooth(0.1, 0.42, p) * (1 - smooth(0.76, 0.98, p)); // 0 = 로고, 1 = 두 눈
-  const pop = smooth(0.4, 0.48, p) * (1 - smooth(0.72, 0.78, p));
-  for (const { piece, ring, pupil, home, spin, side } of g.userData.parts) {
-    const eye = new THREE.Vector3(side * 0.62, 0, 0);
+  const unwind = smooth(0.08, 0.34, p), rewind = smooth(0.8, 0.97, p);
+  const open = unwind * (1 - rewind); // 0 = 로고, 1 = 두 눈
+  const pop = smooth(0.3, 0.4, p) * (1 - smooth(0.74, 0.8, p));
+  for (const { piece, ring, pupil, eyeball, orbits, home, spin, side } of g.userData.parts) {
+    // 눈은 궤도를 따라 일정한 박자로 미끄러지고, 두 눈이 서로 반대 박자로 움직입니다
+    const w = t * 1.6 + (side > 0 ? Math.PI : 0);
+    _v.set(0.1 * Math.cos(w), 0.055 * Math.sin(w), 0).applyAxisAngle(new THREE.Vector3(0, 0, 1), TILT).multiplyScalar(pop);
+    const eye = new THREE.Vector3(side * 0.66 + _v.x, _v.y, 0);
     piece.position.lerpVectors(home, eye, open);
-    piece.scale.setScalar(1 - 0.22 * open);
-    // 풀릴 때와 돌아올 때 각자 다른 바퀴 수로 돌고, 눈일 때는 제자리에서 살짝 흔들립니다
-    ring.rotation.z = spin * Math.PI * 2 * (p < 0.6 ? smooth(0.1, 0.42, p) : 1 - smooth(0.76, 0.98, p)) + 0.06 * Math.sin(t * 1.7 + side) * open;
-    ring.rotation.y = 0.5 * Math.sin(Math.PI * open) * side;
-    pupil.scale.setScalar(Math.max(0.001, pop * (1 + 0.25 * Math.sin(Math.min(pop, 1) * Math.PI))));
-    pupil.position.set(0.05 * Math.sin(t * 1.3) * pop, 0.035 * Math.sin(t * 0.9 + 1) * pop, 0.08);
+    piece.scale.setScalar(1 - 0.36 * open);
+    ring.rotation.z = spin * Math.PI * 2 * (p < 0.6 ? unwind : 1 - rewind);
+    ring.rotation.y = 0.6 * Math.sin(Math.PI * open) * side + 0.18 * Math.sin(w) * pop; // 궤도를 돌며 살짝 고개를 돌림
+    // 눈동자: 톡 튀어나온 뒤 궤도 방향을 따라 두리번
+    const s = Math.max(0.001, pop * (1 + 0.3 * Math.sin(Math.min(pop, 1) * Math.PI)));
+    pupil.scale.set(0.15 * s, 0.21 * s, 0.1 * s);
+    eyeball.position.set(-0.06 * side + 0.05 * Math.cos(w) * pop, -0.08 + 0.04 * Math.sin(w) * pop, 0.1);
+    // 궤도선은 눈이 자리 잡을 때 그려지듯 나타납니다
+    orbits.position.set(side * 0.66, 0, -0.05);
+    orbits.scale.setScalar(0.6 + 0.4 * pop);
+    orbits.children.forEach((o, i) => { o.visible = pop > 0.01; o.scale.setScalar(1 + 0.04 * Math.sin(t * 2 + i)); });
+    orbits.rotation.x = 0.25 * Math.sin(t * 0.7 + side);
   }
   return open;
 }
