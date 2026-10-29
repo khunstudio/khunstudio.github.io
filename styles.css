@@ -443,6 +443,9 @@ em { font-style: italic; }
 .book.is-riffle .book__leaf { transition-duration: .5s; } /* 도착 시 차라락 넘김 */
 .book__face { position: absolute; inset: 0; background: #f3f5f6 center / cover no-repeat; backface-visibility: hidden; -webkit-backface-visibility: hidden; } /* 그림자 없음: 겹친 장마다 그림자가 쌓여 테두리가 울렁여 보였습니다 */
 .book__face--back { transform: rotateY(180deg); }
+.book.is-flat { transform: none; } /* 날개 표지: 앞 · 뒤표지를 펼친 상태 */
+.book__jacket { position: absolute; top: 0; left: 0; width: 50%; height: 100%; transform-origin: 100% 50%; transform: rotateY(-180deg); transform-style: preserve-3d; transition: transform 1.2s cubic-bezier(.45, .05, .2, 1); pointer-events: none; }
+.book.is-flat .book__jacket { transform: none; }
 .book__bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 20px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
 
 /* 굿즈: 3D 머그컵 + 책갈피 */

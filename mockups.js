@@ -28,6 +28,18 @@ const onView = (el, fn, opt = { threshold: 0.35 }) => new IntersectionObserver((
     stack.appendChild(el);
     return el;
   });
+  // 날개 표지(data-jacket): 앞 · 뒤표지를 펼치면 날개가 되는 책. 처음엔 펼친 채로 두었다가, 도착하면 뒤표지를 접어 닫습니다
+  const jacket = 'jacket' in book.dataset && !reduce;
+  let flat = false;
+  if (jacket) {
+    const j = document.createElement('div');
+    j.className = 'book__jacket';
+    j.innerHTML = `<div class="book__face" style="background-image:url(${pg(1, 'L')})"></div>`;
+    stack.appendChild(j);
+    book.classList.add('is-flat');
+    flat = true;
+  }
+  const fold = () => { if (flat) { flat = false; book.classList.remove('is-flat'); } };
   const count = book.parentElement.querySelector('.book__count');
   let at = 0, timer = 0, auto = !reduce;
   function show(n) {
@@ -41,7 +53,7 @@ const onView = (el, fn, opt = { threshold: 0.35 }) => new IntersectionObserver((
     book.classList.toggle('is-back', at === N);
     if (count) count.textContent = at === 0 ? 'COVER' : at === N ? 'BACK' : `${String(at * 2 - 1).padStart(2, '0')}–${String(at * 2).padStart(2, '0')} / ${String((N - 1) * 2).padStart(2, '0')}`;
   }
-  const stop = () => { auto = false; riffled = true; clearInterval(timer); };
+  const stop = () => { auto = false; riffled = true; clearInterval(timer); fold(); };
   const play = () => { clearInterval(timer); if (!auto) return; timer = setInterval(() => show(at >= N ? 0 : at + 1), 2400); };
   book.addEventListener('click', (e) => {
     stop();
@@ -66,5 +78,12 @@ const onView = (el, fn, opt = { threshold: 0.35 }) => new IntersectionObserver((
     seq.forEach((n, i) => setTimeout(() => show(n), 140 + i * 110));
     setTimeout(() => { book.classList.remove('is-riffle'); play(); }, 140 + seq.length * 110 + 600);
   }
-  onView(book, (v) => { if (!v) return clearInterval(timer); riffled ? play() : riffle(); });
+  // 날개 표지: 펼친 날개 → 뒤표지가 접히며 닫힘 → 첫 장이 펼쳐짐 → 천천히 자동 넘김
+  function close() {
+    riffled = true;
+    fold();
+    setTimeout(() => { if (auto) show(1); }, 1300);
+    setTimeout(play, 1300);
+  }
+  onView(book, (v) => { if (!v) return clearInterval(timer); riffled ? play() : jacket ? close() : riffle(); }, { threshold: jacket ? 0.6 : 0.35 });
 })();
