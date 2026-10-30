@@ -1115,3 +1115,11 @@ body { padding-bottom: 44px; }
 .kw-work__link { display: inline-block; margin-top: 20px; padding: 10px 14px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--bg); background: var(--acc); text-decoration: none; }
 @media (max-width: 900px) { .kw-svc { grid-template-columns: 1fr 1fr; } .kw-web { grid-template-columns: 1fr 1fr; } .kw-work { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .kw-svc, .kw-web { grid-template-columns: 1fr; } }
+
+/* 모각 로고 적용 사진: 세로 두 장 + 가로 두 장 */
+.mg-use { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 24px 12px; margin: 16px 0 0; padding: 0; }
+.mg-use li { font-size: 14px; color: var(--muted); }
+.cp-out .mg-use img { aspect-ratio: 4 / 5; object-fit: cover; margin-bottom: 10px; }
+.cp-out .mg-use li:nth-child(n+3) img { aspect-ratio: 3 / 2; }
+.mg-use span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--acc); }
+@media (max-width: 600px) { .mg-use { grid-template-columns: 1fr; } }
