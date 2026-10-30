@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RE:BOOT — KHUN studio</title>
+  <meta name="description" content="전역 후 처음 자기관리를 시작하는 남자를 위한 입문자 가이드 브랜드 RE:BOOT의 콘셉트 시안.">
+  <meta name="theme-color" content="#111111">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/work/reboot/symbol.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    :root {
+      --black: #111111;
+      --ink: #1A1A1A;
+      --line: #2A2A2A;
+      --mute: #8A8A86;
+      --white: #F5F5F2;
+      --orange: #FF5A1F;
+      --chev: var(--orange);
+      --wide: "Michroma", "Pretendard", sans-serif;
+      --sans: "Pretendard", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font: 400 16px/1.7 var(--sans); -webkit-font-smoothing: antialiased; word-break: keep-all; }
+    img, svg { display: block; }
+    a { color: inherit; text-decoration: none; }
+    b { font-weight: 600; color: var(--white); }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+    /* 로고 */
+    .mark { width: 100%; height: 100%; color: var(--white); }
+    .wm { font-family: var(--wide); letter-spacing: .02em; line-height: 1; white-space: nowrap; }
+    .tag { font-family: var(--sans); font-weight: 500; letter-spacing: .32em; text-transform: uppercase; line-height: 1.6; }
+
+    /* 상단바 */
+    .bar { position: sticky; top: 0; z-index: 10; background: rgba(17,17,17,.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .bar .wrap { display: flex; align-items: center; gap: 24px; height: 56px; }
+    .bar__logo { display: flex; align-items: center; gap: 10px; }
+    .bar__logo svg { width: 18px; height: 20px; }
+    .bar__logo .wm { font-size: 13px; }
+    .bar nav { margin-left: auto; display: flex; gap: 22px; font-size: 13px; color: var(--mute); }
+    .bar nav a:hover { color: var(--white); }
+    .bar__back { font-size: 12px; color: var(--mute); }
+
+    /* 히어로 */
+    .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+    .hero .wrap { min-height: calc(100vh - 56px); display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 48px; padding-top: 72px; padding-bottom: 72px; }
+    .kicker { font-family: var(--wide); font-size: 11px; letter-spacing: .2em; color: var(--orange); margin-bottom: 28px; }
+    .hero h1 .wm { font-size: clamp(44px, 7vw, 92px); display: block; }
+    .hero h1 .tag { display: block; margin-top: 26px; font-size: clamp(12px, 1.3vw, 15px); color: var(--white); }
+    .hero__lead { margin-top: 40px; max-width: 460px; color: #BDBDB8; font-size: 17px; }
+    .hero__meta { margin-top: 40px; display: grid; grid-template-columns: repeat(3, auto); gap: 8px 32px; justify-content: start; font-size: 13px; }
+    .hero__meta dt { font-family: var(--wide); font-size: 10px; letter-spacing: .16em; color: var(--mute); }
+    .hero__visual { position: relative; aspect-ratio: 1; display: grid; place-items: center; }
+    .hero__visual svg.mark { width: 58%; height: auto; position: relative; z-index: 1; }
+    .hero__grid { position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 12.5% 12.5%; mask: radial-gradient(circle, #000 30%, transparent 72%); }
+    .hero__boot { position: absolute; left: 0; right: 0; bottom: 6%; display: flex; align-items: center; gap: 12px; font-family: var(--wide); font-size: 10px; letter-spacing: .2em; color: var(--mute); }
+    .hero__boot i { flex: 1; height: 3px; background: var(--line); position: relative; overflow: hidden; }
+    .hero__boot i::after { content: ""; position: absolute; inset: 0; background: var(--orange); transform-origin: left; animation: boot 3.2s cubic-bezier(.6,0,.2,1) infinite; }
+    @keyframes boot { 0% { transform: scaleX(0); } 70%, 100% { transform: scaleX(1); } }
+    @media (prefers-reduced-motion: reduce) { .hero__boot i::after { animation: none; transform: scaleX(.72); } }
+
+    /* 섹션 공통 */
+    section.sec { padding: 120px 0; border-bottom: 1px solid var(--line); }
+    .sec__head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 56px; }
+    .sec__head span { font-family: var(--wide); font-size: 11px; color: var(--orange); letter-spacing: .16em; }
+    .sec__head h2 { font-family: var(--wide); font-weight: 400; font-size: clamp(22px, 2.6vw, 30px); letter-spacing: .02em; }
+    .sec__head i { flex: 1; height: 1px; background: var(--line); align-self: center; }
+    .h { font-size: clamp(28px, 3.6vw, 44px); line-height: 1.3; font-weight: 700; letter-spacing: -.02em; }
+    .h em { font-style: normal; color: var(--orange); }
+    .body { color: #BDBDB8; font-size: 16px; }
+    .body p + p { margin-top: 14px; }
+    .sub { font-family: var(--wide); font-size: 11px; letter-spacing: .18em; color: var(--mute); margin: 72px 0 20px; }
+
+    /* 브랜드 철학 */
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .brief { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 72px; }
+    .brief li { background: var(--black); padding: 28px 24px 32px; }
+    .brief span { font-family: var(--wide); font-size: 11px; color: var(--orange); }
+    .brief li > b { display: block; font-size: 18px; margin: 14px 0 10px; }
+    .brief p { font-size: 14px; color: #A8A8A3; }
+    .vs { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .vs div { background: var(--black); padding: 22px 24px; display: grid; grid-template-columns: 96px 1fr; gap: 16px; align-items: center; }
+    .vs dt { font-family: var(--wide); font-size: 10px; letter-spacing: .14em; color: var(--mute); }
+    .vs dd { font-size: 15px; }
+    .vs .no dd { color: var(--mute); text-decoration: line-through; text-decoration-color: rgba(255,90,31,.6); }
+    .vs .yes { background: var(--ink); }
+    .vs .yes dt { color: var(--orange); }
+    .vs .yes dd { font-weight: 600; }
+
+    /* 로고 */
+    .logo-main { border: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; }
+    .logo-main > div { padding: 64px 40px; display: grid; place-items: center; min-height: 380px; }
+    .logo-main > div + div { border-left: 1px solid var(--line); }
+    .stack { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .stack svg { width: 92px; height: 104px; margin-bottom: 34px; }
+    .stack .wm { font-size: clamp(30px, 3.4vw, 46px); }
+    .stack .tag { margin-top: 22px; font-size: 11px; }
+    .construct { position: relative; width: min(280px, 70%); }
+    .construct svg.mark { width: 100%; height: auto; }
+    .construct svg.guide { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .construct svg.guide line, .construct svg.guide rect { stroke: rgba(245,245,242,.28); stroke-width: 1; fill: none; vector-effect: non-scaling-stroke; }
+    .construct svg.guide .o { stroke: var(--orange); stroke-dasharray: 4 4; }
+    .meaning { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; }
+    .meaning span { font-family: var(--wide); font-size: 10px; letter-spacing: .14em; color: var(--orange); }
+    .meaning b { display: block; font-size: 17px; margin: 10px 0 6px; }
+    .meaning p { font-size: 14px; color: #A8A8A3; }
+
+    .lockups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .lock { aspect-ratio: 4/3; border: 1px solid var(--line); display: grid; place-items: center; position: relative; }
+    .lock figcaption { position: absolute; left: 16px; bottom: 12px; font-family: var(--wide); font-size: 9px; letter-spacing: .16em; color: inherit; opacity: .55; }
+    .lock.on-orange { background: var(--orange); border-color: var(--orange); --chev: var(--black); color: var(--black); }
+    .lock.on-white { background: var(--white); border-color: var(--white); color: var(--black); }
+    .lock.on-white .mark { color: var(--black); }
+    .lock.on-orange .mark { color: var(--white); }
+    .horiz { display: flex; align-items: center; gap: 16px; }
+    .horiz svg { width: 38px; height: 43px; }
+    .horiz .wm { font-size: clamp(20px, 2.2vw, 28px); }
+    .lock .solo { width: 30%; height: auto; }
+    .app-icon { width: 34%; aspect-ratio: 1; border-radius: 22%; background: var(--black); display: grid; place-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .app-icon svg { width: 52%; height: auto; }
+    .mono .mark { --chev: currentColor; }
+
+    /* 컬러 & 타입 */
+    .swatches { display: grid; grid-template-columns: repeat(2, minmax(0, 2fr)) repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .sw { min-height: 240px; min-width: 0; border: 1px solid var(--line); padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .sw b { font-size: 16px; color: inherit; }
+    .sw span { font-family: var(--wide); font-size: 10px; letter-spacing: .1em; opacity: .7; margin-top: 4px; }
+    .sw small { font-size: 12px; opacity: .7; margin-top: 10px; }
+    .ratio { display: flex; height: 12px; margin-top: 16px; }
+    .ratio i:nth-child(1) { flex: 70; background: var(--black); border: 1px solid var(--line); }
+    .ratio i:nth-child(2) { flex: 20; background: var(--white); }
+    .ratio i:nth-child(3) { flex: 10; background: var(--orange); }
+    .ratio-legend { display: flex; justify-content: space-between; font-family: var(--wide); font-size: 9px; letter-spacing: .14em; color: var(--mute); margin-top: 8px; }
+    .types { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .type { border: 1px solid var(--line); padding: 32px; }
+    .type .type__big { font-size: 64px; line-height: 1.1; margin: 18px 0 14px; }
+    .type p { font-size: 13px; color: var(--mute); }
+
+    /* 앱 */
+    .phones { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+    .phone { aspect-ratio: 9/19; border-radius: 30px; border: 1px solid #333; background: #0B0B0B; padding: 10px; }
+    .scr { height: 100%; border-radius: 22px; overflow: hidden; background: var(--black); padding: 30px 14px 14px; display: flex; flex-direction: column; gap: 10px; font-size: 11px; position: relative; }
+    .scr::before { content: ""; position: absolute; top: 10px; left: 50%; width: 48px; height: 12px; margin-left: -24px; border-radius: 10px; background: #000; }
+    .scr__top { display: flex; align-items: center; justify-content: space-between; }
+    .scr__top svg { width: 14px; height: 16px; }
+    .scr__top em { font-style: normal; font-family: var(--wide); font-size: 8px; color: var(--mute); letter-spacing: .12em; }
+    .scr h4 { font-size: 17px; line-height: 1.3; font-weight: 700; letter-spacing: -.02em; }
+    .scr h4 em { font-style: normal; color: var(--orange); }
+    .card { background: var(--ink); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+    .card small { display: block; font-family: var(--wide); font-size: 7px; letter-spacing: .14em; color: var(--mute); margin-bottom: 6px; }
+    .prog { height: 4px; background: var(--line); border-radius: 2px; margin-top: 8px; }
+    .prog i { display: block; height: 100%; background: var(--orange); border-radius: 2px; }
+    .chk { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+    .chk:last-child { border: 0; }
+    .chk i { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid #444; flex: none; }
+    .chk.on i { background: var(--orange); border-color: var(--orange); }
+    .chk.on span { color: var(--mute); text-decoration: line-through; }
+    .chk b { margin-left: auto; font-family: var(--wide); font-size: 7px; color: var(--mute); font-weight: 400; }
+    .opt { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+    .opt.sel { border-color: var(--orange); background: rgba(255,90,31,.08); }
+    .btn { margin-top: auto; background: var(--orange); color: var(--black); font-weight: 700; text-align: center; border-radius: 10px; padding: 11px; font-size: 12px; }
+    .steps { display: flex; gap: 4px; }
+    .steps i { flex: 1; height: 3px; background: var(--line); }
+    .steps i.on { background: var(--orange); }
+    .prod { display: grid; grid-template-columns: 38px 1fr; gap: 10px; align-items: center; }
+    .prod > i { aspect-ratio: 1; border-radius: 8px; background: #262626; display: grid; place-items: center; font-style: normal; font-family: var(--wide); font-size: 8px; color: var(--orange); }
+    .prod span { display: block; color: var(--mute); font-size: 10px; }
+    .pill { display: inline-block; font-size: 9px; padding: 2px 7px; border-radius: 10px; border: 1px solid var(--orange); color: var(--orange); margin-right: 4px; }
+    .tabbar { margin-top: auto; display: flex; justify-content: space-around; border-top: 1px solid var(--line); padding-top: 10px; font-family: var(--wide); font-size: 7px; color: var(--mute); letter-spacing: .1em; }
+    .tabbar .on { color: var(--orange); }
+    .phone-cap { margin-top: 14px; font-size: 13px; color: var(--mute); }
+    .phone-cap b { display: block; font-size: 14px; }
+
+    /* 웹 */
+    .browser { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .browser__bar { height: 34px; background: var(--ink); display: flex; align-items: center; gap: 6px; padding: 0 14px; border-bottom: 1px solid var(--line); }
+    .browser__bar i { width: 9px; height: 9px; border-radius: 50%; background: #333; }
+    .browser__bar span { margin-left: 14px; font-size: 11px; color: var(--mute); background: var(--black); padding: 3px 14px; border-radius: 6px; }
+    .lp { background: var(--black); }
+    .lp__nav { display: flex; align-items: center; padding: 18px 36px; gap: 10px; border-bottom: 1px solid var(--line); }
+    .lp__nav svg { width: 16px; height: 18px; }
+    .lp__nav .wm { font-size: 12px; }
+    .lp__nav nav { margin-left: auto; display: flex; gap: 22px; font-size: 12px; color: var(--mute); }
+    .lp__nav a.cta { background: var(--orange); color: var(--black); font-weight: 700; padding: 6px 14px; border-radius: 6px; }
+    .lp__hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: center; padding: 64px 36px; position: relative; overflow: hidden; }
+    .lp__hero h3 { font-size: clamp(26px, 3.4vw, 44px); line-height: 1.25; font-weight: 800; letter-spacing: -.03em; }
+    .lp__hero h3 em { font-style: normal; color: var(--orange); }
+    .lp__hero p { margin-top: 18px; color: #A8A8A3; font-size: 14px; max-width: 380px; }
+    .lp__hero .row { display: flex; gap: 10px; margin-top: 26px; }
+    .lp__hero .row a { font-size: 13px; padding: 10px 18px; border-radius: 8px; border: 1px solid #444; }
+    .lp__hero .row a:first-child { background: var(--orange); border-color: var(--orange); color: var(--black); font-weight: 700; }
+    .lp__big { justify-self: center; width: 46%; opacity: .95; }
+    .lp__big svg { width: 100%; height: auto; }
+    .lp__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
+    .lp__cards div { background: var(--black); padding: 26px 28px; }
+    .lp__cards span { font-family: var(--wide); font-size: 10px; color: var(--orange); letter-spacing: .14em; }
+    .lp__cards b { display: block; margin: 10px 0 6px; font-size: 16px; }
+    .lp__cards p { font-size: 13px; color: var(--mute); }
+
+    /* 릴스 */
+    .reels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+    .reel { aspect-ratio: 9/16; border-radius: 10px; overflow: hidden; position: relative; padding: 22px 18px; display: flex; flex-direction: column; background: var(--ink); border: 1px solid var(--line); }
+    .reel__top { display: flex; justify-content: space-between; align-items: center; font-family: var(--wide); font-size: 9px; letter-spacing: .14em; }
+    .reel__top svg { width: 16px; height: 18px; }
+    .reel .reel__no { font-family: var(--wide); font-size: clamp(54px, 6vw, 80px); line-height: 1; margin-top: auto; color: var(--orange); }
+    .reel h4 { font-size: clamp(19px, 1.9vw, 24px); line-height: 1.3; font-weight: 800; letter-spacing: -.03em; margin-top: 12px; }
+    .reel h4 em { font-style: normal; color: var(--orange); }
+    .reel p { margin-top: 10px; font-size: 11px; color: var(--mute); }
+    .reel .chev { position: absolute; right: -24%; top: 16%; width: 70%; opacity: .14; }
+    .reel.r-orange { background: var(--orange); border-color: var(--orange); color: var(--black); }
+    .reel.r-orange .reel__no, .reel.r-orange h4 em { color: var(--white); }
+    .reel.r-orange p { color: rgba(17,17,17,.7); }
+    .reel.r-orange .mark { --chev: var(--black); color: var(--white); }
+    .reel.r-white { background: var(--white); border-color: var(--white); color: var(--black); }
+    .reel.r-white .mark { color: var(--black); }
+    .reel.r-white p { color: #666; }
+    .reel.r-white .reel__no { color: var(--orange); }
+    .reel__chk { margin-top: auto; display: grid; gap: 8px; }
+    .reel__chk div { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; padding: 9px 12px; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 8px; }
+    .reel__chk i { font-style: normal; font-family: var(--wide); font-size: 10px; color: var(--orange); }
+
+    /* 로드맵 */
+    .road { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); position: relative; }
+    .road::before { content: ""; position: absolute; top: 11px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--orange) 33%, var(--line) 33%); }
+    .road li { position: relative; padding-top: 44px; padding-right: 32px; }
+    .road li::before { content: ""; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; background: var(--black); border: 2px solid var(--line); transform: rotate(45deg); }
+    .road li.now::before { background: var(--orange); border-color: var(--orange); }
+    .road span { font-family: var(--wide); font-size: 10px; letter-spacing: .16em; color: var(--mute); }
+    .road li.now span { color: var(--orange); }
+    .road b { display: block; font-size: 20px; margin: 10px 0 8px; }
+    .road p { font-size: 14px; color: #A8A8A3; }
+
+    footer { padding: 96px 0 72px; text-align: center; }
+    footer svg { width: 44px; height: 50px; margin: 0 auto 26px; }
+    footer .wm { font-size: 22px; }
+    footer .tag { margin-top: 16px; font-size: 10px; color: var(--mute); }
+    footer a.back { display: inline-block; margin-top: 44px; font-size: 13px; color: var(--mute); border-bottom: 1px solid var(--line); }
+
+    @media (max-width: 960px) {
+      .hero .wrap, .cols, .logo-main, .types { grid-template-columns: 1fr; }
+      .hero__visual { max-width: 420px; width: 100%; margin: 0 auto; }
+      .logo-main > div + div { border-left: 0; border-top: 1px solid var(--line); }
+      .brief { grid-template-columns: 1fr 1fr; }
+      .phones, .reels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lockups { grid-template-columns: 1fr 1fr; }
+      .swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lp__hero { grid-template-columns: 1fr; }
+      .lp__big { display: none; }
+      .bar nav { display: none; }
+      .bar__back { margin-left: auto; }
+    }
+    @media (max-width: 600px) {
+      .wrap { padding: 0 16px; }
+      section.sec { padding: 80px 0; }
+      .brief, .lockups, .meaning, .road, .lp__cards { grid-template-columns: 1fr; }
+      .phones { grid-template-columns: minmax(0, 290px); justify-content: center; gap: 40px; }
+      .reel h4 { font-size: 17px; }
+      .road::before { display: none; }
+      .road li { padding-right: 0; margin-bottom: 28px; }
+      .hero__meta { grid-template-columns: 1fr 1fr; }
+      .lp__nav nav a:not(.cta) { display: none; }
+      .lp__hero { padding: 40px 20px; }
+      .type .type__big { font-size: 48px; }
+      .vs div { grid-template-columns: 72px 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 심볼: 사용자가 그린 R 심볼을 그대로 벡터로 옮김. 줄기는 currentColor, 쉐브런은 --chev -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="rb" viewBox="0 0 272 306">
+      <path fill="var(--chev, #FF5A1F)" d="M0 0H197L272 75L224 123L171 70H70Z"/>
+      <path fill="currentColor" d="M0 97H161L178 80L222 124L186 162H108L252 306H162L65 209V306H0Z"/>
+    </symbol>
+    <symbol id="chev" viewBox="0 0 272 123">
+      <path fill="currentColor" d="M0 0H197L272 75L224 123L171 70H70Z"/>
+    </symbol>
+  </svg>
+
+  <header class="bar">
+    <div class="wrap">
+      <a class="bar__logo" href="#top"><svg class="mark"><use href="#rb"/></svg><span class="wm">RE:BOOT</span></a>
+      <nav>
+        <a href="#revibe">Re:vibe</a>
+        <a href="#logo">Logo</a>
+        <a href="#system">System</a>
+        <a href="#output">Output</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
+      <a class="bar__back" href="../index.html#work">← KHUN studio</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 키 비주얼 -->
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <p class="kicker">CONCEPT CASE — 2026</p>
+          <h1><span class="wm">RE:BOOT</span><span class="tag">Discipline<br>creates a new you</span></h1>
+          <p class="hero__lead">군대에서 처음 자기관리에 눈을 뜬 남자들. 관심은 많은데 <b>뭐가 맞는지 모릅니다.</b> RE:BOOT는 그 첫 단계를 정리해 주는 남성 자기관리 입문 가이드입니다.</p>
+          <dl class="hero__meta">
+            <div><dt>TYPE</dt><dd>Self-initiated Brand</dd></div>
+            <div><dt>ROLE</dt><dd>Brand · UX · Content</dd></div>
+            <div><dt>COLOR</dt><dd>Black + Orange</dd></div>
+          </dl>
+        </div>
+        <div class="hero__visual">
+          <div class="hero__grid"></div>
+          <svg class="mark" viewBox="0 0 272 306" role="img" aria-label="RE:BOOT 심볼"><use href="#rb"/></svg>
+          <div class="hero__boot" aria-hidden="true"><span>BOOTING</span><i></i><span>v2.0</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 Re:vibe -->
+    <section class="sec" id="revibe">
+      <div class="wrap">
+        <header class="sec__head"><span>[ 01 ]</span><h2>Re:vibe</h2><i></i></header>
+        <div class="cols">
+          <div>
+            <h2 class="h">잘생겨지는 게 아니라,<br><em>정돈하는 것</em>부터.</h2>
+          </div>
+          <div class="body">
+            <p>군대는 남자들이 처음으로 매일 같은 시간에 씻고, 면도하고, 거울을 보는 곳입니다. 거기서 피부와 머리에 관심이 생기지만, PX 앞에서 <b>무엇을 어떤 순서로 써야 하는지</b> 알려주는 사람은 없습니다.</p>
+            <p>여성 중심의 뷰티 콘텐츠는 너무 많고 너무 어렵습니다. RE:BOOT는 화려한 변신 대신 <b>기본기를 다시 켜는 것</b>, 군대에서 몸에 밴 규율을 그대로 자기관리 루틴으로 옮기는 것을 말합니다.</p>
+          </div>
+        </div>
+
+        <ol class="brief">
+          <li><span>01</span><b>문제</b><p>관심은 생겼지만 정보가 여성 뷰티 기준이라 <b>입문자 남성</b>에게 맞는 답이 없음.</p></li>
+          <li><span>02</span><b>판단</b><p>‘잘생겨지기’가 아닌 <b>‘깔끔하게 정돈하기’</b>로 문턱을 낮춤.</p></li>
+          <li><span>03</span><b>실행</b><p>3단계 루틴 · 피부 타입 진단 · 검증된 제품 가이드를 <b>릴스 → 웹 → 앱</b>으로 확장.</p></li>
+          <li><span>04</span><b>수익</b><p>피부과 · 브랜드와의 <b>B2B 협업</b>으로 콘텐츠를 지속 가능한 사업으로.</p></li>
+        </ol>
+
+        <p class="sub">TONE OF VOICE</p>
+        <dl class="vs">
+          <div class="no"><dt>NOT</dt><dd>“꽃미남 되는 10가지 비법”</dd></div>
+          <div class="yes"><dt>RE:BOOT</dt><dd>“아침 3분, 이것만 하면 정돈됩니다”</dd></div>
+          <div class="no"><dt>NOT</dt><dd>“요즘 핫한 신상 세럼 언박싱”</dd></div>
+          <div class="yes"><dt>RE:BOOT</dt><dd>“PX에서 살 거면 이 세 개만”</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 02 Logo -->
+    <section class="sec" id="logo">
+      <div class="wrap">
+        <header class="sec__head"><span>[ 02 ]</span><h2>Logo</h2><i></i></header>
+        <div class="logo-main">
+          <div>
+            <div class="stack">
+              <svg class="mark"><use href="#rb"/></svg>
+              <span class="wm">RE:BOOT</span>
+              <span class="tag">Discipline<br>creates a new you</span>
+            </div>
+          </div>
+          <div>
+            <div class="construct">
+              <svg class="mark" viewBox="0 0 272 306"><use href="#rb"/></svg>
+              <svg class="guide" viewBox="0 0 272 306" preserveAspectRatio="none" aria-hidden="true">
+                <rect x="0" y="0" width="272" height="306"/>
+                <line x1="65" y1="0" x2="65" y2="306"/>
+                <line x1="0" y1="97" x2="272" y2="97"/>
+                <line x1="0" y1="162" x2="272" y2="162"/>
+                <line class="o" x1="81" y1="-20" x2="292" y2="191"/>
+                <line class="o" x1="70" y1="124" x2="272" y2="326"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="meaning">
+          <div><span>R — STEM</span><b>흔들리지 않는 기본기</b><p>굵고 곧은 R의 줄기는 매일 반복하는 루틴, 정돈된 자세를 뜻합니다.</p></div>
+          <div><span>CHEVRON — ORANGE</span><b>다시 켜지는 신호</b><p>R의 머리를 감싸는 오렌지 쉐브런은 계급장의 갈매기이자 재부팅 화살표. 앞으로 나아가는 방향입니다.</p></div>
+          <div><span>45 DEG — GRID</span><b>모든 사선은 45°</b><p>심볼의 모든 사선을 45°로 통일해 군더더기 없이 각 잡힌 인상을 만들었습니다.</p></div>
+        </div>
+
+        <p class="sub">LOCKUP &amp; APPLICATION</p>
+        <div class="lockups">
+          <figure class="lock"><div class="horiz"><svg class="mark"><use href="#rb"/></svg><span class="wm">RE:BOOT</span></div><figcaption>HORIZONTAL / BLACK</figcaption></figure>
+          <figure class="lock on-orange"><div class="horiz"><svg class="mark"><use href="#rb"/></svg><span class="wm">RE:BOOT</span></div><figcaption>HORIZONTAL / ORANGE</figcaption></figure>
+          <figure class="lock on-white"><div class="horiz"><svg class="mark"><use href="#rb"/></svg><span class="wm">RE:BOOT</span></div><figcaption>HORIZONTAL / WHITE</figcaption></figure>
+          <figure class="lock"><svg class="mark solo" viewBox="0 0 272 306"><use href="#rb"/></svg><figcaption>SYMBOL</figcaption></figure>
+          <figure class="lock on-white mono"><svg class="mark solo" viewBox="0 0 272 306"><use href="#rb"/></svg><figcaption>SYMBOL / MONO</figcaption></figure>
+          <figure class="lock on-orange"><div class="app-icon"><svg class="mark" viewBox="0 0 272 306" style="--chev: var(--orange); color: var(--white)"><use href="#rb"/></svg></div><figcaption>APP ICON</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 System -->
+    <section class="sec" id="system">
+      <div class="wrap">
+        <header class="sec__head"><span>[ 03 ]</span><h2>System</h2><i></i></header>
+        <div class="swatches">
+          <div class="sw" style="background: var(--black)"><b>Boot Black</b><span>#111111</span><small>바탕. 정돈되고 묵직한 기본.</small></div>
+          <div class="sw" style="background: var(--orange); color: var(--black); border-color: var(--orange)"><b>Signal Orange</b><span>#FF5A1F</span><small>쉐브런 · 강조 · 행동 버튼에만.</small></div>
+          <div class="sw" style="background: var(--white); color: var(--black); border-color: var(--white)"><b>Clean White</b><span>#F5F5F2</span></div>
+          <div class="sw" style="background: var(--ink)"><b>Steel</b><span>#2A2A2A</span></div>
+        </div>
+        <div class="ratio" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="ratio-legend"><span>BLACK 70</span><span>WHITE 20</span><span>ORANGE 10</span></div>
+
+        <p class="sub">TYPOGRAPHY</p>
+        <div class="types">
+          <div class="type">
+            <span class="kicker" style="margin:0">DISPLAY — MICHROMA</span>
+            <p class="type__big wm" style="color: var(--white)">RE:BOOT</p>
+            <p>워드마크와 숫자, 영문 라벨. 넓고 각진 글자폭으로 장비 · 계기판 같은 인상.</p>
+          </div>
+          <div class="type">
+            <span class="kicker" style="margin:0">TEXT — PRETENDARD</span>
+            <p class="type__big" style="color: var(--white); font-weight: 800; letter-spacing: -.03em">정돈, 시작.</p>
+            <p>한글 제목과 본문. 굵은 제목 + 담백한 본문으로 읽기 쉬운 가이드 톤.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 Output -->
+    <section class="sec" id="output">
+      <div class="wrap">
+        <header class="sec__head"><span>[ 04 ]</span><h2>Output</h2><i></i></header>
+
+        <p class="sub" style="margin-top:0">APP — 입문자 루틴 가이드</p>
+        <div class="phones">
+          <div>
+            <div class="phone"><div class="scr">
+              <div class="scr__top"><svg class="mark"><use href="#rb"/></svg><em>DAY 12</em></div>
+              <h4>좋은 아침,<br>오늘도 <em>3분</em>이면 끝.</h4>
+              <div class="card"><small>TODAY'S ROUTINE</small><b>2 / 3 완료</b><div class="prog"><i style="width:66%"></i></div></div>
+              <div class="card"><small>STREAK</small><b>12일 연속</b> · 지난주보다 +4</div>
+              <div class="card"><small>TIP</small>면도 후엔 스킨보다 <b>진정 토너</b> 먼저.</div>
+              <div class="tabbar"><span class="on">HOME</span><span>ROUTINE</span><span>GUIDE</span><span>ME</span></div>
+            </div></div>
+            <p class="phone-cap"><b>홈</b>오늘 루틴 진행률과 연속 기록</p>
+          </div>
+          <div>
+            <div class="phone"><div class="scr">
+              <div class="steps"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+              <div class="scr__top"><em>SKIN CHECK 2/4</em><em>SKIP</em></div>
+              <h4>세안 후 1시간,<br>얼굴이 <em>어떤가요?</em></h4>
+              <div class="opt">당기고 각질이 일어난다</div>
+              <div class="opt sel">T존만 번들거린다</div>
+              <div class="opt">전체적으로 번들거린다</div>
+              <div class="opt">잘 모르겠다</div>
+              <div class="btn">다음</div>
+            </div></div>
+            <p class="phone-cap"><b>피부 타입 진단</b>4문항으로 내 피부 파악</p>
+          </div>
+          <div>
+            <div class="phone"><div class="scr">
+              <div class="scr__top"><svg class="mark"><use href="#rb"/></svg><em>AM ROUTINE</em></div>
+              <h4>아침 루틴<br><em>3 STEP</em></h4>
+              <div class="card">
+                <div class="chk on"><i></i><span>약산성 클렌저로 세안</span><b>30s</b></div>
+                <div class="chk on"><i></i><span>토너로 결 정리</span><b>20s</b></div>
+                <div class="chk"><i></i><span>선크림 두 손가락</span><b>40s</b></div>
+              </div>
+              <div class="card"><small>WHY</small>실내 근무여도 선크림은 매일. 잡티와 노화의 80%는 자외선.</div>
+              <div class="btn">루틴 완료</div>
+            </div></div>
+            <p class="phone-cap"><b>루틴 체크</b>단계별 시간과 이유까지</p>
+          </div>
+          <div>
+            <div class="phone"><div class="scr">
+              <div class="scr__top"><em>GUIDE</em><em>지성 · 입문</em></div>
+              <h4>PX에서 살 거면<br><em>이 세 개만.</em></h4>
+              <div class="card prod"><i>01</i><div><b>클렌저</b><span>약산성 · 저자극</span></div></div>
+              <div class="card prod"><i>02</i><div><b>수분 토너</b><span>무향 · 알코올 프리</span></div></div>
+              <div class="card prod"><i>03</i><div><b>선크림</b><span>SPF50+ · 백탁 적음</span></div></div>
+              <div><span class="pill">피부과 검수</span><span class="pill">1만원대</span></div>
+              <div class="tabbar"><span>HOME</span><span>ROUTINE</span><span class="on">GUIDE</span><span>ME</span></div>
+            </div></div>
+            <p class="phone-cap"><b>제품 가이드</b>타입별 최소 구성 추천</p>
+          </div>
+        </div>
+
+        <p class="sub">WEB — 랜딩 페이지</p>
+        <div class="browser">
+          <div class="browser__bar"><i></i><i></i><i></i><span>reboot.kr</span></div>
+          <div class="lp">
+            <div class="lp__nav"><svg class="mark"><use href="#rb"/></svg><span class="wm">RE:BOOT</span><nav><a>가이드</a><a>피부 진단</a><a>제휴 피부과</a><a class="cta">앱 받기</a></nav></div>
+            <div class="lp__hero">
+              <div>
+                <h3>전역 후 첫 자기관리,<br><em>순서</em>부터 정리해 드립니다.</h3>
+                <p>뭘 사야 할지, 뭘 먼저 발라야 할지. 1분 진단으로 내 피부에 맞는 3단계 루틴을 받아보세요.</p>
+                <div class="row"><a>1분 피부 진단</a><a>입문 가이드 보기</a></div>
+              </div>
+              <div class="lp__big"><svg class="mark" viewBox="0 0 272 306"><use href="#rb"/></svg></div>
+            </div>
+            <div class="lp__cards">
+              <div><span>STEP 01</span><b>진단</b><p>4문항으로 피부 타입 확인</p></div>
+              <div><span>STEP 02</span><b>루틴</b><p>아침 · 저녁 3단계 체크리스트</p></div>
+              <div><span>STEP 03</span><b>제품</b><p>피부과가 검수한 최소 구성</p></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="sub">REELS — 커버 시리즈</p>
+        <div class="reels">
+          <div class="reel">
+            <svg class="chev" viewBox="0 0 272 123" style="color: var(--orange)"><use href="#chev"/></svg>
+            <div class="reel__top"><svg class="mark"><use href="#rb"/></svg><span>EP.01</span></div>
+            <p class="reel__no">01</p>
+            <h4>전역하고 <em>제일 먼저</em><br>사야 할 3가지</h4>
+            <p>입문자 기본 세팅</p>
+          </div>
+          <div class="reel r-orange">
+            <div class="reel__top"><svg class="mark"><use href="#rb"/></svg><span>EP.02</span></div>
+            <p class="reel__no">PX</p>
+            <h4>PX 화장품,<br><em>뭐가 맞음?</em></h4>
+            <p>가성비 vs 성분 정리</p>
+          </div>
+          <div class="reel">
+            <div class="reel__top"><svg class="mark"><use href="#rb"/></svg><span>EP.03</span></div>
+            <h4 style="margin-top:28px">면도 후 따가움<br><em>끝내는 순서</em></h4>
+            <div class="reel__chk">
+              <div><i>01</i>미온수로 불리기</div>
+              <div><i>02</i>결 따라 한 번</div>
+              <div><i>03</i>찬물 + 진정 토너</div>
+            </div>
+          </div>
+          <div class="reel r-white">
+            <div class="reel__top"><svg class="mark"><use href="#rb"/></svg><span>EP.04</span></div>
+            <p class="reel__no">90</p>
+            <h4>머리 기르는 <em>첫 90일</em>,<br>이렇게 버티세요</h4>
+            <p>어색한 길이 넘기는 법</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 Roadmap -->
+    <section class="sec" id="roadmap">
+      <div class="wrap">
+        <header class="sec__head"><span>[ 05 ]</span><h2>Roadmap</h2><i></i></header>
+        <ol class="road">
+          <li class="now"><span>PHASE 01 — NOW</span><b>릴스 10편</b><p>인스타그램 3,000 팔로워 계정에서 입문 가이드 릴스로 반응과 수요를 검증합니다.</p></li>
+          <li><span>PHASE 02</span><b>웹 가이드</b><p>반응 좋은 주제를 피부 진단과 루틴 가이드가 있는 웹으로 정리합니다.</p></li>
+          <li><span>PHASE 03</span><b>피부과 · 브랜드 협업</b><p>검수 · 추천 제휴로 B2B 수익 구조를 만들고 앱으로 확장합니다.</p></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <svg class="mark"><use href="#rb"/></svg>
+    <span class="wm">RE:BOOT</span>
+    <p class="tag">Discipline creates a new you</p>
+    <a class="back" href="../index.html#work">← 다른 작업 보기</a>
+  </footer>
+</body>
+</html>
