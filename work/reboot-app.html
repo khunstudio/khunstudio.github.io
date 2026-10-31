@@ -3,214 +3,277 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#0C0C0C">
 <meta name="robots" content="noindex">
 <link rel="icon" href="../assets/work/reboot/symbol.svg" type="image/svg+xml">
-<style>body{margin:0}</style>
 <title>RE:BOOT App</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500;600&family=Michroma&family=Noto+Sans+KR:wght@300;400;500;700&display=swap">
 <style>
-  /* Layout: 데스크톱은 왼쪽 브랜드 설명 + 오른쪽 폰 프레임, 모바일은 앱이 화면 전체 */
+  /* Layout: 검정 바탕 위 오렌지 빛 번짐 + 반투명 유리 패널. 데스크톱은 소개 + 폰, 모바일은 앱 전체 화면 */
   :root {
-    --black: #111111;
-    --ink: #1A1A1A;
-    --raise: #222221;
-    --line: #2C2C2A;
-    --mute: #8C8C87;
-    --soft: #BDBDB7;
-    --white: #F5F5F2;
+    --void: #070707;
+    --black: #0C0C0C;
+    --glass: rgba(255, 255, 255, .055);
+    --glass-hi: rgba(255, 255, 255, .09);
+    --edge: rgba(255, 255, 255, .11);
+    --hair: rgba(255, 255, 255, .07);
+    --text: #F4F3F0;
+    --soft: rgba(244, 243, 240, .62);
+    --mute: rgba(244, 243, 240, .38);
     --orange: #FF5A1F;
-    --orange-dim: rgba(255, 90, 31, .12);
-    --wide: "Michroma", "IBM Plex Sans KR", sans-serif;
-    --sans: "IBM Plex Sans KR", system-ui, sans-serif;
+    --amber: #FF9A5C;
+    --glow: rgba(255, 90, 31, .45);
+    --ui: "Geist", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+    --wide: "Michroma", "Geist", sans-serif;
+    --ease: cubic-bezier(.22, .8, .2, 1);
     color-scheme: dark;
   }
   html, body { height: 100%; }
-  body { background: #0A0A0A; color: var(--white); font: 400 14px/1.6 var(--sans); -webkit-font-smoothing: antialiased; word-break: keep-all; }
+  body { margin: 0; background: var(--void); color: var(--text); font: 400 14px/1.55 var(--ui); -webkit-font-smoothing: antialiased; word-break: keep-all; letter-spacing: -.005em; }
   * { box-sizing: border-box; }
-  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; text-align: inherit; }
-  button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
-  .wm { font-family: var(--wide); letter-spacing: .02em; white-space: nowrap; }
-  .lbl { font-family: var(--wide); font-size: 9px; letter-spacing: .16em; color: var(--mute); text-transform: uppercase; }
-  .mark { color: var(--white); }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; text-align: inherit; -webkit-tap-highlight-color: transparent; }
+  button:focus-visible { outline: 1.5px solid var(--amber); outline-offset: 3px; }
+  .mark { color: var(--text); }
+  .num { font-family: "Geist", sans-serif; font-weight: 200; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+
+  /* 유리 */
+  .glass {
+    position: relative;
+    background: linear-gradient(160deg, rgba(255,255,255,.09), rgba(255,255,255,.03) 45%, rgba(255,255,255,.05));
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    backdrop-filter: blur(28px) saturate(170%);
+    border: 1px solid var(--edge);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(255,255,255,.03), 0 18px 40px rgba(0,0,0,.35);
+    border-radius: 26px;
+  }
+  .press { transition: transform .25s var(--ease), background .25s; }
+  .press:active { transform: scale(.975); }
 
   /* 스테이지 */
-  .stage { min-height: 100%; display: grid; grid-template-columns: minmax(0, 420px) auto; justify-content: center; align-items: center; gap: 72px; padding: 32px max(16px, env(safe-area-inset-left, 0px)); }
-  .intro { display: grid; gap: 22px; }
-  .intro__logo { display: flex; align-items: center; gap: 14px; }
-  .intro__logo svg { width: 34px; height: 38px; }
-  .intro__logo .wm { font-size: 26px; }
-  .intro h1 { margin: 0; font-size: 30px; line-height: 1.35; font-weight: 700; letter-spacing: -.02em; text-wrap: balance; }
-  .intro h1 em { font-style: normal; color: var(--orange); }
-  .intro p { margin: 0; color: var(--soft); max-width: 38ch; }
-  .intro ol { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .intro li { background: #0A0A0A; padding: 14px 16px; display: grid; grid-template-columns: 70px 1fr; gap: 12px; font-size: 13px; color: var(--soft); }
-  .intro li span { font-family: var(--wide); font-size: 9px; letter-spacing: .14em; color: var(--orange); padding-top: 3px; }
+  .stage { min-height: 100%; display: grid; grid-template-columns: minmax(0, 400px) auto; justify-content: center; align-items: center; gap: 96px; padding: 32px 16px; position: relative; overflow: hidden; }
+  .stage::before { content: ""; position: absolute; width: 900px; height: 900px; right: 8%; top: 50%; transform: translateY(-50%); background: radial-gradient(circle, rgba(255,90,31,.16), transparent 62%); pointer-events: none; }
+  .intro { position: relative; display: grid; gap: 26px; }
+  .intro__logo { display: flex; align-items: center; gap: 12px; }
+  .intro__logo svg { width: 26px; height: 29px; }
+  .intro__logo span { font-family: var(--wide); font-size: 15px; letter-spacing: .04em; }
+  .intro h1 { margin: 0; font-weight: 300; font-size: 44px; line-height: 1.12; letter-spacing: -.035em; text-wrap: balance; }
+  .intro h1 b { font-weight: 500; background: linear-gradient(90deg, var(--orange), var(--amber)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .intro p { margin: 0; color: var(--soft); font-size: 15px; line-height: 1.7; max-width: 36ch; }
+  .intro ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .intro li { display: flex; gap: 12px; align-items: baseline; color: var(--soft); font-size: 13.5px; }
+  .intro li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 10px var(--glow); flex: none; transform: translateY(-2px); }
+  .intro small { color: var(--mute); font-size: 12px; }
 
-  .phone { width: 390px; height: min(844px, calc(100vh - 64px)); min-height: 640px; border-radius: 46px; padding: 11px; background: #050505; border: 1px solid #2a2a2a; box-shadow: 0 40px 80px rgba(0,0,0,.6); }
-  .app { position: relative; height: 100%; border-radius: 36px; overflow: hidden; background: var(--black); display: flex; flex-direction: column; }
+  .phone { position: relative; width: 392px; height: min(848px, calc(100vh - 64px)); min-height: 660px; border-radius: 56px; padding: 10px; background: linear-gradient(145deg, #2a2a2a, #0d0d0d 40%, #1c1c1c); box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 50px 100px rgba(0,0,0,.7); }
+  .app { position: relative; height: 100%; border-radius: 47px; overflow: hidden; background: var(--black); isolation: isolate; }
 
-  @media (max-width: 860px) {
+  @media (max-width: 880px) {
     .stage { display: block; padding: 0; height: 100%; }
-    .intro { display: none; }
-    .phone { width: 100%; height: 100%; min-height: 0; border-radius: 0; padding: 0; border: 0; box-shadow: none; }
+    .stage::before, .intro { display: none; }
+    .phone { width: 100%; height: 100%; min-height: 0; border-radius: 0; padding: 0; background: none; box-shadow: none; }
     .app { border-radius: 0; }
   }
 
-  /* 앱 공통 */
-  .top { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 22px 20px 12px; }
-  .top svg { width: 20px; height: 22px; }
-  .top__chip { font-family: var(--wide); font-size: 9px; letter-spacing: .14em; padding: 6px 10px; border: 1px solid var(--line); border-radius: 20px; color: var(--soft); }
-  .top__chip b { color: var(--orange); font-weight: 400; }
-  .view { flex: 1; overflow-y: auto; padding: 4px 20px 28px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: none; }
+  /* 앰비언트 빛 */
+  .amb { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .amb i { position: absolute; border-radius: 50%; filter: blur(60px); }
+  .amb i:nth-child(1) { width: 340px; height: 340px; left: -120px; top: -90px; background: radial-gradient(circle, rgba(255,90,31,.55), transparent 70%); animation: drift1 18s ease-in-out infinite alternate; }
+  .amb i:nth-child(2) { width: 300px; height: 300px; right: -140px; top: 38%; background: radial-gradient(circle, rgba(255,140,70,.32), transparent 70%); animation: drift2 22s ease-in-out infinite alternate; }
+  .amb i:nth-child(3) { width: 260px; height: 260px; left: 10%; bottom: -120px; background: radial-gradient(circle, rgba(255,255,255,.08), transparent 70%); }
+  @keyframes drift1 { to { transform: translate(60px, 50px) scale(1.1); } }
+  @keyframes drift2 { to { transform: translate(-50px, -70px) scale(.9); } }
+
+  /* 상단 */
+  .top { position: absolute; z-index: 3; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: calc(18px + env(safe-area-inset-top, 0px)) 20px 10px; }
+  .top > svg { width: 18px; height: 20px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 20px; font-size: 12.5px; color: var(--soft); }
+  .chip i { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px var(--orange); }
+  .chip b { color: var(--text); font-weight: 500; }
+
+  .view { position: absolute; inset: 0; z-index: 1; overflow-y: auto; padding: calc(74px + env(safe-area-inset-top, 0px)) 18px calc(120px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 14px; scrollbar-width: none; }
   .view::-webkit-scrollbar { display: none; }
   .view > * { flex-shrink: 0; }
-  .h { margin: 6px 0 4px; font-size: 24px; line-height: 1.3; font-weight: 700; letter-spacing: -.03em; text-wrap: balance; }
-  .h em { font-style: normal; color: var(--orange); }
-  .card { background: var(--ink); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
-  .card .lbl { display: block; margin-bottom: 8px; }
-  .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .big { font-family: var(--wide); font-size: 30px; line-height: 1; }
-  .big small { font-family: var(--sans); font-size: 13px; color: var(--mute); margin-left: 4px; }
-  .bar { height: 5px; background: var(--line); border-radius: 3px; overflow: hidden; margin-top: 12px; }
-  .bar i { display: block; height: 100%; background: var(--orange); border-radius: 3px; transition: width .4s cubic-bezier(.3,.7,.2,1); }
-  .cta { display: block; width: 100%; text-align: center; background: var(--orange); color: var(--black); font-weight: 700; font-size: 15px; padding: 15px; border-radius: 14px; }
-  .cta[disabled] { opacity: .3; cursor: default; }
-  .ghost { display: block; width: 100%; text-align: center; border: 1px solid var(--line); color: var(--soft); font-size: 13px; padding: 12px; border-radius: 12px; }
-  .note { font-size: 11px; color: var(--mute); text-align: center; }
+  .eyebrow { font-size: 12.5px; color: var(--mute); margin: 0; }
+  .title { margin: 0; font-weight: 300; font-size: 32px; line-height: 1.15; letter-spacing: -.035em; text-wrap: balance; }
+  .title b { font-weight: 500; }
+  .title em { font-style: normal; font-weight: 500; background: linear-gradient(90deg, var(--orange), var(--amber)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sec-h { display: flex; justify-content: space-between; align-items: baseline; padding: 0 4px; margin-top: 10px; }
+  .sec-h h3 { margin: 0; font-size: 13px; font-weight: 500; color: var(--soft); }
+  .sec-h span { font-size: 12px; color: var(--mute); }
+  .pad { padding: 18px; }
+  .cta { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 56px; border-radius: 28px; font-weight: 500; font-size: 15px; color: #fff; background: linear-gradient(180deg, #FF7440, var(--orange)); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 30px rgba(255,90,31,.35); }
+  .cta svg { width: 16px; height: 16px; }
+  .cta[disabled] { background: rgba(255,255,255,.08); box-shadow: inset 0 1px 0 rgba(255,255,255,.08); color: var(--mute); cursor: default; }
+  .link { display: block; width: 100%; text-align: center; padding: 14px; font-size: 13.5px; color: var(--soft); border-radius: 22px; }
+  .note { font-size: 12px; color: var(--mute); text-align: center; margin: 0; }
 
   /* 탭바 */
-  .tabs { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); padding: 8px 8px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--black); }
-  .tabs button { display: grid; justify-items: center; gap: 4px; padding: 6px 0; font-family: var(--wide); font-size: 8px; letter-spacing: .12em; color: var(--mute); }
-  .tabs svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: square; }
-  .tabs button[aria-current="page"] { color: var(--orange); }
-
-  /* 온보딩 */
-  .steps { display: flex; gap: 5px; }
-  .steps i { flex: 1; height: 3px; background: var(--line); }
-  .steps i.on { background: var(--orange); }
-  .styles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .sty { position: relative; border: 1px solid var(--line); background: var(--ink); border-radius: 16px; padding: 14px; min-height: 150px; display: flex; flex-direction: column; overflow: hidden; }
-  .sty .glyph { position: absolute; right: -10px; top: -6px; font-family: var(--wide); font-size: 54px; color: var(--raise); line-height: 1; pointer-events: none; }
-  .sty .lbl { position: relative; color: var(--orange); }
-  .sty b { position: relative; margin-top: auto; font-size: 17px; letter-spacing: -.02em; }
-  .sty span { position: relative; font-size: 11.5px; color: var(--mute); line-height: 1.45; margin-top: 4px; }
-  .sty[aria-pressed="true"] { border-color: var(--orange); background: var(--orange-dim); }
-  .sty[aria-pressed="true"] .glyph { color: rgba(255,90,31,.18); }
-  .opt { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); background: var(--ink); border-radius: 14px; padding: 14px 16px; }
-  .opt i { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #4a4a47; flex: none; display: grid; place-items: center; }
-  .opt.multi i { border-radius: 5px; }
-  .opt div { display: grid; }
-  .opt b { font-weight: 600; font-size: 14px; }
-  .opt span { font-size: 11.5px; color: var(--mute); }
-  .opt[aria-pressed="true"] { border-color: var(--orange); background: var(--orange-dim); }
-  .opt[aria-pressed="true"] i { border-color: var(--orange); background: var(--orange); box-shadow: inset 0 0 0 3px var(--black); }
-  .opt.multi[aria-pressed="true"] i { box-shadow: none; }
-  .opt.multi[aria-pressed="true"] i::after { content: ""; width: 8px; height: 4px; border: 2px solid var(--black); border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px, -1px); }
-  .ob-foot { margin-top: auto; display: grid; gap: 8px; padding-top: 12px; }
-
-  /* 부팅 */
-  .boot { position: absolute; inset: 0; z-index: 5; background: var(--black); display: grid; place-content: center; justify-items: center; gap: 26px; padding: 32px; text-align: center; }
-  .boot svg { width: 86px; height: 97px; }
-  .boot .bar { width: 220px; margin: 0; }
-  .boot .lbl { color: var(--soft); min-height: 1.6em; }
-  .boot .wm { font-size: 20px; }
+  .tabs { position: absolute; z-index: 4; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); height: 68px; border-radius: 34px; display: grid; grid-template-columns: repeat(4, 1fr); padding: 6px; }
+  .tabs .thumb { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc((100% - 12px) / 4); border-radius: 28px; background: rgba(255,255,255,.09); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); transition: transform .45s var(--ease); }
+  .tabs button { position: relative; display: grid; place-content: center; justify-items: center; gap: 3px; font-size: 10.5px; color: var(--mute); transition: color .3s; }
+  .tabs svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .tabs button[aria-current="page"] { color: var(--text); }
+  .tabs button[aria-current="page"] svg { stroke: var(--orange); filter: drop-shadow(0 0 6px var(--glow)); }
 
   /* 홈 */
-  .hello { color: var(--mute); font-size: 13px; margin-top: 4px; }
-  .look { position: relative; overflow: hidden; background: var(--orange); color: var(--black); border-radius: 18px; padding: 18px; display: grid; gap: 6px; }
-  .look .lbl { color: rgba(17,17,17,.6); }
-  .look b { font-size: 20px; letter-spacing: -.02em; }
-  .look p { margin: 0; font-size: 12.5px; line-height: 1.5; max-width: 26ch; }
-  .look .chev { position: absolute; right: -28px; top: 14px; width: 150px; color: rgba(17,17,17,.14); }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-  .tags span { font-size: 11px; padding: 3px 9px; border-radius: 20px; border: 1px solid rgba(17,17,17,.3); }
-  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 10px; }
-  .week div { display: grid; justify-items: center; gap: 6px; font-family: var(--wide); font-size: 8px; color: var(--mute); }
-  .week i { width: 100%; aspect-ratio: 1; border-radius: 6px; background: var(--raise); }
-  .week i.half { background: rgba(255,90,31,.4); }
-  .week i.full { background: var(--orange); }
-  .week i.today { outline: 1.5px solid var(--white); outline-offset: 2px; }
-  .tip { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
-  .tip em { font-style: normal; font-family: var(--wide); font-size: 9px; color: var(--orange); border: 1px solid var(--orange); border-radius: 6px; padding: 4px 6px; }
-  .tip p { margin: 0; font-size: 13px; color: var(--soft); }
-  .tip p b { color: var(--white); }
-  .sample { font-size: 11px; color: var(--mute); border: 1px dashed var(--line); border-radius: 10px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-  .sample button { color: var(--orange); font-weight: 600; flex: none; }
+  .sample { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 10px 10px 16px; border-radius: 20px; font-size: 12.5px; color: var(--soft); }
+  .sample button { flex: none; height: 32px; padding: 0 14px; border-radius: 16px; background: rgba(255,90,31,.16); color: var(--amber); font-weight: 500; font-size: 12px; }
+  .ring-card { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; padding: 20px; }
+  .ring { position: relative; width: 132px; height: 132px; }
+  .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+  .ring circle { fill: none; stroke-width: 9; stroke-linecap: round; }
+  .ring .track { stroke: rgba(255,255,255,.07); }
+  .ring .val { stroke: url(#rg); filter: drop-shadow(0 0 8px var(--glow)); transition: stroke-dashoffset .9s var(--ease); }
+  .ring > div { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+  .ring .num { font-size: 40px; line-height: 1; }
+  .ring .num small { font-size: 16px; color: var(--soft); margin-left: 1px; }
+  .ring span { font-size: 11px; color: var(--mute); margin-top: 4px; }
+  .ring-card dl { margin: 0; display: grid; gap: 12px; }
+  .ring-card dt { font-size: 11.5px; color: var(--mute); }
+  .ring-card dd { margin: 2px 0 0; font-size: 15px; font-weight: 500; }
+  .ring-card dd small { font-weight: 400; color: var(--soft); font-size: 12px; margin-left: 4px; }
+
+  .look { overflow: hidden; padding: 20px; min-height: 168px; display: flex; flex-direction: column; }
+  .look .orb { position: absolute; right: -40px; top: -50px; width: 190px; height: 190px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #FFB27F, var(--orange) 45%, rgba(255,90,31,0) 72%); opacity: .8; filter: blur(4px); }
+  .look .chev { position: absolute; right: 22px; top: 22px; width: 56px; color: rgba(255,255,255,.9); filter: drop-shadow(0 4px 12px rgba(0,0,0,.25)); }
+  .look small { position: relative; font-size: 11.5px; color: var(--soft); }
+  .look b { position: relative; margin-top: auto; font-size: 22px; font-weight: 500; letter-spacing: -.03em; }
+  .look p { position: relative; margin: 4px 0 0; font-size: 13px; color: var(--soft); max-width: 30ch; }
+  .tags { position: relative; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .tags span { font-size: 11.5px; padding: 5px 11px; border-radius: 14px; background: rgba(255,255,255,.07); border: 1px solid var(--hair); color: var(--soft); }
+
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); padding: 18px 14px; }
+  .week div { display: grid; justify-items: center; gap: 8px; font-size: 11px; color: var(--mute); }
+  .dot { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.12); }
+  .dot.half { border-color: var(--orange); background: radial-gradient(circle, rgba(255,90,31,.3), transparent 70%); }
+  .dot.full { border-color: transparent; background: linear-gradient(160deg, var(--amber), var(--orange)); box-shadow: 0 0 12px var(--glow); }
+  .week .today { color: var(--text); font-weight: 500; }
+  .tip { padding: 18px 20px; font-size: 14px; line-height: 1.6; color: var(--soft); }
+  .tip b { color: var(--text); font-weight: 500; }
+  .tip small { display: block; font-size: 11.5px; color: var(--amber); margin-bottom: 6px; }
 
   /* 루틴 */
-  .seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
-  .seg button { text-align: center; padding: 9px; border-radius: 9px; font-family: var(--wide); font-size: 10px; letter-spacing: .12em; color: var(--mute); }
-  .seg button[aria-pressed="true"] { background: var(--white); color: var(--black); }
-  .step { display: grid; grid-template-columns: 26px 1fr auto; gap: 12px; align-items: start; padding: 14px 16px; border: 1px solid var(--line); background: var(--ink); border-radius: 14px; width: 100%; }
-  .step > i { width: 26px; height: 26px; border-radius: 8px; border: 1.5px solid #4a4a47; display: grid; place-items: center; font-style: normal; font-family: var(--wide); font-size: 9px; color: var(--mute); }
-  .step b { display: block; font-weight: 600; font-size: 14.5px; }
-  .step span { display: block; font-size: 12px; color: var(--mute); margin-top: 2px; line-height: 1.5; }
-  .step .sec { font-family: var(--wide); font-size: 9px; color: var(--mute); padding-top: 5px; font-variant-numeric: tabular-nums; }
-  .step .badge { display: inline-block; font-family: var(--wide); font-size: 8px; letter-spacing: .12em; color: var(--orange); border: 1px solid var(--orange); border-radius: 5px; padding: 1px 5px; margin-left: 6px; vertical-align: 2px; }
-  .step.done > i { background: var(--orange); border-color: var(--orange); color: var(--black); }
-  .step.done b { color: var(--mute); text-decoration: line-through; text-decoration-color: var(--orange); }
-  .done-msg { text-align: center; padding: 18px; border-radius: 16px; border: 1px solid var(--orange); background: var(--orange-dim); }
-  .done-msg b { display: block; font-family: var(--wide); font-size: 13px; color: var(--orange); letter-spacing: .1em; }
-  .done-msg span { font-size: 12.5px; color: var(--soft); }
+  .seg { position: relative; display: grid; grid-template-columns: 1fr 1fr; height: 46px; padding: 4px; border-radius: 23px; }
+  .seg .thumb { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 19px; background: rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.16), 0 4px 12px rgba(0,0,0,.25); transition: transform .45s var(--ease); }
+  .seg.pm .thumb { transform: translateX(100%); }
+  .seg button { position: relative; text-align: center; font-size: 13px; color: var(--mute); transition: color .3s; }
+  .seg button[aria-pressed="true"] { color: var(--text); font-weight: 500; }
+  .meta-line { display: flex; gap: 16px; color: var(--soft); font-size: 13px; padding: 0 4px; }
+  .meta-line b { font-weight: 500; color: var(--text); }
+  .rows { padding: 6px 0; }
+  .step { display: grid; grid-template-columns: 30px 1fr auto; gap: 14px; align-items: start; width: 100%; padding: 14px 18px; position: relative; }
+  .step + .step::before { content: ""; position: absolute; top: 0; left: 62px; right: 18px; height: 1px; background: var(--hair); }
+  .check { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.18); display: grid; place-items: center; transition: all .35s var(--ease); }
+  .check svg { width: 14px; height: 14px; stroke: #fff; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset .35s .05s var(--ease); }
+  .step b { display: block; font-weight: 500; font-size: 15px; letter-spacing: -.02em; transition: color .3s; }
+  .step span.why { display: block; font-size: 12.5px; color: var(--mute); margin-top: 3px; line-height: 1.5; }
+  .step .t { font-size: 12px; color: var(--mute); padding-top: 6px; font-variant-numeric: tabular-nums; }
+  .step .tag { display: inline-block; font-size: 10.5px; font-weight: 500; color: var(--amber); background: rgba(255,90,31,.14); border-radius: 8px; padding: 1px 7px; margin-left: 6px; vertical-align: 1px; }
+  .step.done .check { border-color: transparent; background: linear-gradient(160deg, var(--amber), var(--orange)); box-shadow: 0 0 14px var(--glow); }
+  .step.done .check svg { stroke-dashoffset: 0; }
+  .step.done b { color: var(--mute); }
+  .complete { padding: 22px; text-align: center; overflow: hidden; }
+  .complete::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 120%, rgba(255,90,31,.35), transparent 65%); border-radius: inherit; }
+  .complete b { position: relative; display: block; font-weight: 500; font-size: 17px; }
+  .complete span { position: relative; font-size: 13px; color: var(--soft); }
 
   /* 가이드 */
-  .prod { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; }
-  .prod > i { width: 44px; height: 44px; border-radius: 12px; background: var(--raise); display: grid; place-items: center; font-style: normal; font-family: var(--wide); font-size: 10px; color: var(--orange); }
-  .prod b { display: block; font-size: 14px; font-weight: 600; }
-  .prod span { display: block; font-size: 11.5px; color: var(--mute); }
-  .prod em { font-style: normal; font-size: 11px; color: var(--soft); white-space: nowrap; }
-  .list { display: grid; gap: 14px; }
-  .pill { display: inline-block; font-size: 10.5px; padding: 3px 9px; border-radius: 20px; border: 1px solid var(--orange); color: var(--orange); }
-  .kv { display: grid; grid-template-columns: 64px 1fr; gap: 6px 12px; font-size: 13px; }
-  .kv dt { font-family: var(--wide); font-size: 9px; letter-spacing: .12em; color: var(--mute); padding-top: 4px; }
-  .kv dd { margin: 0; color: var(--soft); }
-  .kv dd b { color: var(--white); }
+  .prod { display: grid; grid-template-columns: 46px 1fr auto; gap: 14px; align-items: center; padding: 12px 18px; position: relative; }
+  .prod + .prod::before { content: ""; position: absolute; top: 0; left: 78px; right: 18px; height: 1px; background: var(--hair); }
+  .prod > i { width: 46px; height: 46px; border-radius: 15px; display: grid; place-items: center; font-style: normal; background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.03)); border: 1px solid var(--hair); font-size: 15px; font-weight: 300; color: var(--soft); }
+  .prod > i.hot { background: linear-gradient(160deg, rgba(255,154,92,.35), rgba(255,90,31,.12)); color: var(--text); border-color: rgba(255,90,31,.3); }
+  .prod b { display: block; font-weight: 500; font-size: 14.5px; }
+  .prod span { display: block; font-size: 12px; color: var(--mute); }
+  .prod em { font-style: normal; font-size: 12px; color: var(--soft); white-space: nowrap; }
+  .kit { padding: 4px 0; }
+  .kit div { display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding: 14px 18px; position: relative; }
+  .kit div + div::before { content: ""; position: absolute; top: 0; left: 18px; right: 18px; height: 1px; background: var(--hair); }
+  .kit dt { font-size: 12px; color: var(--mute); padding-top: 1px; }
+  .kit dd { margin: 0; font-size: 13.5px; color: var(--soft); line-height: 1.55; }
+  .kit dd b { display: block; color: var(--text); font-weight: 500; font-size: 14.5px; margin-bottom: 2px; }
+  .pills { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 2px; }
+  .pills span { font-size: 12px; padding: 7px 12px; border-radius: 16px; color: var(--soft); }
 
   /* 나 */
-  .me { display: flex; align-items: center; gap: 14px; }
-  .me__icon { width: 56px; height: 56px; border-radius: 16px; background: var(--orange); display: grid; place-items: center; flex: none; }
+  .me { display: flex; align-items: center; gap: 16px; padding: 18px; }
+  .me__icon { width: 60px; height: 60px; border-radius: 20px; display: grid; place-items: center; flex: none; background: linear-gradient(160deg, #FF8248, var(--orange)); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 10px 24px rgba(255,90,31,.35); }
   .me__icon svg { width: 26px; height: 29px; }
-  .me b { display: block; font-size: 18px; }
-  .me span { font-size: 12px; color: var(--mute); }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .stats div { background: var(--ink); border: 1px solid var(--line); border-radius: 14px; padding: 14px 12px; }
-  .stats b { display: block; font-family: var(--wide); font-size: 20px; margin-top: 6px; font-weight: 400; font-variant-numeric: tabular-nums; }
-  .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 4px; }
-  .cal i { aspect-ratio: 1; border-radius: 5px; background: var(--raise); }
-  .cal i.half { background: rgba(255,90,31,.4); }
-  .cal i.full { background: var(--orange); }
+  .me b { display: block; font-size: 19px; font-weight: 500; letter-spacing: -.02em; }
+  .me span { font-size: 13px; color: var(--soft); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); padding: 18px 6px; }
+  .stats div { text-align: center; position: relative; }
+  .stats div + div::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: var(--hair); }
+  .stats .num { display: block; font-size: 34px; line-height: 1.1; }
+  .stats span { font-size: 11.5px; color: var(--mute); }
+  .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px 0; justify-items: center; padding: 18px 12px; }
+  .cal .dot { width: 22px; height: 22px; }
 
-  .fade { animation: fade .28s ease-out; }
-  @keyframes fade { from { opacity: .4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) { .fade { animation: none; } .bar i { transition: none; } }
+  /* 온보딩 */
+  .prog { display: flex; gap: 6px; }
+  .prog i { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,.1); overflow: hidden; position: relative; }
+  .prog i.on::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--orange), var(--amber)); box-shadow: 0 0 8px var(--glow); }
+  .styles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .sty { overflow: hidden; min-height: 176px; padding: 16px; display: flex; flex-direction: column; border-radius: 24px; transition: transform .25s var(--ease), border-color .3s, box-shadow .3s; }
+  .sty .o { position: absolute; width: 120px; height: 120px; border-radius: 50%; right: -30px; top: -30px; filter: blur(2px); opacity: .35; transition: opacity .4s, transform .6s var(--ease); }
+  .sty small { position: relative; font-size: 11.5px; color: var(--mute); }
+  .sty b { position: relative; margin-top: auto; font-size: 18px; font-weight: 500; letter-spacing: -.03em; }
+  .sty span { position: relative; font-size: 12px; color: var(--soft); line-height: 1.45; margin-top: 4px; }
+  .sty[aria-pressed="true"] { border-color: rgba(255,90,31,.6); box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 0 0 1px rgba(255,90,31,.25), 0 14px 40px rgba(255,90,31,.22); }
+  .sty[aria-pressed="true"] .o { opacity: .95; transform: scale(1.25); }
+  .opt { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 22px; transition: border-color .3s, box-shadow .3s; }
+  .opt .r { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.2); flex: none; display: grid; place-items: center; transition: all .3s var(--ease); }
+  .opt.multi .r { border-radius: 7px; }
+  .opt .r svg { width: 12px; height: 12px; stroke: #fff; stroke-width: 2.6; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+  .opt div { display: grid; }
+  .opt b { font-weight: 500; font-size: 15px; }
+  .opt span { font-size: 12.5px; color: var(--mute); }
+  .opt[aria-pressed="true"] { border-color: rgba(255,90,31,.55); box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 10px 30px rgba(255,90,31,.15); }
+  .opt[aria-pressed="true"] .r { border-color: transparent; background: linear-gradient(160deg, var(--amber), var(--orange)); box-shadow: 0 0 10px var(--glow); }
+  .opt[aria-pressed="true"] .r svg { opacity: 1; }
+  .ob-foot { margin-top: auto; display: grid; gap: 4px; padding-top: 16px; }
+
+  /* 부팅 */
+  .boot { position: absolute; inset: 0; z-index: 10; display: grid; place-content: center; justify-items: center; gap: 30px; background: rgba(8,8,8,.72); -webkit-backdrop-filter: blur(30px); backdrop-filter: blur(30px); animation: fadein .4s var(--ease); }
+  .boot__mark { position: relative; width: 120px; height: 120px; display: grid; place-items: center; }
+  .boot__mark::before { content: ""; position: absolute; inset: -30px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,31,.45), transparent 65%); animation: pulse 1.6s ease-in-out infinite; }
+  .boot__mark svg { position: relative; width: 64px; height: 72px; }
+  .boot__bar { width: 180px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.1); overflow: hidden; }
+  .boot__bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--orange), var(--amber)); box-shadow: 0 0 10px var(--glow); transition: width .6s var(--ease); }
+  .boot p { margin: 0; font-size: 13px; color: var(--soft); min-height: 1.5em; }
+  @keyframes pulse { 50% { transform: scale(1.15); opacity: .6; } }
+  @keyframes fadein { from { opacity: 0; } }
+
+  .enter > * { animation: rise .55s var(--ease) backwards; }
+  .enter > *:nth-child(2) { animation-delay: .04s; } .enter > *:nth-child(3) { animation-delay: .08s; } .enter > *:nth-child(4) { animation-delay: .12s; } .enter > *:nth-child(5) { animation-delay: .16s; } .enter > *:nth-child(n+6) { animation-delay: .2s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+  @media (prefers-reduced-motion: reduce) { .amb i, .enter > *, .boot__mark::before { animation: none !important; } }
 </style>
 </head>
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB27F"/><stop offset="1" stop-color="#FF5A1F"/></linearGradient></defs>
   <symbol id="rb" viewBox="0 0 272 306">
     <path fill="var(--chev, #FF5A1F)" d="M0 0H197L272 75L224 123L171 70H70Z"/>
     <path fill="currentColor" d="M0 97H161L178 80L222 124L186 162H108L252 306H162L65 209V306H0Z"/>
   </symbol>
   <symbol id="chev" viewBox="0 0 272 123"><path fill="currentColor" d="M0 0H197L272 75L224 123L171 70H70Z"/></symbol>
+  <symbol id="ck" viewBox="0 0 16 16"><path d="M3.5 8.5 6.5 11.5 12.5 4.5"/></symbol>
 </svg>
 
 <div class="stage">
   <section class="intro" aria-label="앱 소개">
-    <div class="intro__logo"><svg class="mark"><use href="#rb"/></svg><span class="wm">RE:BOOT</span></div>
-    <h1>내 <em>추구미</em>에 맞춘<br>남자 자기관리 루틴 앱</h1>
-    <p>전역 후 처음 자기관리를 시작하는 남자를 위한 입문 가이드. 원하는 인상을 먼저 고르면, 피부 타입과 고민에 맞춰 아침·저녁 루틴과 제품, 헤어·향까지 정리해 줍니다.</p>
-    <ol>
-      <li><span>STYLE</span>추구미 4종: 클린 · 댄디 · 스트릿 · 애슬릿</li>
-      <li><span>SKIN</span>피부 타입 4종 + 고민 5가지로 루틴 자동 구성</li>
-      <li><span>ROUTINE</span>단계별 시간과 이유, 체크하면 연속 기록</li>
-      <li><span>GUIDE</span>PX에서도 살 수 있는 최소 구성 제품</li>
-    </ol>
-    <p class="lbl" style="margin:0">PROTOTYPE · 체크 기록은 이 브라우저에만 저장됩니다</p>
+    <div class="intro__logo"><svg class="mark"><use href="#rb"/></svg><span>RE:BOOT</span></div>
+    <h1>보이고 싶은 모습부터<br><b>다시 켜다.</b></h1>
+    <p>전역 후 처음 자기관리를 시작하는 남자를 위한 루틴 앱. 추구미를 고르면 피부 타입과 고민에 맞춰 아침·저녁 루틴, 제품, 헤어와 향까지 정리합니다.</p>
+    <ul>
+      <li>추구미 4가지 · 클린, 댄디, 스트릿, 애슬릿</li>
+      <li>피부 타입과 고민으로 루틴 자동 구성</li>
+      <li>단계마다 시간과 이유, 체크하면 연속 기록</li>
+    </ul>
+    <small>Prototype · 기록은 이 브라우저에만 저장됩니다</small>
   </section>
 
   <div class="phone">
@@ -225,102 +288,100 @@
   // ---------- 데이터 ----------
   var STYLES = {
     clean: {
-      en: "CLEAN", ko: "클린 정돈형", glyph: "CL",
+      en: "Clean", ko: "클린 정돈형", orb: "radial-gradient(circle at 35% 35%, #fff, #d9d9d4 40%, transparent 70%)",
       line: "군더더기 없이 단정하게",
       desc: "잡티 없는 피부와 짧게 정리된 머리. 누가 봐도 관리하는 사람.",
       tags: ["투블럭", "결 정리", "비누향"],
       hair: "짧은 투블럭 · 댄디컷", hairTip: "3~4주마다 옆머리 정리. 매트 왁스는 손톱만큼만.",
       scent: "화이트 머스크 · 비누 계열", fit: "무지 티셔츠, 핏 맞는 치노",
-      extra: { am: { t: "눈썹 · 코털 체크", s: 30, why: "삐져나온 한 가닥이 인상을 흐립니다. 거울 앞 30초." } }
+      extra: { am: { t: "눈썹 · 코털 체크", s: 30, why: "삐져나온 한 가닥이 인상을 흐립니다." } }
     },
     dandy: {
-      en: "DANDY", ko: "댄디", glyph: "DN",
+      en: "Dandy", ko: "댄디", orb: "radial-gradient(circle at 35% 35%, #E9C9A6, #8A5A3A 45%, transparent 72%)",
       line: "셔츠가 잘 어울리는 차분함",
       desc: "윤기 있는 피부와 정돈된 가르마. 단정하지만 부드러운 인상.",
       tags: ["가르마", "윤기 피부", "우디향"],
       hair: "가르마펌 · 내린 머리", hairTip: "드라이할 때 뿌리부터 볼륨. 쉐이핑 크림으로 결만 잡기.",
       scent: "우디 · 시더우드", fit: "옥스퍼드 셔츠, 슬랙스, 로퍼",
-      extra: { am: { t: "드라이로 뿌리 볼륨", s: 120, why: "가르마는 젖은 상태에서 방향을 잡아야 오후까지 갑니다." } }
+      extra: { am: { t: "드라이로 뿌리 볼륨", s: 120, why: "젖었을 때 방향을 잡아야 오후까지 갑니다." } }
     },
     street: {
-      en: "STREET", ko: "힙 스트릿", glyph: "ST",
+      en: "Street", ko: "힙 스트릿", orb: "radial-gradient(circle at 35% 35%, #FFB27F, #FF5A1F 45%, transparent 72%)",
       line: "볼드하고 자신감 있게",
       desc: "짧고 선명한 헤어, 번들거림 없는 피부. 꾸민 듯 안 꾸민 듯.",
       tags: ["크롭컷", "피지 관리", "시트러스"],
       hair: "크롭컷 · 버즈컷", hairTip: "짧을수록 두피가 보입니다. 주 2회 두피 스크럽.",
       scent: "시트러스 · 스파이시", fit: "오버핏 후디, 와이드 팬츠, 볼캡",
-      extra: { pm: { t: "립밤 바르고 자기", s: 10, why: "튼 입술은 짧은 머리에서 제일 먼저 눈에 띕니다." } }
+      extra: { pm: { t: "립밤 바르고 자기", s: 10, why: "튼 입술은 짧은 머리에서 제일 먼저 보입니다." } }
     },
     athlete: {
-      en: "ATHLETE", ko: "애슬릿", glyph: "AT",
+      en: "Athlete", ko: "애슬릿", orb: "radial-gradient(circle at 35% 35%, #BFE7FF, #3C7FA8 45%, transparent 72%)",
       line: "운동하는 남자의 건강한 인상",
       desc: "땀 관리가 잘 된 맑은 피부, 짧은 머리, 건강한 톤.",
       tags: ["크루컷", "땀 관리", "아쿠아향"],
       hair: "숏컷 · 크루컷", hairTip: "운동 후 바로 샴푸. 땀을 말리면 두피 트러블로 갑니다.",
       scent: "아쿠아 · 프레시", fit: "기능성 티, 조거 팬츠",
-      extra: { pm: { t: "운동 후 바디로션", s: 40, why: "샤워 후 3분 안에 발라야 등·팔 각질이 잡힙니다." } }
+      extra: { pm: { t: "운동 후 바디로션", s: 40, why: "샤워 후 3분 안에 발라야 각질이 잡힙니다." } }
     }
   };
   var STYLE_KEYS = ["clean", "dandy", "street", "athlete"];
 
   var SKINS = {
-    dry: { ko: "건성", q: "당기고 각질이 일어난다", cleanser: "크림 클렌저", cdesc: "저자극 · 촉촉한 타입", moist: "보습 크림", moistWhy: "건성은 젤보다 크림. 세안 후 1분 안에." },
-    oily: { ko: "지성", q: "전체적으로 번들거린다", cleanser: "젤 클렌저", cdesc: "약산성 · 산뜻한 타입", moist: "수분 젤", moistWhy: "지성도 보습은 필요합니다. 가벼운 젤로 유분 대신 수분만." },
     combo: { ko: "복합성", q: "T존만 번들거린다", cleanser: "젤 클렌저", cdesc: "약산성 · 저자극", moist: "가벼운 로션", moistWhy: "볼은 넉넉히, T존은 얇게." },
-    sensitive: { ko: "민감성", q: "자주 붉어지고 따갑다", cleanser: "무향 클렌저", cdesc: "저자극 · 성분 최소", moist: "진정 크림", moistWhy: "성분 적은 무향 제품. 새 제품은 턱에 먼저 테스트." }
+    oily: { ko: "지성", q: "전체적으로 번들거린다", cleanser: "젤 클렌저", cdesc: "약산성 · 산뜻한 타입", moist: "수분 젤", moistWhy: "지성도 보습은 필요해요. 가벼운 젤로 수분만." },
+    dry: { ko: "건성", q: "당기고 각질이 일어난다", cleanser: "크림 클렌저", cdesc: "저자극 · 촉촉한 타입", moist: "보습 크림", moistWhy: "건성은 젤보다 크림. 세안 후 1분 안에." },
+    sensitive: { ko: "민감성", q: "자주 붉어지고 따갑다", cleanser: "무향 클렌저", cdesc: "저자극 · 성분 최소", moist: "진정 크림", moistWhy: "성분 적은 무향 제품. 새 제품은 턱에 먼저." }
   };
   var SKIN_KEYS = ["combo", "oily", "dry", "sensitive"];
 
   var CONCERNS = {
-    acne: { ko: "트러블", sub: "턱 · 이마 여드름", step: { when: "pm", t: "BHA 토너 (주 2회)", s: 20, why: "모공 속 피지를 녹여 트러블 재발을 줄입니다." }, prod: { c: "BHA 토너", d: "주 2~3회 · 화장솜", p: "1~2만원" } },
-    sebum: { ko: "피지 · 번들거림", sub: "오후만 되면 기름", step: { when: "am", t: "유분 정리 (기름종이)", s: 10, why: "문지르지 말고 눌러서. 오후 한 번이면 충분." }, prod: { c: "클레이 마스크", d: "주 1회 · 10분", p: "1만원대" } },
-    dry: { ko: "건조 · 각질", sub: "코 옆 하얗게", step: { when: "pm", t: "보습 한 번 더 덧바르기", s: 20, why: "건조한 부위만 얇게 한 겹 더." }, prod: { c: "세라마이드 크림", d: "밤 루틴 마지막", p: "2만원대" } },
-    shave: { ko: "면도 자극", sub: "따갑고 빨개짐", step: { when: "am", t: "면도 후 찬물 + 진정 토너", s: 30, why: "열을 식히고 바로 진정. 스킨 대신 무알코올 토너." }, prod: { c: "쉐이빙 젤", d: "거품보다 미끄러움", p: "1만원 이하" } },
-    dark: { ko: "칙칙한 톤", sub: "피곤해 보임", step: { when: "am", t: "비타민C 한 방울", s: 20, why: "선크림 전에. 꾸준히 4주면 톤이 맑아집니다." }, prod: { c: "비타민C 세럼", d: "아침 · 선크림 전", p: "2만원대" } }
+    acne: { ko: "트러블", sub: "턱 · 이마 여드름", step: { when: "pm", t: "BHA 토너", s: 20, why: "주 2회. 모공 속 피지를 녹여 재발을 줄입니다." }, prod: { c: "BHA 토너", d: "주 2~3회 · 화장솜", p: "1~2만원" } },
+    sebum: { ko: "피지", sub: "오후만 되면 번들거림", step: { when: "am", t: "유분 정리", s: 10, why: "기름종이로 문지르지 말고 눌러서." }, prod: { c: "클레이 마스크", d: "주 1회 · 10분", p: "1만원대" } },
+    dry: { ko: "건조", sub: "코 옆이 하얗게 일어남", step: { when: "pm", t: "보습 한 겹 더", s: 20, why: "건조한 부위만 얇게 덧바르기." }, prod: { c: "세라마이드 크림", d: "밤 루틴 마지막", p: "2만원대" } },
+    shave: { ko: "면도 자극", sub: "따갑고 빨개짐", step: { when: "am", t: "찬물 + 진정 토너", s: 30, why: "면도 직후 열을 식히고 바로 진정." }, prod: { c: "쉐이빙 젤", d: "거품보다 미끄러움", p: "1만원 이하" } },
+    dark: { ko: "칙칙함", sub: "피곤해 보이는 톤", step: { when: "am", t: "비타민C 한 방울", s: 20, why: "선크림 전에. 4주면 톤이 맑아집니다." }, prod: { c: "비타민C 세럼", d: "아침 · 선크림 전", p: "2만원대" } }
   };
   var CONCERN_KEYS = ["acne", "sebum", "dry", "shave", "dark"];
 
   var TIPS = [
-    "면도는 <b>세안 후</b>. 수염이 불어야 덜 당깁니다.",
-    "선크림은 <b>두 손가락 길이</b>. 생각보다 많이 발라야 합니다.",
+    "면도는 <b>세안 후</b>에. 수염이 불어야 덜 당깁니다.",
+    "선크림은 <b>두 손가락 길이</b>. 생각보다 많이 발라야 해요.",
     "베개 커버는 <b>주 1회</b>. 트러블의 숨은 원인입니다.",
-    "물 세안만으론 선크림이 안 지워집니다. 저녁엔 <b>클렌저 필수</b>.",
-    "새 제품은 하나씩. <b>2주 단위</b>로 바꿔야 뭐가 맞는지 압니다.",
-    "머리 감고 <b>드라이는 두피부터</b>. 반만 말리면 냄새와 트러블."
+    "물 세안만으론 선크림이 안 지워져요. 저녁엔 <b>클렌저 필수</b>.",
+    "새 제품은 하나씩, <b>2주 단위</b>로. 그래야 뭐가 맞는지 압니다.",
+    "드라이는 <b>두피부터</b>. 반만 말리면 냄새와 트러블이 생겨요."
   ];
 
   // ---------- 저장 ----------
   var KEY = "reboot-app-v1";
   function load() { try { var r = localStorage.getItem(KEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
-
   function dkey(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
   function daysAgo(n) { var d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() - n); return d; }
   var TODAY = dkey(new Date());
 
-  // 처음 열면 예시 프로필(12일째 사용 중)로 시작
   function sampleState() {
     var log = {};
     for (var i = 1; i <= 11; i++) log[dkey(daysAgo(i))] = { am: "all", pm: i % 4 === 0 ? "half" : "all" };
     log[TODAY] = { am: [0, 1], pm: [] };
     return { sample: true, profile: { style: "clean", skin: "combo", concerns: ["shave", "sebum"] }, log: log, tab: "home", part: "am" };
   }
-
   var state = load() || sampleState();
-  var draft = null; // 온보딩 진행 중 선택값
+  if (state.profile && !STYLES[state.profile.style]) state = sampleState();
+  var draft = null;
 
-  // ---------- 루틴 생성 ----------
+  // ---------- 루틴 ----------
   function routine(p) {
     var sk = SKINS[p.skin], st = STYLES[p.style];
     var am = [
-      { t: sk.cleanser + "로 세안", s: 30, why: "아침엔 미온수로 30초. 뜨거운 물은 유분을 다 뺏어갑니다." },
-      { t: "토너로 결 정리", s: 20, why: "손바닥에 덜어 가볍게 두드리기. 화장솜은 자극이 됩니다." },
+      { t: sk.cleanser + "로 세안", s: 30, why: "미온수로 30초. 뜨거운 물은 유분을 다 뺏어갑니다." },
+      { t: "토너로 결 정리", s: 20, why: "손바닥으로 가볍게 두드리기. 화장솜은 자극이 돼요." },
       { t: sk.moist, s: 20, why: sk.moistWhy },
-      { t: "선크림 두 손가락", s: 40, why: "실내 근무여도 매일. 피부 노화의 대부분은 자외선입니다." }
+      { t: "선크림", s: 40, why: "두 손가락 길이. 실내 근무여도 매일." }
     ];
     var pm = [
       { t: "클렌저로 꼼꼼히 세안", s: 60, why: "선크림과 하루 먼지를 지우는 단계. 1분은 채우세요." },
-      { t: "토너", s: 20, why: "세안 직후 1분 안에. 수분이 날아가기 전에." },
+      { t: "토너", s: 20, why: "세안 직후 1분 안에." },
       { t: sk.moist, s: 20, why: sk.moistWhy }
     ];
     p.concerns.forEach(function (c) {
@@ -331,7 +392,6 @@
     if (st.extra.pm) pm.push({ t: st.extra.pm.t, s: st.extra.pm.s, why: st.extra.pm.why, tag: st.en });
     return { am: am, pm: pm };
   }
-
   function todayLog() { if (!state.log[TODAY]) state.log[TODAY] = { am: [], pm: [] }; return state.log[TODAY]; }
   function doneList(part) { var v = todayLog()[part]; return Array.isArray(v) ? v : []; }
   function dayRatio(k) {
@@ -345,29 +405,31 @@
     return n;
   }
   function cls(r) { return r >= .99 ? "full" : r > 0 ? "half" : ""; }
-  function fmt(s) { return s >= 60 ? Math.round(s / 60) + "m" : s + "s"; }
+  function fmt(s) { return s >= 60 ? Math.round(s / 60) + "분" : s + "초"; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   // ---------- 렌더 ----------
   var app = document.getElementById("app");
+  var AMB = '<div class="amb" aria-hidden="true"><i></i><i></i><i></i></div>';
   var ICONS = {
-    home: '<path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/>',
-    routine: '<path d="M5 6h3M5 12h3M5 18h3M11 6h8M11 12h8M11 18h8"/>',
-    guide: '<path d="M4 5h7v15H4zM13 5h7v15h-7z"/>',
-    me: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4-7 8-7s7 2.5 8 7"/>'
+    home: '<path d="M4 10.5 12 4l8 6.5V20h-5.5v-5.5h-5V20H4z"/>',
+    routine: '<circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/>',
+    guide: '<path d="M5 4.5h9.5L19 9v10.5H5z"/><path d="M9 12h6M9 15.5h4"/>',
+    me: '<circle cx="12" cy="8.5" r="3.6"/><path d="M5 19.5c1.2-3.6 3.8-5.5 7-5.5s5.8 1.9 7 5.5"/>'
   };
-  var TAB_NAMES = { home: "HOME", routine: "ROUTINE", guide: "GUIDE", me: "ME" };
+  var TABS = ["home", "routine", "guide", "me"], TAB_KO = { home: "홈", routine: "루틴", guide: "가이드", me: "나" };
+  var CK = '<svg viewBox="0 0 16 16"><use href="#ck"/></svg>';
+  var lastTab = null;
 
-  function shell(inner, opts) {
-    var p = state.profile, st = STYLES[p.style];
-    var top = '<header class="top"><svg class="mark" aria-label="RE:BOOT"><use href="#rb"/></svg>' +
-      '<span class="top__chip">추구미 <b>' + st.en + "</b></span></header>";
-    var tabs = '<nav class="tabs" aria-label="메뉴">' + ["home", "routine", "guide", "me"].map(function (t) {
-      return '<button data-tab="' + t + '"' + (state.tab === t ? ' aria-current="page"' : "") + '><svg viewBox="0 0 24 24">' + ICONS[t] + "</svg>" + TAB_NAMES[t] + "</button>";
-    }).join("") + "</nav>";
-    app.innerHTML = top + '<main class="view fade" id="view">' + inner + "</main>" + tabs;
+  function shell(inner) {
+    var st = STYLES[state.profile.style], idx = TABS.indexOf(state.tab);
+    var animate = lastTab !== state.tab; lastTab = state.tab;
+    app.innerHTML = AMB +
+      '<header class="top"><svg class="mark" aria-label="RE:BOOT"><use href="#rb"/></svg><span class="chip glass"><i></i>추구미 <b>' + st.ko + "</b></span></header>" +
+      '<main class="view' + (animate ? " enter" : "") + '" id="view">' + inner + "</main>" +
+      '<nav class="tabs glass" aria-label="메뉴"><span class="thumb" style="transform:translateX(' + idx * 100 + '%)"></span>' +
+      TABS.map(function (t) { return '<button data-tab="' + t + '"' + (state.tab === t ? ' aria-current="page"' : "") + '><svg viewBox="0 0 24 24">' + ICONS[t] + "</svg>" + TAB_KO[t] + "</button>"; }).join("") + "</nav>";
   }
-
   function render() {
     if (draft) return renderOnboard();
     ({ home: renderHome, routine: renderRoutine, guide: renderGuide, me: renderMe })[state.tab]();
@@ -378,59 +440,58 @@
     var total = r.am.length + r.pm.length, done = doneList("am").length + doneList("pm").length;
     var pct = Math.round(done / total * 100);
     var hour = new Date().getHours();
-    var greet = hour < 11 ? "좋은 아침," : hour < 18 ? "오후도 정돈," : "오늘 마무리,";
+    var greet = hour < 11 ? "좋은 아침이에요" : hour < 18 ? "오후도 정돈된 하루" : "오늘을 마무리할 시간";
     var next = hour < 15 && doneList("am").length < r.am.length ? "am" : "pm";
     var left = r[next].length - doneList(next).length;
-    var days = ["일", "월", "화", "수", "목", "금", "토"];
-    var week = "";
-    for (var i = 6; i >= 0; i--) { var d = daysAgo(i), k = dkey(d); week += '<div><i class="' + cls(dayRatio(k)) + (i === 0 ? " today" : "") + '"></i>' + days[d.getDay()] + "</div>"; }
-    var tip = TIPS[new Date().getDate() % TIPS.length];
+    var C = 2 * Math.PI * 58;
+    var days = ["일", "월", "화", "수", "목", "금", "토"], week = "";
+    for (var i = 6; i >= 0; i--) { var d = daysAgo(i); week += '<div class="' + (i === 0 ? "today" : "") + '"><span class="dot ' + cls(dayRatio(dkey(d))) + '"></span>' + days[d.getDay()] + "</div>"; }
 
     shell(
-      (state.sample ? '<div class="sample"><span>예시 프로필로 보고 있어요</span><button data-act="onboard">내 추구미 진단</button></div>' : "") +
-      '<p class="hello">' + greet + "</p>" +
-      '<h2 class="h">오늘 루틴 <em>' + pct + "%</em><br>" + (left > 0 ? (next === "am" ? "아침" : "저녁") + " " + left + "단계 남았어요" : "오늘은 다 끝냈어요") + "</h2>" +
-      '<div class="card"><div class="row"><span class="lbl" style="margin:0">TODAY</span><span class="lbl" style="margin:0">' + done + " / " + total + '</span></div><div class="bar"><i style="width:' + pct + '%"></i></div></div>' +
-      '<button class="cta" data-act="go-routine" data-part="' + next + '">' + (left > 0 ? (next === "am" ? "아침" : "저녁") + " 루틴 시작" : "루틴 다시 보기") + "</button>" +
-      '<div class="look"><svg class="chev" viewBox="0 0 272 123"><use href="#chev"/></svg><span class="lbl">MY LOOK — ' + st.en + "</span><b>" + st.ko + "</b><p>" + st.desc + '</p><div class="tags">' + st.tags.map(function (t) { return "<span>" + t + "</span>"; }).join("") + "</div></div>" +
-      '<div class="duo"><div class="card"><span class="lbl">STREAK</span><p class="big" style="margin:0">' + streak() + "<small>일</small></p></div>" +
-      '<div class="card"><span class="lbl">SKIN</span><p style="margin:0;font-size:17px;font-weight:700">' + SKINS[p.skin].ko + '</p><p style="margin:2px 0 0;font-size:11.5px;color:var(--mute)">' + p.concerns.map(function (c) { return CONCERNS[c].ko; }).join(" · ") + "</p></div></div>" +
-      '<div class="card"><span class="lbl">LAST 7 DAYS</span><div class="week">' + week + "</div></div>" +
-      '<div class="card tip"><em>TIP</em><p>' + tip + "</p></div>"
+      (state.sample ? '<div class="sample glass"><span>예시 프로필로 보는 중</span><button class="press" data-act="onboard">내 추구미 찾기</button></div>' : "") +
+      '<div style="padding:6px 4px 0"><p class="eyebrow">' + greet + '</p><h1 class="title">' + (left > 0 ? (next === "am" ? "아침" : "저녁") + " 루틴<br><em>" + left + "단계</em> 남았어요" : "오늘 루틴<br><em>완료</em>했어요") + "</h1></div>" +
+      '<section class="ring-card glass"><div class="ring"><svg viewBox="0 0 132 132"><circle class="track" cx="66" cy="66" r="58"/><circle class="val" cx="66" cy="66" r="58" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + (C * (1 - pct / 100)).toFixed(1) + '"/></svg><div><span class="num">' + pct + "<small>%</small></span><span>오늘</span></div></div>" +
+      "<dl><div><dt>연속 기록</dt><dd>" + streak() + "일</dd></div><div><dt>완료</dt><dd>" + done + "<small>/ " + total + " 단계</small></dd></div><div><dt>피부</dt><dd>" + SKINS[p.skin].ko + "</dd></div></dl></section>" +
+      '<button class="cta press" data-act="go-routine" data-part="' + next + '">' + (left > 0 ? (next === "am" ? "아침" : "저녁") + " 루틴 시작" : "루틴 다시 보기") + '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>' +
+      '<section class="look glass"><span class="orb" style="background:' + st.orb + '"></span><svg class="chev" viewBox="0 0 272 123"><use href="#chev"/></svg><small>나의 추구미</small><b>' + st.ko + "</b><p>" + st.desc + '</p><div class="tags">' + st.tags.map(function (t) { return "<span>" + t + "</span>"; }).join("") + "</div></section>" +
+      '<div class="sec-h"><h3>최근 7일</h3><span>' + streak() + "일 연속</span></div>" +
+      '<section class="week glass">' + week + "</section>" +
+      '<section class="tip glass"><small>오늘의 팁</small>' + TIPS[new Date().getDate() % TIPS.length] + "</section>"
     );
   }
 
   function renderRoutine() {
     var r = routine(state.profile), part = state.part, list = r[part], done = doneList(part);
     var secs = list.reduce(function (a, s) { return a + s.s; }, 0);
-    var all = done.length === list.length;
     shell(
-      '<div class="seg" role="group" aria-label="시간대"><button data-part="am" aria-pressed="' + (part === "am") + '">AM 아침</button><button data-part="pm" aria-pressed="' + (part === "pm") + '">PM 저녁</button></div>' +
-      '<h2 class="h">' + (part === "am" ? "아침" : "저녁") + " 루틴<br><em>" + list.length + " STEP · " + Math.ceil(secs / 60) + "분</em></h2>" +
-      list.map(function (s, i) {
+      '<div class="seg glass ' + part + '" role="group" aria-label="시간대"><span class="thumb"></span><button data-part="am" aria-pressed="' + (part === "am") + '">아침</button><button data-part="pm" aria-pressed="' + (part === "pm") + '">저녁</button></div>' +
+      '<div style="padding:8px 4px 0"><h1 class="title">' + (part === "am" ? "Morning" : "Night") + " <b>Routine</b></h1></div>" +
+      '<div class="meta-line"><span><b>' + list.length + "</b> 단계</span><span>약 <b>" + Math.ceil(secs / 60) + "</b>분</span><span><b>" + done.length + "</b> 완료</span></div>" +
+      '<section class="rows glass">' + list.map(function (s, i) {
         var on = done.indexOf(i) > -1;
-        return '<button class="step' + (on ? " done" : "") + '" data-step="' + i + '" aria-pressed="' + on + '"><i>' + (on ? "✓" : String(i + 1).padStart(2, "0")) + "</i><div><b>" + esc(s.t) + (s.tag ? '<span class="badge">' + esc(s.tag) + "</span>" : "") + "</b><span>" + esc(s.why) + '</span></div><span class="sec">' + fmt(s.s) + "</span></button>";
-      }).join("") +
-      (all ? '<div class="done-msg"><b>' + (part === "am" ? "AM" : "PM") + " COMPLETE</b><span>" + (part === "am" ? "오늘 아침 정돈 끝. 저녁에 다시 만나요." : "오늘 루틴 완료. 연속 기록 " + streak() + "일째.") + "</span></div>" : '<p class="note">단계를 누르면 완료로 체크돼요</p>')
+        return '<button class="step' + (on ? " done" : "") + '" data-step="' + i + '" aria-pressed="' + on + '"><span class="check">' + CK + "</span><div><b>" + esc(s.t) + (s.tag ? '<span class="tag">' + esc(s.tag) + "</span>" : "") + '</b><span class="why">' + esc(s.why) + '</span></div><span class="t">' + fmt(s.s) + "</span></button>";
+      }).join("") + "</section>" +
+      (done.length === list.length ? '<section class="complete glass"><b>' + (part === "am" ? "아침 정돈 완료" : "오늘 루틴 완료") + "</b><span>" + (part === "am" ? "저녁에 다시 만나요." : "연속 기록 " + streak() + "일째.") + "</span></section>" : '<p class="note">단계를 탭하면 완료로 체크돼요</p>')
     );
   }
 
   function renderGuide() {
     var p = state.profile, st = STYLES[p.style], sk = SKINS[p.skin];
     var base = [
-      { i: "01", c: sk.cleanser, d: sk.cdesc, pr: "1만원대" },
-      { i: "02", c: "무알코올 토너", d: "무향 · 대용량", pr: "1만원대" },
-      { i: "03", c: sk.moist, d: sk.ko + " 맞춤", pr: "1~2만원" },
-      { i: "04", c: "선크림 SPF50+", d: "백탁 적은 무기자차 혼합", pr: "1만원대" }
+      { c: sk.cleanser, d: sk.cdesc, pr: "1만원대" },
+      { c: "무알코올 토너", d: "무향 · 대용량", pr: "1만원대" },
+      { c: sk.moist, d: sk.ko + " 맞춤", pr: "1~2만원" },
+      { c: "선크림 SPF50+", d: "백탁 적은 타입", pr: "1만원대" }
     ];
-    var plus = p.concerns.map(function (c, n) { var pr = CONCERNS[c].prod; return { i: "+" + (n + 1), c: pr.c, d: CONCERNS[c].ko + " · " + pr.d, pr: pr.p }; });
-    function prod(x) { return '<div class="prod"><i>' + x.i + "</i><div><b>" + esc(x.c) + "</b><span>" + esc(x.d) + "</span></div><em>" + x.pr + "</em></div>"; }
+    var plus = p.concerns.map(function (c) { var pr = CONCERNS[c].prod; return { c: pr.c, d: CONCERNS[c].ko + " · " + pr.d, pr: pr.p, hot: true }; });
+    function prod(x, i) { return '<div class="prod"><i class="num' + (x.hot ? " hot" : "") + '">' + (x.hot ? "+" : "") + (i + 1) + "</i><div><b>" + esc(x.c) + "</b><span>" + esc(x.d) + "</span></div><em>" + x.pr + "</em></div>"; }
     shell(
-      '<h2 class="h">' + sk.ko + " · " + st.ko + "<br><em>딱 이것만.</em></h2>" +
-      '<div class="card"><span class="lbl">BASIC 4 — 처음 살 것</span><div class="list">' + base.map(prod).join("") + "</div></div>" +
-      (plus.length ? '<div class="card"><span class="lbl">FOR MY CONCERN</span><div class="list">' + plus.map(prod).join("") + "</div></div>" : "") +
-      '<div class="card"><span class="lbl">STYLE KIT — ' + st.en + '</span><dl class="kv" style="margin:0"><dt>HAIR</dt><dd><b>' + st.hair + "</b><br>" + st.hairTip + "</dd><dt>SCENT</dt><dd>" + st.scent + "</dd><dt>FIT</dt><dd>" + st.fit + "</dd></dl></div>" +
-      '<div><span class="pill">PX 구매 가능 구성</span> <span class="pill">총 5만원 안쪽</span></div>' +
+      '<div style="padding:6px 4px 0"><p class="eyebrow">' + sk.ko + " · " + st.ko + '</p><h1 class="title">처음엔<br><em>딱 이것만.</em></h1></div>' +
+      '<div class="sec-h"><h3>기본 4가지</h3><span>PX 구매 가능</span></div>' +
+      '<section class="glass" style="padding:6px 0">' + base.map(prod).join("") + "</section>" +
+      (plus.length ? '<div class="sec-h"><h3>내 고민에 맞춰</h3><span>' + plus.length + "개</span></div>" + '<section class="glass" style="padding:6px 0">' + plus.map(prod).join("") + "</section>" : "") +
+      '<div class="sec-h"><h3>' + st.ko + " 스타일 키트</h3><span>" + st.en + "</span></div>" +
+      '<dl class="kit glass" style="margin:0"><div><dt>헤어</dt><dd><b>' + st.hair + "</b>" + st.hairTip + "</dd></div><div><dt>향</dt><dd><b>" + st.scent + "</b>은은하게 손목과 목 뒤 한 번씩.</dd></div><div><dt>옷</dt><dd><b>" + st.fit + "</b>사이즈만 맞아도 절반은 정돈됩니다.</dd></div></dl>" +
       '<p class="note">제품명 대신 종류로 안내해요. 피부과 검수 추천은 제휴 후 추가됩니다.</p>'
     );
   }
@@ -440,62 +501,64 @@
     var keys = Object.keys(state.log).filter(function (k) { return dayRatio(k) > 0; });
     var fulls = keys.filter(function (k) { return dayRatio(k) >= .99; }).length;
     var cal = "";
-    for (var i = 27; i >= 0; i--) cal += '<i class="' + cls(dayRatio(dkey(daysAgo(i)))) + '"></i>';
+    for (var i = 27; i >= 0; i--) cal += '<span class="dot ' + cls(dayRatio(dkey(daysAgo(i)))) + '"></span>';
     shell(
-      '<div class="me"><div class="me__icon"><svg class="mark" style="--chev: var(--black)"><use href="#rb"/></svg></div><div><b>' + st.ko + "</b><span>" + st.line + "</span></div></div>" +
-      '<div class="stats"><div><span class="lbl">STREAK</span><b>' + streak() + '</b></div><div><span class="lbl">DAYS</span><b>' + keys.length + '</b></div><div><span class="lbl">PERFECT</span><b>' + fulls + "</b></div></div>" +
-      '<div class="card"><span class="lbl">LAST 4 WEEKS</span><div class="cal">' + cal + "</div></div>" +
-      '<div class="card"><span class="lbl">MY PROFILE</span><dl class="kv" style="margin:0"><dt>STYLE</dt><dd><b>' + st.en + "</b> " + st.ko + "</dd><dt>SKIN</dt><dd>" + SKINS[p.skin].ko + "</dd><dt>CONCERN</dt><dd>" + (p.concerns.map(function (c) { return CONCERNS[c].ko; }).join(", ") || "없음") + "</dd></dl></div>" +
-      '<button class="ghost" data-act="onboard">추구미 · 피부 다시 진단</button>' +
-      '<button class="ghost" data-act="reset" id="reset-btn">기록 전부 지우기</button>' +
-      (state.sample ? '<p class="note">지금은 예시 기록이에요. 진단을 마치면 내 기록으로 새로 시작합니다.</p>' : "")
+      '<section class="me glass"><div class="me__icon"><svg class="mark" style="--chev:#111"><use href="#rb"/></svg></div><div><b>' + st.ko + "</b><span>" + st.line + "</span></div></section>" +
+      '<section class="stats glass"><div><span class="num">' + streak() + '</span><span>연속</span></div><div><span class="num">' + keys.length + '</span><span>기록한 날</span></div><div><span class="num">' + fulls + '</span><span>완벽한 날</span></div></section>' +
+      '<div class="sec-h"><h3>최근 4주</h3><span>' + (keys.length ? Math.round(fulls / Math.max(1, keys.length) * 100) + "% 완주" : "") + "</span></div>" +
+      '<section class="cal glass">' + cal + "</section>" +
+      '<div class="sec-h"><h3>내 프로필</h3></div>' +
+      '<dl class="kit glass" style="margin:0"><div><dt>추구미</dt><dd><b>' + st.ko + "</b></dd></div><div><dt>피부</dt><dd><b>" + SKINS[p.skin].ko + "</b></dd></div><div><dt>고민</dt><dd><b>" + (p.concerns.map(function (c) { return CONCERNS[c].ko; }).join(", ") || "없음") + "</b></dd></div></dl>" +
+      '<button class="link glass press" data-act="onboard">추구미 · 피부 다시 진단</button>' +
+      '<button class="link press" data-act="reset" id="reset-btn">기록 전부 지우기</button>' +
+      (state.sample ? '<p class="note">지금은 예시 기록이에요. 진단을 마치면 내 기록으로 새로 시작해요.</p>' : "")
     );
   }
 
   // ---------- 온보딩 ----------
-  function renderOnboard() {
+  function renderOnboard(keepAnim) {
     var s = draft.step, body = "", ok = false;
-    var bar = '<div class="steps">' + [0, 1, 2].map(function (i) { return '<i class="' + (i <= s ? "on" : "") + '"></i>'; }).join("") + "</div>";
+    var bar = '<div class="prog">' + [0, 1, 2].map(function (i) { return '<i class="' + (i <= s ? "on" : "") + '"></i>'; }).join("") + "</div>";
     if (s === 0) {
       ok = !!draft.style;
-      body = '<span class="lbl">STEP 1 / 3 — 추구미</span><h2 class="h">어떤 남자로<br><em>보이고 싶어요?</em></h2><div class="styles">' +
-        STYLE_KEYS.map(function (k) { var st = STYLES[k]; return '<button class="sty" data-style="' + k + '" aria-pressed="' + (draft.style === k) + '"><span class="glyph" aria-hidden="true">' + st.glyph + '</span><span class="lbl">' + st.en + "</span><b>" + st.ko + "</b><span>" + st.line + "</span></button>"; }).join("") + "</div>";
+      body = '<div style="padding:4px"><p class="eyebrow">1 / 3 · 추구미</p><h1 class="title">어떤 모습으로<br><em>보이고 싶어요?</em></h1></div><div class="styles">' +
+        STYLE_KEYS.map(function (k) { var st = STYLES[k]; return '<button class="sty glass" data-style="' + k + '" aria-pressed="' + (draft.style === k) + '"><span class="o" style="background:' + st.orb + '"></span><small>' + st.en + "</small><b>" + st.ko + "</b><span>" + st.line + "</span></button>"; }).join("") + "</div>";
     } else if (s === 1) {
       ok = !!draft.skin;
-      body = '<span class="lbl">STEP 2 / 3 — 피부</span><h2 class="h">세안 후 1시간,<br>얼굴이 <em>어떤가요?</em></h2>' +
-        SKIN_KEYS.map(function (k) { return '<button class="opt" data-skin="' + k + '" aria-pressed="' + (draft.skin === k) + '"><i></i><div><b>' + SKINS[k].q + "</b><span>" + SKINS[k].ko + "</span></div></button>"; }).join("");
+      body = '<div style="padding:4px"><p class="eyebrow">2 / 3 · 피부</p><h1 class="title">세안 후 1시간,<br><em>얼굴은 어때요?</em></h1></div>' +
+        SKIN_KEYS.map(function (k) { return '<button class="opt glass" data-skin="' + k + '" aria-pressed="' + (draft.skin === k) + '"><span class="r">' + CK + "</span><div><b>" + SKINS[k].q + "</b><span>" + SKINS[k].ko + "</span></div></button>"; }).join("");
     } else {
       ok = true;
-      body = '<span class="lbl">STEP 3 / 3 — 고민</span><h2 class="h">요즘 신경 쓰이는 거<br><em>다 골라주세요</em></h2>' +
-        CONCERN_KEYS.map(function (k) { var on = draft.concerns.indexOf(k) > -1; return '<button class="opt multi" data-concern="' + k + '" aria-pressed="' + on + '"><i></i><div><b>' + CONCERNS[k].ko + "</b><span>" + CONCERNS[k].sub + "</span></div></button>"; }).join("");
+      body = '<div style="padding:4px"><p class="eyebrow">3 / 3 · 고민</p><h1 class="title">요즘 신경 쓰이는 걸<br><em>모두 골라주세요</em></h1></div>' +
+        CONCERN_KEYS.map(function (k) { var on = draft.concerns.indexOf(k) > -1; return '<button class="opt multi glass" data-concern="' + k + '" aria-pressed="' + on + '"><span class="r">' + CK + "</span><div><b>" + CONCERNS[k].ko + "</b><span>" + CONCERNS[k].sub + "</span></div></button>"; }).join("");
     }
-    app.innerHTML = '<header class="top"><svg class="mark" aria-label="RE:BOOT"><use href="#rb"/></svg>' + (state.profile ? '<button class="top__chip" data-act="cancel">닫기</button>' : "") + "</header>" +
-      '<main class="view fade">' + bar + body + '<div class="ob-foot"><button class="cta" data-act="next"' + (ok ? "" : " disabled") + ">" + (s === 2 ? (draft.concerns.length ? "REBOOT 시작" : "고민 없음, 시작") : "다음") + "</button>" +
-      (s > 0 ? '<button class="ghost" data-act="back">이전</button>' : "") + "</div></main>";
+    app.innerHTML = AMB + '<header class="top"><svg class="mark" aria-label="RE:BOOT"><use href="#rb"/></svg>' + '<button class="chip glass press" data-act="cancel">닫기</button>' + "</header>" +
+      '<main class="view' + (keepAnim ? "" : " enter") + '" style="padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))">' + bar + body +
+      '<div class="ob-foot"><button class="cta press" data-act="next"' + (ok ? "" : " disabled") + ">" + (s === 2 ? (draft.concerns.length ? "RE:BOOT 시작" : "고민 없음, 시작하기") : "다음") + "</button>" +
+      (s > 0 ? '<button class="link press" data-act="back">이전</button>' : "") + "</div></main>";
   }
 
   function boot() {
     var st = STYLES[draft.style];
-    var lines = ["추구미 " + st.en + " 불러오는 중", SKINS[draft.skin].ko + " 피부 루틴 구성 중", "REBOOT 완료"];
+    var lines = [st.ko + " 추구미 불러오는 중", SKINS[draft.skin].ko + " 피부 루틴 구성 중", "준비 완료"];
     var el = document.createElement("div");
     el.className = "boot";
-    el.innerHTML = '<svg class="mark"><use href="#rb"/></svg><span class="wm">RE:BOOT</span><div class="bar"><i style="width:0"></i></div><span class="lbl"></span>';
+    el.innerHTML = '<div class="boot__mark"><svg class="mark"><use href="#rb"/></svg></div><div class="boot__bar"><i></i></div><p></p>';
     app.appendChild(el);
-    var bi = el.querySelector(".bar i"), lb = el.querySelector(".lbl");
+    var bi = el.querySelector("i"), lb = el.querySelector("p");
     var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     var i = 0;
     (function tick() {
       lb.textContent = lines[i];
       bi.style.width = Math.round((i + 1) / lines.length * 100) + "%";
       i++;
-      if (i < lines.length) setTimeout(tick, reduce ? 150 : 650);
+      if (i < lines.length) setTimeout(tick, reduce ? 150 : 700);
       else setTimeout(function () {
-        var wasSample = state.sample;
+        if (state.sample) state.log = {};
         state.profile = { style: draft.style, skin: draft.skin, concerns: draft.concerns };
-        if (wasSample) state.log = {};
-        state.sample = false; state.tab = "home"; draft = null;
+        state.sample = false; state.tab = "home"; draft = null; lastTab = null;
         save(); render();
-      }, reduce ? 200 : 700);
+      }, reduce ? 200 : 750);
     })();
   }
 
@@ -505,27 +568,29 @@
     var b = e.target.closest("button"); if (!b) return;
     var d = b.dataset;
     if (d.tab) { state.tab = d.tab; resetArmed = false; save(); render(); return; }
-    if (d.style) { draft.style = d.style; renderOnboard(); return; }
-    if (d.skin) { draft.skin = d.skin; renderOnboard(); return; }
-    if (d.concern) { var c = draft.concerns, ix = c.indexOf(d.concern); if (ix > -1) c.splice(ix, 1); else c.push(d.concern); renderOnboard(); return; }
+    if (d.style) { draft.style = d.style; renderOnboard(true); return; }
+    if (d.skin) { draft.skin = d.skin; renderOnboard(true); return; }
+    if (d.concern) { var c = draft.concerns, ix = c.indexOf(d.concern); if (ix > -1) c.splice(ix, 1); else c.push(d.concern); renderOnboard(true); return; }
     if (d.step !== undefined) {
       var log = todayLog(); if (!Array.isArray(log[state.part])) log[state.part] = [];
       var arr = log[state.part], n = +d.step, k = arr.indexOf(n);
       if (k > -1) arr.splice(k, 1); else arr.push(n);
-      save(); var y = document.getElementById("view").scrollTop; render(); var v = document.getElementById("view"); v.classList.remove("fade"); v.scrollTop = y; return;
+      save();
+      var y = document.getElementById("view").scrollTop; render(); document.getElementById("view").scrollTop = y;
+      return;
     }
-    if (d.part && !d.act) { state.part = d.part; save(); render(); return; }
+    if (d.part && !d.act) { state.part = d.part; lastTab = state.tab; save(); render(); return; }
     switch (d.act) {
       case "go-routine": state.tab = "routine"; state.part = d.part; save(); render(); break;
       case "onboard":
         var p = state.profile || {};
         draft = { step: 0, style: state.sample ? null : p.style, skin: state.sample ? null : p.skin, concerns: state.sample ? [] : (p.concerns || []).slice() };
         renderOnboard(); break;
-      case "cancel": draft = null; render(); break;
+      case "cancel": draft = null; lastTab = null; render(); break;
       case "back": draft.step--; renderOnboard(); break;
       case "next": if (draft.step < 2) { draft.step++; renderOnboard(); } else boot(); break;
       case "reset":
-        if (!resetArmed) { resetArmed = true; b.textContent = "한 번 더 누르면 기록이 지워져요"; b.style.color = "var(--orange)"; b.style.borderColor = "var(--orange)"; }
+        if (!resetArmed) { resetArmed = true; b.textContent = "한 번 더 누르면 기록이 지워져요"; b.style.color = "var(--amber)"; }
         else { state.log = {}; resetArmed = false; save(); render(); }
         break;
     }
