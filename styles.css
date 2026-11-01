@@ -1123,3 +1123,23 @@ body { padding-bottom: 44px; }
 .cp-out .mg-use li:nth-child(n+3) img { aspect-ratio: 3 / 2; }
 .mg-use span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--acc); }
 @media (max-width: 600px) { .mg-use { grid-template-columns: 1fr; } }
+
+/* 모각 장롱 접지 안내문: 가운데 판 + 양쪽 문. 닫으면 문 두 짝의 바깥면이 하나의 표지가 됩니다 */
+.mgl { --w: min(100cqi - 32px, 980px, 66svh * 1827 / 1300); position: relative; width: var(--w); aspect-ratio: 1827 / 1300; cursor: pointer; outline: none; }
+.mgl__body { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 1s cubic-bezier(.45, .05, .2, 1); }
+.mgl.is-back .mgl__body { transform: rotateY(180deg); }
+.mgl__c, .mgl__door { position: absolute; top: 0; height: 100%; transform-style: preserve-3d; }
+.mgl__c { left: 25%; width: 50%; }
+.mgl__door { width: 25%; transition: transform 1.4s cubic-bezier(.5, .05, .15, 1); }
+.mgl__door--l { left: 25%; transform-origin: 0 50%; transform: translateZ(1px); }
+.mgl__door--r { left: 50%; transform-origin: 100% 50%; transform: translateZ(1px); transition-delay: .12s; }
+.mgl.is-open .mgl__door--l { transform: translateZ(1px) rotateY(-180deg); }
+.mgl.is-open .mgl__door--r { transform: translateZ(1px) rotateY(180deg); }
+.mgl__face { position: absolute; inset: 0; background: #fff center / 100% 100% no-repeat; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.mgl__face--back { transform: rotateY(180deg); }
+.mgl__c .mgl__face { box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .45); }
+.mgl__door .mgl__face::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+.mgl__door--l > .mgl__face:first-child::after { background: linear-gradient(90deg, rgba(0, 0, 0, .06), transparent 12%); }
+.mgl__door--r > .mgl__face:first-child::after { background: linear-gradient(270deg, rgba(0, 0, 0, .06), transparent 12%); }
+.mgl-wrap:has(.mgl:focus-visible) { outline: 1px solid var(--acc); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .mgl__door, .mgl__body { transition: none; } }

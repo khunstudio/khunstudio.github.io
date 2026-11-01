@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css">
-  <link rel="stylesheet" href="../styles.css?v=105">
+  <link rel="stylesheet" href="../styles.css?v=106">
 </head>
 <body>
   <header class="hud">
@@ -115,6 +115,29 @@
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
           <p class="cp-out__no">T-03</p>
+          <h3>Leaflet — 장롱 접지</h3>
+          <p>안내문은 <b>장롱처럼 양쪽 문을 여는 대문 접지</b>로 만들었습니다. 닫혀 있을 때는 두 문에 반씩 나뉜 <b>MOGAK 워드마크와 문살 엠블럼, 모 · 각 인장</b>이 가운데서 하나로 맞춰지고, 문을 열면 안쪽에 브랜드 문장과 세트 구성, 보관법과 즐기는 법이 펼쳐집니다. 박스를 여는 경험을 안내문에서도 한 번 더 반복했습니다. InDesign으로 조판했습니다.</p>
+        </div>
+        <div class="lf-feature mgl-wrap">
+          <div class="lf-feature__stage">
+            <div class="mgl" id="mgl" role="button" tabindex="0" aria-label="모각 안내문 — 눌러서 문 열고 닫기">
+              <div class="mgl__body">
+                <div class="mgl__c"><div class="mgl__face" style="background-image:url(../assets/work/mogak/leaflet/in-c.webp)"></div><div class="mgl__face mgl__face--back" style="background-image:url(../assets/work/mogak/leaflet/out-c.webp)"></div></div>
+                <div class="mgl__door mgl__door--l"><div class="mgl__face" style="background-image:url(../assets/work/mogak/leaflet/out-r.webp)"></div><div class="mgl__face mgl__face--back" style="background-image:url(../assets/work/mogak/leaflet/in-l.webp)"></div></div>
+                <div class="mgl__door mgl__door--r"><div class="mgl__face" style="background-image:url(../assets/work/mogak/leaflet/out-l.webp)"></div><div class="mgl__face mgl__face--back" style="background-image:url(../assets/work/mogak/leaflet/in-r.webp)"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="lf-feature__bar">
+            <span class="mgl__state"><b>CLOSED</b> — 닫힌 장롱 문</span>
+            <span class="lf-feature__ctrl"><button type="button" data-act="door">OPEN</button><button type="button" data-act="flip">BACK — 뒷면</button></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="cp-out cp-out--wide">
+        <div class="cp-out__info">
+          <p class="cp-out__no">T-04</p>
           <h3>Logo in Use</h3>
           <p>로고가 선물을 받는 모든 순간에 같은 얼굴로 보이도록 했습니다. 박스 뚜껑에는 <b>금박 워드마크</b>, 보자기 택에는 <b>음각 문살 엠블럼</b>, 하나씩 꺼내 먹는 <b>개별 포장</b>에도 워드마크를 올려, 포장을 풀수록 브랜드를 한 번 더 만나게 됩니다.</p>
         </div>
@@ -128,7 +151,7 @@
 
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
-          <p class="cp-out__no">T-04</p>
+          <p class="cp-out__no">T-05</p>
           <h3>Detail Page</h3>
           <p>상세페이지는 <b>고객이 사기로 마음먹는 순서</b>대로 설계했습니다. 브랜드의 태도를 먼저 보여 주고, 맛을 상상하게 한 다음, 재료와 시간과 사람으로 믿음을 쌓고, 마지막에 구매 전 궁금한 점을 정리합니다. 맛이 열두 가지나 되는 제품이라 한눈에 비교되는 <b>맛 지도</b>를 따로 만들었습니다.</p>
           <dl class="bars"><div><dt>기획</dt><i style="--v: 100%"></i><dd>100%</dd></div><div><dt>디자인</dt><i style="--v: 100%"></i><dd>100%</dd></div></dl>
@@ -143,7 +166,7 @@
 
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
-          <p class="cp-out__no">T-05</p>
+          <p class="cp-out__no">T-06</p>
           <h3>Photo Direction</h3>
           <p>브랜딩 스토리에 맞는 제품 사진이 나오도록 <b>촬영 콘셉트와 컷 구성(단독 컷 · 세트 컷 · 홈카페 장면)을 기획</b>했습니다.</p>
           <p class="cp-credit">Photography · 업체 측 촬영 담당자</p>
@@ -166,6 +189,41 @@
     <span>© 2026 KHUN studio</span>
     <span>소통하고 생각하는 디자이너, 유경훈</span>
   </footer>
+  <script>
+    // 장롱 접지 안내문: 처음엔 닫힌 문, 화면에 들어오면 양쪽 문이 열립니다. 누르면 열고 닫기, BACK은 닫힌 상태의 뒷면
+    (() => {
+      const el = document.getElementById('mgl');
+      if (!el) return;
+      const wrap = el.closest('.mgl-wrap'), state = wrap.querySelector('.mgl__state'), doorBtn = wrap.querySelector('[data-act="door"]');
+      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let open = false, back = false, touched = false;
+      const label = () => {
+        state.innerHTML = back ? '<b>BACK</b> — 뒷면' : open ? '<b>OPEN</b> — 안쪽 안내문' : '<b>CLOSED</b> — 닫힌 장롱 문';
+        doorBtn.textContent = open ? 'CLOSE' : 'OPEN';
+      };
+      const set = (o, b) => {
+        if (b && o) { open = false; el.classList.remove('is-open'); setTimeout(() => set(false, true), 900); label(); return; } // 문을 닫은 뒤 뒤집기
+        open = o; back = b;
+        el.classList.toggle('is-open', open); el.classList.toggle('is-back', back);
+        label();
+      };
+      el.addEventListener('click', () => { touched = true; set(back ? false : !open, false); });
+      el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } });
+      wrap.addEventListener('click', (e) => {
+        const act = e.target.closest('button')?.dataset.act;
+        if (!act) return;
+        touched = true;
+        if (act === 'door') set(!open, false);
+        if (act === 'flip') back ? set(false, false) : set(open, true);
+      });
+      if (still) { set(true, false); return; }
+      new IntersectionObserver(([e], io) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        setTimeout(() => { if (!touched) set(true, false); }, 500);
+      }, { threshold: 0.6 }).observe(el);
+    })();
+  </script>
   <script src="../vital.js?v=3" defer></script>
 </body>
 </html>
