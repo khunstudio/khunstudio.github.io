@@ -1,0 +1,15 @@
+# KHUN studio — 유경훈 포트폴리오
+
+> 브랜드 · 콘텐츠 디자이너 유경훈(KHUN studio)의 포트폴리오. 브랜드 체계부터 인쇄물, 웹, 상세페이지, 영상 · 사진 디렉션, 검색 마케팅(SEO · AEO)과 바이럴 운영까지 혼자서 끝까지 만듭니다. 연락: hello.khunstudio@gmail.com
+
+## Case Files
+- [대한민국 공군 모집 리브랜딩](https://khunstudio.github.io/work/airforce.html): 슬로건 ‘내일은 하늘색’, 모집 영상 · 포스터 · 리플렛 · 공간 · 굿즈. 인물 촬영 디렉션과 리터칭.
+- [윙스피킹](https://khunstudio.github.io/work/wingspeaking.html): 강남 유학 전문 어학원 ‘영어에 날개를 달다’. 로고 · BX 가이드, 웹 40페이지, 리플렛 · 교재 · 공간 사인, 매장 촬영. ‘강남 스피킹’ 네이버 웹 검색 최상단, ChatGPT · Gemini 같은 AI가 유학 어학원으로 추천(AEO), 플레이스 리뷰 275건.
+- [모각](https://khunstudio.github.io/work/mogak.html): 프리미엄 수제 개성약과 BI, 패키지, 리플렛, 상세페이지, 촬영 콘셉트 기획.
+- [KHUN studio 셀프 브랜딩](https://khunstudio.github.io/work/studiokhun.html): 소생 [revive] 콘셉트의 심볼 · 3D 모션 · 이 웹사이트 자체 제작.
+
+## Skills
+- AEO · SEO: AI 답변 노출 설계, 질문형 콘텐츠, 구조화 데이터, 네이버 서치어드바이저, Google Analytics, 검색 · 플레이스 광고
+- Design: Photoshop, Illustrator, InDesign, Lightroom, Figma, Adobe XD
+- Motion & 3D: Premiere Pro, After Effects, Blender
+- AI: Claude, ChatGPT, Midjourney, Higgsfield, Runway, Google Flow, Suno, ElevenLabs

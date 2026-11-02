@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khunstudio.github.io/sitemap.xml
