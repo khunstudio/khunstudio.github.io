@@ -1144,3 +1144,44 @@ body { padding-bottom: 44px; }
 .mgl-wrap:has(.mgl:focus-visible) { outline: 1px solid var(--acc); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) { .mgl__door, .mgl__body { transition: none; } }
 .cp-out .mg-pack .mg-pack__wide { grid-column: 1 / -1; aspect-ratio: 16 / 8; }
+
+/* ── VITAL SIGNS: 메인 역량 검진표 ── */
+.vs-lead { margin: 0 0 clamp(24px, 3vw, 40px); font-size: clamp(20px, 2.2vw, 34px); font-weight: 300; line-height: 1.5; letter-spacing: -0.01em; }
+.vs-lead b { font-weight: 500; color: var(--acc); }
+.vs-flow { position: relative; list-style: none; display: flex; justify-content: space-between; gap: 8px; margin: 0 0 clamp(28px, 3.4vw, 48px); padding: 0 0 18px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); }
+.vs-flow::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--acc); transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(.6, 0, .2, 1) .2s; box-shadow: 0 0 12px var(--acc); }
+.vs-flow li { position: relative; opacity: .35; transition: opacity .3s, color .3s; transition-delay: calc(.2s + var(--i) * .22s); }
+.vs-flow li::after { content: ""; position: absolute; left: 50%; bottom: -22px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--bg); border: 2px solid var(--acc); }
+.vs-flow li:last-child { color: var(--acc); }
+.vitals.is-on .vs-flow::after { transform: scaleX(1); }
+.vitals.is-on .vs-flow li { opacity: 1; color: var(--fg); }
+.vitals.is-on .vs-flow li:last-child { color: var(--acc); }
+.vs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.2vw, 18px); }
+.vs { position: relative; display: flex; flex-direction: column; gap: 6px; padding: clamp(18px, 2vw, 28px); border: 1px solid var(--line); background: var(--panel); color: inherit; text-decoration: none; overflow: hidden;
+  opacity: 0; transform: translateY(18px); transition: opacity .5s, transform .6s cubic-bezier(.2, .8, .2, 1), border-color .2s, box-shadow .2s; transition-delay: calc(.3s + var(--i) * .14s), calc(.3s + var(--i) * .14s), 0s, 0s; }
+.vitals.is-on .vs { opacity: 1; transform: none; }
+.vs:hover, .vs:focus-visible { border-color: var(--acc); box-shadow: 0 0 0 1px var(--acc), 0 12px 32px var(--acc-soft); }
+.vs__no { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--muted); }
+.vs__name { font-family: var(--serif); font-weight: 400; font-size: clamp(22px, 1.9vw, 30px); line-height: 1.1; }
+.vs__ko { font-size: 13px; color: var(--muted); }
+.vs__val { display: flex; align-items: baseline; gap: 6px; margin-top: 8px; color: var(--acc); font-weight: 400; }
+.vs__val i { font-style: normal; font-family: var(--mono); font-size: clamp(44px, 4.6vw, 72px); line-height: 1; font-variant-numeric: tabular-nums; text-shadow: 0 0 24px var(--acc-soft); }
+.vs__val small { font-size: 14px; color: var(--fg); }
+.vs__ecg { width: 100%; height: 30px; margin: 4px 0; }
+.vs__ecg path { fill: none; stroke: var(--acc); stroke-width: 1.6; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.vitals.is-on .vs__ecg path { animation: vsecg 2.4s linear infinite; animation-delay: calc(var(--i) * .3s); }
+@keyframes vsecg { 0% { stroke-dashoffset: 1; } 60% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+.vs__proof { margin: 0; font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--fg); opacity: .85; }
+.vs__cases { margin-top: auto; padding-top: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--acc); }
+@media (max-width: 1100px) { .vs-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px) {
+  .vs-flow { font-size: 10px; letter-spacing: 0; gap: 2px; }
+  .vs-flow li { text-align: center; }
+  .vs { padding: 14px; }
+  .vs__name { font-size: 18px; }
+  .vs__val i { font-size: 38px; }
+  .vs__val small, .vs__proof { font-size: 12px; }
+  .vs__cases { font-size: 10px; letter-spacing: .04em; }
+}
+@media (prefers-reduced-motion: reduce) { .vs, .vs-flow li, .vs-flow::after { transition: none; } .vitals .vs { opacity: 1; transform: none; } .vitals .vs-flow::after { transform: none; } .vs__ecg path { stroke-dashoffset: 0; animation: none !important; } }
+.cp-out[id] { scroll-margin-top: 90px; } /* 메인 검진표에서 바로 들어올 때 상단 바에 가리지 않게 */
