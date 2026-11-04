@@ -282,8 +282,8 @@ em { font-style: italic; }
 .about__lead { position: sticky; top: 96px; }
 .about__hello { margin: 0 0 28px; font-size: clamp(30px, 3.2vw, 52px); font-weight: 300; line-height: 1.2; letter-spacing: -0.02em; }
 .about__hello b { font-weight: 500; color: var(--acc); }
-.about__tag { margin: -8px 0 28px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--acc); }
-.about__body { margin: 0; color: #c4d6ca; font-weight: 300; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.9; }
+.about__tag { margin: -8px 0 36px; font-size: clamp(16px, 1.3vw, 20px); font-weight: 500; letter-spacing: -0.01em; color: var(--acc); }
+.about__body { margin: 0 0 1.1em; max-width: 34em; color: #c4d6ca; font-weight: 400; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.8; word-break: keep-all; }
 
 .records { display: grid; gap: 16px; }
 .record { padding: clamp(20px, 2vw, 32px); }
@@ -1148,7 +1148,7 @@ body { padding-bottom: 44px; }
 /* ── VITAL SIGNS: 메인 역량 검진표 ── */
 .vs-lead { margin: 0 0 clamp(24px, 3vw, 40px); font-size: clamp(20px, 2.2vw, 34px); font-weight: 300; line-height: 1.5; letter-spacing: -0.01em; }
 .vs-lead b { font-weight: 500; color: var(--acc); }
-.vs-flow { position: relative; list-style: none; display: flex; justify-content: space-between; gap: 8px; margin: 0 0 clamp(28px, 3.4vw, 48px); padding: 0 0 18px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); }
+.vs-flow { position: relative; list-style: none; display: flex; justify-content: space-between; gap: 8px; margin: 0 0 clamp(28px, 3.4vw, 48px); padding: 0 0 18px; font-size: clamp(14px, 1.1vw, 17px); font-weight: 500; color: var(--muted); }
 .vs-flow::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--acc); transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(.6, 0, .2, 1) .2s; box-shadow: 0 0 12px var(--acc); }
 .vs-flow li { position: relative; opacity: .35; transition: opacity .3s, color .3s; transition-delay: calc(.2s + var(--i) * .22s); }
 .vs-flow li::after { content: ""; position: absolute; left: 50%; bottom: -22px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--bg); border: 2px solid var(--acc); }
@@ -1175,7 +1175,7 @@ body { padding-bottom: 44px; }
 .vs__cases { margin-top: auto; padding-top: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--acc); }
 @media (max-width: 1100px) { .vs-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 700px) {
-  .vs-flow { font-size: 10px; letter-spacing: 0; gap: 2px; }
+  .vs-flow { font-size: 12px; letter-spacing: -0.02em; gap: 2px; }
   .vs-flow li { text-align: center; }
   .vs { padding: 14px; }
   .vs__name { font-size: 18px; }
