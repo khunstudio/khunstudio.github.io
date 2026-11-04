@@ -1217,3 +1217,19 @@ body { padding-bottom: 44px; }
 .ic--wave { --ic: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.7%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M2%2012h3l2-6%203%2012%203-9%202%205%202-2h5%22/%3E%3C/svg%3E"); }
 .ic--code { --ic: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.7%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M8%207l-5%205%205%205M16%207l5%205-5%205M13.5%204l-3%2016%22/%3E%3C/svg%3E"); }
 @media (max-width: 700px) { .scope { grid-template-columns: 1fr 1fr; gap: 6px; } .scope li { padding: 10px 12px; gap: 8px; } .scope b { font-size: 13px; } .ic { width: 18px; height: 18px; } }
+
+/* TOOLS: 아주 작은 단색 로고 */
+.cp-meta__tools span[data-i] { display: inline-flex; align-items: center; gap: 5px; }
+.cp-meta__tools span[data-i]::before { content: ""; width: 11px; height: 11px; flex: none; background: var(--muted); -webkit-mask: var(--ti) center / contain no-repeat; mask: var(--ti) center / contain no-repeat; }
+.cp-meta__tools [data-i="adobeillustrator"] { --ti: url("assets/icons/tools/adobeillustrator.svg"); }
+.cp-meta__tools [data-i="adobeindesign"] { --ti: url("assets/icons/tools/adobeindesign.svg"); }
+.cp-meta__tools [data-i="adobelightroom"] { --ti: url("assets/icons/tools/adobelightroom.svg"); }
+.cp-meta__tools [data-i="adobephotoshop"] { --ti: url("assets/icons/tools/adobephotoshop.svg"); }
+.cp-meta__tools [data-i="adobepremierepro"] { --ti: url("assets/icons/tools/adobepremierepro.svg"); }
+.cp-meta__tools [data-i="adobexd"] { --ti: url("assets/icons/tools/adobexd.svg"); }
+.cp-meta__tools [data-i="claude"] { --ti: url("assets/icons/tools/claude.svg"); }
+.cp-meta__tools [data-i="figma"] { --ti: url("assets/icons/tools/figma.svg"); }
+.cp-meta__tools [data-i="google"] { --ti: url("assets/icons/tools/google.svg"); }
+.cp-meta__tools [data-i="html5"] { --ti: url("assets/icons/tools/html5.svg"); }
+.cp-meta__tools [data-i="openai"] { --ti: url("assets/icons/tools/openai.svg"); }
+.cp-meta__tools [data-i="threedotjs"] { --ti: url("assets/icons/tools/threedotjs.svg"); }
