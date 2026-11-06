@@ -1233,3 +1233,4 @@ body { padding-bottom: 44px; }
 .cp-meta__tools [data-i="html5"] { --ti: url("assets/icons/tools/html5.svg"); }
 .cp-meta__tools [data-i="openai"] { --ti: url("assets/icons/tools/openai.svg"); }
 .cp-meta__tools [data-i="threedotjs"] { --ti: url("assets/icons/tools/threedotjs.svg"); }
+.kv__extra { margin-top: 14px; align-items: start; }
