@@ -403,7 +403,7 @@ em { font-style: italic; }
 
 /* 키비주얼 + 리플렛 */
 .kv { display: grid; gap: clamp(28px, 4vw, 56px); margin-top: 16px; }
-.kv__posters { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 28px); max-width: 880px; }
+.kv__posters { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 28px); max-width: 1040px; }
 .kv__poster { margin: 0; }
 .kv__poster figcaption { margin-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
 .kv__poster figcaption b { margin-right: 8px; color: var(--acc); font-weight: 400; }
@@ -1233,4 +1233,9 @@ body { padding-bottom: 44px; }
 .cp-meta__tools [data-i="html5"] { --ti: url("assets/icons/tools/html5.svg"); }
 .cp-meta__tools [data-i="openai"] { --ti: url("assets/icons/tools/openai.svg"); }
 .cp-meta__tools [data-i="threedotjs"] { --ti: url("assets/icons/tools/threedotjs.svg"); }
-.kv__extra { margin-top: 14px; align-items: start; }
+
+.film__ad { display: grid; grid-template-columns: 200px 1fr; gap: clamp(20px, 3vw, 44px); align-items: center; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); }
+.film__ad img { display: block; width: 100%; border: 1px solid var(--line); }
+.film__ad p { margin: 0 !important; max-width: 40em; }
+.film__ad span { display: block; margin-bottom: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--acc); }
+@media (max-width: 700px) { .film__ad { grid-template-columns: 140px 1fr; gap: 16px; } }
