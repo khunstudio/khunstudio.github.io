@@ -1239,3 +1239,10 @@ body { padding-bottom: 44px; }
 .film__ad p { margin: 0 !important; max-width: 40em; }
 .film__ad span { display: block; margin-bottom: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--acc); }
 @media (max-width: 700px) { .film__ad { grid-template-columns: 140px 1fr; gap: 16px; } }
+/* 모각 상세페이지 대표 컷 */
+.mg-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+.mg-keys figure { margin: 0; }
+.cp-out .mg-keys img { aspect-ratio: 3 / 4; object-fit: cover; object-position: top; }
+.mg-keys figcaption { margin-top: 8px; font-size: 14px; color: var(--muted); }
+.mg-keys span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--acc); }
+@media (max-width: 600px) { .mg-keys { grid-template-columns: 1fr; } }
