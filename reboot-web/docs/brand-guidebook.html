@@ -1,0 +1,669 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><title>RE:BOOT Brand Guidebook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+  /* Layout: 설계 도면 같은 가이드북 — 모눈 바탕의 흰 페이지와 검정 밴드가 교차. 페이지마다 상태 칩(확정 · 후보 · 미정)과 페이지 번호. 단일 테마(브랜드 고정 팔레트). */
+  :root {
+    --black: #111111;
+    --paper: #FFFFFF;
+    --ignite: #FF5A1F;
+    --sand: #F4F3F0;
+    --grid: #ECEBE7;
+    --line: #D9D8D3;
+    --mute: #6E6D69;
+    --off: #2E2E2C;
+    --ink-mute: #9B9A95;
+    --display: "Archivo", "Noto Sans KR", sans-serif;
+    --sans: "Noto Sans KR", -apple-system, "Apple SD Gothic Neo", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--black); font: 400 15px/1.75 var(--sans); word-break: keep-all; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  .page { padding-block: 80px; border-bottom: 1px solid var(--line); position: relative; }
+  .ink { background: var(--black); color: var(--paper); border-bottom-color: var(--off); }
+  .sand { background: var(--sand); }
+  .graph { background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 24px 24px; }
+  h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  ul, ol { margin: 0; }
+  svg { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--ignite); outline-offset: 3px; }
+  .o { color: var(--ignite); }
+  .mono { font-family: var(--mono); }
+  .eyebrow { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+  .ink .eyebrow { color: var(--ink-mute); }
+
+  /* 페이지 머리 */
+  .ph { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; margin-bottom: 40px; }
+  .ph .no { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+  .ink .ph .no { color: var(--ink-mute); }
+  .ph h2 { margin-top: 10px; font-size: clamp(30px, 4.6vw, 48px); font-weight: 900; letter-spacing: -.035em; line-height: 1.15; }
+  .ph p.lead { margin-top: 14px; color: var(--mute); font-size: 16px; max-width: 44rem; }
+  .ink .ph p.lead { color: var(--ink-mute); }
+  .chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .chip::before { content: ""; width: 7px; height: 7px; }
+  .chip.ok { background: var(--black); color: var(--paper); }
+  .chip.ok::before { background: var(--ignite); }
+  .ink .chip.ok { background: var(--paper); color: var(--black); }
+  .chip.cand { border: 1.5px solid currentColor; }
+  .chip.cand::before { border: 1.5px solid currentColor; }
+  .chip.open { border: 1.5px dashed var(--mute); color: var(--mute); }
+  .chip.open::before { border: 1.5px dashed var(--mute); }
+  .ink .chip.open { border-color: var(--ink-mute); color: var(--ink-mute); }
+
+  .h3 { font-size: 19px; font-weight: 800; letter-spacing: -.02em; }
+  .sub { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); margin: 56px 0 18px; display: flex; align-items: center; gap: 10px; }
+  .sub::before { content: ""; width: 7px; height: 7px; background: var(--ignite); }
+  .ink .sub { color: var(--ink-mute); }
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cols3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .cols4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .box { border: 1px solid var(--line); padding: 22px; background: var(--paper); min-width: 0; }
+  .ink .box { border-color: var(--off); background: transparent; }
+  .box h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .box p, .box li { font-size: 14px; color: var(--mute); }
+  .ink .box p, .ink .box li { color: var(--ink-mute); }
+  .box ul { padding-left: 18px; display: grid; gap: 4px; }
+  .rule { border-top: 2px solid currentColor; padding-top: 14px; display: grid; gap: 6px; }
+  .rule b { font-size: 16px; }
+  .rule p { font-size: 14px; color: var(--mute); }
+  .ink .rule p { color: var(--ink-mute); }
+
+  /* 표지 */
+  .cover { padding-block: 40px 72px; }
+  .cover .top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .cover .mark { margin-top: 80px; }
+  .cover .tag { margin-top: 28px; font-family: var(--display); font-weight: 800; font-stretch: 70%; font-size: clamp(34px, 6vw, 72px); line-height: .95; text-transform: uppercase; }
+  .cover .ko { margin-top: 14px; font-size: clamp(18px, 2.4vw, 24px); font-weight: 700; }
+  .cover .meta { margin-top: 48px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--off); }
+  .cover .meta div { padding: 14px 16px 0 0; display: grid; gap: 4px; font-size: 13px; color: var(--ink-mute); }
+  .cover .meta b { color: var(--paper); font-family: var(--mono); font-size: 12px; font-weight: 700; }
+  .toc { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; }
+  .toc a { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--off); text-decoration: none; font-size: 14px; color: var(--ink-mute); }
+  .toc a b { color: var(--paper); font-weight: 500; }
+  .toc a span { font-family: var(--mono); font-size: 12px; }
+  .toc a:hover b { color: var(--ignite); }
+
+  /* 상태표 */
+  .status { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .status th, .status td { text-align: left; padding: 14px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .status th { font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+  .status td:first-child { font-weight: 700; white-space: nowrap; }
+  .tbl-wrap { overflow-x: auto; }
+
+  /* 에센스 */
+  .essence { font-size: clamp(26px, 4vw, 44px); font-weight: 900; letter-spacing: -.035em; line-height: 1.25; max-width: 18em; }
+  .metaphor { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center; margin-top: 8px; }
+  .metaphor .side { border: 1px solid var(--off); padding: 22px; display: grid; gap: 6px; }
+  .metaphor .side b { font-family: var(--mono); font-size: 13px; }
+  .metaphor .side p { color: var(--ink-mute); font-size: 14px; }
+  .metaphor svg { width: 40px; }
+  .isnot { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .isnot ul { list-style: none; padding: 0; display: grid; gap: 8px; }
+  .isnot li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; font-size: 14.5px; }
+  .isnot .y li::before { content: "+"; font-family: var(--mono); font-weight: 800; color: var(--ignite); }
+  .isnot .n li::before { content: "−"; font-family: var(--mono); font-weight: 800; color: var(--mute); }
+
+  /* 콜론 읽기 */
+  .reads { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+  .rd { border: 1px solid var(--line); background: var(--paper); display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+  .rd .g { aspect-ratio: 1; max-width: 100%; background: var(--black); display: grid; place-items: center; padding: 20%; }
+  .rd .g svg { width: 100%; }
+  .rd .b { padding: 14px; display: grid; gap: 6px; align-content: start; }
+  .rd .b b { font-family: var(--mono); font-size: 12.5px; }
+  .rd .b p { font-size: 13px; color: var(--mute); line-height: 1.6; }
+
+  /* 로고 */
+  .inv { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .cand { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .cd { border: 1px solid var(--off); display: grid; min-width: 0; }
+  .cd .stage { background: #0A0A0A; padding: 30px 22px; display: grid; gap: 22px; justify-items: center; }
+  .cd .stage svg.w { width: 100%; }
+  .cd .stage svg.k { width: 66%; }
+  .cd .stage .row { display: flex; gap: 16px; align-items: end; }
+  .cd .info { padding: 18px; display: grid; gap: 8px; }
+  .cd .info b { font-size: 16px; }
+  .cd .info p { font-size: 13.5px; color: var(--ink-mute); }
+  .ic { border-radius: 22%; display: grid; place-items: center; background: #111; border: 1px solid var(--off); }
+  .ic svg { width: 24%; }
+  .board { display: flex; gap: 3px; width: 100%; }
+  .tile { position: relative; background: #1C1C1B; border-radius: 3px; padding: 8px 3px; display: grid; place-items: center; overflow: hidden; }
+  .tile::after { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - .5px); height: 1px; background: #050505; }
+  .tile svg { width: 100%; position: relative; }
+  .donts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .dn { border: 1px solid var(--line); background: var(--paper); display: grid; }
+  .dn .v { height: 110px; display: grid; place-items: center; position: relative; overflow: hidden; }
+  .dn .v::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top right, transparent calc(50% - 1px), var(--ignite) 50%, transparent calc(50% + 1px)); opacity: .9; }
+  .dn p { padding: 12px 14px; font-size: 13px; color: var(--mute); border-top: 1px solid var(--line); }
+  .dn p b { color: var(--black); display: block; font-size: 13.5px; }
+  .clear { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; align-items: stretch; }
+  .clear .vis { background: var(--paper); border: 1px solid var(--line); padding: 30px; display: grid; place-items: center; }
+
+  /* 컬러 */
+  .sw { display: grid; grid-template-columns: 2fr 2fr 1.2fr; gap: 12px; }
+  .s { min-height: 240px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--off); }
+  .s .top { display: flex; justify-content: space-between; gap: 8px; align-items: start; }
+  .s b { font-size: 18px; }
+  .s code { font-family: var(--mono); font-size: 13px; }
+  .s p { font-size: 13px; line-height: 1.6; margin-top: 8px; }
+  .ratio { margin-top: 16px; display: flex; height: 14px; border: 1px solid var(--off); }
+  .ratio i:nth-child(1) { flex: 70; background: var(--black); }
+  .ratio i:nth-child(2) { flex: 25; background: var(--paper); }
+  .ratio i:nth-child(3) { flex: 5; background: var(--ignite); }
+  .ratio-l { display: flex; justify-content: space-between; margin-top: 8px; font-family: var(--mono); font-size: 11px; color: var(--ink-mute); }
+  .avoid { display: flex; gap: 10px; flex-wrap: wrap; }
+  .av { width: 120px; display: grid; gap: 6px; font-size: 12px; color: var(--ink-mute); }
+  .av i { height: 56px; position: relative; display: block; }
+  .av i::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top right, transparent calc(50% - 1.5px), #fff 50%, transparent calc(50% + 1.5px)); }
+
+  /* 글꼴 */
+  .spec { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .tf { border: 1px solid var(--line); background: var(--paper); padding: 24px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+  .tf .big { font-size: 52px; line-height: 1.05; overflow-wrap: anywhere; }
+  .tf dl { margin: 0; display: grid; grid-template-columns: 70px 1fr; gap: 4px 10px; font-size: 12.5px; }
+  .tf dt { font-family: var(--mono); color: var(--mute); }
+  .tf dd { margin: 0; }
+
+  /* 말투 */
+  .slogans { display: grid; gap: 0; border-top: 2px solid var(--paper); }
+  .sl { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--off); align-items: baseline; }
+  .sl span { font-family: var(--mono); font-size: 12px; color: var(--ink-mute); }
+  .sl b { font-size: clamp(18px, 2.4vw, 24px); font-weight: 800; letter-spacing: -.02em; }
+  .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .say { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .say th, .say td { text-align: left; padding: 12px; border-bottom: 1px solid var(--line); }
+  .say th { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--mute); text-transform: uppercase; }
+  .say td:first-child { font-weight: 700; }
+  .say td:last-child { color: var(--mute); text-decoration: line-through; text-decoration-color: var(--ignite); }
+  .phrases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+  .phrases p { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
+
+  /* 이미지 */
+  .scene { background: #0A0A0A; color: var(--paper); padding: 34px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 32px; align-items: center; }
+  .scene p.t { font-size: clamp(18px, 2.2vw, 22px); font-weight: 700; line-height: 1.6; }
+  .tiles { display: grid; grid-template-columns: repeat(9, 1fr); gap: 3px; background: #cfcdc7; padding: 3px; aspect-ratio: 9/7; max-width: 100%; }
+  .tiles i { background: linear-gradient(145deg, #fff, #efeee9); }
+  .tiles i.on { background: linear-gradient(145deg, #ff6e37, #e9480f); }
+  .subjects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .sj { aspect-ratio: 4/5; max-width: 100%; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 12px; }
+  .sj span { position: relative; z-index: 1; font-family: var(--mono); font-size: 11px; background: var(--paper); color: var(--black); padding: 3px 7px; }
+  .sj.a { background: radial-gradient(120% 70% at 85% 10%, #fff7ee 0, #e8e6e1 45%, #bdbab2 100%); }
+  .sj.a::before { content: ""; position: absolute; left: 12%; right: 12%; bottom: 20%; height: 26%; border-radius: 0 0 46% 46%; background: linear-gradient(#f8f8f6, #d9d8d4); }
+  .sj.b { background: linear-gradient(160deg, #2a2a28 0, #111 60%); }
+  .sj.b::before { content: ""; position: absolute; left: 30%; top: 26%; width: 40%; height: 40%; border-radius: 48% 52% 44% 56%; background: radial-gradient(circle at 40% 35%, #f3e6da, #c9ab92 70%); }
+  .sj.c { background: linear-gradient(180deg, #dfe3e6 0, #f2f2f0 55%, #c8ccce 100%); }
+  .sj.c::before { content: ""; position: absolute; inset: 14% 16% 32%; border: 8px solid #b8bcbf; background: radial-gradient(circle at 50% 40%, rgba(255,255,255,.95), rgba(220,224,226,.6)); }
+  .sj.d { background: linear-gradient(185deg, #ffb27a 0, #f0dccb 38%, #6f7a82 100%); }
+  .sj.d::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 32%; background: #3c4247; }
+
+  /* 적용 */
+  .apps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .ap { min-height: 320px; display: grid; place-items: center; position: relative; padding: 28px; overflow: hidden; }
+  .ap small { position: absolute; left: 14px; bottom: 10px; font-family: var(--mono); font-size: 10.5px; opacity: .65; }
+  .ap.d { background: #0A0A0A; color: var(--paper); border: 1px solid var(--off); }
+  .ap.s { background: var(--sand); }
+  .card916 { width: 168px; aspect-ratio: 9/16; max-width: 100%; background: var(--black); color: var(--paper); border: 1px solid var(--off); padding: 16px 14px; display: flex; flex-direction: column; font-family: var(--mono); font-size: 9.5px; }
+  .card916 .v { margin-top: 26px; font-family: var(--display); font-weight: 800; font-stretch: 70%; font-size: 30px; line-height: .95; }
+  .card916 ul { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 5px; }
+  .card916 li i { font-style: normal; color: var(--ignite); margin-right: 5px; }
+  .card916 .f { margin-top: auto; font-family: var(--display); font-weight: 800; font-stretch: 70%; font-size: 13px; }
+  .card916 .bar { height: 3px; background: var(--ignite); margin-bottom: 8px; }
+  .bottle { width: 72px; height: 190px; background: var(--black); border-radius: 6px 6px 18px 18px; position: relative; }
+  .bottle::before { content: ""; position: absolute; top: -26px; left: 26px; width: 20px; height: 26px; background: var(--black); border-radius: 3px 3px 0 0; }
+  .plate { position: absolute; left: 8px; right: 8px; top: 52px; border: 1px solid #3A3A38; background: #1A1A19; padding: 7px 6px; display: grid; gap: 4px; font-family: var(--mono); font-size: 6.5px; color: #8E8D88; }
+
+  /* 거버넌스 */
+  .claims { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .claims .box h4 { display: flex; align-items: center; gap: 8px; }
+  .open { list-style: none; padding: 0; display: grid; gap: 0; border-top: 2px solid var(--paper); }
+  .open li { display: grid; grid-template-columns: 40px 1fr auto; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--off); align-items: baseline; }
+  .open li span.n { font-family: var(--mono); font-size: 12px; color: var(--ignite); }
+  .open li b { font-size: 16px; display: block; }
+  .open li p { font-size: 13.5px; color: var(--ink-mute); }
+
+  footer { padding-block: 40px; color: var(--ink-mute); font-size: 12.5px; }
+
+  @media (max-width: 900px) {
+    .cols2, .cols3, .isnot, .clear, .scene, .claims, .cand, .spec, .apps, .pillars, .phrases { grid-template-columns: 1fr; }
+    .cols4, .inv, .donts, .subjects { grid-template-columns: 1fr 1fr; }
+    .reads { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sw { grid-template-columns: 1fr 1fr; }
+    .toc, .cover .meta { grid-template-columns: 1fr 1fr; }
+    .metaphor { grid-template-columns: 1fr; justify-items: center; }
+    .sl { grid-template-columns: 1fr; gap: 4px; }
+    .ph { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .page { padding-block: 60px; }
+    .cols4, .inv, .donts, .subjects, .reads, .sw, .toc, .cover .meta { grid-template-columns: 1fr; }
+    .open li { grid-template-columns: 30px 1fr; }
+    .open li .chip { grid-column: 2; justify-self: start; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <path id="L" fill-rule="evenodd" d="M0 0H7L8 1V5L7 6H4.83L8.83 10H6L2 6V10H0Z M2 2V4H6V2Z M11 0H17L18 1V2H13V4H17V6H13V8H18V9L17 10H11Z M24 0H31L32 1V4.5L31.5 5L32 5.5V9L31 10H24Z M26 2V4H30V2Z M26 6V8H30V6Z M35 0H41L42 1V9L41 10H35L34 9V1Z M36 2V8H40V2Z M45 0H51L52 1V9L51 10H45L44 9V1Z M46 2V8H50V2Z M55 0H61L62 1V2H59V10H57V2H54V1Z"/>
+    <path id="K" fill-rule="evenodd" d="M0 0H6L7 1V8H2V12H7V13L6 14H0V6H5V2H0Z M9 0H11V14H9Z M17 0H19V2H25V0H27V8H17Z M19 4V6H25V4Z M17 9H27V11H23V14H21V11H17Z M29 0H38L39 1V2H31V3.5H39V5.5H31V7H39V8L38 9H29Z M29 12H39V14H29Z"/>
+    <path id="d0" fill-rule="evenodd" d="M1 0H7L8 1V9L7 10H1L0 9V1Z M2 2V8H6V2Z"/>
+    <path id="d6" fill-rule="evenodd" d="M1 0H8V2H2V4H7L8 5V9L7 10H1L0 9V1Z M2 6V8H6V6Z"/>
+    <path id="d1" d="M0 1L1 0H5V10H3V2H0Z"/>
+    <path id="br" d="M4 1H8V9H4V7H6V3H4Z"/>
+  </defs>
+</svg>
+
+<!-- 표지 -->
+<section class="page ink cover">
+  <div class="wrap">
+    <div class="top"><p class="eyebrow">Brand Guidebook · v1 · 2026.11</p><p class="eyebrow">기준 문서: reboot-web/BRAND.md (specVersion 0.3.0)</p></div>
+    <div class="mark"><svg viewBox="-1 -1 64 12" data-wm="plain" data-fg="#F2F1EC" aria-label="RE:BOOT"></svg></div>
+    <p class="tag">RE:BOOT YOURSELF.</p>
+    <p class="ko">보이고 싶은 모습부터, 다시 켜다.</p>
+    <div class="meta">
+      <div><b>STATUS</b>기획 · 프로토타입</div>
+      <div><b>LOGO</b>미확정 · 시안 3종</div>
+      <div><b>COLOR</b>승인 3색</div>
+      <div><b>TYPE</b>후보 3종 · 미승인</div>
+    </div>
+    <nav class="toc" aria-label="목차">
+      <a href="#p00"><b>상태 한눈에 보기</b><span>00</span></a>
+      <a href="#p01"><b>브랜드 에센스</b><span>01</span></a>
+      <a href="#p02"><b>핵심 은유 · 콜론</b><span>02</span></a>
+      <a href="#p03"><b>로고</b><span>03</span></a>
+      <a href="#p04"><b>컬러</b><span>04</span></a>
+      <a href="#p05"><b>글꼴</b><span>05</span></a>
+      <a href="#p06"><b>말투</b><span>06</span></a>
+      <a href="#p07"><b>이미지 · 아트 디렉션</b><span>07</span></a>
+      <a href="#p08"><b>적용 예시</b><span>08</span></a>
+      <a href="#p09"><b>거버넌스</b><span>09</span></a>
+      <a href="#p10"><b>남은 결정</b><span>10</span></a>
+    </nav>
+  </div>
+</section>
+
+<!-- 00 상태 -->
+<section class="page graph" id="p00">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">00 · STATUS</p><h2>무엇이 정해졌고, 무엇이 아직인가.</h2><p class="lead">이 가이드북은 확정된 것과 제안을 섞지 않는다. 모든 페이지 오른쪽 위의 표시를 먼저 본다.</p></div></div>
+    <p style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 20px"><span class="chip ok">확정</span><span class="chip cand">후보 · 제안</span><span class="chip open">미정</span></p>
+    <div class="tbl-wrap"><table class="status">
+      <thead><tr><th>항목</th><th>상태</th><th>내용</th><th>근거</th></tr></thead>
+      <tbody>
+        <tr><td>브랜드명 · 표기</td><td><span class="chip ok">확정</span></td><td>RE:BOOT / 리부트, 한글 로고 표기 리:부트</td><td>마스터 플랜 v2.0</td></tr>
+        <tr><td>태그라인</td><td><span class="chip ok">확정</span></td><td>RE:BOOT YOURSELF. · BACK EACH OTHER.</td><td>마스터 플랜 v2.0</td></tr>
+        <tr><td>코어 컬러</td><td><span class="chip ok">확정</span></td><td>#111111 · #FF5A1F · #FFFFFF</td><td>마스터 플랜 v2.0</td></tr>
+        <tr><td>브랜드 관계</td><td><span class="chip ok">확정</span></td><td>독립 브랜드. KHUN STUDIO는 운영 주체</td><td>운영자 선택 (2026-11-13)</td></tr>
+        <tr><td>핵심 은유</td><td><span class="chip cand">후보</span></td><td>두 점 사이 · 지금의 나 : 다음의 나</td><td>콜론 시스템 기획서 v1</td></tr>
+        <tr><td>로고</td><td><span class="chip open">미정</span></td><td>시안 3종 검토 중 (거울 · 플립 · 눈)</td><td>운영자 선택 (2026-11-13)</td></tr>
+        <tr><td>글꼴</td><td><span class="chip cand">후보</span></td><td>Pretendard · Archivo · JetBrains Mono (라이선스 확인, 승인 전)</td><td>운영자 선택 (2026-11-13)</td></tr>
+        <tr><td>접근성 목표</td><td><span class="chip open">미정</span></td><td>초안: WCAG 2.2 AA</td><td>—</td></tr>
+        <tr><td>상표</td><td><span class="chip open">미정</span></td><td>RE:BOOT · 리부트 사용 가능 여부 미확인</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- 01 에센스 -->
+<section class="page ink" id="p01">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">01 · ESSENCE</p><h2>RE:BOOT는 무엇인가.</h2></div><span class="chip ok">확정 · BRAND.md</span></div>
+    <p class="essence">생활이 바뀌는 남자에게 자기관리의 <span class="o">순서</span>를 알려주고, 그 변화를 업데이트처럼 쌓아가게 한다.</p>
+    <div class="sub">Who · Where</div>
+    <div class="cols3">
+      <div class="box"><h4>누구를 위해</h4><p>입대 예정 · 복무 중 · 전역 전후의 20대 남성. 관심은 있지만 무엇이 맞는지 모르고, 쓸 수 있는 시간과 환경이 제한된 사람. 군 복무와 무관하게 시작하려는 남성도 같은 기록 구조로.</p></div>
+      <div class="box"><h4>어디에 서는가</h4><p>군 생활 전후 남성을 위한 자기관리 입문 플랫폼. 쇼핑몰이 아니다. 피부 진단 앱이 아니다. 군 공식 서비스가 아니다.</p></div>
+      <div class="box"><h4>약속</h4><ul><li>오늘 할 수 있는 순서부터</li><li>생활이 바뀌어도 기록은 이어진다</li><li>진단하지 않고, 과장하지 않는다</li><li>먼저 겪은 경험을 넘긴다</li></ul></div>
+    </div>
+    <div class="sub">Personality</div>
+    <div class="isnot">
+      <div class="box y"><h4>정비사이자 먼저 겪은 동료</h4><ul><li>차분하다</li><li>구체적이다 · 숫자와 순서로 말한다</li><li>정돈 · 정확 · 반복 · 담백 · 연대 · 정직</li><li>먼저 손을 내민다</li></ul></div>
+      <div class="box n"><h4>이런 브랜드가 아니다</h4><ul><li>남성성을 과시하지 않는다</li><li>외모로 줄 세우지 않는다</li><li>겁주지 않는다 · 군대를 미화하지 않는다</li><li>귀여운 척하지 않는다</li></ul></div>
+    </div>
+    <div class="sub">Litmus test</div>
+    <p style="font-size: clamp(20px, 2.6vw, 28px); font-weight: 800; letter-spacing: -.02em">이 문장을 읽은 사람이 자기 얼굴을 부끄러워하게 된다면, 틀렸다.</p>
+  </div>
+</section>
+
+<!-- 02 은유 -->
+<section class="page graph" id="p02">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">02 · CORE METAPHOR</p><h2>두 점 사이에서 변화가 시작된다.</h2><p class="lead">브랜드명의 콜론(:)이 핵심 자산이다. 위의 점은 지금의 나, 아래 점은 다음의 나. 그 사이의 간격이 RE:BOOT가 돕는 변화의 자리다.</p></div><span class="chip cand">후보 · 콜론 시스템 v1</span></div>
+    <div class="ink" style="padding: 32px; border-radius: 2px">
+      <div class="metaphor">
+        <div class="side"><b>PAST · 지금의 나</b><p>정보 없이 감으로 고르고, 생활이 바뀌면 처음부터 다시 헤맨다.</p></div>
+        <svg viewBox="-1 -1 4 8" data-colon="plain" data-fg="#F2F1EC" aria-label="콜론"></svg>
+        <div class="side"><b>NEXT · 다음의 나</b><p>하루 3분짜리 순서가 있고, 그 기록이 생활 단계를 넘어 이어진다.</p></div>
+      </div>
+    </div>
+    <div class="sub">One mark, five readings · 제안</div>
+    <div class="reads" id="reads"></div>
+    <p style="margin-top: 16px; font-size: 13.5px; color: var(--mute)">콜론은 이미 시계 · 비율 · 이모티콘에서 쓰이는 기호다. 같은 두 점에 모듈 한 칸을 더하거나 사이를 채우는 것만으로 의미를 바꾼다. 의미가 실제로 있을 때만 쓴다.</p>
+  </div>
+</section>
+
+<!-- 03 로고 -->
+<section class="page ink" id="p03">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">03 · LOGO</p><h2>로고는 아직 정하지 않았다.<br>바뀌지 않을 원칙만 먼저 정한다.</h2><p class="lead">아래 원칙은 어떤 시안이 선택되어도 유지한다. 시안 3종은 검토 기록이며, 어느 것도 승인된 로고가 아니다.</p></div><span class="chip open">미정</span></div>
+    <div class="sub">Invariants · 원칙</div>
+    <div class="inv">
+      <div class="rule"><b>콜론이 핵심</b><p>같은 크기의 두 점이 위아래로, 일정한 간격을 두고 놓인다.</p></div>
+      <div class="rule"><b>점은 각진 형태</b><p>둥근 점은 일반 문장부호가 된다. 각진 모듈을 유지한다.</p></div>
+      <div class="rule"><b>영문 · 한글 한 쌍</b><p>RE:BOOT와 리:부트는 같은 설계 원칙에서 나온다.</p></div>
+      <div class="rule"><b>효과 없음</b><p>그라데이션 · 빛 번짐 · 위장무늬 · 계급장 모티프 금지.</p></div>
+    </div>
+    <div class="sub">Candidates · 시안 3종 (검토 중)</div>
+    <div class="cand">
+      <article class="cd">
+        <div class="stage"><svg class="w" viewBox="-1 -1 64 12" data-wm="mirror" data-fg="#F2F1EC"></svg><svg class="k" viewBox="-1 -1 41 16" data-ko="mirror" data-fg="#F2F1EC"></svg><div class="row" data-icons="mirror"></div></div>
+        <div class="info"><span class="eyebrow">A · MIRROR</span><b>거울 콜론</b><p>위의 점은 나, 아래 점은 거울 속의 나. 아래 점이 반사처럼 가로로 갈라진다. 세면대 장면과 직접 이어진다.</p></div>
+      </article>
+      <article class="cd">
+        <div class="stage"><div class="board" data-board="L"></div><div class="board" data-board="K" style="width:66%"></div><div class="row" data-icons="flip"></div></div>
+        <div class="info"><span class="eyebrow">B · FLIP</span><b>플립 보드</b><p>글자가 넘어가는 패널. 경첩 선이 콜론의 두 점 사이를 지난다. 모션에 강하고 정지 화면에서는 약하다.</p></div>
+      </article>
+      <article class="cd">
+        <div class="stage"><svg class="w" viewBox="-1 -1 64 12" data-wm="eyes" data-fg="#F2F1EC"></svg><svg class="k" viewBox="-1 -1 41 16" data-ko="eyes" data-fg="#F2F1EC"></svg><div class="row" data-icons="eyes"></div></div>
+        <div class="info"><span class="eyebrow">C · LOOK</span><b>바라보는 콜론</b><p>두 점 안의 눈동자. 문장부호가 표정을 갖는다. 퍼지는 힘은 크지만 톤이 가벼워질 위험.</p></div>
+      </article>
+    </div>
+    <div class="sub">Construction · 시안 공통 작도 규칙</div>
+    <div class="cols4">
+      <div class="rule"><b class="mono">1u</b><p>콜론의 점 = 2×2u. 획 두께 · 글자 간격이 모두 같은 단위.</p></div>
+      <div class="rule"><b class="mono">10u / 14u</b><p>영문 높이 10u, 한글 높이 14u. 획은 모두 2u.</p></div>
+      <div class="rule"><b class="mono">C1</b><p>세로 줄기가 없는 열린 쪽 바깥 모서리만 1u 모따기.</p></div>
+      <div class="rule"><b class="mono">45°</b><p>허용된 유일한 사선. R의 다리 · 체크 · 화살표.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03b 사용 규칙 -->
+<section class="page graph">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">03 · LOGO USAGE</p><h2>로고를 다룰 때.</h2><p class="lead">로고가 확정되면 이 페이지의 수치를 확정 값으로 바꾼다. 지금은 원칙만 유효하다.</p></div><span class="chip cand">제안</span></div>
+    <div class="clear">
+      <div class="vis"><svg viewBox="-12 -12 86 34" aria-label="여백 원칙">
+        <rect x="-10" y="-10" width="82" height="30" fill="none" stroke="#FF5A1F" stroke-width=".2" stroke-dasharray=".8 .6"/>
+        <g data-inline-wm="plain" fill="#111"></g>
+        <g fill="#FF5A1F" opacity=".25"><rect x="-10" y="-10" width="82" height="10"/><rect x="-10" y="10" width="82" height="10"/></g>
+        <g font-family="JetBrains Mono, monospace" font-size="1.8" fill="#6E6D69"><text x="-9.4" y="-5.4">CLEAR SPACE = 10u (글자 높이)</text></g>
+      </svg></div>
+      <div class="box"><h4>여백 · 최소 크기 (제안)</h4><ul><li>로고 주변 여백은 글자 높이(10u)만큼 비운다.</li><li>워드마크 최소 폭은 화면 80px · 인쇄 20mm를 출발점으로 테스트한다.</li><li>그보다 작으면 콜론 심볼만 쓴다.</li><li>정확한 값은 로고 확정 후 실제 기기에서 정한다.</li></ul></div>
+    </div>
+    <div class="sub">Don't · 확정 전에도 금지</div>
+    <div class="donts" id="donts"></div>
+  </div>
+</section>
+
+<!-- 04 컬러 -->
+<section class="page ink" id="p04">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">04 · CORE COLORS</p><h2>오렌지는 "켜진 순간"의 색.</h2><p class="lead">세 가지 색만 승인되어 있다. 화면별 색 단계와 역할은 각 화면의 DESIGN.md가 정한다.</p></div><span class="chip ok">확정</span></div>
+    <div class="sw">
+      <div class="s" style="background:#111; color:#fff"><div class="top"><b>Boot Black</b><span class="chip ok" style="background:#fff;color:#111">필수</span></div><div><code>#111111</code><p style="color:#9B9A95">바탕이자 목소리. 정돈되고 묵직한 기본 상태. 순수한 검정 #000000은 쓰지 않는다.</p></div></div>
+      <div class="s" style="background:#FF5A1F; color:#111; border-color:#FF5A1F"><div class="top"><b>Ignition Orange</b><span class="chip ok">필수</span></div><div><code>#FF5A1F</code><p>켜짐, 업데이트가 일어난 순간. 드물수록 의미가 생긴다. 넓은 장식 면으로 쓰는 순간 의미를 잃는다.</p></div></div>
+      <div class="s" style="background:#fff; color:#111"><div class="top"><b>White</b><span class="chip cand">선택</span></div><div><code>#FFFFFF</code><p style="color:#6E6D69">정돈된 바탕. 세면대 타일의 흰색.</p></div></div>
+    </div>
+    <div class="ratio" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="ratio-l"><span>BLACK 약 70</span><span>WHITE 약 25</span><span>ORANGE 약 5 · 참고 비율</span></div>
+    <div class="sub">Avoid · 피할 색</div>
+    <div class="avoid">
+      <div class="av"><i style="background:#6B6A3A"></i>올리브 · 카키</div>
+      <div class="av"><i style="background: repeating-linear-gradient(35deg, #5A5A3C 0 14px, #7B6F4E 14px 26px, #3F4430 26px 40px)"></i>위장무늬 조합</div>
+      <div class="av"><i style="background: linear-gradient(90deg, #7B2FF7, #00E0FF)"></i>네온 그라데이션</div>
+      <div class="av"><i style="background:#000"></i>순수 검정 #000</div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 글꼴 -->
+<section class="page graph" id="p05">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">05 · TYPEFACES</p><h2>사람의 말과 시스템의 기록을 나눈다.</h2><p class="lead">세 가족은 시안과 웹 프로토타입에 쓰고 있지만 브랜드 글꼴로 승인되지 않았다. 라이선스는 모두 확인했다. 크기 · 굵기 체계는 각 화면의 DESIGN.md가 정한다.</p></div><span class="chip cand">후보 · 미승인</span></div>
+    <div class="spec">
+      <div class="tf"><span class="eyebrow">VOICE · 한글 · 본문</span><p class="big" style="font-weight: 900; letter-spacing: -.04em">정돈,<br>시작.</p><dl><dt>가족</dt><dd>Pretendard <span style="color:var(--mute)">(이 페이지는 Noto Sans KR로 대체 표시)</span></dd><dt>대체</dt><dd class="mono" style="font-size:11.5px">-apple-system, "Apple SD Gothic Neo", "Noto Sans KR"</dd><dt>라이선스</dt><dd>SIL OFL 1.1 · 확인함 (npm 메타데이터, 2026-11-13)</dd></dl></div>
+      <div class="tf"><span class="eyebrow">DISPLAY · 영문 제목 · 숫자</span><p class="big" style="font-family: var(--display); font-weight: 800; font-stretch: 70%; text-transform: uppercase; line-height: .95">Reboot<br>Yourself.</p><dl><dt>가족</dt><dd>Archivo (좁은 폭)</dd><dt>대체</dt><dd class="mono" style="font-size:11.5px">"Arial Narrow", sans-serif</dd><dt>라이선스</dt><dd>SIL OFL 1.1 · 확인함 (google/fonts OFL.txt, 2026-11-13)</dd></dl></div>
+      <div class="tf"><span class="eyebrow">LOG · 패치노트 · 버전</span><p class="big mono" style="font-size: 34px; font-weight: 700">+ 선크림<br>✓ v2.0</p><dl><dt>가족</dt><dd>JetBrains Mono</dd><dt>대체</dt><dd class="mono" style="font-size:11.5px">ui-monospace, SFMono-Regular, Menlo</dd><dt>라이선스</dt><dd>SIL OFL 1.1 · 확인함 (google/fonts OFL.txt, 2026-11-13)</dd></dl></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 말투 -->
+<section class="page ink" id="p06">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">06 · VOICE</p><h2>다시 켜는 방법을 알려주고,<br>다시 켜는 동안 옆에 있는다.</h2><p class="lead">짧은 평서문, 해요체, 명령보다 제안. 효과보다 행동을 말하고, 숫자는 시간과 순서에만 쓴다.</p></div><span class="chip ok">확정 · BRAND.md</span></div>
+    <div class="slogans">
+      <div class="sl"><span>PRIMARY</span><b>RE:BOOT YOURSELF.</b></div>
+      <div class="sl"><span>홈 첫 화면</span><b>보이고 싶은 모습부터, 다시 켜다.</b></div>
+      <div class="sl"><span>커뮤니티</span><b>BACK EACH OTHER. 서로의 편이 되어주다.</b></div>
+      <div class="sl"><span>경험 공유</span><b>PASS IT ON. 경험은 물려주고, 고생은 줄이자.</b></div>
+      <div class="sl"><span>30일 기록 완료</span><b>UPDATE COMPLETE. 다음 버전으로.</b></div>
+      <div class="sl"><span>아침 알림</span><b>06:00. 하루를 다시 켤 시간.</b></div>
+    </div>
+    <div class="sub">Message pillars</div>
+    <div class="pillars">
+      <div class="box"><h4>정돈</h4><p>잘생겨지기보다 깔끔하게. 기준은 남이 아니라 어제의 나.</p></div>
+      <div class="box"><h4>순서</h4><p>무엇을 살지보다 무엇부터 할지. 하루 3분이면 시작할 수 있다.</p></div>
+      <div class="box"><h4>업데이트</h4><p>한 번의 변신보다 매일의 작은 수정. 맞으면 더하고, 안 맞으면 지운다.</p></div>
+      <div class="box"><h4>이어짐</h4><p>입대 전부터 전역 후까지, 기록은 끊기지 않는다.</p></div>
+      <div class="box"><h4>경험 이전</h4><p>먼저 겪은 사람이 다음 사람의 시행착오를 줄인다.</p></div>
+      <div class="box"><h4>정직</h4><p>진단하지 않는다. 확인하지 않은 숫자는 쓰지 않는다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="page graph">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">06 · PHRASES & WORDS</p><h2>이렇게 말하고, 이렇게는 말하지 않는다.</h2></div><span class="chip ok">확정 · BRAND.md</span></div>
+    <div class="phrases">
+      <p>내가 겪어봤으니, 너는 조금 덜 헤매도 된다.</p>
+      <p>얼굴은 못 바꿔도, 버전은 올릴 수 있다.</p>
+      <p>경험은 물려주고, 고생은 줄이자.</p>
+      <p>두 점 사이에서 변화가 시작된다.</p>
+      <p>전역해도 기록은 이어진다.</p>
+      <p>PX 앞에서 감으로 고르지 않게.</p>
+    </div>
+    <div class="sub">We say / We never say</div>
+    <div class="tbl-wrap"><table class="say">
+      <thead><tr><th>이렇게 말한다</th><th>이렇게 말하지 않는다</th></tr></thead>
+      <tbody>
+        <tr><td>"오늘은 이 세 가지만 해요"</td><td>"꽃미남 되는 10가지 비법"</td></tr>
+        <tr><td>"PX에서 고를 땐 이 기준으로"</td><td>"요즘 핫한 신상 언박싱"</td></tr>
+        <tr><td>"면도 후 자극을 줄이는 순서"</td><td>"트러블 완벽 해결"</td></tr>
+        <tr><td>"30초 체크"</td><td>"AI 피부 진단"</td></tr>
+        <tr><td>"패치노트 v2.0"</td><td>"비포 · 애프터"</td></tr>
+        <tr><td>"먼저 겪어본 사람의 경험"</td><td>"선임이 알려주는 군대 꿀팁"</td></tr>
+        <tr><td>"부대마다 다를 수 있어요"</td><td>"군대에선 다 이렇게 해"</td></tr>
+      </tbody>
+    </table></div>
+    <div class="sub">Vocabulary</div>
+    <div class="cols4">
+      <div class="rule"><b>30초 체크</b><p>× 피부 진단 · 테스트 · 분석</p></div>
+      <div class="rule"><b>루틴</b><p>× 처방 · 솔루션 · 프로그램</p></div>
+      <div class="rule"><b>기록</b><p>× 성과 · 점수 · 변화율</p></div>
+      <div class="rule"><b>생활 모드</b><p>× 계급 · 레벨 · 등급</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 이미지 -->
+<section class="page ink" id="p07">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">07 · ART DIRECTION</p><h2>새벽 6시, 흰 타일 벽 앞의 세면대.</h2><p class="lead">브랜드 전체의 시각적 영역. 웹 · 앱 · 패키지 · 콘텐츠는 각자 이 장면을 자기 매체에 맞게 좁혀 쓴다.</p></div><span class="chip ok">확정 · BRAND.md</span></div>
+    <div class="scene">
+      <p class="t">스테인리스 수전, 물방울, 김이 서린 거울. 타일 사이 줄눈이 그대로 모눈 노트의 그리드가 되고, 그 벽 어딘가에 주황 타일 두 장이 콜론처럼 박혀 있다. 빛은 창으로 들어오는 아침 빛 하나. 빛나는 것도 떠 있는 것도 없다.</p>
+      <div class="tiles" id="tiles" aria-hidden="true"></div>
+    </div>
+    <div class="sub">Keywords</div>
+    <p style="font-family: var(--display); font-weight: 800; font-stretch: 70%; font-size: clamp(22px, 3vw, 34px); text-transform: uppercase; line-height: 1.15">정사각 모듈 · 드러난 그리드 · 포인트 하나 · 기계적인 기록 · 손때 묻은 실물 · 여백</p>
+  </div>
+</section>
+
+<section class="page graph">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">07 · PHOTOGRAPHY</p><h2>얼굴보다 손 · 물 · 사물.</h2><p class="lead">분위기: 이른 아침, 차분함, 손때, 정돈, 실재감. 아래 칸은 실제 사진이 들어갈 자리 표시다.</p></div><span class="chip ok">확정 · BRAND.md</span></div>
+    <div class="subjects">
+      <div class="sj a"><span>세면대 · 첫 세안</span></div>
+      <div class="sj b"><span>손끝의 보습</span></div>
+      <div class="sj c"><span>김 서린 거울 · 면도기</span></div>
+      <div class="sj d"><span>새벽 운동장 · 스트레칭</span></div>
+    </div>
+    <div class="sub">Avoid</div>
+    <div class="cols4">
+      <div class="rule"><b>전후 비교</b><p>얼굴 비포 · 애프터, 외모 점수</p></div>
+      <div class="rule"><b>과한 보정</b><p>매끈하게 지운 피부, 획일적인 근육질 모델</p></div>
+      <div class="rule"><b>군 이미지</b><p>군복 · 위장무늬 · 부대 시설</p></div>
+      <div class="rule"><b>AI 생성 이미지</b><p>실제 이용자 · 후기처럼 쓰지 않고, 생성 이미지라고 표시</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 적용 -->
+<section class="page ink" id="p08">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">08 · APPLICATIONS</p><h2>적용 예시.</h2><p class="lead">로고가 미정이라 기본 콜론으로 그렸다. 로고가 확정되면 같은 자리에 그대로 바꿔 넣는다.</p></div><span class="chip cand">제안</span></div>
+    <div class="apps">
+      <div class="ap d">
+        <div class="card916">
+          <svg viewBox="-1 -1 64 12" data-wm="plain" data-fg="#F2F1EC" style="width: 70%"></svg>
+          <p class="v">PAST →<br><span class="o">NEXT</span></p>
+          <p style="margin-top:8px; color:#9B9A95">PATCH NOTES · 30 DAYS · 예시</p>
+          <ul><li><i>+</i>매일 아침 선크림</li><li><i>+</i>면도 전 수염 불리기</li><li><i style="color:#9B9A95">−</i>아무 비누로 세안</li><li><i>✓</i>면도 후 따가움 수정</li></ul>
+          <div class="f"><div class="bar"></div>UPDATE COMPLETE.</div>
+        </div>
+        <small>SHARE CARD 9:16 · 패치노트</small>
+      </div>
+      <div class="ap s">
+        <div class="bottle"><div class="plate"><svg viewBox="-1 -1 64 12" data-wm="plain" data-fg="#F2F1EC"></svg><span>RB-02 · 초안</span><span style="color:#FF5A1F">● 01</span></div></div>
+        <small style="color:#111">PACKAGE · 명판 라벨 (콘셉트, 판매 안 함)</small>
+      </div>
+      <div class="ap d" style="gap: 18px">
+        <div style="display:flex; gap: 18px; align-items:end" data-icons="plain"></div>
+        <div style="display:flex; align-items:center; gap: 12px; border: 1px solid #2E2E2C; padding: 10px 14px; border-radius: 999px">
+          <div class="ic" style="width:36px;height:36px;border-radius:50%"><svg viewBox="-1 -1 4 8" data-colon="plain" data-fg="#F2F1EC" style="width:22%"></svg></div>
+          <div style="font-size:12px; line-height:1.4"><b style="display:block">리부트 RE:BOOT</b><span style="color:#9B9A95">남자들의 자기관리 클럽</span></div>
+        </div>
+        <small>APP ICON · SNS PROFILE</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 거버넌스 -->
+<section class="page graph" id="p09">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">09 · GOVERNANCE</p><h2>말해도 되는 것, 확인이 필요한 것, 말하면 안 되는 것.</h2></div><span class="chip ok">확정 · BRAND.md</span></div>
+    <div class="claims">
+      <div class="box"><h4><span class="chip ok">승인</span>근거 있는 사실</h4><ul><li>로그인 없이 30초 체크와 루틴을 쓸 수 있다 — 웹 MVP 코드</li><li>기록은 브라우저에만 저장되고 서버로 보내지 않는다 — store.ts, 분석 도구 미연결</li><li>국방부 · 군 공식 서비스가 아니며 제휴가 없다 — 운영자 확인</li></ul></div>
+      <div class="box"><h4><span class="chip cand">검토</span>공개 전 확인</h4><ul><li>피부과 · 브랜드 협업 언급</li><li>PX 판매 상품 · 가격</li><li>이용자 수 · 사용 통계</li><li>경쟁 서비스와의 직접 비교</li></ul></div>
+      <div class="box"><h4><span class="chip open">금지</span>쓰지 않는다</h4><ul><li>진단 · 질환명 · 치료 효과 · 개선율</li><li>확인되지 않은 이용자 · 매출 · 제휴</li><li>최저가 · 재고 · PX 입점 보장</li><li>전후 사진으로 효과 암시</li></ul></div>
+    </div>
+    <div class="sub">Naming</div>
+    <div class="cols4">
+      <div class="rule"><b>RE:BOOT</b><p>대문자와 콜론. 한글 리부트, 한글 로고 리:부트. 콜론이 안 되는 곳만 reboot.</p></div>
+      <div class="rule"><b>CARE · CREW · SELECT · MY RE:BOOT</b><p>서비스 축 이름은 고정.</p></div>
+      <div class="rule"><b>기능은 하는 일 그대로</b><p>30초 체크 · 루틴 · 기록 · 가이드.</p></div>
+      <div class="rule"><b>쓰지 않는 이름</b><p>AI 진단 · 처방 · 클리닉 · 계급 이름.</p></div>
+    </div>
+    <div class="sub">Accessibility</div>
+    <div class="cols3">
+      <div class="rule"><b>상태는 색만으로 구분하지 않는다</b><p>대기 · 진행 · 완료는 글자 · 모양으로도 읽힌다.</p></div>
+      <div class="rule"><b>동작 줄이기 설정을 존중한다</b><p>깜빡임 · 넘김 모션은 꺼질 수 있어야 한다.</p></div>
+      <div class="rule"><b>공유 이미지에 민감 정보 없음</b><p>피부 상태 · 생활 모드 · 소속 · 날짜 자동 삽입 금지.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 남은 결정 -->
+<section class="page ink" id="p10">
+  <div class="wrap">
+    <div class="ph"><div><p class="no">10 · OPEN DECISIONS</p><h2>다음에 정할 것.</h2><p class="lead">이 목록이 비면 가이드북 v2가 된다. 결정은 운영자가 하고, 결정되면 BRAND.md부터 고친다.</p></div><span class="chip open">미정</span></div>
+    <ol class="open">
+      <li><span class="n">01</span><div><b>로고 선택</b><p>거울 · 플립 · 눈 중 선택, 또는 새 방향. 선택 후 16 · 32 · 96px 실기기 판독 테스트.</p></div><span class="chip open">미정</span></li>
+      <li><span class="n">02</span><div><b>글꼴 승인</b><p>후보 3종을 그대로 승인할지, 영문 제목을 로고 그리드 글자로 대체할지.</p></div><span class="chip cand">후보</span></li>
+      <li><span class="n">03</span><div><b>핵심 은유 확정</b><p>"두 점 사이"를 공식 은유로 올릴지. 다섯 가지 읽기 중 무엇을 공식으로 쓸지.</p></div><span class="chip cand">후보</span></li>
+      <li><span class="n">04</span><div><b>접근성 목표</b><p>초안 WCAG 2.2 AA를 공식 목표로 정할지.</p></div><span class="chip open">미정</span></li>
+      <li><span class="n">05</span><div><b>상표 · 계정 확인</b><p>RE:BOOT · 리부트 상표, 도메인, SNS 핸들 확보 여부.</p></div><span class="chip open">미정</span></li>
+      <li><span class="n">06</span><div><b>BRAND.md 언어 표기</b><p>형식 규칙은 en / pt-BR만 공식 지원. 지금은 ko로 기록하고 이 차이를 명시해 둠.</p></div><span class="chip cand">기록됨</span></li>
+    </ol>
+  </div>
+</section>
+
+<footer class="ink"><div class="wrap">RE:BOOT Brand Guidebook v1 · 기준: reboot-web/BRAND.md · KHUN STUDIO · 로고 미확정 · 상표 검토 전</div></footer>
+
+<script>
+(function () {
+  var OR = "#FF5A1F", W = "#F2F1EC", K = "#111111";
+  function r(x, y, w, h, f) { return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" fill="' + f + '"/>'; }
+  function colon(kind, x, y, top, opt) {
+    opt = opt || {};
+    var bot = opt.mono ? top : OR, s = "";
+    if (kind === "mirror") {
+      s += r(x, y, 2, 2, top);
+      (opt.small ? [[0, .8], [1.2, .55]] : [[0, .62], [.82, .5], [1.52, .38]]).forEach(function (l) { s += r(x, y + 4 + l[0], 2, l[1], bot); });
+    } else if (kind === "eyes") {
+      var pT = top === K ? "#fff" : K, pB = bot === K ? "#fff" : K;
+      s += r(x, y, 2, 2, top) + r(x + .95, y + .6, .8, .8, pT) + r(x, y + 4, 2, 2, bot) + r(x + .95, y + 4.6, .8, .8, pB);
+    } else {
+      s += r(x, y, 2, 2, top) + r(x, y + 4, 2, 2, bot);
+    }
+    return s;
+  }
+  function use(id, f, x) { return '<use href="#' + id + '" fill="' + f + '"' + (x ? ' x="' + x + '"' : "") + '/>'; }
+  function wm(kind, fg, opt) { return use("L", fg) + colon(kind, 20, 2, fg, opt); }
+  function ko(kind, fg, opt) { return use("K", fg) + colon(kind, 13, 4, fg, opt); }
+  function icon(kind, px) {
+    var inner = colon(kind === "flip" ? "plain" : kind, 0, 0, W, { small: px <= 20 });
+    var hinge = kind === "flip" ? '<i style="position:absolute;left:0;right:0;top:calc(50% - .5px);height:1px;background:#000"></i>' : "";
+    return '<div class="ic" style="width:' + px + 'px;height:' + px + 'px;position:relative;overflow:hidden' + (kind === "flip" ? ';background:#1C1C1B' : '') + '"><svg viewBox="-1 -1 4 8">' + inner + '</svg>' + hinge + '</div>';
+  }
+
+  document.querySelectorAll("[data-wm]").forEach(function (el) { el.innerHTML = wm(el.dataset.wm, el.dataset.fg || K); });
+  document.querySelectorAll("[data-ko]").forEach(function (el) { el.innerHTML = ko(el.dataset.ko, el.dataset.fg || K); });
+  document.querySelectorAll("[data-colon]").forEach(function (el) { el.innerHTML = colon(el.dataset.colon, 0, 0, el.dataset.fg || K); });
+  document.querySelectorAll("[data-icons]").forEach(function (el) { var k = el.dataset.icons; el.innerHTML = icon(k, 64) + icon(k, 32) + icon(k, 16); });
+  document.querySelectorAll("[data-inline-wm]").forEach(function (el) { el.innerHTML = wm("plain", K); });
+
+  // 플립 보드
+  var seg = { L: [[0, 9], [11, 18], [20, 22], [24, 32], [34, 42], [44, 52], [54, 62]], K: [[0, 11], [13, 15], [17, 27], [29, 39]] };
+  document.querySelectorAll("[data-board]").forEach(function (el) {
+    var k = el.dataset.board, h = k === "L" ? 12 : 16;
+    el.innerHTML = seg[k].map(function (s) {
+      var w = s[1] - s[0] + 2;
+      return '<div class="tile" style="flex:' + w + ' 1 0"><svg viewBox="' + (s[0] - 1) + ' -1 ' + w + ' ' + h + '">' + (k === "L" ? wm("plain", W) : ko("plain", W)) + '</svg></div>';
+    }).join("");
+  });
+
+  // 다섯 가지 읽기
+  var reads = [
+    ["-1 -1 44 12", use("d0", W) + use("d6", W, 10) + colon("plain", 20, 2, W) + use("d0", W, 24) + use("d0", W, 34), "TIME · 06:00", "하루가 다시 켜지는 시각. 루틴 알림."],
+    ["-1 -1 10 12", colon("plain", 0, 2, W) + use("br", W), "FACE · :]", "콜론은 이모티콘의 눈. 스스로 고르는 컨디션 기록."],
+    ["-1 -1 18 12", use("d1", W) + colon("plain", 7, 2, W) + use("d1", W, 11), "RATIO · 1:1", "나와 너, 균형. CREW의 1:1 경험 공유."],
+    ["-1 -1 4 8", r(0, 0, 2, 2, W) + r(0, 2, 2, 2, OR) + r(0, 4, 2, 2, OR), "CONNECT · ▮", "사이가 채워지다. 질문 해결 · 함께 달성."],
+    ["-1 -1 14 8", r(0, 0, 2, 2, "#2E2E2C") + r(0, 4, 2, 2, "#2E2E2C") + colon("plain", 5, 0, W) + r(10, 0, 2, 2, OR) + r(10, 4, 2, 2, OR), "STATE · 00 01 11", "대기 · 진행 · 완료. 글자로도 함께 표시."]
+  ];
+  document.getElementById("reads").innerHTML = reads.map(function (x) {
+    return '<div class="rd"><div class="g"><svg viewBox="' + x[0] + '"' + (x[0] === "-1 -1 4 8" ? ' style="width:30%"' : "") + '>' + x[1] + '</svg></div><div class="b"><b>' + x[2] + '</b><p>' + x[3] + '</p></div></div>';
+  }).join("");
+
+  // 금지 예시
+  var donts = [
+    ['<svg viewBox="-1 -1 64 12" style="width:80%">' + use("L", K) + '<circle cx="21" cy="3" r="1.1" fill="' + K + '"/><circle cx="21" cy="7" r="1.1" fill="' + OR + '"/></svg>', "둥근 점으로 바꾸기", "일반 문장부호 콜론이 된다."],
+    ['<svg viewBox="-1 -1 64 12" style="width:80%"><defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#7B2FF7"/><stop offset="1" stop-color="#FF5A1F"/></linearGradient></defs>' + use("L", "url(#gg)") + colon("plain", 20, 2, K) + '</svg>', "그라데이션 · 효과", "빛 번짐 · 그림자 · 메탈 금지."],
+    ['<svg viewBox="-1 -1 64 12" style="width:80%; transform: scaleX(1.35) scaleY(.7)">' + wm("plain", K) + '</svg>', "늘리거나 찌그러뜨리기", "비율은 항상 유지."],
+    ['<div style="width:80%; padding:10px; background: repeating-linear-gradient(35deg, #5A5A3C 0 10px, #7B6F4E 10px 18px, #3F4430 18px 28px)"><svg viewBox="-1 -1 64 12">' + wm("plain", W) + '</svg></div>', "위장무늬 위에 얹기", "군대 앱처럼 보이게 만들지 않는다."]
+  ];
+  document.getElementById("donts").innerHTML = donts.map(function (d) { return '<div class="dn"><div class="v">' + d[0] + '</div><p><b>' + d[1] + '</b>' + d[2] + '</p></div>'; }).join("");
+
+  // 타일
+  var t = "";
+  for (var i = 0; i < 63; i++) t += (i === 22 || i === 40) ? '<i class="on"></i>' : "<i></i>";
+  document.getElementById("tiles").innerHTML = t;
+})();
+</script>
+</body></html>
