@@ -1246,3 +1246,11 @@ body { padding-bottom: 44px; }
 .mg-keys figcaption { margin-top: 8px; font-size: 14px; color: var(--muted); }
 .mg-keys span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--acc); }
 @media (max-width: 600px) { .mg-keys { grid-template-columns: 1fr; } }
+/* 모각 제품 상세페이지 3종: 브라우저 속에서 천천히 스크롤 */
+.mg-line { display: grid; grid-template-columns: repeat(3, minmax(0, 300px)); justify-content: center; gap: clamp(16px, 3vw, 48px); margin-top: 16px; }
+.mg-line__item { margin: 0; }
+.mg-line .web__screen { flex: none; height: 560px; min-height: 0; }
+.cp-out .mg-line .web__screen img { animation-duration: 60s; }
+.mg-line figcaption { margin-top: 10px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.mg-line figcaption b { display: block; font-weight: 500; font-size: 15px; color: var(--fg); }
+@media (max-width: 760px) { .mg-line { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; } .mg-line .web__screen { height: 380px; } .mg-line .web__bar span { display: none; } }
