@@ -5,16 +5,20 @@ import { useMemo, useState } from "react";
 import { GUIDES, type Guide } from "@/content/guides";
 import { AREAS, AREA_ORDER } from "@/lib/labels";
 import type { Area } from "@/lib/types";
+import { Photo } from "./photo";
 
 export function GuideCard({ g }: { g: Guide }) {
   return (
-    <Link href={`/care/${g.slug}/`} className="card card-link flex h-full flex-col p-5">
-      <div className="flex items-center justify-between gap-2">
-        <p className="eyebrow !text-[11px]">{g.kicker}</p>
-        <p className="small !text-[12px]">{g.read}분</p>
+    <Link href={`/care/${g.slug}/`} className="card card-link flex h-full flex-col overflow-hidden">
+      {g.image && <Photo name={g.image} alt="" ratio="16 / 10" />}
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-center justify-between gap-2">
+          <p className="eyebrow !text-[11px]">{g.kicker}</p>
+          <p className="small !text-[12px]">{g.read}분</p>
+        </div>
+        <p className="mt-2 text-[17px] font-bold leading-snug tracking-tight">{g.title}</p>
+        <p className="small mt-2 line-clamp-2">{g.summary}</p>
       </div>
-      <p className="mt-2 text-[17px] font-bold leading-snug tracking-tight">{g.title}</p>
-      <p className="small mt-2 line-clamp-2">{g.summary}</p>
     </Link>
   );
 }

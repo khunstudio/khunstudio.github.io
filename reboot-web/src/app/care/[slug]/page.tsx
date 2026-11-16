@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { GUIDES, getGuide } from "@/content/guides";
 import { GuideBrowser, GuideCard } from "@/components/guide-browser";
+import { Photo } from "@/components/photo";
 import { AREAS, AREA_ORDER, MODES } from "@/lib/labels";
 import type { Area } from "@/lib/types";
 
@@ -58,6 +59,11 @@ export default async function CareSlugPage({ params }: { params: Promise<{ slug:
         </div>
       </header>
 
+      {g.image && (
+        <div className="wrap-narrow pt-8">
+          <Photo name={g.image} alt="" ratio="16 / 9" sizes="large" className="rounded-[12px]" />
+        </div>
+      )}
       <div className="wrap-narrow py-8">
         {g.medicalNotice && (
           <div className="notice notice-warn mb-6"><p>이 글은 상담을 준비하기 위한 정보예요. 진단 · 치료 · 병원 추천을 하지 않으며, 증상에 대한 판단은 의료진과 상의해 주세요.</p></div>
