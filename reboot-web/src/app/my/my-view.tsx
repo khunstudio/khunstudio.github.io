@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { activeDays, recentDays, streak, toCSV } from "@/lib/engine";
+import { activeDays, dPlus, milestone, MILESTONES, recentDays, streak, toCSV } from "@/lib/engine";
 import { GOALS, MODES, MODE_ORDER } from "@/lib/labels";
 import { actions, useStore } from "@/lib/store";
 import { track } from "@/lib/analytics";
@@ -43,25 +43,39 @@ function MyInner({ s }: { s: Store }) {
   const days = activeDays(s);
   const st = streak(s);
   const weekAvg = Math.round((week.reduce((n, d) => n + d.ratio, 0) / 7) * 100);
+  const dp = dPlus(s);
+  const ms = milestone(dp);
 
   return (
     <div>
       <section className="band-ink">
         <div className="wrap-narrow py-10 md:py-14">
-          <p className="eyebrow">MY RE:BOOT</p>
-          <div className="mt-4 grid grid-cols-3 gap-4">
+          <p className="eyebrow">MY RE:BOOT · {ms.current.ko}</p>
+          <p className="display mt-4 text-[88px] leading-none tabular-nums md:text-[112px]">D<span className="colon">+</span>{dp}</p>
+          <p className="mt-3 text-[15px] text-ink-mute">
+            {ms.next ? <>리부트를 시작한 지 {dp}일째 · <b className="text-white">{ms.next.ko}</b>까지 {ms.left}일</> : <>리부트 완료 · 시작한 지 {dp}일째</>}
+          </p>
+          <div className="mt-5 grid grid-cols-4 gap-1.5" aria-label="단계">
+            {MILESTONES.map((m) => (
+              <div key={m.d} className="grid gap-1.5">
+                <span className={`h-1.5 rounded ${dp >= m.d ? "bg-signal" : "bg-ink-line"}`} />
+                <span className={`text-[11.5px] ${dp >= m.d ? "text-white" : "text-ink-mute"}`}>D+{m.d} {m.ko}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 grid grid-cols-3 gap-4 border-t border-ink-line pt-6">
             {[
               [days, "실천한 날"],
               [st, "연속 일수"],
-              [`${weekAvg}%`, "최근 7일 평균"],
+              [`${weekAvg}%`, "최근 7일 충전"],
             ].map(([v, l]) => (
               <div key={l as string}>
-                <p className="display text-[52px] leading-none tabular-nums md:text-[68px]">{v}</p>
+                <p className="display text-[40px] leading-none tabular-nums md:text-[52px]">{v}</p>
                 <p className="mt-2 text-[13px] text-ink-mute">{l}</p>
               </div>
             ))}
           </div>
-          <p className="mt-6 text-[13px] text-ink-mute">완료율은 계획한 루틴 항목 중 실천한 비율이에요. 외모 변화를 측정하지 않아요.</p>
+          <p className="mt-6 text-[13px] text-ink-mute">충전은 계획한 루틴 항목 중 실천한 비율이에요. 외모 변화를 측정하지 않아요.</p>
         </div>
       </section>
 
@@ -145,7 +159,8 @@ function ShareSection({ s, days, streakDays, week, goal }: { s: Store; days: num
 
   useEffect(() => {
     if (!ref.current) return;
-    drawCard(ref.current, fmt, { nickname: nick.trim() || undefined, goal, activeDays: days, streak: streakDays, week });
+    const dp = dPlus(s), ms = milestone(dp);
+    drawCard(ref.current, fmt, { nickname: nick.trim() || undefined, goal, dPlus: dp, stage: ms.current.ko, left: ms.next ? `${ms.next.ko}까지 ${ms.left}일` : "리부트 완료", streak: streakDays, week });
   }, [fmt, nick, goal, days, streakDays, week.join(",")]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function save() {
@@ -174,7 +189,7 @@ function ShareSection({ s, days, streakDays, week, goal }: { s: Store; days: num
   return (
     <section className="mt-14">
       <h2 className="sec-head h3">공유 카드</h2>
-      <p className="small -mt-2 mb-4">실천 일수와 목표만 들어가요. 피부 고민, 생활 모드, 소속, 날짜는 카드에 넣지 않아요.</p>
+      <p className="small -mt-2 mb-4">D+ 일수와 목표만 들어가요. 피부 고민, 생활 모드, 소속, 날짜는 카드에 넣지 않아요.</p>
       <div className="grid gap-6 md:grid-cols-[220px_1fr] md:items-start">
         <canvas ref={ref} className="mx-auto w-[200px] rounded-[10px] border border-line md:w-full" aria-label="공유 카드 미리보기" />
         <div className="grid content-start gap-4">

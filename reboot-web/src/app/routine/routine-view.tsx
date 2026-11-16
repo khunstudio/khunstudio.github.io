@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Check } from "@/components/chrome";
-import { dayKey, visibleItems } from "@/lib/engine";
+import { dayKey, dPlus, visibleItems } from "@/lib/engine";
 import { situationLabel, SITUATION_ORDER } from "@/lib/labels";
 import { actions, useStore } from "@/lib/store";
 import { track } from "@/lib/analytics";
@@ -42,13 +42,16 @@ export function RoutineView() {
     <div className="wrap-narrow py-8 md:py-12">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="eyebrow">TODAY · {dateLabel}</p>
+          <p className="eyebrow">D+{dPlus(s)} · {dateLabel}</p>
           <h1 className="h1 mt-2">오늘의 루틴</h1>
         </div>
-        <p className="display text-[56px] leading-none tabular-nums">{pct}<span className="text-[24px] text-mute">%</span></p>
+        <div className="text-right">
+          <p className="eyebrow !text-[11px]">오늘 충전</p>
+          <p className="display text-[56px] leading-none tabular-nums">{pct}<span className="text-[24px] text-mute">%</span></p>
+        </div>
       </div>
-      <div className="bar mt-4" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="오늘 완료율"><i style={{ width: `${pct}%` }} /></div>
-      <p className="small mt-2">{visible.length}개 중 {done.length}개 완료 · 완료율은 계획한 항목 대비 실천한 항목이에요.</p>
+      <div className="bar mt-4" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="오늘 충전"><i style={{ width: `${pct}%` }} /></div>
+      <p className="small mt-2">{visible.length}개 중 {done.length}개 완료 · 충전은 계획한 항목 중 실천한 비율이에요.</p>
 
       <div className="mt-8">
         <p className="small mb-2 font-semibold !text-ink">오늘은 어떤 날인가요?</p>

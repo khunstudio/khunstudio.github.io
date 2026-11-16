@@ -154,3 +154,29 @@ export function toCSV(store: Store): string {
   });
   return rows.map((r) => r.join(",")).join("\n");
 }
+
+// ── D+ 카운트 ──
+// 루틴을 처음 만든 날이 D+1. 한국식 날짜 세기(사귄 날 · 금연 D+)와 같다.
+export const MILESTONES = [
+  { d: 1, ko: "부팅" },
+  { d: 7, ko: "적응" },
+  { d: 30, ko: "습관" },
+  { d: 100, ko: "리부트 완료" },
+] as const;
+
+export function dPlus(store: Store, today = new Date()): number {
+  const c = store.profile?.createdAt;
+  if (!c) return 0;
+  const start = new Date(c);
+  start.setHours(12, 0, 0, 0);
+  const t = new Date(today);
+  t.setHours(12, 0, 0, 0);
+  return Math.max(1, Math.round((t.getTime() - start.getTime()) / 86400000) + 1);
+}
+
+/** 지금 단계와 다음 단계 (D+100 이후면 next는 없음) */
+export function milestone(d: number) {
+  const current = [...MILESTONES].reverse().find((m) => d >= m.d) ?? MILESTONES[0];
+  const next = MILESTONES.find((m) => m.d > d);
+  return { current, next, left: next ? next.d - d : 0 };
+}

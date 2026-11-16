@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Check } from "./chrome";
-import { dayKey, streak, visibleItems } from "@/lib/engine";
+import { dayKey, dPlus, streak, visibleItems } from "@/lib/engine";
 import { MODES, situationLabel } from "@/lib/labels";
 import { useStore } from "@/lib/store";
 
@@ -17,8 +17,9 @@ export function TodayStrip() {
   return (
     <section className="border-b border-line bg-sand fade-in" aria-label="오늘 요약">
       <div className="wrap flex flex-wrap items-center gap-x-6 gap-y-3 py-4">
-        <p className="eyebrow !text-ink">TODAY</p>
+        <p className="display text-[22px] leading-none">D<span className="colon">+</span>{dPlus(s)}</p>
         <div className="flex min-w-[160px] flex-1 items-center gap-3">
+          <span className="text-[13px] text-mute">오늘 충전</span>
           <div className="bar flex-1"><i style={{ width: `${pct}%` }} /></div>
           <span className="text-[14px] font-bold tabular-nums">{pct}%</span>
         </div>
@@ -42,10 +43,13 @@ export function HeroPreview() {
       <div className="rounded-[20px] bg-paper p-5 text-ink shadow-[0_30px_60px_rgba(0,0,0,.35)]">
         <div className="flex items-end justify-between">
           <div>
-            <p className="eyebrow !text-[10.5px]">TODAY · MORNING</p>
+            <p className="eyebrow !text-[10.5px]">D+12 · MORNING</p>
             <p className="mt-1 text-[20px] font-extrabold tracking-tight">오늘의 루틴</p>
           </div>
-          <p className="display text-[44px] leading-none">50<span className="text-[18px] text-mute">%</span></p>
+          <div className="text-right">
+            <p className="eyebrow !text-[10px]">오늘 충전</p>
+            <p className="display text-[44px] leading-none">50<span className="text-[18px] text-mute">%</span></p>
+          </div>
         </div>
         <div className="bar mt-3 !bg-line"><i style={{ width: "50%" }} /></div>
         <ul className="mt-2">

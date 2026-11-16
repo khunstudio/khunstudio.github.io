@@ -67,3 +67,15 @@ test("면도 전 단계가 면도 후 단계보다 먼저 나온다", () => {
   assert.ok(ids.indexOf("shave-prep") < ids.indexOf("shave-after"));
   assert.ok(ids.indexOf("am-cleanse") < ids.indexOf("am-sunscreen"));
 });
+
+test("D+ 카운트와 단계", async () => {
+  const { dPlus, milestone } = await import("../src/lib/engine.ts");
+  const start = new Date(2026, 10, 1, 9);
+  const store: Store = { version: 1, records: {}, modeHistory: [], profile: { mode: "service", interests: ["skin"], experience: "new", minutes: 3, concerns: [], goal: "start", createdAt: start.toISOString(), updatedAt: start.toISOString() } };
+  assert.equal(dPlus(store, new Date(2026, 10, 1, 22)), 1);
+  assert.equal(dPlus(store, new Date(2026, 10, 30, 8)), 30);
+  assert.equal(milestone(1).current.ko, "부팅");
+  assert.equal(milestone(12).current.ko, "적응");
+  assert.equal(milestone(12).left, 18);
+  assert.equal(milestone(100).next, undefined);
+});

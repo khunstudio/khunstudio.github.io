@@ -58,24 +58,33 @@ export default function Home() {
           <h2 className="mt-4 text-[34px] font-black leading-[1.18] tracking-[-0.035em] sm:text-[48px]">
             얼굴은 못 바꿔도,<br /><span className="text-signal-ink">버전</span>은 올릴 수 있다.
           </h2>
-          <p className="lead mt-5 max-w-xl">잘생겨지라고 하지 않아요. 오늘 무엇부터 할지 알려주고, 그걸 했는지 같이 기록해요. 맞으면 더하고, 안 맞으면 지워요. 그게 업데이트예요.</p>
-          <Link href="/my/" className="link mt-6 inline-block text-[15px]">내 기록을 패치노트 카드로 만들기</Link>
+          <p className="lead mt-5 max-w-xl">잘생겨지라고 하지 않아요. 오늘 무엇부터 할지 알려주고, 그걸 했는지 같이 기록해요. 시작한 날이 D+1. 남은 날을 세던 시간은 끝났고, 이제는 쌓인 날을 셉니다.</p>
+          <ol className="mt-6 grid max-w-md grid-cols-4 gap-2">
+            {[["D+1", "부팅"], ["D+7", "적응"], ["D+30", "습관"], ["D+100", "리부트 완료"]].map(([d, k], i) => (
+              <li key={d} className="grid gap-1.5">
+                <span className={`h-1.5 rounded ${i < 3 ? "bg-signal" : "bg-line"}`} />
+                <span className="display text-[18px]" style={{ textTransform: "none" }}>{d}</span>
+                <span className="small !text-[12px]">{k}</span>
+              </li>
+            ))}
+          </ol>
+          <Link href="/my/" className="link mt-6 inline-block text-[15px]">내 기록을 카드로 만들기</Link>
         </div>
         <div className="band-ink mx-auto w-full max-w-[340px] rounded-[16px] p-6 shadow-[0_30px_60px_rgba(0,0,0,.18)]">
           <div className="flex items-center justify-between">
             <span className="display text-[22px]" style={{ textTransform: "none" }}>RE<span className="colon">:</span>BOOT</span>
             <span className="patch text-[11px] text-ink-mute">예시</span>
           </div>
-          <p className="display mt-8 text-[54px]" style={{ textTransform: "none" }}>v1.0 →<br /><span className="colon">v2.0</span></p>
-          <p className="patch mt-3 text-[11px] text-ink-mute">PATCH NOTES · 30 DAYS</p>
+          <p className="display mt-8 text-[88px]" style={{ textTransform: "none" }}>D<span className="colon">+</span>30</p>
+          <p className="patch mt-2 text-[12px] text-ink-mute">습관 · 리부트 완료까지 70일</p>
           <ul className="patch mt-5 grid gap-2 text-[13px]">
             <li><span className="colon mr-2">+</span>매일 아침 자외선 차단제</li>
             <li><span className="colon mr-2">+</span>면도 전 수염 불리기</li>
             <li><span className="mr-2 text-ink-mute">−</span>아무 비누로 세안</li>
-            <li><span className="colon mr-2">✓</span>면도 후 따가움 수정</li>
+            <li><span className="colon mr-2">✓</span>면도 후 따가움 해결</li>
           </ul>
-          <div className="mt-6 h-1 rounded bg-signal" />
-          <p className="display mt-3 text-[16px]">UPDATE COMPLETE.</p>
+          <div className="mt-6 h-1 rounded bg-white/15"><div className="h-1 w-[30%] rounded bg-signal" /></div>
+          <p className="display mt-3 text-[16px]">오늘 충전 100%</p>
         </div>
       </section>
 

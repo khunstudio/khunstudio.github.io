@@ -7,7 +7,12 @@ export type CardFormat = "story" | "feed";
 export interface CardData {
   nickname?: string;
   goal: string;
-  activeDays: number;
+  /** 시작한 날부터 센 D+ */
+  dPlus: number;
+  /** 지금 단계 (부팅 · 적응 · 습관 · 리부트 완료) */
+  stage: string;
+  /** 다음 단계까지 남은 날 문구 */
+  left: string;
   streak: number;
   week: number[]; // 최근 7일 완료율 0~1
 }
@@ -68,12 +73,16 @@ export async function drawCard(canvas: HTMLCanvasElement, fmt: CardFormat, d: Ca
   stretch("condensed"); ctx.font = `700 34px ${disp}`;
   ctx.fillText(d.nickname ? `${d.nickname.toUpperCase()} · MY RECORD` : "MY RECORD", P, y - (story ? 230 : 170));
 
-  // 큰 숫자
-  ctx.fillStyle = "#fff";
-  stretch("condensed"); ctx.font = `800 ${story ? 360 : 300}px ${disp}`;
-  ctx.fillText(String(d.activeDays), P - 8, y + (story ? 110 : 80));
-  stretch("normal"); ctx.font = `700 56px ${sans}`;
-  ctx.fillText("일째 실천 중", P, y + (story ? 210 : 170));
+  // D+ 숫자: "D" 흰색, "+" 주황, 숫자 흰색
+  const big = story ? 300 : 250;
+  stretch("condensed"); ctx.font = `800 ${big}px ${disp}`;
+  const by = y + (story ? 110 : 80);
+  let bx = P - 8;
+  ctx.fillStyle = "#fff"; ctx.fillText("D", bx, by); bx += ctx.measureText("D").width;
+  ctx.fillStyle = ORANGE; ctx.fillText("+", bx, by); bx += ctx.measureText("+").width;
+  ctx.fillStyle = "#fff"; ctx.fillText(String(d.dPlus), bx, by);
+  stretch("normal"); ctx.font = `700 52px ${sans}`;
+  ctx.fillText(`${d.stage} · ${d.left}`, P, y + (story ? 210 : 170));
 
   // 목표
   y += story ? 360 : 290;
