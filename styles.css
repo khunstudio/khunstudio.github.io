@@ -1254,31 +1254,3 @@ body { padding-bottom: 44px; }
 .mg-line figcaption { margin-top: 10px; font-size: 13px; line-height: 1.6; color: var(--muted); }
 .mg-line figcaption b { display: block; font-weight: 500; font-size: 15px; color: var(--fg); }
 @media (max-width: 760px) { .mg-line { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; } .mg-line .web__screen { height: 380px; } .mg-line .web__bar span { display: none; } }
-
-/* ── DIAGNOSIS: 멈춘 화면에서 문장이 한 글자씩 채워짐 (참고: 스크롤 고정 + 글자 채우기) ── */
-.statement { position: relative; height: 280vh; border-top: 1px solid var(--line); }
-.statement__pin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: clamp(18px, 2.4vw, 30px); padding: 0 var(--gutter); text-align: center; overflow: hidden; }
-.statement__kicker { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--acc); }
-.statement__kicker i { width: 8px; height: 8px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 10px var(--acc); animation: stPulse 1.2s ease-in-out infinite; }
-@keyframes stPulse { 50% { opacity: .25; } }
-.statement__title { margin: 0; font-weight: 500; font-size: clamp(40px, 6.4vw, 104px); line-height: 1.12; letter-spacing: -0.03em; }
-.statement__title em { font-style: normal; }
-.statement__body { max-width: 34em; margin: 0; font-weight: 300; font-size: clamp(16px, 1.45vw, 22px); line-height: 1.8; }
-.statement .ch { color: color-mix(in srgb, var(--fg) 14%, transparent); transition: color .25s; }
-.statement .ch.on { color: var(--fg); }
-.statement__title em .ch.on { color: var(--acc); }
-.statement__sign { margin: 0; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); opacity: 0; transform: translateY(8px); transition: opacity .6s, transform .6s; }
-.statement.is-done .statement__sign, .statement.is-still .statement__sign { opacity: 1; transform: none; }
-.statement__meter { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(28px, 5vh, 56px); height: 1px; background: var(--line); }
-.statement__meter b { display: block; height: 100%; background: var(--acc); box-shadow: 0 0 8px var(--acc); transform-origin: 0 50%; transform: scaleX(0); }
-.statement.is-still { height: auto; }
-.statement.is-still .statement__pin { position: static; height: auto; padding-block: 120px; }
-
-/* ── CASE FILES: 차트가 겹쳐 올라오는 스택 (참고: 화면이 이전 화면 위로 미끄러져 덮음) ── */
-@media (min-width: 900px) {
-  #work.is-stack > .case { position: sticky; top: 76px; margin-bottom: 72px; background: color-mix(in srgb, var(--panel) 82%, var(--bg)); transform-origin: 50% 0; transform: scale(calc(1 - var(--cover, 0) * .05)); filter: brightness(calc(1 - var(--cover, 0) * .45)); will-change: transform; }
-  #work.is-stack > .case:nth-of-type(2) { top: 88px; }
-  #work.is-stack > .case:nth-of-type(3) { top: 100px; }
-  #work.is-stack > .case:nth-of-type(4) { top: 112px; }
-  #work.is-stack > .case:last-of-type { margin-bottom: 24px; }
-}
