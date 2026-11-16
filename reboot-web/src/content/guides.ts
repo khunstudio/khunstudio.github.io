@@ -21,7 +21,7 @@ export interface Guide {
   updated: string;
   review: "draft" | "reviewed";
   reviewer?: string;
-  /** 대표 사진 (public/images, AI 생성 이미지) */
+  /** 대표 사진 (public/images) */
   image?: "wash" | "hands" | "razor" | "track" | "mirror";
   /** 진료 · 건강 관련 내용이라 상단에 안내를 크게 띄운다 */
   medicalNotice?: boolean;

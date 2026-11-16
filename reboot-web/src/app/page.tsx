@@ -27,15 +27,15 @@ export default function Home() {
 
       {/* 1. Hero: 새벽 세면대 */}
       <section className="band-ink">
-        <div className="hero-grid grid md:grid-cols-[1fr_1.05fr]">
-          <div className="relative order-1 aspect-square md:order-2 md:aspect-auto">
+        <div className="hero-grid grid md:grid-cols-[1fr_1.35fr]">
+          <div className="relative order-1 aspect-[4/3] md:order-2 md:aspect-auto">
             <div className="absolute inset-0">
-              <Photo name="wash" alt="이른 아침 세면대에서 찬물로 세수하는 남자" sizes="large" priority className="h-full" />
+              <Photo name="wash" alt="이른 아침 세면대에서 찬물로 세수하는 남자" sizes="large" priority position="62% 50%" className="h-full" />
             </div>
           </div>
           <div className="order-2 flex flex-col justify-center px-5 py-12 md:order-1 md:px-[max(20px,calc((100vw-1160px)/2+20px))] md:py-16 md:pr-12">
             <p className="eyebrow">06:00 · MEN&apos;S SELF-CARE</p>
-            <p className="display mt-5 text-[60px] sm:text-[84px] lg:text-[104px]" aria-hidden="true">
+            <p className="display mt-5 text-[60px] sm:text-[76px] lg:text-[92px]" aria-hidden="true">
               RE<span className="colon">:</span>BOOT<br />YOURSELF.
             </p>
             <h1 className="mt-6 text-[24px] font-extrabold leading-snug tracking-tight sm:text-[30px]">보이고 싶은 모습부터, 다시 켜다.</h1>
@@ -232,9 +232,9 @@ export default function Home() {
             <p className="small mt-1">공군 복무 경험에서 출발한 독립 프로젝트. 군 공식 서비스가 아니에요.</p>
           </div>
           <div>
-            <p className="eyebrow">IMAGES</p>
-            <p className="mt-2 text-[18px] font-bold">AI 생성 이미지</p>
-            <p className="small mt-1">이 사이트의 인물 · 제품 사진은 AI로 만든 이미지이며 실제 이용자나 후기가 아니에요. <Link href="/about/" className="link">원칙 보기</Link></p>
+            <p className="eyebrow">CONTENT PRINCIPLE</p>
+            <p className="mt-2 text-[18px] font-bold">진단하지 않습니다</p>
+            <p className="small mt-1">생활 관리 정보만 다루고, 검수 상태와 작성일을 글마다 표시해요. <Link href="/about/" className="link">원칙 보기</Link></p>
           </div>
         </div>
       </section>
