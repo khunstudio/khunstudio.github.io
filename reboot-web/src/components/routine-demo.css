@@ -1,0 +1,230 @@
+/* RE:BOOT 루틴 데모: 이 예시 전용 규칙. 휴대폰 화면 안은 실제 포인트(393pt 폭) 단위. */
+.rb-demo {
+  & .ss-stage {
+    --ss-accent: #ff5a1f;
+    --ss-accent-soft: rgba(255, 90, 31, 0.14);
+    --ss-success: #ff5a1f;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #161616;
+    font-family: var(--font-sans);
+  }
+
+  /* 위에서 한 칸 띄우고 가운데, 아래로 흘러나감 */
+  .rb-phone {
+    position: absolute;
+    top: 44px;
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  .rb-screen {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    color: #111;
+  }
+
+  .rb-head {
+    position: absolute;
+    top: 70px;
+    left: 24px;
+    right: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .rb-eyebrow,
+  .rb-charge__label {
+    font-family: var(--font-display);
+    font-stretch: 85%;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.3;
+    letter-spacing: 0.12em;
+    color: #8a8a86;
+  }
+
+  .rb-title {
+    margin-top: 6px;
+    font-size: 30px;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .rb-charge {
+    text-align: right;
+  }
+
+  .rb-charge__num {
+    margin-top: 6px;
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--font-display);
+    font-stretch: 72%;
+    font-weight: 800;
+    font-size: 58px;
+    line-height: 1;
+    /* 숫자가 굴러갈 때 위 라벨을 덮지 않게 줄 높이 안에서만 보인다 */
+    overflow: hidden;
+    padding-top: 2px;
+    letter-spacing: -0.01em;
+  }
+
+  .rb-charge__unit {
+    margin-left: 2px;
+    font-size: 24px;
+    color: #8a8a86;
+  }
+
+  .rb-meter {
+    position: absolute;
+    top: 168px;
+    left: 24px;
+    right: 24px;
+    width: auto;
+    height: 6px;
+    background: #ececea;
+  }
+
+  .rb-list {
+    position: absolute;
+    top: 192px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .rb-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 30px;
+    align-items: center;
+    gap: 12px;
+    height: 74px;
+    padding: 0 12px;
+    border-bottom: 1px solid #efefed;
+  }
+
+  .rb-row__n {
+    font-family: var(--font-display);
+    font-stretch: 72%;
+    font-weight: 800;
+    font-size: 26px;
+    line-height: 1;
+    color: #111;
+    transition: color 0.3s ease;
+  }
+
+  .rb-row[data-done] .rb-row__n {
+    color: #c4c4c0;
+  }
+
+  .rb-row__body {
+    display: grid;
+    gap: 8px;
+    justify-items: start;
+  }
+
+  .rb-row__t {
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+
+  .rb-row[data-done] .rb-row__t {
+    color: #8a8a86;
+  }
+
+  .rb-row__check {
+    justify-self: end;
+  }
+
+  .rb-row--patch {
+    border-bottom: 0;
+  }
+
+  .rb-row--patch .rb-row__n {
+    color: #b5b5b0;
+  }
+
+  .rb-row__ghost {
+    justify-self: end;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px dashed #d0d0cc;
+  }
+
+  .rb-week {
+    position: absolute;
+    top: 484px;
+    left: 24px;
+    right: 24px;
+    display: grid;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 18px;
+    background: #f5f5f3;
+  }
+
+  .rb-week__dots {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .rb-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e4e4e1;
+    transition: background-color 0.45s ease, transform 0.45s cubic-bezier(0.3, 1.4, 0.5, 1);
+  }
+
+  .rb-dot[data-past] {
+    background: #111;
+  }
+
+  .rb-dot[data-today] {
+    background: #fff;
+    box-shadow: inset 0 0 0 1.5px #d0d0cc;
+  }
+
+  .rb-dot[data-lit] {
+    background: #ff5a1f;
+    box-shadow: none;
+    transform: scale(1.08);
+  }
+
+  .rb-week__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .rb-week__label {
+    font-size: 15px;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+
+  .rb-week__count {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--font-display);
+    font-stretch: 72%;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .rb-week__of {
+    color: #8a8a86;
+  }
+
+  .ss-stage[data-layout="compact"] .rb-phone {
+    top: 36px;
+  }
+}

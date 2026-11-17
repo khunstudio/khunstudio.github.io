@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { GUIDES } from "@/content/guides";
 import { GuideCard } from "@/components/guide-browser";
-import { HeroPreview, TodayStrip } from "@/components/home-today";
+import { TodayStrip } from "@/components/home-today";
+import { RoutineDemo } from "@/components/routine-demo";
 import { Photo } from "@/components/photo";
 import { MODES, MODE_ORDER } from "@/lib/labels";
 
@@ -128,7 +129,7 @@ export default function Home() {
           </ol>
           <Link href="/start/" className="btn btn-dark mt-8">30초 체크 시작</Link>
         </div>
-        <div className="band-ink rounded-[20px] px-6 py-10"><HeroPreview /></div>
+        <div className="mx-auto w-full max-w-[440px]"><RoutineDemo /></div>
       </section>
 
       {/* 5. CARE 영역: 사진 */}
