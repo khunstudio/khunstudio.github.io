@@ -2,7 +2,7 @@ import Link from "next/link";
 import { GUIDES } from "@/content/guides";
 import { GuideCard } from "@/components/guide-browser";
 import { TodayStrip } from "@/components/home-today";
-import { HeroFog } from "@/components/hero-fog";
+import { FogHero } from "@/components/home/fog-hero";
 import { RevealObserver } from "@/components/home/reveal";
 import { StoryScroll } from "@/components/home/story-scroll";
 import { DPlusCount } from "@/components/home/dplus-count";
@@ -24,30 +24,8 @@ export default function Home() {
       <RevealObserver />
       <TodayStrip />
 
-      {/* 1. HERO: 한 문장 + 김 서린 거울 */}
-      <section className="t-hero">
-        <div className="wrap text-center">
-          <p className="t-k" data-rv>06:00 · MEN&apos;S SELF-CARE</p>
-          <h1 className="t-xxl mt-5" data-rv style={{ ["--d" as string]: "80ms" }}>
-            남자 관리, 뭐부터 할지<br />30초면 알려드려요<span className="colon hero-colon">.</span>
-          </h1>
-          <p className="t-sub mx-auto mt-6 max-w-[36rem]" data-rv style={{ ["--d" as string]: "160ms" }}>
-            입대 전 · 복무 중 · 전역 후, 지금 나에게 맞는<br className="hidden sm:block" /> 세안 · 보습 · 자외선 차단 순서를 받고 매일 체크하세요.
-          </p>
-          <div className="mt-9 flex flex-wrap justify-center gap-3" data-rv style={{ ["--d" as string]: "240ms" }}>
-            <Link href="/start/" className="btn btn-primary">30초 체크 시작</Link>
-            <Link href="/care/" className="btn btn-soft">가이드 먼저 보기</Link>
-          </div>
-        </div>
-        <div className="wrap mt-14 md:mt-20" data-rv style={{ ["--d" as string]: "320ms" }}>
-          <div className="t-hero-photo">
-            <div className="absolute inset-0">
-              <Photo name="wash" alt="이른 아침 세면대에서 찬물로 세수하는 남자" sizes="large" priority position="62% 50%" className="h-full" />
-            </div>
-            <HeroFog />
-          </div>
-        </div>
-      </section>
+      {/* 1. HERO: 스크롤하면 거울의 김이 걷힌다 */}
+      <FogHero />
 
       {/* 2. 한 문장 */}
       <section className="t-sec">
