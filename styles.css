@@ -1254,3 +1254,23 @@ body { padding-bottom: 44px; }
 .mg-line figcaption { margin-top: 10px; font-size: 13px; line-height: 1.6; color: var(--muted); }
 .mg-line figcaption b { display: block; font-weight: 500; font-size: 15px; color: var(--fg); }
 @media (max-width: 760px) { .mg-line { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; } .mg-line .web__screen { height: 380px; } .mg-line .web__bar span { display: none; } }
+
+/* 가독성: 배경 눈금은 한 톤 낮추고, 글이 든 상자는 흐린 유리판으로 뒤 눈금을 가립니다 */
+:root { --grid: rgba(15, 51, 33, .42); }
+body::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(61, 255, 162, .08), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Crect width='2' height='2' fill='%233dffa2' fill-opacity='.045'/%3E%3C/svg%3E"),
+    linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 60px 60px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 60px 60px;
+}
+:is(.record, .cp-steps > li, .cp-list li, .cp-vitals div, .cp-brief li, .kw-svc li, .kw-web li, .scope li) {
+  background: linear-gradient(160deg, rgba(61, 255, 162, .045), transparent 55%), color-mix(in srgb, var(--panel) 90%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  backdrop-filter: blur(10px) saturate(1.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+[data-theme="light"] :is(.record, .cp-steps > li, .cp-list li, .cp-vitals div, .cp-brief li, .kw-svc li, .kw-web li, .scope li) {
+  background: rgba(255, 255, 255, .72); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+.hud { background: color-mix(in srgb, var(--bg) 72%, transparent); -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3); border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
