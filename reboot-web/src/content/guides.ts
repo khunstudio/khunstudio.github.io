@@ -22,7 +22,7 @@ export interface Guide {
   review: "draft" | "reviewed";
   reviewer?: string;
   /** 대표 사진 (public/images) */
-  image?: "wash" | "hands" | "razor" | "track" | "mirror";
+  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen";
   /** 진료 · 건강 관련 내용이라 상단에 안내를 크게 띄운다 */
   medicalNotice?: boolean;
   sections: GuideSection[];
@@ -154,9 +154,9 @@ export const GUIDES: Guide[] = [
 
 // 가이드별 대표 사진
 const IMAGES: Record<string, Guide["image"]> = {
-  "skin-basics": "hands",
+  "skin-basics": "moisture",
+  "outdoor-day": "sunscreen",
   shaving: "razor",
-  "outdoor-day": "track",
   "workout-skin": "track",
   "next-chapter": "mirror",
   "hair-growing": "mirror",

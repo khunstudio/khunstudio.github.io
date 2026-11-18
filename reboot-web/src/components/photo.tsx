@@ -1,7 +1,7 @@
 // 사진 컴포넌트.
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export type PhotoName = "fogmirror" | "wash" | "hands" | "razor" | "track" | "mirror" | "kit";
+export type PhotoName = "fogmirror" | "moisture" | "sunscreen" | "wash" | "hands" | "razor" | "track" | "mirror" | "kit";
 
 export function Photo({
   name, alt, className = "", sizes = "small", priority = false, ratio, position,

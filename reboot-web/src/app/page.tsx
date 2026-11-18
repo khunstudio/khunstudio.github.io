@@ -10,7 +10,7 @@ import { Photo } from "@/components/photo";
 import { MODES, MODE_ORDER } from "@/lib/labels";
 
 const AREAS_PHOTO = [
-  { a: "skin", en: "SKIN", ko: "피부", d: "세안 · 보습 · 자외선 · 면도", photo: "hands" as const, alt: "손끝으로 볼에 보습제를 바르는 남자" },
+  { a: "skin", en: "SKIN", ko: "피부", d: "세안 · 보습 · 자외선 · 면도", photo: "sunscreen" as const, alt: "현관 창가에서 귀 뒤와 목에 선크림을 바르는 짧은 머리 남자" },
   { a: "body", en: "BODY", ko: "운동", d: "스트레칭 · 땀 관리", photo: "track" as const, alt: "해 뜨는 운동장에서 스트레칭하는 짧은 머리의 남자" },
   { a: "style", en: "STYLE", ko: "헤어 · 스타일", d: "헤어 · 옷 · 외출 준비", photo: "mirror" as const, alt: "외출 전 거울을 보며 머리를 정리하는 남자" },
 ];

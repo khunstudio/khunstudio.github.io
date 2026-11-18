@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Photo } from "@/components/photo";
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const POS = { x: 0.55, y: 0.4 }; // 사진이 잘릴 때 남길 위치 = 거울 속 얼굴
 
 /**
@@ -17,36 +16,24 @@ export function FogHero() {
   const cv = useRef<HTMLCanvasElement>(null);
   const [p, setP] = useState(0);
 
-  // 김 한 장을 미리 그려 둔다: 흐린 사진 + 차가운 막 + 물방울
+  // 맺힌 물방울만 캔버스에 한 번 그린다 (김 자체는 CSS 블러 + 뿌연 막)
   useEffect(() => {
     const c = cv.current!;
-    const img = new Image();
-    img.src = `${base}/images/fogmirror${innerWidth < 900 ? "-sm" : ""}.webp`;
     const paint = () => {
-      if (!img.width) return;
       const r = c.getBoundingClientRect();
       const dpr = Math.min(2, devicePixelRatio || 1);
       const w = (c.width = Math.round(r.width * dpr)), h = (c.height = Math.round(r.height * dpr));
       const f = c.getContext("2d")!;
-      const s = Math.max(w / img.width, h / img.height);
-      const iw = img.width * s, ih = img.height * s;
-      f.filter = `blur(${Math.round(16 * dpr)}px) saturate(.5) brightness(1.08)`;
-      f.drawImage(img, (w - iw) * POS.x, (h - ih) * POS.y, iw, ih);
-      f.filter = "none";
-      const g = f.createLinearGradient(0, 0, 0, h);
-      g.addColorStop(0, "rgba(232,237,240,.86)");
-      g.addColorStop(1, "rgba(214,221,226,.74)");
-      f.fillStyle = g; f.fillRect(0, 0, w, h);
+      f.clearRect(0, 0, w, h);
       let seed = 11;
       const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-      for (let i = 0; i < 320; i++) {
-        const rr = (0.6 + rnd() * 2.8) * dpr;
+      for (let i = 0; i < 260; i++) {
+        const rr = (0.6 + rnd() * 2.6) * dpr;
         f.beginPath(); f.arc(rnd() * w, rnd() * h, rr, 0, Math.PI * 2);
-        f.fillStyle = `rgba(255,255,255,${0.25 + rnd() * 0.4})`; f.fill();
+        f.fillStyle = `rgba(255,255,255,${0.2 + rnd() * 0.35})`; f.fill();
       }
     };
-    img.onload = paint;
-    if (img.complete) paint();
+    paint();
     const ro = new ResizeObserver(paint);
     ro.observe(c);
     return () => ro.disconnect();
@@ -76,11 +63,12 @@ export function FogHero() {
     else delete document.documentElement.dataset.booted;
   }, [done]);
 
-  // 얼굴에서 바깥으로 걷히는 구멍 + 끝무렵 전체가 옅어짐
-  const k = Math.min(1, p / 0.85);
-  const hole = 6 + k * 120;
-  const fade = 1 - Math.max(0, (p - 0.7) / 0.25);
-  const mask = `radial-gradient(circle at ${POS.x * 100}% ${POS.y * 100}%, transparent ${hole}%, #000 ${hole + 18}%)`;
+  // 김이 걷히는 느낌: 화면 전체의 블러와 뿌연 막이 함께 서서히 빠진다
+  const k = Math.min(1, p / 0.9);
+  const e = 1 - Math.pow(1 - k, 2); // 처음엔 빨리, 끝은 천천히
+  const blur = 22 * (1 - e);
+  const haze = 0.62 * (1 - e);
+  const drops = 1 - Math.min(1, k * 1.25);
   const pct = Math.round(Math.min(1, p / 0.92) * 100);
 
   return (
@@ -102,9 +90,12 @@ export function FogHero() {
           </div>
           <div className="fh-photo">
             <div className="absolute inset-0">
+              <div className="fh-img" style={{ filter: blur > 0.2 ? `blur(${blur.toFixed(1)}px) saturate(${(0.6 + 0.4 * e).toFixed(2)})` : undefined }}>
               <Photo name="fogmirror" alt="김 서린 욕실 거울을 바라보는 흰 티셔츠 차림의 짧은 머리 남자" sizes="large" priority position={`${POS.x * 100}% ${POS.y * 100}%`} className="h-full" />
+              </div>
             </div>
-            <canvas ref={cv} aria-hidden="true" className="fh-fog" style={{ opacity: fade, WebkitMaskImage: mask, maskImage: mask }} />
+            <div className="fh-haze" aria-hidden="true" style={{ opacity: haze }} />
+            <canvas ref={cv} aria-hidden="true" className="fh-fog" style={{ opacity: drops }} />
             <div className="fog-chip" data-done={done || undefined} aria-hidden="true">
               {done ? (<><span className="fog-chip__dot" />오늘, 부팅 완료</>) : (
                 <>
