@@ -1,4 +1,4 @@
-/* atlas. — Clinical Editorial 기본 톤 + Precision Instrument 데이터 화면 + Spectrum 포인트 */
+/* RE:DERMA — Clinical Editorial 기본 톤 + Precision Instrument 데이터 화면 + Spectrum 포인트 */
 :root {
   --porcelain: #f4f2ee;
   --paper: #ffffff;
@@ -74,9 +74,9 @@ p { margin: 0; }
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
-.logo { font-weight: 800; font-size: 26px; letter-spacing: -0.04em; text-decoration: none; line-height: 1; }
-.logo span { color: var(--lavender); }
-.logo--sm { font-size: 22px; }
+.logo { font-weight: 800; font-size: 24px; letter-spacing: -0.03em; text-decoration: none; line-height: 1; }
+.logo span { color: var(--lavender); margin: 0 .02em; }
+.logo--sm { font-size: 20px; }
 .nav { display: flex; gap: 4px; flex: 1; overflow-x: auto; scrollbar-width: none; }
 .nav::-webkit-scrollbar { display: none; }
 .nav a {
@@ -282,3 +282,19 @@ button.chip[aria-pressed="true"] { border-color: var(--carbon); background: var(
 .foot p { margin-top: 8px; }
 .foot__note { line-height: 1.7; }
 @media (max-width: 760px) { .foot { grid-template-columns: 1fr; } }
+
+/* ── READ. / LEAD. 서비스 구조 ───── */
+.rl { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 760px) { .rl { grid-template-columns: 1fr; } }
+.rl__col { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; display: grid; gap: 4px; align-content: start; }
+.rl__col--lead { background: var(--lavender-wash); border-color: transparent; }
+.rl__head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 14px; margin-bottom: 6px; border-bottom: 1px solid var(--line); }
+.rl__head b { font-size: clamp(36px, 5vw, 52px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+.rl__head span { color: var(--ink-2); }
+.rl__item { display: grid; gap: 2px; padding: 12px 0; text-decoration: none; border-radius: 8px; }
+a.rl__item:hover b { text-decoration: underline; text-underline-offset: 3px; }
+.rl__item--off { opacity: .55; }
+.rl__label { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--lavender-ink); }
+.rl__item b { font-size: 17px; }
+.rl__item > span:last-child { font-size: 14px; color: var(--ink-2); }
+.rl__foot { text-align: center; color: var(--ink-2); margin-top: 18px; }
