@@ -18,7 +18,7 @@
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'theme-btn';
-    btn.textContent = dark ? '○ LIGHT' : '● DARK';
+    btn.textContent = dark ? '☀ 밝게 보기' : '☾ 어둡게 보기';
     btn.setAttribute('aria-label', dark ? '밝은 화면으로 보기' : '어두운 화면으로 보기');
     btn.addEventListener('click', () => {
       // 주소의 ?theme=도 같이 바꿔야 새로고침 뒤에 되돌아가지 않습니다

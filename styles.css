@@ -793,8 +793,8 @@ body { padding-bottom: 44px; }
 [data-theme="light"] .lf-box { background: rgba(244, 242, 236, .97); }
 [data-theme="light"] .hero__logo-fallback { filter: none; mix-blend-mode: multiply; }
 
-.theme-btn { all: unset; cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--muted); padding: 4px 10px; border: 1px solid var(--line); border-radius: 99px; transition: color .2s, border-color .2s; }
-.theme-btn:hover, .theme-btn:focus-visible { color: var(--acc); border-color: var(--acc); }
+.theme-btn { all: unset; cursor: pointer; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--acc); padding: 6px 14px; border: 1px solid color-mix(in srgb, var(--acc) 55%, transparent); border-radius: 99px; background: color-mix(in srgb, var(--acc) 10%, transparent); white-space: nowrap; transition: background .2s, border-color .2s, color .2s; }
+.theme-btn:hover, .theme-btn:focus-visible { background: var(--acc); border-color: var(--acc); color: var(--bg); }
 
 /* 강조: 본문 속 핵심 구절 */
 :is(.cp-lead, .cp-out p, .cp-body, .cp-steps p, .film__acts p, .cp-type figcaption p, .case__body, .about__body) b { font-weight: 600; color: var(--fg); }
