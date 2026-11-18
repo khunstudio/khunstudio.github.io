@@ -1,0 +1,8 @@
+[
+  { "id": "sample-a", "name": "샘플 A", "brand": "자리표시 브랜드", "form": "핸드헬드", "techIds": ["rf"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": ["thermage", "oligio"], "status": "sample" },
+  { "id": "sample-b", "name": "샘플 B", "brand": "자리표시 브랜드", "form": "핸드헬드", "techIds": ["ems", "microcurrent"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": [], "status": "sample" },
+  { "id": "sample-c", "name": "샘플 C", "brand": "자리표시 브랜드", "form": "핸드헬드", "techIds": ["ultrasound"], "makerTechName": "제조사 고유 기술명 입력 칸", "specs": {}, "price": null, "relatedTreatmentIds": ["ulthera", "shurink"], "status": "sample" },
+  { "id": "sample-d", "name": "샘플 D", "brand": "자리표시 브랜드", "form": "마스크", "techIds": ["led"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": [], "status": "sample" },
+  { "id": "sample-e", "name": "샘플 E", "brand": "자리표시 브랜드", "form": "핸드헬드", "techIds": ["electroporation", "iontophoresis"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": [], "status": "sample" },
+  { "id": "sample-f", "name": "샘플 F", "brand": "자리표시 브랜드", "form": "핸드헬드 · 복합", "techIds": ["rf", "led", "ems"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": ["thermage", "oligio"], "status": "sample" }
+]

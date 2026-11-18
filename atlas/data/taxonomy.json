@@ -1,0 +1,36 @@
+{
+  "families": [
+    { "id": "electrical", "label": "ELECTRICAL", "ko": "전기 자극", "tags": ["ems", "microcurrent", "electroporation", "iontophoresis"] },
+    { "id": "rf", "label": "RADIO FREQUENCY", "ko": "고주파", "tags": ["rf"] },
+    { "id": "ultrasound", "label": "ULTRASOUND", "ko": "초음파", "tags": ["ultrasound", "hifu"] },
+    { "id": "light", "label": "LIGHT", "ko": "빛", "tags": ["led", "ipl", "laser"] },
+    { "id": "other", "label": "OTHER", "ko": "기타", "tags": ["plasma", "cooling", "heating", "vibration", "suction"] },
+    { "id": "injectable", "label": "INJECTABLE", "ko": "주입형", "tags": ["ha-filler", "biostimulator", "pn-pdrn", "toxin"] },
+    { "id": "surface", "label": "SURFACE", "ko": "표면 관리", "tags": ["chemical-peel", "microneedle"] }
+  ],
+  "tiers": [
+    { "id": "T1", "label": "규제기관 · 공식 허가 문서" },
+    { "id": "T2", "label": "동료 검토 학술 논문" },
+    { "id": "T3", "label": "독립 시험기관 자료" },
+    { "id": "T4", "label": "제조사 인체적용시험" },
+    { "id": "T5", "label": "제조사 공식 스펙" },
+    { "id": "T6", "label": "광고성 설명" },
+    { "id": "T7", "label": "사용자 경험" }
+  ],
+  "status": {
+    "draft": "초안 · 검수 전",
+    "reviewed": "편집 검수 완료",
+    "expert-reviewed": "전문가 검수 완료",
+    "sample": "샘플 자리표시 · 실제 제품 아님"
+  },
+  "specFields": [
+    { "key": "frequency", "label": "주파수", "quantity": "frequency" },
+    { "key": "wavelength", "label": "파장", "quantity": "wavelength" },
+    { "key": "current", "label": "전류", "quantity": "current" },
+    { "key": "power", "label": "출력", "quantity": "power" },
+    { "key": "energyDensity", "label": "에너지 밀도", "quantity": "energyDensity" },
+    { "key": "area", "label": "접촉 · 조사 면적", "quantity": "area" },
+    { "key": "modes", "label": "작동 모드", "quantity": "count" },
+    { "key": "levels", "label": "강도 단계", "quantity": "count" }
+  ]
+}
