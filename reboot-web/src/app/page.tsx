@@ -29,10 +29,10 @@ export default function Home() {
         <div className="wrap text-center">
           <p className="t-k" data-rv>06:00 · MEN&apos;S SELF-CARE</p>
           <h1 className="t-xxl mt-5" data-rv style={{ ["--d" as string]: "80ms" }}>
-            보이고 싶은 모습부터,<br />다시 켜다<span className="colon hero-colon">.</span>
+            남자 관리, 뭐부터 할지<br />30초면 알려드려요<span className="colon hero-colon">.</span>
           </h1>
-          <p className="t-sub mx-auto mt-6 max-w-[34rem]" data-rv style={{ ["--d" as string]: "160ms" }}>
-            입대 전부터 전역 후, 그다음 일상까지.<br className="hidden sm:block" /> 30초 체크로 오늘 할 순서를 받고, 매일 기록하세요.
+          <p className="t-sub mx-auto mt-6 max-w-[36rem]" data-rv style={{ ["--d" as string]: "160ms" }}>
+            입대 전 · 복무 중 · 전역 후, 지금 나에게 맞는<br className="hidden sm:block" /> 세안 · 보습 · 자외선 차단 순서를 받고 매일 체크하세요.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3" data-rv style={{ ["--d" as string]: "240ms" }}>
             <Link href="/start/" className="btn btn-primary">30초 체크 시작</Link>
