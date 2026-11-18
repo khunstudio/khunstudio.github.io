@@ -3,6 +3,7 @@ import { GUIDES } from "@/content/guides";
 import { GuideCard } from "@/components/guide-browser";
 import { TodayStrip } from "@/components/home-today";
 import { RoutineDemo } from "@/components/routine-demo";
+import { HeroFog } from "@/components/hero-fog";
 import { Photo } from "@/components/photo";
 import { MODES, MODE_ORDER } from "@/lib/labels";
 
@@ -33,11 +34,12 @@ export default function Home() {
             <div className="absolute inset-0">
               <Photo name="wash" alt="이른 아침 세면대에서 찬물로 세수하는 남자" sizes="large" priority position="62% 50%" className="h-full" />
             </div>
+            <HeroFog />
           </div>
           <div className="order-2 flex flex-col justify-center px-5 py-12 md:order-1 md:px-[max(20px,calc((100vw-1160px)/2+20px))] md:py-16 md:pr-12">
             <p className="eyebrow">06:00 · MEN&apos;S SELF-CARE</p>
             <p className="display mt-5 text-[60px] sm:text-[76px] lg:text-[92px]" aria-hidden="true">
-              RE<span className="colon">:</span>BOOT<br />YOURSELF.
+              RE<span className="colon hero-colon">:</span>BOOT<br />YOURSELF.
             </p>
             <h1 className="mt-6 text-[24px] font-extrabold leading-snug tracking-tight sm:text-[30px]">보이고 싶은 모습부터, 다시 켜다.</h1>
             <p className="lead mt-4 max-w-[32rem]">
@@ -181,7 +183,7 @@ export default function Home() {
 
       {/* 6. 군 생활 */}
       <section className="border-t border-line">
-        <div className="wrap grid items-stretch gap-10 py-16 md:grid-cols-[1fr_1.1fr] md:py-24">
+        <div className="wrap grid items-center gap-10 py-16 md:grid-cols-[1fr_1.1fr] md:py-24">
           <Photo name="razor" alt="김 서린 거울 앞 스테인리스 선반 위의 면도기와 수건" ratio="1 / 1" className="rounded-[16px]" />
           <div className="flex flex-col justify-center">
             <p className="eyebrow">FOR SERVICE LIFE</p>
