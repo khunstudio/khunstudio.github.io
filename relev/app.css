@@ -23,13 +23,13 @@
   --f-surface: #a39a7a;
 
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --sans: "Pretendard Variable", Pretendard, "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --r: 14px;
   --gutter: 16px;
   --max: 1160px;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --porcelain: #171716;
     --paper: #201f1e;
     --carbon: #ecebe7;
@@ -40,7 +40,21 @@
     --lavender-wash: #2a2840;
     --warn: #e3a878;
     --warn-wash: #33261c;
+    color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+    --porcelain: #171716;
+    --paper: #201f1e;
+    --carbon: #ecebe7;
+    --ink-2: #b9b6ae;
+    --ink-3: #8a8780;
+    --line: #34322f;
+    --lavender-ink: #c3bef0;
+    --lavender-wash: #2a2840;
+    --warn: #e3a878;
+    --warn-wash: #33261c;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -271,7 +285,8 @@ button.chip[aria-pressed="true"] { border-color: var(--carbon); background: var(
 .tray .it { font-size: 13px; background: rgba(255,255,255,.12); border-radius: 99px; padding: 4px 6px 4px 12px; display: inline-flex; gap: 4px; align-items: center; }
 .tray .it button { background: none; border: 0; color: inherit; cursor: pointer; opacity: .7; padding: 0 6px; font-size: 15px; line-height: 1; }
 .tray .btn { background: var(--lavender); border-color: var(--lavender); color: #1c1a2e; }
-@media (prefers-color-scheme: dark) { .tray { background: #2c2b29; color: #ecebe7; } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tray { background: #2c2b29; color: #ecebe7; } }
+:root[data-theme="dark"] .tray { background: #2c2b29; color: #ecebe7; }
 
 /* ── 푸터 ───────────────────────── */
 .foot {
