@@ -523,7 +523,9 @@ body.has-band main { padding-top: 0; }
 /* ① 인트로 (스크롤 연동) */
 .intro { --pearl-scale: 6; --glyph: 0; --rise: 33; --trail: 0; --slogan: 0; --bgmix: 0%; height: 260vh; position: relative; }
 .intro__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center; align-content: center; gap: 28px; color: #26252d;
-  background: radial-gradient(60% 70% at 50% 100%, rgba(255,255,255,.7), transparent 70%), color-mix(in srgb, #9183b9 var(--bgmix), #d9d2e7); }
+  background: color-mix(in srgb, #9183b9 var(--bgmix), #d9d2e7); }
+.intro__stage::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 70% at 50% 100%, rgba(255,255,255,.7), transparent 70%); opacity: calc(1 - var(--slogan)); pointer-events: none; }
+.intro__stage > * { position: relative; }
 .intro__logo { width: min(880px, 88vw); height: auto; overflow: visible; }
 .intro__glyphs { opacity: var(--glyph); }
 .intro__pearls { transform-box: view-box; transform-origin: 166px 59px; transform: scale(var(--pearl-scale)); }
@@ -534,7 +536,9 @@ body.has-band main { padding-top: 0; }
 .intro__hint { position: absolute; bottom: 28px; font-family: var(--mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #4a4170; opacity: calc(1 - var(--glyph)); }
 
 /* ② 벤토 콜라주 */
-.bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(220px, 26vh); gap: 10px; padding: 10px; background: #9183b9; border-radius: 0 0 28px 28px; }
+.bento { --g: 12px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(200px, 24vw, 300px); gap: var(--g); padding: var(--g); background: #9183b9; }
+.bento > .b { min-width: 0; min-height: 0; }
+.spread { border-top: 0; }
 .b { position: relative; border-radius: 20px; overflow: hidden; text-decoration: none; color: #26252d; }
 .b--tall { grid-row: span 2; }
 .b--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
@@ -542,7 +546,7 @@ body.has-band main { padding-top: 0; }
 .b__chip { position: absolute; left: 14px; bottom: 14px; padding: 8px 14px; border-radius: 99px; background: #fff; font-size: 14px; font-weight: 600; box-shadow: 0 6px 16px rgba(38,37,45,.15); }
 .b__chip--plus { background: #65558d; color: #fff; }
 .b__tag { position: absolute; right: 12px; top: 12px; padding: 6px 12px; border-radius: 99px; background: rgba(255,255,255,.85); font-family: var(--mono); font-size: 11.5px; }
-.b--chips { background: #f6f4f1; padding: 20px; display: grid; align-content: center; gap: 12px; }
+.b--chips { background: #f6f4f1; padding: 22px; display: grid; align-content: center; gap: 14px; }
 .b--chips p { font-family: var(--display); font-weight: 600; font-size: 18px; }
 .chipcloud { display: flex; flex-wrap: wrap; gap: 6px; }
 .chipcloud span { padding: 7px 13px; border-radius: 99px; background: #fff; border: 1px solid #e2dfe6; font-size: 13.5px; }
@@ -557,11 +561,11 @@ body.has-band main { padding-top: 0; }
 .b__arcs path { fill: none; stroke: #9183b9; stroke-width: 2; stroke-dasharray: .012 .02; }
 .b__dot { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, #fff, #a99cd0 80%); box-shadow: 0 0 14px rgba(169,156,208,.8); }
 .d1 { left: 46%; top: 36%; } .d2 { left: 74%; top: 18%; } .d3 { left: 22%; top: 66%; }
-@media (max-width: 900px) { .bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; } }
+@media (max-width: 900px) { .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 200px; } }
 @media (max-width: 520px) { .bento { grid-auto-rows: 170px; } .b--chips p { font-size: 15px; } .chipcloud span { font-size: 12px; padding: 5px 10px; } }
 
 /* ③ 다크 섹션 */
-.spread { --draw: 0; background: #1b1a21; color: #f6f4f1; position: relative; overflow: hidden; margin-top: -28px; padding: clamp(120px, 16vw, 200px) 0 0; }
+.spread { --draw: 0; background: #1b1a21; color: #f6f4f1; position: relative; overflow: hidden; margin-top: 0; padding: clamp(120px, 16vw, 200px) 0 0; }
 .spread__copy { max-width: var(--max); margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left, 0px)); display: grid; grid-template-columns: 1fr 1fr; gap: 32px; position: relative; z-index: 1; }
 .spread h2 { font-size: clamp(30px, 4vw, 48px); font-weight: 700; line-height: 1.2; }
 .spread p { color: rgba(246,244,241,.72); max-width: 520px; }
@@ -625,3 +629,14 @@ body.is-home main > .section:first-of-type { margin-top: 72px; }
 .foot2__note { font-size: 12.5px; color: rgba(246,244,241,.5); max-width: 760px; }
 @media (max-width: 760px) { .foot2__in { padding-bottom: 150px; } }
 .principle > *, .pc { min-width: 0; }
+
+/* 실제 디바이스 카드 · 대응표 */
+.dcard { position: relative; }
+.rank { position: absolute; right: 16px; top: 14px; font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--iris); background: var(--mist-soft); padding: 2px 9px; border-radius: 99px; }
+.chip--cand { border: 1px dashed var(--titanium); background: transparent; }
+.match td { vertical-align: middle; }
+.match td:first-child { white-space: nowrap; }
+.match-wrap { margin-bottom: 24px; }
+.match-wrap summary { cursor: pointer; font-family: var(--display); font-weight: 600; font-size: 17px; margin-bottom: 12px; }
+.f-ems { --c: #c08a6a; } .f-microcurrent { --c: #7d8fb8; } .f-electroporation { --c: #9183b9; } .f-galvanic { --c: #6f9fb8; }
+.f-hifu { --c: #4f8f8f; } .f-led { --c: #d0a24a; } .f-ipl { --c: #c47a8e; } .f-cooling { --c: #7fb7d6; }

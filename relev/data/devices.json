@@ -1,8 +1,642 @@
 [
-  { "id": "sample-a", "name": "샘플 A", "brand": "자리표시 브랜드", "form": "핸드헬드", "techIds": ["rf"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": ["thermage", "oligio"], "status": "sample" },
-  { "id": "sample-b", "name": "샘플 B", "brand": "자리표시 브랜드", "form": "핸드헬드", "techIds": ["ems", "microcurrent"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": [], "status": "sample" },
-  { "id": "sample-c", "name": "샘플 C", "brand": "자리표시 브랜드", "form": "핸드헬드", "techIds": ["ultrasound"], "makerTechName": "제조사 고유 기술명 입력 칸", "specs": {}, "price": null, "relatedTreatmentIds": ["ulthera", "shurink"], "status": "sample" },
-  { "id": "sample-d", "name": "샘플 D", "brand": "자리표시 브랜드", "form": "마스크", "techIds": ["led"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": [], "status": "sample" },
-  { "id": "sample-e", "name": "샘플 E", "brand": "자리표시 브랜드", "form": "핸드헬드", "techIds": ["electroporation", "iontophoresis"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": [], "status": "sample" },
-  { "id": "sample-f", "name": "샘플 F", "brand": "자리표시 브랜드", "form": "핸드헬드 · 복합", "techIds": ["rf", "led", "ems"], "makerTechName": null, "specs": {}, "price": null, "relatedTreatmentIds": ["thermage", "oligio"], "status": "sample" }
+ {
+  "id": "gp-192384",
+  "name": "써클샷",
+  "brand": "엑쎄라피",
+  "form": "핸드헬드",
+  "techIds": [
+   "hifu"
+  ],
+  "techCandidates": [],
+  "purpose": "윤곽 · 탄력 관리",
+  "listingNote": "'3D 입체 HIFU', 360° 회전 출력 방식으로 표기",
+  "glowpick": {
+   "id": 192384,
+   "rank": 1,
+   "price": 1400000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/192384"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-152589",
+  "name": "JOC-9000",
+  "brand": "라피타",
+  "form": "핸드헬드",
+  "techIds": [
+   "ipl"
+  ],
+  "techCandidates": [],
+  "purpose": "제모",
+  "listingNote": "IPL 기반 가정용 제모기, '의료기기 인증' 표기 (인증 범위 확인 필요)",
+  "glowpick": {
+   "id": 152589,
+   "rank": 2,
+   "price": 258000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/152589"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-182971",
+  "name": "앤모드 프로",
+  "brand": "뷰앤디",
+  "form": "핸드헬드",
+  "techIds": [
+   "ems"
+  ],
+  "techCandidates": [],
+  "purpose": "윤곽 마사지",
+  "listingNote": "'EMS 저주파 마사지기'로 표기",
+  "glowpick": {
+   "id": 182971,
+   "rank": 3,
+   "price": 298000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/182971"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-182593",
+  "name": "EMS 브이쎄라",
+  "brand": "마미케어",
+  "form": "핸드헬드",
+  "techIds": [
+   "ems"
+  ],
+  "techCandidates": [],
+  "purpose": "윤곽 · 마사지",
+  "listingNote": "'근육 코어 운동', EMS 제품명",
+  "glowpick": {
+   "id": 182593,
+   "rank": 4,
+   "price": 200000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/182593"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-187813",
+  "name": "에이지알 부스터 프로 X2",
+  "brand": "메디큐브",
+  "form": "핸드헬드 · 멀티",
+  "techIds": [],
+  "techCandidates": [
+   "electroporation",
+   "microcurrent",
+   "airshot",
+   "ems",
+   "led"
+  ],
+  "purpose": "멀티 케어",
+  "listingNote": "7가지 모드 · 2개 모드 동시 출력(듀얼 모드)으로 표기. 개별 모드의 기술명은 판매 페이지에 없음",
+  "glowpick": {
+   "id": 187813,
+   "rank": 5,
+   "price": 545000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/187813"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-182781",
+  "name": "에이지알 부스터 프로 미니 플러스",
+  "brand": "메디큐브",
+  "form": "핸드헬드",
+  "techIds": [
+   "led",
+   "vibration"
+  ],
+  "techCandidates": [
+   "electroporation"
+  ],
+  "purpose": "흡수 · 진정 케어",
+  "listingNote": "LED 3가지 모드와 진동 클렌저 헤드 결합, '흡수' 모드 표기 (기술명 미기재)",
+  "glowpick": {
+   "id": 182781,
+   "rank": 6,
+   "price": 258000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/182781"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-190848",
+  "name": "에이지알 부스터 글로우",
+  "brand": "메디큐브",
+  "form": "핸드헬드",
+  "techIds": [
+   "ultrasound-multi"
+  ],
+  "techCandidates": [],
+  "purpose": "보습 · 탄력 케어",
+  "listingNote": "'물방울 초음파', '3중 주파수', 5개 모드로 표기",
+  "glowpick": {
+   "id": 190848,
+   "rank": 7,
+   "price": 378000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/190848"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-182100",
+  "name": "수퍼폼 갈바닉 부스터",
+  "brand": "LG 프라엘",
+  "form": "스틱형",
+  "techIds": [
+   "iontophoresis"
+  ],
+  "techCandidates": [],
+  "purpose": "흡수 · 부스팅",
+  "listingNote": "'갈바닉' 제품명, '3 in 1 테크놀로지' 표기 (나머지 2가지 기술명 미기재)",
+  "glowpick": {
+   "id": 182100,
+   "rank": 8,
+   "price": 108000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/182100"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-167692",
+  "name": "쿨링 냉매 마사저",
+  "brand": "필리밀리",
+  "form": "핸드헬드",
+  "techIds": [
+   "cooling"
+  ],
+  "techCandidates": [],
+  "purpose": "붓기 · 진정",
+  "listingNote": "대용량 냉매 쿨링 마사저로 표기",
+  "glowpick": {
+   "id": 167692,
+   "rank": 9,
+   "price": 23500,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/167692"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-182626",
+  "name": "올리밴드",
+  "brand": "약손명가 헬스케어",
+  "form": "밴드형",
+  "techIds": [],
+  "techCandidates": [
+   "ems",
+   "rf"
+  ],
+  "purpose": "라인 · 리프팅 케어",
+  "listingNote": "'올리 웨이브 패널 16개'로 표기. 에너지 방식은 판매 페이지에 없음",
+  "glowpick": {
+   "id": 182626,
+   "rank": 10,
+   "price": 328000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/182626"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-176181",
+  "name": "에이지알 하이 포커스 샷",
+  "brand": "메디큐브",
+  "form": "핸드헬드",
+  "techIds": [
+   "hifu"
+  ],
+  "techCandidates": [],
+  "purpose": "윤곽 케어",
+  "listingNote": "'3세대 초음파', '4.5mm 깊이 측정 테스트', 자동 도트 조사로 표기 → 집속 초음파 계열로 분류 (확인 필요)",
+  "glowpick": {
+   "id": 176181,
+   "rank": 11,
+   "price": 558000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/176181"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-178960",
+  "name": "더 글로우 디바이스",
+  "brand": "톰",
+  "form": "핸드헬드",
+  "techIds": [
+   "ultrasound-multi"
+  ],
+  "techCandidates": [],
+  "purpose": "보습 · 탄력 케어",
+  "listingNote": "'물방울 초음파', '교차 초음파'로 표기",
+  "glowpick": {
+   "id": 178960,
+   "rank": 12,
+   "price": 999000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/178960"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-124636",
+  "name": "진동 클렌저 베이직",
+  "brand": "쥬베라",
+  "form": "클렌저",
+  "techIds": [
+   "vibration",
+   "heating"
+  ],
+  "techCandidates": [],
+  "purpose": "세안",
+  "listingNote": "진동 · 온열 기능 진동 클렌저",
+  "glowpick": {
+   "id": 124636,
+   "rank": 13,
+   "price": 150000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/124636"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-177791",
+  "name": "스킨 부스터",
+  "brand": "LG 프라엘",
+  "form": "핸드헬드",
+  "techIds": [
+   "ultrasound"
+  ],
+  "techCandidates": [],
+  "purpose": "흡수 · 보습 케어",
+  "listingNote": "'저자극 초음파' 스킨 부스터 마사지기, 3가지 모드로 표기",
+  "glowpick": {
+   "id": 177791,
+   "rank": 14,
+   "price": 349000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/177791"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-178183",
+  "name": "진동 클렌저",
+  "brand": "멜리언스",
+  "form": "클렌저",
+  "techIds": [
+   "vibration"
+  ],
+  "techCandidates": [],
+  "purpose": "세안",
+  "listingNote": "실리콘 미세모 · 미세진동 클렌저",
+  "glowpick": {
+   "id": 178183,
+   "rank": 15,
+   "price": 58900,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/178183"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-185501",
+  "name": "부스터 브이 롤러",
+  "brand": "메디큐브",
+  "form": "롤러",
+  "techIds": [
+   "ems",
+   "vibration"
+  ],
+  "techCandidates": [],
+  "purpose": "클렌징 · 흡수 · 경락",
+  "listingNote": "'EMS 진동 기술' 롤러로 표기",
+  "glowpick": {
+   "id": 185501,
+   "rank": 16,
+   "price": 337800,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/185501"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-122631",
+  "name": "스킨라이트 테라피2",
+  "brand": "메이크온",
+  "form": "핸드헬드",
+  "techIds": [
+   "microcurrent",
+   "led"
+  ],
+  "techCandidates": [],
+  "purpose": "수분 · 탄력 케어",
+  "listingNote": "미세전류 + LED, 피부 상태 진단 센서 표기",
+  "glowpick": {
+   "id": 122631,
+   "rank": 17,
+   "price": 200000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/122631"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-122946",
+  "name": "에그2",
+  "brand": "에이뷰티",
+  "form": "클렌저",
+  "techIds": [
+   "vibration"
+  ],
+  "techCandidates": [],
+  "purpose": "세안 · 마사지",
+  "listingNote": "클렌징 + 마사지 기능 표기 (방식 미기재)",
+  "glowpick": {
+   "id": 122946,
+   "rank": 18,
+   "price": 169000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/122946"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-170715",
+  "name": "소닉 페이셜 브러시 5 in 1",
+  "brand": "게스케",
+  "form": "클렌저",
+  "techIds": [
+   "vibration"
+  ],
+  "techCandidates": [],
+  "purpose": "세안",
+  "listingNote": "진동 브러시 5 in 1",
+  "glowpick": {
+   "id": 170715,
+   "rank": 19,
+   "price": 51000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/170715"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-157662",
+  "name": "워시팝",
+  "brand": "LG 프라엘",
+  "form": "클렌저",
+  "techIds": [
+   "vibration"
+  ],
+  "techCandidates": [],
+  "purpose": "세안",
+  "listingNote": "'초음파 진동' 딥 클렌징 표기 (세정용 진동)",
+  "glowpick": {
+   "id": 157662,
+   "rank": 20,
+   "price": 199000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/157662"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-168659",
+  "name": "에이지알 부스터 프로",
+  "brand": "메디큐브",
+  "form": "핸드헬드 · 멀티",
+  "techIds": [
+   "led",
+   "vibration"
+  ],
+  "techCandidates": [
+   "electroporation",
+   "microcurrent",
+   "airshot",
+   "ems"
+  ],
+  "purpose": "멀티 케어",
+  "listingNote": "'광채 · 탄력 · 볼륨 · 모공 · LED · 진동 6 in 1'로 표기. LED · 진동 외 모드의 기술명은 판매 페이지에 없음",
+  "glowpick": {
+   "id": 168659,
+   "rank": null,
+   "price": 658000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/168659"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-177622",
+  "name": "에이지알 부스터 프로 미니",
+  "brand": "메디큐브",
+  "form": "핸드헬드",
+  "techIds": [
+   "led"
+  ],
+  "techCandidates": [
+   "electroporation"
+  ],
+  "purpose": "진정 · 흡수 케어",
+  "listingNote": "LED 2가지 모드와 '흡수' 기능 표기 (기술명 미기재)",
+  "glowpick": {
+   "id": 177622,
+   "rank": null,
+   "price": 218000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/177622"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-155956",
+  "name": "에이지알 더마 EMS 샷",
+  "brand": "메디큐브",
+  "form": "핸드헬드",
+  "techIds": [
+   "ems"
+  ],
+  "techCandidates": [],
+  "purpose": "탄력 케어",
+  "listingNote": "'중주파' 근육 자극 방식으로 표기 → EMS 계열",
+  "glowpick": {
+   "id": 155956,
+   "rank": null,
+   "price": 458000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/155956"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-155384",
+  "name": "에이지알 유쎄라 딥 샷",
+  "brand": "메디큐브",
+  "form": "핸드헬드",
+  "techIds": [
+   "rf",
+   "ultrasound"
+  ],
+  "techCandidates": [],
+  "purpose": "탄력 케어",
+  "listingNote": "'고주파와 초음파 듀얼 에너지', 80샷으로 표기",
+  "glowpick": {
+   "id": 155384,
+   "rank": null,
+   "price": 500000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/155384"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-159532",
+  "name": "에이지알 부스터 힐러",
+  "brand": "메디큐브",
+  "form": "핸드헬드",
+  "techIds": [],
+  "techCandidates": [
+   "electroporation",
+   "microcurrent",
+   "airshot"
+  ],
+  "purpose": "흡수 · 멀티 케어",
+  "listingNote": "'흡수' 중심 멀티 디바이스로 표기. 에너지 방식은 판매 페이지에 없음",
+  "glowpick": {
+   "id": 159532,
+   "rank": null,
+   "price": 418000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/159532"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-73285",
+  "name": "메르비",
+  "brand": "로츠",
+  "form": "핸드헬드",
+  "techIds": [
+   "iontophoresis",
+   "ultrasound",
+   "heating"
+  ],
+  "techCandidates": [],
+  "purpose": "클렌징 · 흡수",
+  "listingNote": "갈바닉 이온 + 초음파 진동 + 온열 표기",
+  "glowpick": {
+   "id": 73285,
+   "rank": null,
+   "price": 235000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/73285"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-160263",
+  "name": "고주파 뷰티 디바이스",
+  "brand": "닥터탱글",
+  "form": "핸드헬드",
+  "techIds": [
+   "rf"
+  ],
+  "techCandidates": [],
+  "purpose": "탄력 · 모공 케어",
+  "listingNote": "고주파(RF) 홈 디바이스로 표기",
+  "glowpick": {
+   "id": 160263,
+   "rank": null,
+   "price": 289000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/160263"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ },
+ {
+  "id": "gp-170591",
+  "name": "부스터 소닉",
+  "brand": "확인 필요",
+  "form": "핸드헬드",
+  "techIds": [
+   "ultrasound-multi"
+  ],
+  "techCandidates": [],
+  "purpose": "흡수 · 탄력 케어",
+  "listingNote": "'교차 초음파', '초음파 영동법'으로 표기",
+  "glowpick": {
+   "id": 170591,
+   "rank": null,
+   "price": 720000,
+   "observedAt": "2026-11-19",
+   "url": "https://www.glowpick.com/products/170591"
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft"
+ }
 ]

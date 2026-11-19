@@ -24,10 +24,10 @@
     } catch (e) { return null; }
   }
 
-  var EXTRA_TAG_LABEL = { microneedle: "미세침", "chemical-peel": "화학적 필링", plasma: "플라즈마", cooling: "쿨링", heating: "히팅", vibration: "진동", suction: "석션" };
-  var KIND_LABEL = { energy: "ENERGY-BASED", injectable: "INJECTABLE", surface: "SURFACE & RESURFACING" };
-  var KIND_KO = { energy: "에너지 기반 시술", injectable: "주입형 시술", surface: "표면 관리 시술" };
-  var HOME_FAMILIES = ["electrical", "rf", "ultrasound", "light", "other"];
+  var EXTRA_TAG_LABEL = { microneedle: "미세침", "chemical-peel": "화학적 필링", plasma: "플라즈마", cooling: "쿨링", heating: "온열", vibration: "진동", suction: "석션" };
+  var KIND_LABEL = { energy: "ENERGY-BASED", injectable: "INJECTABLE", surface: "SURFACE & RESURFACING", aesthetic: "AESTHETIC" };
+  var KIND_KO = { energy: "에너지 기반 시술", injectable: "주입형 시술", surface: "표면 관리 시술", aesthetic: "피부관리실 · 에스테틱 관리" };
+  var HOME_FAMILIES = [];
 
   function familyOf(tag) {
     var t = byId(D.techs, tag);
@@ -186,15 +186,10 @@
       '<section class="foundation"><h2>RE:LEV의 기반</h2><div class="marquee">' + row(found.slice(0, 5).concat(found.slice(0, 5))) + '</div><div class="marquee marquee--rev">' + row(found.slice(5).concat(found.slice(5))) + "</div></section>" +
 
       // 데이터 브리지 · 현황 (정직하게)
-      '<section class="section"><p class="eyebrow">Same family, different tools</p><h2 style="font-size:26px;margin:6px 0 18px">같은 계열, 다른 도구.</h2>' +
-      '<div class="bridge"><div class="bridge__row head"><span>HOME</span><span class="bridge__mid">TECHNOLOGY</span><span>CLINIC</span></div>' +
-      bridges.map(function (b) {
-        return '<div class="bridge__row"><div><b>' + esc(b.home) + '</b><div class="caption" style="margin-top:2px">' + esc(b.note) + "</div></div>" +
-          '<div class="bridge__mid">' + chip(b.tech) + (b.techTo ? " " + chip(b.techTo) : "") + '<div class="bridge__line"></div></div>' +
-          '<div class="chips">' + b.clinic.map(function (id) { var t = byId(D.treatments, id); return '<a class="chip chip--plain" href="#clinic--' + id + '">' + esc(t.name) + "</a>"; }).join("") + "</div></div>";
-      }).join("") + "</div>" +
+      '<section class="section"><p class="eyebrow">Same family, different tools</p><h2 style="font-size:26px;margin:6px 0 18px">홈 디바이스 기술 ↔ 피부과 · 관리실</h2>' +
+      bridgeTable() +
       '<p class="note">이 연결은 같은 물리 원리 계열을 보여 줄 뿐, 홈 디바이스가 시술을 대체하거나 시술이 홈케어보다 낫다는 뜻이 아닙니다.</p>' +
-      '<p class="note note--warn">프로토타입 단계입니다. 기술 ' + D.techs.length + "건 · 시술 " + D.treatments.length + "건은 검수 전 초안이고, 디바이스 " + D.devices.length + "건은 실제 제품이 아닌 샘플 자리표시입니다.</p></section>"
+      '<p class="note note--warn">프로토타입 단계입니다. 기술 ' + D.techs.length + "건 · 시술 " + D.treatments.length + "건은 검수 전 초안이고, 디바이스 " + D.devices.length + "건은 글로우픽 순위 기반 실제 제품으로 기술 분류는 판매 페이지 표기 기준(검수 전)입니다.</p></section>"
     );
   }
 
@@ -229,12 +224,25 @@
 
 
   // ── 페이지: 디바이스 ──────────────────────────────
+  function bridgeFor(tag) { return (D.taxonomy.bridge || []).filter(function (b) { return b.tech === tag; })[0]; }
+  function clinicFor(techIds) { return uniq([].concat.apply([], techIds.map(function (t) { var b = bridgeFor(t); return b ? b.clinic : []; }))).map(function (id) { return byId(D.treatments, id); }).filter(Boolean); }
+  function won0(n) { return n ? Math.round(n).toLocaleString("ko-KR") + "원" : ""; }
+  function bridgeTable() {
+    return '<div class="ctable-wrap"><table class="ctable match"><thead><tr><th>홈 디바이스 기술</th><th>피부과 · 관리실 대응</th><th>차이</th><th>홈 제품</th></tr></thead><tbody>' +
+      D.taxonomy.bridge.map(function (b) {
+        var n = D.devices.filter(function (d) { return d.techIds.indexOf(b.tech) > -1; }).length;
+        var c = D.devices.filter(function (d) { return (d.techCandidates || []).indexOf(b.tech) > -1; }).length;
+        return "<tr><td>" + chip(b.tech) + "</td><td>" + (b.clinic.length ? b.clinic.map(function (id) { var t = byId(D.treatments, id); return t ? '<a class="chip chip--plain" href="#clinic--' + id + '">' + esc(t.name) + "</a>" : ""; }).join(" ") : '<span class="caption">해당 없음</span>') +
+          '</td><td class="caption">' + esc(b.note) + '</td><td class="mono">' + (n ? n + "개" : "–") + (c ? '<br><span class="caption">확인 필요 ' + c + "</span>" : "") + "</td></tr>";
+      }).join("") + "</tbody></table></div>";
+  }
   function pageDevices() {
     var fams = D.taxonomy.families.filter(function (f) { return HOME_FAMILIES.indexOf(f.id) > -1; });
     var items = D.devices.filter(function (d) {
-      return deviceFilter === "all" || d.techIds.some(function (t) { return familyOf(t) === deviceFilter; });
-    });
-    return banner("assets/device-banner.webp", "유리 리본 옆에 놓인 화이트 홈 뷰티 디바이스") + head("DEVICE", "홈 디바이스 데이터베이스", "제품을 실제 작용 기전으로 분류합니다. 한 제품이 여러 기술을 쓰면 여러 태그가 붙습니다. 지금 보이는 항목은 실제 제품이 아닌 데이터 구조 샘플입니다.") +
+      return deviceFilter === "all" || d.techIds.concat(d.techCandidates || []).some(function (t) { return familyOf(t) === deviceFilter; });
+    }).sort(function (a, b) { return ((a.glowpick && a.glowpick.rank) || 999) - ((b.glowpick && b.glowpick.rank) || 999); });
+    fams = fams.filter(function (f) { return D.devices.some(function (d) { return d.techIds.concat(d.techCandidates || []).some(function (t) { return familyOf(t) === f.id; }); }); });
+    return banner("assets/device-banner.webp", "유리 리본 옆에 놓인 화이트 홈 뷰티 디바이스") + head("DEVICE", "홈 디바이스 데이터베이스", "글로우픽 뷰티 디바이스 순위(2026-11-19 조회) 상위 20개와 주요 제품 8개를 작용 기전으로 분류했습니다. 판매 페이지에 기술명이 적힌 것만 '확인', 이름만 있는 모드는 '확인 필요'로 둡니다.") +
       '<div class="filters" role="group" aria-label="기술 계열 필터">' +
       '<button class="chip chip--plain" data-filter="all" aria-pressed="' + (deviceFilter === "all") + '">전체</button>' +
       fams.map(function (f) { return '<button class="chip f-' + f.id + '" data-filter="' + f.id + '" aria-pressed="' + (deviceFilter === f.id) + '">' + f.label + " · " + f.ko + "</button>"; }).join("") +
@@ -242,9 +250,11 @@
       (items.length ? '<div class="grid">' + items.map(deviceCard).join("") + "</div>" : '<p class="empty">이 계열로 등록된 항목이 아직 없습니다.</p>');
   }
   function deviceCard(d) {
-    return '<a class="card" href="#device--' + d.id + '"><span class="eyebrow">' + esc(d.brand) + " · " + esc(d.form) + "</span><h3>" + esc(d.name) + "</h3>" +
-      "<p>" + d.techIds.map(tagLabel).join(" + ") + " 계열 · 스펙 미입력</p>" +
-      '<div class="meta">' + chips(d.techIds, false) + statusBadge(d.status) + "</div></a>";
+    var g = d.glowpick || {}, cand = d.techCandidates || [];
+    return '<a class="card dcard" href="#device--' + d.id + '">' + (g.rank ? '<span class="rank">#' + g.rank + "</span>" : "") +
+      '<span class="eyebrow">' + esc(d.brand) + " · " + esc(d.form) + "</span><h3>" + esc(d.name) + "</h3>" +
+      "<p>" + esc(d.purpose || "") + (g.price ? " · " + won0(g.price) : "") + "</p>" +
+      '<div class="meta">' + (d.techIds.length ? chips(d.techIds, false) : "") + (cand.length ? '<span class="badge badge--draft">확인 필요 ' + cand.length + "</span>" : "") + "</div></a>";
   }
   function pageDevice(id) {
     var d = byId(D.devices, id);
@@ -254,12 +264,18 @@
       var v = s && s.status === "disclosed" ? esc(s.value + " " + (s.unit || "")) + (s.condition ? ' <span class="caption">' + esc(s.condition) + "</span>" : "") : na(s && s.status === "undisclosed" ? "미공개" : "미입력");
       return '<div class="spec"><span class="k">' + f.label + '</span><span class="v">' + v + '</span><span>' + (s && s.tier ? '<span class="badge">' + s.tier + "</span>" : "") + "</span></div>";
     }).join("");
-    var related = d.relatedTreatmentIds.map(function (tid) { return byId(D.treatments, tid); }).filter(Boolean);
-    var sameTech = D.devices.filter(function (x) { return x.id !== d.id && x.techIds.some(function (t) { return d.techIds.indexOf(t) > -1; }); });
+    var related = clinicFor(d.techIds.concat(d.techCandidates || [])); var g = d.glowpick || {}, cand = d.techCandidates || [];
+    var core = d.techIds.filter(function (t) { return t !== "vibration" && t !== "heating"; }); if (!core.length) core = d.techIds;
+    var sameTech = D.devices.filter(function (x) { return x.id !== d.id && x.techIds.some(function (t) { return core.indexOf(t) > -1; }); });
     var safety = uniq([].concat.apply([], d.techIds.map(function (t) { var x = byId(D.techs, t); return x ? x.safety : []; })));
 
     var body =
-      '<p class="summary">이 항목은 <b>' + d.techIds.map(tagLabel).join(" + ") + "</b> 계열로 분류된 디바이스 레코드입니다. 효능 문구는 표시하지 않습니다.</p>" +
+      '<p class="summary">' + (d.techIds.length ? "<b>" + d.techIds.map(tagLabel).join(" + ") + "</b> 계열로 분류했습니다." : "판매 페이지만으로는 작용 기전을 확인할 수 없습니다.") + " 효능 문구는 옮기지 않습니다.</p>" +
+      block("기술 분류", '<div class="specs">' +
+        '<div class="spec"><span class="k">확인된 기술</span><span class="v">' + (d.techIds.length ? chips(d.techIds) : na("없음")) + '</span><span><span class="badge">T6</span></span></div>' +
+        '<div class="spec"><span class="k">확인 필요</span><span class="v">' + (cand.length ? cand.map(function (t) { return '<span class="chip chip--cand f-' + familyOf(t) + '">' + esc(tagLabel(t)) + "?</span>"; }).join(" ") : '<span class="caption">없음</span>') + "</span><span></span></div>" +
+        '<div class="spec"><span class="k">판매 페이지 표기</span><span class="v" style="font-family:var(--sans)">' + esc(d.listingNote || "") + "</span><span></span></div></div>" +
+        '<p class="caption">출처: 글로우픽 제품 페이지의 판매처 설명 (T6 광고성 설명). \'확인 필요\'는 모드 이름만 있고 기술명이 없어 제조사 상세 페이지 · 설명서로 확인해야 하는 후보입니다.</p>') +
       block("기술 사양", '<div class="specs">' +
         '<div class="spec"><span class="k">제조사 기술 명칭</span><span class="v">' + (d.makerTechName ? esc(d.makerTechName) : na()) + "</span><span></span></div>" + specs + "</div>" +
         '<p class="caption">모든 값은 물리량 · 단위 · 측정 조건 · 출처 등급과 함께 저장됩니다. 공개되지 않은 값은 추정하지 않습니다.</p>') +
@@ -268,22 +284,24 @@
         '<p class="caption">기술 계열의 일반적인 주의사항 (제품 지침이 우선): ' + esc(safety.join(" · ")) + "</p>") +
       block("허가 · 인증", "<p>" + na("확인 필요") + ' <span class="caption">공산품 / 의료기기 등급과 허가 목적을 규제기관 문서(T1)로 확인해 기재합니다.</span></p>') +
       block("근거", '<div class="specs"><div class="spec"><span class="k">독립 연구 (T2)</span><span class="v">' + na() + '</span><span></span></div><div class="spec"><span class="k">제조사 인체적용시험 (T4)</span><span class="v">' + na() + "</span><span></span></div></div>") +
-      block("비용", '<div class="specs">' + ["정가", "확인된 판매가 (확인일)", "소모품 비용", "보증기간"].map(function (k) { return '<div class="spec"><span class="k">' + k + '</span><span class="v">' + na() + "</span><span></span></div>"; }).join("") + "</div>") +
+      block("비용", '<div class="specs">' +
+        '<div class="spec"><span class="k">글로우픽 표기가</span><span class="v">' + (g.price ? won0(g.price) + ' <span class="caption">' + esc(g.observedAt) + " 조회</span>" : na()) + "</span><span></span></div>" +
+        ["실구매가 (채널 · 날짜)", "소모품 비용", "보증기간"].map(function (k) { return '<div class="spec"><span class="k">' + k + '</span><span class="v">' + na() + "</span><span></span></div>"; }).join("") + "</div>") +
       block("HOME → CLINIC · 같은 기술 계열의 전문 시술", related.length
         ? '<div class="grid">' + related.map(treatmentCard).join("") + '</div><p class="note">같은 계열이라도 출력, 표적 깊이, 허가 목적, 시행 주체가 다릅니다. 이 연결은 대체 가능성을 뜻하지 않습니다.</p>'
         : '<p class="caption">이 기술 계열과 직접 대응하는 전문 시술 레코드가 아직 없습니다.</p>') +
       (sameTech.length ? block("같은 기술을 쓰는 다른 디바이스", '<div class="grid">' + sameTech.map(deviceCard).join("") + "</div>") : "") +
-      block("정보 출처", "<p>" + na("출처 미입력") + "</p>");
+      block("정보 출처", g.url ? '<p><a href="' + g.url + '" target="_blank" rel="noopener">글로우픽 제품 페이지</a> <span class="caption">순위 · 표기가 · 판매처 설명 (' + esc(g.observedAt) + ' 조회). 제조사 공식 스펙(T5)은 미입력</span></p>' : "<p>" + na("출처 미입력") + "</p>");
 
     return '<a class="back" href="#device">← Device</a><div class="split detail"><div>' +
-      '<p class="eyebrow">' + esc(d.brand) + " · " + esc(d.form) + "</p><h1>" + esc(d.name) + "</h1>" + chips(d.techIds) + body + "</div>" +
-      aside([["레코드 상태", statusBadge(d.status)], ["기술 계열", chips(d.techIds)], ["마지막 검증일", na("검증 전")]], "device:" + d.id) + "</div>";
+      '<p class="eyebrow">' + esc(d.brand) + " · " + esc(d.form) + "</p><h1>" + esc(d.name) + "</h1>" + '<p class="sub">' + esc(d.purpose || "") + "</p>" + body + "</div>" +
+      aside([["글로우픽 순위", g.rank ? "#" + g.rank + ' <span class="caption">뷰티 디바이스 · ' + esc(g.observedAt) + "</span>" : '<span class="caption">순위 외 주요 제품</span>'], ["레코드 상태", statusBadge(d.status)], ["기술 계열", d.techIds.length ? chips(d.techIds) : na("확인 필요")], ["마지막 검증일", na("검증 전")]], "device:" + d.id) + "</div>";
   }
 
   // ── 페이지: 시술 ──────────────────────────────────
   function pageClinic() {
     return banner("assets/clinic-banner.webp", "곡선형 벽과 라벤더 유리 파티션이 있는 피부과 대기 공간") + head("CLINIC", "피부과 시술 백과", "상품명이 아니라 작용 기전과 성분으로 시술을 이해하도록 돕습니다. 시술 추천 · 진단 · 개인별 치료 계획은 제공하지 않습니다.") +
-      ["energy", "injectable", "surface"].map(function (k) {
+      ["energy", "aesthetic", "injectable", "surface"].map(function (k) {
         var items = D.treatments.filter(function (t) { return t.kind === k; });
         return '<div class="group-title"><h2>' + KIND_LABEL[k] + '</h2><span class="caption">' + KIND_KO[k] + " · " + items.length + "</span></div>" +
           '<div class="grid">' + items.map(treatmentCard).join("") + "</div>";
@@ -297,8 +315,8 @@
   function pageTreatment(id) {
     var t = byId(D.treatments, id);
     if (!t) return notFound();
-    var homeTechs = t.techIds.filter(function (x) { return HOME_FAMILIES.indexOf(familyOf(x)) > -1 && byId(D.techs, x); });
-    var homeBridgeTechs = uniq(homeTechs.concat(homeTechs.indexOf("hifu") > -1 ? ["ultrasound"] : []));
+    var homeBridgeTechs = (D.taxonomy.bridge || []).filter(function (b) { return b.clinic.indexOf(t.id) > -1; }).map(function (b) { return b.tech; });
+    var homeTechs = homeBridgeTechs;
     var devices = D.devices.filter(function (d) { return d.techIds.some(function (x) { return homeBridgeTechs.indexOf(x) > -1; }); });
     var similar = t.similar.map(function (s) { return byId(D.treatments, s); }).filter(Boolean);
 
@@ -386,13 +404,14 @@
     var ents = sel.map(function (k) { return k ? entity(k) : null; }).filter(Boolean);
 
     return head("COMPARE", "비교", "제품 ↔ 제품, 제품 ↔ 시술, 시술 ↔ 시술. 같은 기준의 항목만 나란히 놓고, 비교할 수 없는 것은 왜 비교하지 않는지 알려 드립니다.") +
+      '<details class="match-wrap" open><summary>홈 디바이스 기술 ↔ 피부과 · 관리실 대응표</summary>' + bridgeTable() + '<p class="caption">같은 원리 계열을 보여 줄 뿐, 홈 디바이스가 시술을 대체한다는 뜻이 아닙니다.</p></details>' +
       '<div class="pickers">' + slots + "</div>" +
-      (ents.length >= 2 ? compareTable(ents) : '<p class="empty">두 개 이상 선택하면 비교표가 나타납니다. 예: 써마지 ↔ 올리지오, 샘플 A ↔ 써마지</p>') +
+      (ents.length >= 2 ? compareTable(ents) : '<p class="empty">두 개 이상 선택하면 비교표가 나타납니다. 예: 써마지 ↔ 올리지오, 에이지알 유쎄라 딥 샷 ↔ 써마지</p>') +
       '<section class="section" id="calc"><p class="eyebrow">Beauty Economics</p><h2 style="margin:6px 0 8px">단순 구매비용 계산기</h2>' +
       '<p class="caption" style="margin-bottom:16px">직접 입력한 금액으로 단순 구매비용만 비교합니다. RE:LEV는 실제 제품 · 시술 가격을 넣어 두지 않았습니다.</p>' +
       calcHtml() + "</section>";
   }
-  function techsOf(e) { return e.rec.techIds; }
+  function techsOf(e) { return e.rec.techIds.length ? e.rec.techIds : (e.rec.techCandidates || []); }
   function compareTable(ents) {
     var mixed = uniq(ents.map(function (e) { return e.kind; })).length > 1;
     var shared = ents.map(techsOf).reduce(function (a, b) { return a.filter(function (x) { return b.indexOf(x) > -1; }); });
@@ -404,7 +423,7 @@
       ["적용 층 (일반 설명)", function (e) { return esc(uniq(techsOf(e).map(function (t) { var x = byId(D.techs, t); return x ? x.layer : null; }).filter(Boolean)).join(" / ")) || na(); }, true],
       ["시행 주체", function (e) { return e.kind === "device" ? "사용자 본인 · 제조사 지침" : "의료인"; }],
       ["허가 · 인증", function () { return na("확인 필요"); }, true],
-      ["가격", function (e) { return na(e.kind === "device" ? "미입력" : "조사 전"); }, true],
+      ["가격", function (e) { var g = e.rec.glowpick; return g && g.price ? won0(g.price) + ' <span class="caption">글로우픽 표기 · ' + g.observedAt + "</span>" : na(e.kind === "device" ? "미입력" : "조사 전"); }, true],
       ["회복", function (e) { return e.kind === "device" ? '<span class="caption">해당 없음 / 제조사 지침</span>' : "개인차 · 의료진 안내"; }],
       ["알려진 위험", function (e) {
         if (e.kind === "clinic") return list(e.rec.risks);
@@ -682,7 +701,7 @@
   function load(name) { return fetch("data/" + name + ".json").then(function (r) { if (!r.ok) throw new Error(name); return r.json(); }); }
   Promise.all([load("taxonomy"), load("technologies"), load("treatments"), load("devices")]).then(function (r) {
     document.querySelectorAll("[data-logo]").forEach(function (el) { el.innerHTML = logoSvg("logo-svg"); });
-    D.taxonomy = r[0]; D.techs = r[1]; D.treatments = r[2]; D.devices = r[3];
+    D.taxonomy = r[0]; HOME_FAMILIES = r[0].homeFamilies || []; D.techs = r[1]; D.treatments = r[2]; D.devices = r[3];
     route();
   }).catch(function () {
     view.innerHTML = '<p class="empty">데이터를 불러오지 못했습니다. 로컬에서 열 때는 저장소 루트에서 <code>python3 -m http.server</code>로 실행하세요.</p>';

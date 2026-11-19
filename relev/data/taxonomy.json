@@ -1,36 +1,295 @@
 {
-  "families": [
-    { "id": "electrical", "label": "ELECTRICAL", "ko": "전기 자극", "tags": ["ems", "microcurrent", "electroporation", "iontophoresis"] },
-    { "id": "rf", "label": "RADIO FREQUENCY", "ko": "고주파", "tags": ["rf"] },
-    { "id": "ultrasound", "label": "ULTRASOUND", "ko": "초음파", "tags": ["ultrasound", "hifu"] },
-    { "id": "light", "label": "LIGHT", "ko": "빛", "tags": ["led", "ipl", "laser"] },
-    { "id": "other", "label": "OTHER", "ko": "기타", "tags": ["plasma", "cooling", "heating", "vibration", "suction"] },
-    { "id": "injectable", "label": "INJECTABLE", "ko": "주입형", "tags": ["ha-filler", "biostimulator", "pn-pdrn", "toxin"] },
-    { "id": "surface", "label": "SURFACE", "ko": "표면 관리", "tags": ["chemical-peel", "microneedle"] }
-  ],
-  "tiers": [
-    { "id": "T1", "label": "규제기관 · 공식 허가 문서" },
-    { "id": "T2", "label": "동료 검토 학술 논문" },
-    { "id": "T3", "label": "독립 시험기관 자료" },
-    { "id": "T4", "label": "제조사 인체적용시험" },
-    { "id": "T5", "label": "제조사 공식 스펙" },
-    { "id": "T6", "label": "광고성 설명" },
-    { "id": "T7", "label": "사용자 경험" }
-  ],
-  "status": {
-    "draft": "초안 · 검수 전",
-    "reviewed": "편집 검수 완료",
-    "expert-reviewed": "전문가 검수 완료",
-    "sample": "샘플 자리표시 · 실제 제품 아님"
+ "families": [
+  {
+   "id": "ems",
+   "label": "EMS",
+   "ko": "근육 전기 자극",
+   "tags": [
+    "ems"
+   ]
   },
-  "specFields": [
-    { "key": "frequency", "label": "주파수", "quantity": "frequency" },
-    { "key": "wavelength", "label": "파장", "quantity": "wavelength" },
-    { "key": "current", "label": "전류", "quantity": "current" },
-    { "key": "power", "label": "출력", "quantity": "power" },
-    { "key": "energyDensity", "label": "에너지 밀도", "quantity": "energyDensity" },
-    { "key": "area", "label": "접촉 · 조사 면적", "quantity": "area" },
-    { "key": "modes", "label": "작동 모드", "quantity": "count" },
-    { "key": "levels", "label": "강도 단계", "quantity": "count" }
-  ]
+  {
+   "id": "microcurrent",
+   "label": "MICROCURRENT",
+   "ko": "미세전류",
+   "tags": [
+    "microcurrent"
+   ]
+  },
+  {
+   "id": "electroporation",
+   "label": "ELECTROPORATION",
+   "ko": "일렉트로포레이션",
+   "tags": [
+    "electroporation",
+    "airshot"
+   ]
+  },
+  {
+   "id": "galvanic",
+   "label": "GALVANIC",
+   "ko": "갈바닉 · 이온토포레시스",
+   "tags": [
+    "iontophoresis"
+   ]
+  },
+  {
+   "id": "rf",
+   "label": "RF",
+   "ko": "고주파",
+   "tags": [
+    "rf"
+   ]
+  },
+  {
+   "id": "ultrasound",
+   "label": "ULTRASOUND",
+   "ko": "초음파 · 물방울(LDM 계열)",
+   "tags": [
+    "ultrasound",
+    "ultrasound-multi"
+   ]
+  },
+  {
+   "id": "hifu",
+   "label": "HIFU",
+   "ko": "집속 초음파",
+   "tags": [
+    "hifu"
+   ]
+  },
+  {
+   "id": "led",
+   "label": "LED",
+   "ko": "LED 광원",
+   "tags": [
+    "led"
+   ]
+  },
+  {
+   "id": "ipl",
+   "label": "IPL · LASER",
+   "ko": "IPL · 레이저",
+   "tags": [
+    "ipl",
+    "laser"
+   ]
+  },
+  {
+   "id": "cooling",
+   "label": "COOLING",
+   "ko": "쿨링 · 크라이오",
+   "tags": [
+    "cooling"
+   ]
+  },
+  {
+   "id": "other",
+   "label": "VIBRATION · ETC",
+   "ko": "진동 · 온열 · 클렌징",
+   "tags": [
+    "vibration",
+    "heating"
+   ]
+  },
+  {
+   "id": "injectable",
+   "label": "INJECTABLE",
+   "ko": "주입형",
+   "tags": [
+    "ha-filler",
+    "biostimulator",
+    "pn-pdrn",
+    "toxin"
+   ]
+  },
+  {
+   "id": "surface",
+   "label": "SURFACE",
+   "ko": "표면 관리",
+   "tags": [
+    "chemical-peel",
+    "microneedle"
+   ]
+  }
+ ],
+ "tiers": [
+  {
+   "id": "T1",
+   "label": "규제기관 · 공식 허가 문서"
+  },
+  {
+   "id": "T2",
+   "label": "동료 검토 학술 논문"
+  },
+  {
+   "id": "T3",
+   "label": "독립 시험기관 자료"
+  },
+  {
+   "id": "T4",
+   "label": "제조사 인체적용시험"
+  },
+  {
+   "id": "T5",
+   "label": "제조사 공식 스펙"
+  },
+  {
+   "id": "T6",
+   "label": "광고성 설명"
+  },
+  {
+   "id": "T7",
+   "label": "사용자 경험"
+  }
+ ],
+ "status": {
+  "draft": "초안 · 검수 전",
+  "reviewed": "편집 검수 완료",
+  "expert-reviewed": "전문가 검수 완료",
+  "sample": "샘플 자리표시 · 실제 제품 아님"
+ },
+ "specFields": [
+  {
+   "key": "frequency",
+   "label": "주파수",
+   "quantity": "frequency"
+  },
+  {
+   "key": "wavelength",
+   "label": "파장",
+   "quantity": "wavelength"
+  },
+  {
+   "key": "current",
+   "label": "전류",
+   "quantity": "current"
+  },
+  {
+   "key": "power",
+   "label": "출력",
+   "quantity": "power"
+  },
+  {
+   "key": "energyDensity",
+   "label": "에너지 밀도",
+   "quantity": "energyDensity"
+  },
+  {
+   "key": "area",
+   "label": "접촉 · 조사 면적",
+   "quantity": "area"
+  },
+  {
+   "key": "modes",
+   "label": "작동 모드",
+   "quantity": "count"
+  },
+  {
+   "key": "levels",
+   "label": "강도 단계",
+   "quantity": "count"
+  }
+ ],
+ "homeFamilies": [
+  "ems",
+  "microcurrent",
+  "electroporation",
+  "galvanic",
+  "rf",
+  "ultrasound",
+  "hifu",
+  "led",
+  "ipl",
+  "cooling",
+  "other"
+ ],
+ "bridge": [
+  {
+   "tech": "ems",
+   "clinic": [
+    "emface"
+   ],
+   "note": "엠페이스는 RF와 근육 전기 자극을 함께 쓰는 의료기기. 홈 EMS와 출력 · 전극 · 허가 범위가 다름"
+  },
+  {
+   "tech": "microcurrent",
+   "clinic": [
+    "microcurrent-care"
+   ],
+   "note": "피부과보다 피부관리실 관리로 주로 소개됨. 피코토닝은 레이저라 다른 계열"
+  },
+  {
+   "tech": "electroporation",
+   "clinic": [
+    "ep-care",
+    "rejuran"
+   ],
+   "note": "무침 도입 관리와 같은 원리 계열. 주사형 스킨부스터는 목적이 겹칠 뿐 전달 방식이 다름"
+  },
+  {
+   "tech": "airshot",
+   "clinic": [
+    "ep-care"
+   ],
+   "note": "제조사 고유 기술명. 원리 · 파라미터 확인 전까지 일렉트로포레이션과 동일시하지 않음"
+  },
+  {
+   "tech": "iontophoresis",
+   "clinic": [
+    "ionto-care"
+   ],
+   "note": "관리실의 이온 도입 관리와 같은 계열"
+  },
+  {
+   "tech": "rf",
+   "clinic": [
+    "thermage",
+    "oligio"
+   ],
+   "note": "같은 RF 계열이지만 홈 디바이스는 출력이 훨씬 낮고 전극 구조 · 허가 목적이 다름"
+  },
+  {
+   "tech": "ultrasound-multi",
+   "clinic": [
+    "ldm"
+   ],
+   "note": "'물방울 초음파'로 마케팅되는 다중 주파수 초음파. LDM은 특정 제조사의 기술명"
+  },
+  {
+   "tech": "hifu",
+   "clinic": [
+    "ulthera",
+    "shurink"
+   ],
+   "note": "홈 HIFU는 출력 · 초점 깊이 · 허가 범위가 전문 장비와 다름"
+  },
+  {
+   "tech": "led",
+   "clinic": [
+    "led-clinic"
+   ],
+   "note": "피부과 LED 광치료와 같은 광원 계열. 파장 · 광출력 밀도 · 조사 시간이 다름"
+  },
+  {
+   "tech": "ipl",
+   "clinic": [
+    "laser-hair",
+    "ipl-clinic"
+   ],
+   "note": "가정용 IPL은 주로 제모 목적. 의료용 IPL · 레이저와 목적 · 출력이 다름"
+  },
+  {
+   "tech": "cooling",
+   "clinic": [
+    "cryo-care"
+   ],
+   "note": "시술 후 진정 · 쿨링 관리와 같은 계열"
+  },
+  {
+   "tech": "vibration",
+   "clinic": [],
+   "note": "세안 · 마사지 보조. 직접 대응하는 의료 시술 없음"
+  }
+ ]
 }

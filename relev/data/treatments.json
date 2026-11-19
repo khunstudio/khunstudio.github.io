@@ -1,194 +1,510 @@
 [
-  {
-    "id": "ulthera",
-    "kind": "energy",
-    "name": "울쎄라",
-    "en": "Ulthera",
-    "product": "Ultherapy 계열 장비",
-    "maker": "Merz Aesthetics",
-    "techIds": ["hifu"],
-    "ingredients": [],
-    "mechanism": "초음파를 특정 깊이에 집속해 열 응고점을 만드는 방식으로 알려져 있다. 영상으로 조직을 보며 시술하는 방식이 특징으로 소개된다.",
-    "delivery": "집속 초음파 · 카트리지별 초점 깊이",
-    "purposes": ["리프팅 · 탄력 관리 목적 (허가 목적 확인 필요)"],
-    "risks": ["통증", "붉음 · 부기 · 멍", "드물게 신경 관련 증상 · 화상 — 의료진 설명 필요"],
-    "similar": ["shurink"],
-    "status": "draft"
-  },
-  {
-    "id": "shurink",
-    "kind": "energy",
-    "name": "슈링크",
-    "en": "Shurink",
-    "product": "Shurink 계열 장비",
-    "maker": "클래시스 (Classys)",
-    "techIds": ["hifu"],
-    "ingredients": [],
-    "mechanism": "집속 초음파(HIFU) 계열 장비로 분류된다. 초점 깊이 · 에너지 · 샷 수는 장비 버전과 설정에 따라 다르다.",
-    "delivery": "집속 초음파",
-    "purposes": ["리프팅 · 탄력 관리 목적 (허가 목적 확인 필요)"],
-    "risks": ["통증", "붉음 · 부기", "드물게 화상 · 신경 관련 증상 — 의료진 설명 필요"],
-    "similar": ["ulthera"],
-    "status": "draft"
-  },
-  {
-    "id": "thermage",
-    "kind": "energy",
-    "name": "써마지",
-    "en": "Thermage",
-    "product": "Thermage 계열 장비",
-    "maker": "Solta Medical",
-    "techIds": ["rf"],
-    "ingredients": [],
-    "mechanism": "모노폴라 RF 계열 장비로 분류된다. 시술 팁과 귀환 패드 사이로 전류가 흐르며 조직을 가열하고, 표면은 냉각하는 방식으로 소개된다.",
-    "delivery": "모노폴라 고주파 + 표면 냉각",
-    "purposes": ["탄력 관리 목적 (허가 목적 확인 필요)"],
-    "risks": ["열감 · 통증", "붉음 · 부기", "드물게 화상 · 피부 함몰 — 의료진 설명 필요"],
-    "similar": ["oligio"],
-    "status": "draft"
-  },
-  {
-    "id": "oligio",
-    "kind": "energy",
-    "name": "올리지오",
-    "en": "Oligio",
-    "product": "Oligio 계열 장비",
-    "maker": "원텍 (Wontech)",
-    "techIds": ["rf"],
-    "ingredients": [],
-    "mechanism": "모노폴라 RF 계열 장비로 분류된다. 써마지와 같은 기술 계열이지만 출력 · 팁 · 냉각 방식은 장비별로 다르다.",
-    "delivery": "모노폴라 고주파 + 표면 냉각",
-    "purposes": ["탄력 관리 목적 (허가 목적 확인 필요)"],
-    "risks": ["열감 · 통증", "붉음 · 부기", "드물게 화상 — 의료진 설명 필요"],
-    "similar": ["thermage"],
-    "status": "draft"
-  },
-  {
-    "id": "ipl-clinic",
-    "kind": "energy",
-    "name": "IPL 시술",
-    "en": "IPL Photofacial",
-    "product": "장비 다수",
-    "maker": "장비별 상이",
-    "techIds": ["ipl"],
-    "ingredients": [],
-    "mechanism": "광대역 펄스광을 필터링해 색소 · 혈관 등 표적에 열을 발생시키는 방식.",
-    "delivery": "광대역 펄스광",
-    "purposes": ["색소 · 혈관 관련 관리 (장비별 허가 목적 확인)"],
-    "risks": ["붉음 · 일시적 색소 변화", "화상 · 물집 — 의료진 설명 필요"],
-    "similar": ["laser-toning"],
-    "status": "draft"
-  },
-  {
-    "id": "laser-toning",
-    "kind": "energy",
-    "name": "레이저 토닝",
-    "en": "Laser Toning",
-    "product": "장비 다수 (Nd:YAG 등)",
-    "maker": "장비별 상이",
-    "techIds": ["laser"],
-    "ingredients": [],
-    "mechanism": "낮은 에너지의 레이저를 넓게 반복 조사하는 방식으로 소개된다. 파장 · 펄스 폭 · 설정은 장비와 의료진에 따라 다르다.",
-    "delivery": "단일 파장 레이저",
-    "purposes": ["색소 관련 관리 (장비별 허가 목적 확인)"],
-    "risks": ["붉음", "색소 변화", "드물게 화상 — 의료진 설명 필요"],
-    "similar": ["ipl-clinic"],
-    "status": "draft"
-  },
-  {
-    "id": "ha-filler-tx",
-    "kind": "injectable",
-    "name": "히알루론산 필러",
-    "en": "HA Filler",
-    "product": "제품 다수",
-    "maker": "제품별 상이",
-    "techIds": ["ha-filler"],
-    "ingredients": ["가교 히알루론산"],
-    "mechanism": "가교 결합된 히알루론산 겔로 부피를 직접 채운다.",
-    "delivery": "주입",
-    "purposes": ["부피 보충 · 윤곽 (제품별 허가 목적 확인)"],
-    "risks": ["멍 · 부기", "혈관 관련 합병증 등 중대한 위험 — 의료진 설명 필수"],
-    "similar": ["radiesse", "sculptra"],
-    "status": "draft"
-  },
-  {
-    "id": "juvelook",
-    "kind": "injectable",
-    "name": "쥬베룩",
-    "en": "Juvelook",
-    "product": "Juvelook",
-    "maker": "바임 (Vaim)",
-    "techIds": ["biostimulator"],
-    "ingredients": ["PDLLA", "히알루론산"],
-    "mechanism": "PDLLA 기반 주입제로 분류된다. 콜라겐 생성 유도를 목표로 하는 계열로 소개된다.",
-    "delivery": "주입",
-    "purposes": ["제품별 허가 목적 확인 필요"],
-    "risks": ["부기 · 멍", "결절 가능성 — 의료진 설명 필요"],
-    "similar": ["sculptra", "radiesse"],
-    "status": "draft"
-  },
-  {
-    "id": "sculptra",
-    "kind": "injectable",
-    "name": "스컬트라",
-    "en": "Sculptra",
-    "product": "Sculptra",
-    "maker": "Galderma",
-    "techIds": ["biostimulator"],
-    "ingredients": ["PLLA"],
-    "mechanism": "PLLA(폴리-L-락트산) 기반 주입제로 분류된다. 주입 후 조직 반응을 통한 콜라겐 생성 유도를 목표로 하는 계열.",
-    "delivery": "주입",
-    "purposes": ["제품별 허가 목적 확인 필요"],
-    "risks": ["부기 · 멍", "결절 가능성 — 의료진 설명 필요"],
-    "similar": ["juvelook", "radiesse"],
-    "status": "draft"
-  },
-  {
-    "id": "radiesse",
-    "kind": "injectable",
-    "name": "레디어스",
-    "en": "Radiesse",
-    "product": "Radiesse",
-    "maker": "Merz Aesthetics",
-    "techIds": ["biostimulator"],
-    "ingredients": ["CaHA"],
-    "mechanism": "CaHA(칼슘 하이드록실아파타이트) 미세 입자를 겔 담체에 분산한 주입제로 분류된다.",
-    "delivery": "주입",
-    "purposes": ["제품별 허가 목적 확인 필요"],
-    "risks": ["부기 · 멍", "결절 가능성, 혈관 관련 위험 — 의료진 설명 필요"],
-    "similar": ["sculptra", "juvelook"],
-    "status": "draft"
-  },
-  {
-    "id": "rejuran",
-    "kind": "injectable",
-    "name": "리쥬란",
-    "en": "Rejuran",
-    "product": "Rejuran 계열",
-    "maker": "파마리서치 (PharmaResearch)",
-    "techIds": ["pn-pdrn"],
-    "ingredients": ["PN (폴리뉴클레오타이드)"],
-    "mechanism": "PN 성분 기반 주입제로 분류된다. 제품 라인별 농도 · 허가 구분은 별도 확인이 필요하다.",
-    "delivery": "주입",
-    "purposes": ["제품별 허가 목적 확인 필요"],
-    "risks": ["주입 통증 · 부기 · 멍 — 의료진 설명 필요"],
-    "similar": [],
-    "status": "draft"
-  },
-  {
-    "id": "microneedle",
-    "kind": "surface",
-    "name": "미세침 시술",
-    "en": "Microneedling",
-    "product": "장비 · 방식 다수",
-    "maker": "장비별 상이",
-    "techIds": ["microneedle", "rf"],
-    "ingredients": [],
-    "mechanism": "미세한 바늘로 피부에 작은 통로를 만드는 방식. RF를 결합한 장비도 있어 복수 기술 태그를 적용한다.",
-    "delivery": "기계적 미세 천공 (일부 RF 결합)",
-    "purposes": ["피부결 관련 관리 (장비별 허가 목적 확인)"],
-    "risks": ["붉음 · 점상 출혈", "감염 · 색소 변화 — 의료진 설명 필요"],
-    "similar": [],
-    "status": "draft"
-  }
+ {
+  "id": "ulthera",
+  "kind": "energy",
+  "name": "울쎄라",
+  "en": "Ulthera",
+  "product": "Ultherapy 계열 장비",
+  "maker": "Merz Aesthetics",
+  "techIds": [
+   "hifu"
+  ],
+  "ingredients": [],
+  "mechanism": "초음파를 특정 깊이에 집속해 열 응고점을 만드는 방식으로 알려져 있다. 영상으로 조직을 보며 시술하는 방식이 특징으로 소개된다.",
+  "delivery": "집속 초음파 · 카트리지별 초점 깊이",
+  "purposes": [
+   "리프팅 · 탄력 관리 목적 (허가 목적 확인 필요)"
+  ],
+  "risks": [
+   "통증",
+   "붉음 · 부기 · 멍",
+   "드물게 신경 관련 증상 · 화상 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "shurink"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "shurink",
+  "kind": "energy",
+  "name": "슈링크",
+  "en": "Shurink",
+  "product": "Shurink 계열 장비",
+  "maker": "클래시스 (Classys)",
+  "techIds": [
+   "hifu"
+  ],
+  "ingredients": [],
+  "mechanism": "집속 초음파(HIFU) 계열 장비로 분류된다. 초점 깊이 · 에너지 · 샷 수는 장비 버전과 설정에 따라 다르다.",
+  "delivery": "집속 초음파",
+  "purposes": [
+   "리프팅 · 탄력 관리 목적 (허가 목적 확인 필요)"
+  ],
+  "risks": [
+   "통증",
+   "붉음 · 부기",
+   "드물게 화상 · 신경 관련 증상 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "ulthera"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "thermage",
+  "kind": "energy",
+  "name": "써마지",
+  "en": "Thermage",
+  "product": "Thermage 계열 장비",
+  "maker": "Solta Medical",
+  "techIds": [
+   "rf"
+  ],
+  "ingredients": [],
+  "mechanism": "모노폴라 RF 계열 장비로 분류된다. 시술 팁과 귀환 패드 사이로 전류가 흐르며 조직을 가열하고, 표면은 냉각하는 방식으로 소개된다.",
+  "delivery": "모노폴라 고주파 + 표면 냉각",
+  "purposes": [
+   "탄력 관리 목적 (허가 목적 확인 필요)"
+  ],
+  "risks": [
+   "열감 · 통증",
+   "붉음 · 부기",
+   "드물게 화상 · 피부 함몰 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "oligio"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "oligio",
+  "kind": "energy",
+  "name": "올리지오",
+  "en": "Oligio",
+  "product": "Oligio 계열 장비",
+  "maker": "원텍 (Wontech)",
+  "techIds": [
+   "rf"
+  ],
+  "ingredients": [],
+  "mechanism": "모노폴라 RF 계열 장비로 분류된다. 써마지와 같은 기술 계열이지만 출력 · 팁 · 냉각 방식은 장비별로 다르다.",
+  "delivery": "모노폴라 고주파 + 표면 냉각",
+  "purposes": [
+   "탄력 관리 목적 (허가 목적 확인 필요)"
+  ],
+  "risks": [
+   "열감 · 통증",
+   "붉음 · 부기",
+   "드물게 화상 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "thermage"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "ipl-clinic",
+  "kind": "energy",
+  "name": "IPL 시술",
+  "en": "IPL Photofacial",
+  "product": "장비 다수",
+  "maker": "장비별 상이",
+  "techIds": [
+   "ipl"
+  ],
+  "ingredients": [],
+  "mechanism": "광대역 펄스광을 필터링해 색소 · 혈관 등 표적에 열을 발생시키는 방식.",
+  "delivery": "광대역 펄스광",
+  "purposes": [
+   "색소 · 혈관 관련 관리 (장비별 허가 목적 확인)"
+  ],
+  "risks": [
+   "붉음 · 일시적 색소 변화",
+   "화상 · 물집 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "laser-toning"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "laser-toning",
+  "kind": "energy",
+  "name": "레이저 토닝",
+  "en": "Laser Toning",
+  "product": "장비 다수 (Nd:YAG 등)",
+  "maker": "장비별 상이",
+  "techIds": [
+   "laser"
+  ],
+  "ingredients": [],
+  "mechanism": "낮은 에너지의 레이저를 넓게 반복 조사하는 방식으로 소개된다. 파장 · 펄스 폭 · 설정은 장비와 의료진에 따라 다르다.",
+  "delivery": "단일 파장 레이저",
+  "purposes": [
+   "색소 관련 관리 (장비별 허가 목적 확인)"
+  ],
+  "risks": [
+   "붉음",
+   "색소 변화",
+   "드물게 화상 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "ipl-clinic"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "ha-filler-tx",
+  "kind": "injectable",
+  "name": "히알루론산 필러",
+  "en": "HA Filler",
+  "product": "제품 다수",
+  "maker": "제품별 상이",
+  "techIds": [
+   "ha-filler"
+  ],
+  "ingredients": [
+   "가교 히알루론산"
+  ],
+  "mechanism": "가교 결합된 히알루론산 겔로 부피를 직접 채운다.",
+  "delivery": "주입",
+  "purposes": [
+   "부피 보충 · 윤곽 (제품별 허가 목적 확인)"
+  ],
+  "risks": [
+   "멍 · 부기",
+   "혈관 관련 합병증 등 중대한 위험 — 의료진 설명 필수"
+  ],
+  "similar": [
+   "radiesse",
+   "sculptra"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "juvelook",
+  "kind": "injectable",
+  "name": "쥬베룩",
+  "en": "Juvelook",
+  "product": "Juvelook",
+  "maker": "바임 (Vaim)",
+  "techIds": [
+   "biostimulator"
+  ],
+  "ingredients": [
+   "PDLLA",
+   "히알루론산"
+  ],
+  "mechanism": "PDLLA 기반 주입제로 분류된다. 콜라겐 생성 유도를 목표로 하는 계열로 소개된다.",
+  "delivery": "주입",
+  "purposes": [
+   "제품별 허가 목적 확인 필요"
+  ],
+  "risks": [
+   "부기 · 멍",
+   "결절 가능성 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "sculptra",
+   "radiesse"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "sculptra",
+  "kind": "injectable",
+  "name": "스컬트라",
+  "en": "Sculptra",
+  "product": "Sculptra",
+  "maker": "Galderma",
+  "techIds": [
+   "biostimulator"
+  ],
+  "ingredients": [
+   "PLLA"
+  ],
+  "mechanism": "PLLA(폴리-L-락트산) 기반 주입제로 분류된다. 주입 후 조직 반응을 통한 콜라겐 생성 유도를 목표로 하는 계열.",
+  "delivery": "주입",
+  "purposes": [
+   "제품별 허가 목적 확인 필요"
+  ],
+  "risks": [
+   "부기 · 멍",
+   "결절 가능성 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "juvelook",
+   "radiesse"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "radiesse",
+  "kind": "injectable",
+  "name": "레디어스",
+  "en": "Radiesse",
+  "product": "Radiesse",
+  "maker": "Merz Aesthetics",
+  "techIds": [
+   "biostimulator"
+  ],
+  "ingredients": [
+   "CaHA"
+  ],
+  "mechanism": "CaHA(칼슘 하이드록실아파타이트) 미세 입자를 겔 담체에 분산한 주입제로 분류된다.",
+  "delivery": "주입",
+  "purposes": [
+   "제품별 허가 목적 확인 필요"
+  ],
+  "risks": [
+   "부기 · 멍",
+   "결절 가능성, 혈관 관련 위험 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "sculptra",
+   "juvelook"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "rejuran",
+  "kind": "injectable",
+  "name": "리쥬란",
+  "en": "Rejuran",
+  "product": "Rejuran 계열",
+  "maker": "파마리서치 (PharmaResearch)",
+  "techIds": [
+   "pn-pdrn"
+  ],
+  "ingredients": [
+   "PN (폴리뉴클레오타이드)"
+  ],
+  "mechanism": "PN 성분 기반 주입제로 분류된다. 제품 라인별 농도 · 허가 구분은 별도 확인이 필요하다.",
+  "delivery": "주입",
+  "purposes": [
+   "제품별 허가 목적 확인 필요"
+  ],
+  "risks": [
+   "주입 통증 · 부기 · 멍 — 의료진 설명 필요"
+  ],
+  "similar": [],
+  "status": "draft"
+ },
+ {
+  "id": "microneedle",
+  "kind": "surface",
+  "name": "미세침 시술",
+  "en": "Microneedling",
+  "product": "장비 · 방식 다수",
+  "maker": "장비별 상이",
+  "techIds": [
+   "microneedle",
+   "rf"
+  ],
+  "ingredients": [],
+  "mechanism": "미세한 바늘로 피부에 작은 통로를 만드는 방식. RF를 결합한 장비도 있어 복수 기술 태그를 적용한다.",
+  "delivery": "기계적 미세 천공 (일부 RF 결합)",
+  "purposes": [
+   "피부결 관련 관리 (장비별 허가 목적 확인)"
+  ],
+  "risks": [
+   "붉음 · 점상 출혈",
+   "감염 · 색소 변화 — 의료진 설명 필요"
+  ],
+  "similar": [],
+  "status": "draft"
+ },
+ {
+  "id": "emface",
+  "kind": "energy",
+  "name": "엠페이스",
+  "en": "EMFACE",
+  "product": "EMFACE",
+  "maker": "BTL",
+  "techIds": [
+   "rf",
+   "ems"
+  ],
+  "ingredients": [],
+  "mechanism": "고주파(RF)와 근육 전기 자극을 동시에 전달하는 장비로 소개된다. 홈 EMS와 출력 · 전극 · 허가 범위가 다르다.",
+  "delivery": "패드 부착형 · RF + 근육 전기 자극",
+  "purposes": [
+   "탄력 관리 목적 (허가 목적 확인 필요)"
+  ],
+  "risks": [
+   "열감 · 붉음",
+   "근육 수축 불편감 — 의료진 설명 필요"
+  ],
+  "similar": [
+   "thermage"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "ldm",
+  "kind": "energy",
+  "name": "LDM 물방울 리프팅",
+  "en": "LDM (Local Dynamic Micro-massage)",
+  "product": "LDM 장비",
+  "maker": "Wellcomet (LDM 기술)",
+  "techIds": [
+   "ultrasound-multi"
+  ],
+  "ingredients": [],
+  "mechanism": "서로 다른 주파수의 초음파를 빠르게 교차 조사하는 방식으로 소개된다. 피부과와 피부관리실 모두에서 쓰인다.",
+  "delivery": "다중 주파수 초음파",
+  "purposes": [
+   "보습 · 진정 · 탄력 관리 목적 (허가 목적 확인 필요)"
+  ],
+  "risks": [
+   "열감 · 일시적 붉음"
+  ],
+  "similar": [
+   "ulthera"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "led-clinic",
+  "kind": "energy",
+  "name": "피부과 LED 광치료",
+  "en": "Clinical LED Therapy",
+  "product": "장비 다수",
+  "maker": "장비별 상이",
+  "techIds": [
+   "led"
+  ],
+  "ingredients": [],
+  "mechanism": "특정 파장대의 LED 빛을 넓은 면적에 조사한다. 홈 LED 마스크와 같은 광원 계열이지만 파장 구성 · 광출력 밀도 · 조사 시간이 다르다.",
+  "delivery": "LED 광원 조사",
+  "purposes": [
+   "진정 · 시술 후 관리 등 (장비별 허가 목적 확인)"
+  ],
+  "risks": [
+   "눈부심 — 보호 안경 착용",
+   "광과민 약물 복용 시 상담"
+  ],
+  "similar": [
+   "ipl-clinic"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "ep-care",
+  "kind": "energy",
+  "name": "일렉트로포레이션 도입 관리",
+  "en": "Electroporation Delivery",
+  "product": "장비 다수",
+  "maker": "장비별 상이",
+  "techIds": [
+   "electroporation"
+  ],
+  "ingredients": [],
+  "mechanism": "전기 펄스로 바르는 성분의 전달을 돕는다고 소개되는 무침 도입 관리. 주사형 스킨부스터와 목적은 겹칠 수 있지만 전달 방식이 다르다.",
+  "delivery": "무침 · 전기 펄스",
+  "purposes": [
+   "스킨케어 성분 도입 관리"
+  ],
+  "risks": [
+   "따끔거림 · 붉음",
+   "함께 쓰는 성분에 대한 자극"
+  ],
+  "similar": [
+   "rejuran"
+  ],
+  "status": "draft"
+ },
+ {
+  "id": "ionto-care",
+  "kind": "aesthetic",
+  "name": "이온토포레시스 관리",
+  "en": "Iontophoresis (Galvanic) Care",
+  "product": "장비 다수",
+  "maker": "장비별 상이",
+  "techIds": [
+   "iontophoresis"
+  ],
+  "ingredients": [],
+  "mechanism": "약한 직류 전류로 전하를 띤 성분의 이동을 돕는 관리. 주로 피부관리실에서 쓰인다.",
+  "delivery": "직류 전류 · 이온 도입",
+  "purposes": [
+   "성분 도입 · 클렌징 관리"
+  ],
+  "risks": [
+   "전극 접촉 부위 자극"
+  ],
+  "similar": [],
+  "status": "draft"
+ },
+ {
+  "id": "microcurrent-care",
+  "kind": "aesthetic",
+  "name": "미세전류 관리",
+  "en": "Microcurrent Facial",
+  "product": "장비 다수",
+  "maker": "장비별 상이",
+  "techIds": [
+   "microcurrent"
+  ],
+  "ingredients": [],
+  "mechanism": "µA 단위의 약한 전류를 쓰는 관리로, 피부과보다 피부관리실 · 에스테틱에서 주로 소개된다. 피코토닝은 피코초 레이저로 다른 계열이다.",
+  "delivery": "미세전류",
+  "purposes": [
+   "탄력 · 리프팅 관리 목적으로 소개됨 (근거 확인 필요)"
+  ],
+  "risks": [
+   "이식형 전자기기 보유자 주의"
+  ],
+  "similar": [],
+  "status": "draft"
+ },
+ {
+  "id": "cryo-care",
+  "kind": "aesthetic",
+  "name": "크라이오 · 쿨링 진정 관리",
+  "en": "Cryo / Cooling Care",
+  "product": "장비 다수",
+  "maker": "장비별 상이",
+  "techIds": [
+   "cooling"
+  ],
+  "ingredients": [],
+  "mechanism": "차갑게 만든 헤드나 냉각 가스로 피부 온도를 낮춰 진정감을 주는 관리. 레이저 · RF 시술 후 진정 단계로 자주 쓰인다.",
+  "delivery": "냉각",
+  "purposes": [
+   "시술 후 진정 · 열감 관리"
+  ],
+  "risks": [
+   "과냉각에 의한 동상 · 자극"
+  ],
+  "similar": [],
+  "status": "draft"
+ },
+ {
+  "id": "laser-hair",
+  "kind": "energy",
+  "name": "레이저 제모",
+  "en": "Laser Hair Removal",
+  "product": "장비 다수 (다이오드 · 알렉산드라이트 등)",
+  "maker": "장비별 상이",
+  "techIds": [
+   "laser",
+   "ipl"
+  ],
+  "ingredients": [],
+  "mechanism": "모낭의 멜라닌에 빛을 흡수시켜 열을 발생시키는 방식. 가정용 IPL 제모기와 같은 원리 계열이지만 출력과 시행 주체가 다르다.",
+  "delivery": "레이저 · IPL",
+  "purposes": [
+   "제모"
+  ],
+  "risks": [
+   "화상 · 색소 변화",
+   "피부톤 · 문신 부위 주의 — 의료진 판단"
+  ],
+  "similar": [
+   "ipl-clinic"
+  ],
+  "status": "draft"
+ }
 ]
