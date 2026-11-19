@@ -182,7 +182,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "fragrance-start", area: "style", modes: ["next", "everyday"], kicker: "STYLE · SCENT",
     title: "향수 처음 고를 때, 덜 실패하는 법",
     summary: "시향지 말고 피부에. 30분 뒤 냄새로 고르고, 뿌리는 건 두 번이면 충분해요.",
-    read: 3, updated: U, review: "draft",
+    read: 3, updated: U, review: "draft", image: "perfume",
     sections: [
       { h: "고르기", list: ["한 번에 세 개 이상 맡지 않기", "손목에 뿌리고 30분 뒤 다시 맡기", "처음엔 가볍고 깨끗한 계열이 무난해요"] },
       { h: "뿌리기", list: ["샤워 후 마른 피부에", "손목 · 목 뒤 중 두 군데, 한 번씩", "옷이 아니라 피부에"] },
@@ -246,7 +246,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "phone-night", area: "life", modes: ALL, kicker: "LIFE · NIGHT",
     title: "자기 전 휴대폰, 30분만 줄여보기",
     summary: "완전히 끊기보다 침대 밖에 두기. 알람은 다른 걸로.",
-    read: 2, updated: U, review: "draft",
+    read: 2, updated: U, review: "draft", image: "phone",
     sections: [
       { h: "해볼 것", list: ["충전기를 침대에서 손 안 닿는 곳에", "자기 30분 전 알림 끄기", "그 시간에 저녁 루틴(세안 · 보습)", "내일 할 일 3개 종이에 적기"] },
       { h: "잘 안 될 때", p: ["하루 만에 바꾸려 하지 말고 10분씩 당겨요. 일주일이면 30분이에요."] },
@@ -256,7 +256,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "laundry-basics", area: "life", modes: ["prepare", "next", "everyday"], kicker: "LIFE · HOME",
     title: "혼자 사는 남자 빨래 기본",
     summary: "색 분리, 뒤집어 빨기, 바로 널기. 이 세 개로 옷 수명이 길어져요.",
-    read: 3, updated: U, review: "draft",
+    read: 3, updated: U, review: "draft", image: "laundry",
     sections: [
       { h: "빨기 전", list: ["흰 옷 · 어두운 옷 따로", "청바지 · 프린트 티는 뒤집어서", "주머니 확인"] },
       { h: "빤 다음", list: ["끝나면 바로 꺼내서 털어 널기", "셔츠는 옷걸이에 걸어 말리기", "니트는 눕혀서 말리기"] },
@@ -303,7 +303,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "interview-day", area: "style", modes: ["next", "everyday"], kicker: "NEXT · INTERVIEW",
     title: "면접 전날과 당일 아침 체크",
     summary: "새로운 걸 시도하는 날이 아니에요. 평소 루틴을 정확히 하는 날이에요.",
-    read: 3, updated: U, review: "draft",
+    read: 3, updated: U, review: "draft", image: "interview",
     sections: [
       { h: "전날", list: ["옷 다려 걸어두기", "구두 닦기", "손톱 정리", "새 제품 · 새 향수 쓰지 않기", "일찍 자기"] },
       { h: "당일 아침", list: ["면도는 시간 여유 있게", "보습 · 자외선 차단", "머리 정리하고 손에 남은 제품 씻기", "거울로 뒷모습 · 옷깃 확인"] },
