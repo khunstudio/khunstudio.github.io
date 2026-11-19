@@ -85,7 +85,7 @@ function MyInner({ s }: { s: Store }) {
           <div className="daygrid grid-cols-7">
             {week.map((d, i) => (
               <div key={d.key} className="grid justify-items-center gap-1.5">
-                <span className={`day w-full ${d.ratio >= 0.99 ? "f" : d.ratio > 0 ? "p" : ""} ${i === 6 ? "today" : ""}`} title={`${d.key} ${Math.round(d.ratio * 100)}%`} />
+                <span role="img" aria-label={`${d.key} ${Math.round(d.ratio * 100)}% 실천`} className={`day w-full grid place-items-center ${d.ratio >= 0.99 ? "f" : d.ratio > 0 ? "p" : ""} ${i === 6 ? "today" : ""}`} title={`${d.key} ${Math.round(d.ratio * 100)}%`}><span aria-hidden="true">{d.ratio >= 0.99 ? "✓" : d.ratio > 0 ? "·" : "—"}</span></span>
                 <span className="small !text-[11px]">{"일월화수목금토"[d.date.getDay()]}</span>
               </div>
             ))}
@@ -93,13 +93,13 @@ function MyInner({ s }: { s: Store }) {
           <h2 className="sec-head h3 mt-10">최근 30일</h2>
           <div className="daygrid grid-cols-10">
             {month.map((d, i) => (
-              <span key={d.key} className={`day ${d.ratio >= 0.99 ? "f" : d.ratio > 0 ? "p" : ""} ${i === 29 ? "today" : ""}`} title={`${d.key} ${Math.round(d.ratio * 100)}%`} />
+              <span key={d.key} role="img" aria-label={`${d.key} ${Math.round(d.ratio * 100)}% 실천`} className={`day grid place-items-center ${d.ratio >= 0.99 ? "f" : d.ratio > 0 ? "p" : ""} ${i === 29 ? "today" : ""}`} title={`${d.key} ${Math.round(d.ratio * 100)}%`}><span aria-hidden="true">{d.ratio >= 0.99 ? "✓" : d.ratio > 0 ? "·" : "—"}</span></span>
             ))}
           </div>
           <p className="small mt-3 flex flex-wrap gap-4">
-            <span className="inline-flex items-center gap-1.5"><i className="day inline-block w-3" /> 기록 없음</span>
-            <span className="inline-flex items-center gap-1.5"><i className="day p inline-block w-3" /> 일부 실천</span>
-            <span className="inline-flex items-center gap-1.5"><i className="day f inline-block w-3" /> 모두 실천</span>
+            <span>— 기록 없음</span>
+            <span>· 일부 실천</span>
+            <span>✓ 모두 실천</span>
           </p>
         </section>
 

@@ -79,6 +79,23 @@ export default async function CareSlugPage({ params }: { params: Promise<{ slug:
           ))}
         </div>
 
+        <section className="mt-10 rounded-[12px] border border-line p-6" aria-label="참고 출처">
+          <h2 className="h3">참고 출처</h2>
+          {g.sources?.length ? (
+            <>
+              <ul className="mt-3 grid gap-3">
+                {g.sources.map((source) => (
+                  <li key={source.url}>
+                    <a className="link text-[14px]" href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a>
+                    <p className="small mt-1">자료 확인일 {source.checkedAt}</p>
+                  </li>
+                ))}
+              </ul>
+              <p className="small mt-3">관련 일반 정보를 참고한 자료예요. 출처 표시는 이 글 전체의 전문가 검수를 의미하지 않아요.</p>
+            </>
+          ) : <p className="small mt-3">출처를 정리 중인 초안이에요. 확인된 참고 자료와 확인일을 추가할 예정이에요.</p>}
+        </section>
+
         {g.checklist && (
           <div className="mt-10 rounded-[12px] bg-sand p-6">
             <p className="eyebrow">CHECKLIST</p>

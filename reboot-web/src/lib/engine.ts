@@ -104,6 +104,15 @@ export function visibleItems(items: RoutineItem[], situation: Situation): Routin
   return items.filter((i) => i.enabled && (!i.situations || i.situations.includes(situation)));
 }
 
+/** 오늘의 계획만 현재 루틴과 맞춘다. 지난 기록과 숨겨진 완료 항목은 보존한다. */
+export function syncTodayPlan(store: Store, today = new Date()): Store {
+  const key = dayKey(today);
+  const record = store.records[key];
+  if (!store.routine || !record) return store;
+  const planned = visibleItems(store.routine.items, store.routine.situation).map((i) => i.id);
+  return { ...store, records: { ...store.records, [key]: { ...record, planned } } };
+}
+
 export function dayKey(d: Date = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }

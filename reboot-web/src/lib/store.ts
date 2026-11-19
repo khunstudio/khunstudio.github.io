@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { buildRoutine, dayKey, visibleItems } from "./engine.ts";
+import { buildRoutine, dayKey, syncTodayPlan, visibleItems } from "./engine.ts";
 import type { CheckAnswers, Mode, Routine, Situation, Store } from "./types.ts";
 
 // 저장 어댑터: 지금은 localStorage. 계정을 도입하면 이 파일의 read/write만 서버 동기화로 교체한다.
@@ -24,6 +24,7 @@ function read(): Store {
 }
 
 function write(next: Store) {
+  next = syncTodayPlan(next);
   cache = next;
   try {
     localStorage.setItem(KEY, JSON.stringify(next));

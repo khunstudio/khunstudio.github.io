@@ -1,6 +1,7 @@
 # RE:BOOT Web (MVP · Prototype)
 
-남성 자기관리 웹 서비스 RE:BOOT의 1차 웹 MVP. 기준 문서: RE:BOOT WEB-FIRST MASTER PLAN v2.0.
+남성 자기관리 웹 서비스 RE:BOOT의 1차 웹 MVP. 기준 문서: RE:BOOT BRAND, BUSINESS & PRODUCT MASTER PLAN v3.0 (2026-11-19).
+검증한 구현 상태, 출시 우선순위, 변경 내역은 [`PROJECT_STATE.md`](PROJECT_STATE.md)를 우선 참고한다.
 설계 정리(IA · 흐름 · 디자인 토큰 · 데이터 구조 · 범위)는 [`docs/MVP_PLAN.md`](docs/MVP_PLAN.md).
 
 ## 실행
@@ -17,7 +18,9 @@ npm run build      # 정적 사이트 → out/
 
 `npm run build` 결과물 `out/` 폴더를 그대로 올리면 된다 (Vercel · Cloudflare Pages · GitHub Pages).
 하위 경로에 올릴 때는 `NEXT_PUBLIC_BASE_PATH=/경로 npm run build`.
-아직 배포하지 않았다. 도메인 · 호스팅이 정해지면 `/legal/privacy`의 호스팅 항목을 갱신한다.
+기존 배포: Vercel 프로젝트 `reboot`. 사용자가 안내한 주소는 https://rebootyourself.vercel.app 이며,
+실제 브라우저로 확인한 기존 주소는 https://reboot-psi.vercel.app/ 이다. 이번 변경의 배포 결과는 `PROJECT_STATE.md`에 기록한다.
+현재 프로토타입은 검색 색인 제외(`noindex`)를 유지한다.
 
 ## 구조
 

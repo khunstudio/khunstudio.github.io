@@ -1,7 +1,8 @@
 # RE:BOOT Web MVP — 설계 문서
 
-기준 문서: `RE:BOOT WEB-FIRST MASTER PLAN v2.0` (2026-11-03)
-프로젝트 상태: **Prototype** (공개 배포 전, 실제 이용자·제휴·매출 없음)
+기준 문서: `RE:BOOT BRAND, BUSINESS & PRODUCT MASTER PLAN v3.0` (2026-11-19)
+프로젝트 상태: **Prototype** (기존 Vercel 배포 있음, 실제 이용자·제휴·매출 실적은 확인하지 않음)
+이 문서는 설계 의도를 기록한다. 실제 검증 상태와 남은 작업은 [`../PROJECT_STATE.md`](../PROJECT_STATE.md)를 따른다.
 
 ---
 
@@ -54,7 +55,7 @@
 | `--sand` | `#F4F3F0` | 보조 면 |
 | `--line` | `#E4E3DF` | 구분선 |
 | `--mute` | `#6E6D69` | 보조 텍스트 (흰 바탕 대비 4.9:1) |
-| 서체 | Pretendard (한글·본문), Archivo Condensed (영문 디스플레이) | |
+| 서체 | IBM Plex Sans KR (한글·본문), Chakra Petch (영문 디스플레이), 로컬 번들 | |
 | 반경 | 6 / 12 / 999 | 입력·카드·칩 |
 | 간격 | 4px 기반 (4, 8, 12, 16, 24, 32, 48, 72) | |
 
@@ -98,7 +99,7 @@ RoutineItem { id, templateId, title, slot: 'am'|'pm', area, minutes, why, how, e
 
 | 구분 | 항목 |
 |---|---|
-| **구현 (P0)** | HOME, 생활 모드 선택, 30초 체크, 룰 기반 루틴(편집·상황 전환), 로컬 기록 7/30일, 모드 전환 시 기록 보존, JSON/CSV 내보내기·전체 삭제, 공유 카드 9:16·4:5 PNG, CARE 가이드 10편 + 검색, CREW/SELECT 소개(준비 중), About, 협업 문의 안내, 법적 안내 초안 |
+| **코드 존재 (검증 상태는 PROJECT_STATE 참조)** | HOME, 생활 모드 선택, 30초 체크, 룰 기반 루틴(편집·상황 전환), 로컬 기록 7/30일, 모드 전환 시 기록 보존, JSON/CSV 내보내기·전체 삭제, 공유 카드 9:16·4:5 PNG, CARE 가이드 37편 + 검색, CREW/SELECT 소개(준비 중), About, 협업 문의 안내, 법적 안내 초안 |
 | **부분 구현** | 분석: `track()` 함수와 동의 구조만. 실제 분석 도구는 연결하지 않음 |
 | **미구현 (P1~)** | 계정·기기 간 동기화, My Shelf, CREW Q&A·신고·모더레이션, 베타 대기 등록(이메일 수집 서버 없음), 30 DAYS 프로그램, SELECT 큐레이션·제휴 링크, PWA 설치·알림, 네이티브 앱 |
 | **확인 필요** | 도메인·SNS 핸들, PX 실제 입점 상품, 의료 콘텐츠 전문가 검수, 이용약관·개인정보 처리방침 법률 검토, 운영자 공식 문의 이메일 |

@@ -22,6 +22,7 @@ export interface Guide {
   updated: string;
   review: "draft" | "reviewed";
   reviewer?: string;
+  sources?: { title: string; url: string; checkedAt: string }[];
   /** 대표 사진 (public/images) */
   image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit" | "barber" | "buzzside" | "blot" | "blot2" | "stretch" | "pushup" | "gymbag" | "shoes" | "perfume" | "laundry" | "phone" | "interview";
   /** 진료 · 건강 관련 내용이라 상단에 안내를 크게 띄운다 */
@@ -36,6 +37,7 @@ const UPDATED = "2026-11-02";
 export const GUIDES: Guide[] = [
   {
     slug: "skin-basics", area: "skin", modes: ALL, kicker: "START HERE",
+    sources: [{ title: "미국피부과학회 · Skin care on a budget", url: "https://www.aad.org/public/everyday-care/skin-care-basics/care/skin-care-budget", checkedAt: "2026-11-19" }],
     title: "처음 시작하는 기초 관리 3단계",
     summary: "세안, 보습, 자외선 차단. 제품을 많이 사기 전에 이 세 가지부터 매일 하는 게 먼저예요.",
     read: 3, updated: UPDATED, review: "draft",
@@ -49,6 +51,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "shaving", area: "skin", modes: ALL, kicker: "SKIN",
+    sources: [{ title: "미국피부과학회 · Hair removal: How to shave", url: "https://www.aad.org/public/everyday-care/skin-care-basics/hair/how-to-shave", checkedAt: "2026-11-19" }],
     title: "면도 후 자극을 줄이기 위해 확인할 것",
     summary: "따가움은 면도 방법에서 시작되는 경우가 많아요. 순서와 도구를 먼저 점검해 봐요.",
     read: 3, updated: UPDATED, review: "draft",
@@ -61,6 +64,7 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: "outdoor-day", area: "skin", modes: ["prepare", "service", "everyday"], kicker: "SKIN · LIFE",
+    sources: [{ title: "미국피부과학회 · How to apply sunscreen", url: "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen", checkedAt: "2026-11-19" }],
     title: "야외활동이 많은 날 체크리스트",
     summary: "햇빛, 땀, 먼지가 많은 날에 챙길 것만 짧게 정리했어요.",
     read: 2, updated: UPDATED, review: "draft",
@@ -163,8 +167,18 @@ const IMAGES: Record<string, Guide["image"]> = {
   "hair-growing": "mirror",
   "before-enlistment": "buzzside",
   "sleep-reset": "night",
+  px: "kit",
+  "leave-prep": "phone",
+  "dry-skin-winter": "moisture",
+  "breakout-dont": "wash",
+  "lip-care": "hands",
+  "after-shave-bumps": "razor",
+  "posture-check": "stretch",
+  "fit-check": "shirtup",
+  "outdoor-training": "track",
+  "first-leave": "barber",
 };
-GUIDES.forEach((g) => { if (IMAGES[g.slug]) g.image = IMAGES[g.slug]; });
 GUIDES.push(...MORE_GUIDES);
+GUIDES.forEach((g) => { if (!g.image && IMAGES[g.slug]) g.image = IMAGES[g.slug]; });
 
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug);

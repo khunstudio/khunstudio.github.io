@@ -54,7 +54,7 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
 /* ── 버튼 ── */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 22px; border-radius: 999px; font-weight: 700; font-size: 15.5px; letter-spacing: -.01em; transition: transform .15s, background .2s, color .2s, border-color .2s; cursor: pointer; text-decoration: none; }
 .btn:active { transform: scale(.98); }
-.btn-primary { background: var(--color-signal); color: #fff; }
+.btn-primary { background: var(--color-signal); color: var(--color-ink); }
 .btn-primary:hover { background: #f04d12; }
 .btn-dark { background: var(--color-ink); color: #fff; }
 .btn-dark:hover { background: #2a2a2a; }
