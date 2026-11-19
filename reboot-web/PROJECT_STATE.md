@@ -120,4 +120,4 @@ DONE은 아래 명시된 범위의 실행 확인을 뜻한다. 코드 존재만�
 - 관리 화면: https://vercel.com/dbrudgns0424-4983/reboot/5Q5uo18wXiaVB1y4PTHUw6Ka47bj
 - 소스 기준: `1818d48` (기능 변경은 `93e9747`, 상태 문서 변경은 `1818d48`). 이후 이 문서와 ignore 규칙만 갱신.
 - 운영 주소 `/care/skin-basics/`를 실제 브라우저로 열어 추가한 참고 출처·확인일·전문가 검수 전 안내를 확인했다. 전체 사용자 기능은 앞서 검증한 로컬 빌드 범위와 구분한다.
-- Vercel 공식 플러그인 0.54.1은 Codex 사용자 범위에 설치 확인. 공통 MCP `https://mcp.vercel.com` 등록 완료, OAuth 승인은 아직 사용자 입력 대기. MCP의 `list_teams` 인증 검사는 아직 실행하지 않았다.
+- Vercel 공식 플러그인 0.54.1은 Codex 사용자 범위에 설치 확인. 공통 MCP `https://mcp.vercel.com` 등록 및 OAuth 승인 완료. 문서 검색과 인증된 `list_teams` 호출이 모두 성공했다. 팀 목록은 빈 배열로 반환됐으며, 이를 프로젝트 접근 권한 검증으로 확대 해석하지 않는다.
