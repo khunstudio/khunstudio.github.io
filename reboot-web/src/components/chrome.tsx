@@ -26,10 +26,11 @@ const TOP = [
   { href: "/skin/", label: "SKIN TEST" },
   { href: "/ingredients/", label: "성분" },
   { href: "/routine/", label: "ROUTINE" },
-  { href: "/crew/", label: "CREW", badge: "Beta 준비" },
-  { href: "/select/", label: "SELECT", badge: "Coming Soon" },
+  { href: "/goals/", label: "GOALS" },
+  { href: "/crew/", label: "CREW" },
+  { href: "/select/", label: "SELECT" },
   { href: "/my/", label: "MY" },
-];
+] as { href: string; label: string; badge?: string }[];
 
 export function Header() {
   const path = usePathname() || "/";
@@ -64,6 +65,7 @@ const ICON = {
   today: <path d="M4 10.5 12 4l8 6.5V20h-5.5v-5.5h-5V20H4z" />,
   care: (<><path d="M5 4.5h10l4 4V20H5z" /><path d="M9 12.5h6M9 16h4" /></>),
   routine: (<><circle cx="12" cy="12" r="8" /><path d="m8.5 12 2.5 2.5 4.5-5" /></>),
+  goals: (<><path d="M6 21V4" /><path d="M6 4.5h11l-2.5 4 2.5 4H6" /></>),
   my: (<><circle cx="12" cy="8.5" r="3.5" /><path d="M5 20c1.2-3.8 3.9-5.6 7-5.6s5.8 1.8 7 5.6" /></>),
 };
 
@@ -73,6 +75,7 @@ export function BottomNav() {
     { href: "/", label: "TODAY", icon: ICON.today },
     { href: "/care/", label: "CARE", icon: ICON.care },
     { href: "/routine/", label: "ROUTINE", icon: ICON.routine },
+    { href: "/goals/", label: "GOALS", icon: ICON.goals },
     { href: "/my/", label: "MY", icon: ICON.my },
   ];
   return (

@@ -97,6 +97,17 @@ export function RoutineView() {
 
       {edit && <AddCustom skinType={s.skin?.type} />}
 
+      {!edit && (
+        <Link href="/goals/" className="card card-link mt-6 flex items-center justify-between gap-4 p-5">
+          <span>
+            <span className="eyebrow !text-[11px]">GOALS</span>
+            <span className="mt-1 block font-bold">{s.anchor ? "이번 시즌 목표 · 버킷리스트 보기" : "입대일 · 전역일 · 목표일을 정하고 버킷리스트 만들기"}</span>
+            <span className="small">남은 기간에 맞춘 추천 · 구글 캘린더로 보내기</span>
+          </span>
+          <span aria-hidden="true">→</span>
+        </Link>
+      )}
+
       {!edit && !s.skin && (
         <Link href="/skin/" className="card card-link mt-6 flex items-center justify-between gap-4 p-5">
           <span>

@@ -62,8 +62,36 @@ export interface SkinRecord {
   at: string;
 }
 
+/** 기준 날짜: 입대일 · 전역일 · 내가 정한 목표일 */
+export interface Anchor {
+  kind: "enlist" | "discharge" | "target";
+  date: string; // YYYY-MM-DD
+  label?: string;
+}
+
+export interface Checkpoint {
+  id: string;
+  title: string;
+  date: string;
+  done: boolean;
+}
+
+/** 버킷리스트 · 목표. 날짜가 있으면 D-300 · 200 · 100 · 30 · 7 체크포인트를 만든다. */
+export interface LifeGoal {
+  id: string;
+  title: string;
+  date?: string;
+  done: boolean;
+  doneAt?: string;
+  source: "suggest" | "custom";
+  checkpoints?: Checkpoint[];
+  createdAt: string;
+}
+
 export interface Store {
   version: 1;
+  anchor?: Anchor;
+  goals?: LifeGoal[];
   /** 피부 타입 셀프 체크 결과 (진단 아님) */
   skin?: SkinRecord;
   profile?: Profile;

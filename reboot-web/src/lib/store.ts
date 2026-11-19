@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { buildRoutine, dayKey, syncTodayPlan, visibleItems } from "./engine.ts";
-import type { CheckAnswers, Mode, Routine, RoutineItem, SkinRecord, Slot, Situation, Store } from "./types.ts";
+import type { Anchor, CheckAnswers, LifeGoal, Mode, Routine, RoutineItem, SkinRecord, Slot, Situation, Store } from "./types.ts";
 
 // 저장 어댑터: 지금은 localStorage. 계정을 도입하면 이 파일의 read/write만 서버 동기화로 교체한다.
 const KEY = "reboot:v1";
@@ -131,6 +131,37 @@ export const actions = {
     if (!s.routine) return;
     const items = s.routine.items.filter((i) => !(i.id === id && i.templateId === "custom"));
     write({ ...s, routine: { ...s.routine, items, updatedAt: now() } });
+  },
+
+  setAnchor(anchor: Anchor | undefined) {
+    const s = read();
+    write({ ...s, anchor });
+  },
+
+  addGoal(goal: LifeGoal) {
+    const s = read();
+    const goals = s.goals ?? [];
+    if (goals.some((g) => g.title === goal.title && !g.done)) return;
+    write({ ...s, goals: [...goals, goal] });
+  },
+
+  toggleGoal(id: string) {
+    const s = read();
+    const goals = (s.goals ?? []).map((g) => (g.id === id ? { ...g, done: !g.done, doneAt: !g.done ? now() : undefined } : g));
+    write({ ...s, goals });
+  },
+
+  toggleCheckpoint(goalId: string, cpId: string) {
+    const s = read();
+    const goals = (s.goals ?? []).map((g) =>
+      g.id === goalId ? { ...g, checkpoints: g.checkpoints?.map((c) => (c.id === cpId ? { ...c, done: !c.done } : c)) } : g,
+    );
+    write({ ...s, goals });
+  },
+
+  removeGoal(id: string) {
+    const s = read();
+    write({ ...s, goals: (s.goals ?? []).filter((g) => g.id !== id) });
   },
 
   setSkin(skin: SkinRecord) {

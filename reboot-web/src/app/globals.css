@@ -118,7 +118,7 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
 
 /* ── 하단 내비 ── */
 .bnav { position: fixed; z-index: 40; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-top: 1px solid var(--color-line); padding-bottom: env(safe-area-inset-bottom); }
-.bnav ul { display: grid; grid-template-columns: repeat(4, 1fr); height: var(--nav-h); }
+.bnav ul { display: grid; grid-template-columns: repeat(5, 1fr); height: var(--nav-h); }
 .bnav a { position: relative; height: 100%; display: grid; place-content: center; justify-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: var(--color-mute); }
 .bnav a[aria-current="page"] { color: var(--color-ink); }
 .bnav a[aria-current="page"]::before { content: ""; position: absolute; top: -1px; left: 30%; right: 30%; height: 2px; background: var(--color-signal); }
