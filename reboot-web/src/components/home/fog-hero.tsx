@@ -13,31 +13,7 @@ const POS = { x: 0.55, y: 0.4 }; // 사진이 잘릴 때 남길 위치 = 거울 
  */
 export function FogHero() {
   const sec = useRef<HTMLElement>(null);
-  const cv = useRef<HTMLCanvasElement>(null);
   const [p, setP] = useState(0);
-
-  // 맺힌 물방울만 캔버스에 한 번 그린다 (김 자체는 CSS 블러 + 뿌연 막)
-  useEffect(() => {
-    const c = cv.current!;
-    const paint = () => {
-      const r = c.getBoundingClientRect();
-      const dpr = Math.min(2, devicePixelRatio || 1);
-      const w = (c.width = Math.round(r.width * dpr)), h = (c.height = Math.round(r.height * dpr));
-      const f = c.getContext("2d")!;
-      f.clearRect(0, 0, w, h);
-      let seed = 11;
-      const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-      for (let i = 0; i < 260; i++) {
-        const rr = (0.6 + rnd() * 2.6) * dpr;
-        f.beginPath(); f.arc(rnd() * w, rnd() * h, rr, 0, Math.PI * 2);
-        f.fillStyle = `rgba(255,255,255,${0.2 + rnd() * 0.35})`; f.fill();
-      }
-    };
-    paint();
-    const ro = new ResizeObserver(paint);
-    ro.observe(c);
-    return () => ro.disconnect();
-  }, []);
 
   // 스크롤 진행도 0 → 1
   useEffect(() => {
@@ -68,7 +44,7 @@ export function FogHero() {
   const e = 1 - Math.pow(1 - k, 2); // 처음엔 빨리, 끝은 천천히
   const blur = 22 * (1 - e);
   const haze = 0.62 * (1 - e);
-  const drops = 1 - Math.min(1, k * 1.25);
+  const smoke = 1 - Math.min(1, k * 1.15);
   const pct = Math.round(Math.min(1, p / 0.92) * 100);
 
   return (
@@ -95,7 +71,11 @@ export function FogHero() {
               </div>
             </div>
             <div className="fh-haze" aria-hidden="true" style={{ opacity: haze }} />
-            <canvas ref={cv} aria-hidden="true" className="fh-fog" style={{ opacity: drops }} />
+            {/* 연기: 프랙탈 노이즈 두 겹이 서로 다른 속도로 흘러간다 */}
+            <div className="fh-smoke fh-smoke--a" aria-hidden="true" style={{ opacity: smoke, transform: `translate3d(${(-p * 6).toFixed(2)}%, ${(-p * 10).toFixed(2)}%, 0)` }} />
+            <div className="fh-smoke fh-smoke--b" aria-hidden="true" style={{ opacity: smoke * 0.8, transform: `translate3d(${(p * 5).toFixed(2)}%, ${(-p * 16).toFixed(2)}%, 0)` }} />
+            {/* 필름 그레인: 김이 걷혀도 아주 옅게 남는다 */}
+            <div className="fh-grain" aria-hidden="true" style={{ opacity: 0.12 + 0.28 * (1 - e) }} />
             <div className="fog-chip" data-done={done || undefined} aria-hidden="true">
               {done ? (<><span className="fog-chip__dot" />오늘, 부팅 완료</>) : (
                 <>
