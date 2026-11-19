@@ -24,7 +24,7 @@ export interface Guide {
   reviewer?: string;
   sources?: { title: string; url: string; checkedAt: string }[];
   /** 대표 사진 (public/images) */
-  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit" | "barber" | "buzzside" | "blot" | "blot2" | "stretch" | "pushup" | "gymbag" | "shoes" | "perfume" | "laundry" | "phone" | "interview";
+  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit" | "barber" | "buzzside" | "blot" | "blot2" | "stretch" | "pushup" | "gymbag" | "shoes" | "perfume" | "laundry" | "phone" | "interview" | "washroom" | "locker";
   /** 진료 · 건강 관련 내용이라 상단에 안내를 크게 띄운다 */
   medicalNotice?: boolean;
   sections: GuideSection[];

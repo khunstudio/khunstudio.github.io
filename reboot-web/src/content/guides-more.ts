@@ -269,7 +269,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "barracks-kit", area: "skin", modes: ["service", "prepare"], kicker: "SERVICE · KIT",
     title: "생활관에서 쓰기 좋은 최소 관리 키트",
     summary: "공간도 시간도 적을 때는 개수를 줄여요. 세 개 + 립밤이면 충분해요.",
-    read: 3, updated: U, review: "draft", image: "kit",
+    read: 3, updated: U, review: "draft", image: "locker",
     sections: [
       { h: "기본 4개", list: ["순한 세안제", "보습제 (몸에도 쓸 수 있는 것)", "자외선 차단제 (스틱 · 튜브)", "립밤"] },
       { h: "고르는 기준", list: ["작은 용량, 뚜껑이 잘 닫히는 것", "향이 강하지 않은 것", "PX에서 다시 살 수 있는 것"] },

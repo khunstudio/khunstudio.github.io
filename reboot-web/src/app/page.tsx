@@ -111,7 +111,7 @@ export default function Home() {
       {/* 7. 군 생활 */}
       <section className="t-sec band-mist">
         <div className="wrap grid items-center gap-10 md:grid-cols-[1fr_1.1fr] md:gap-16">
-          <div data-rv><Photo name="buzzside" alt="이발소에서 흰 가운을 두르고 막 짧게 자른 머리의 옆모습, 선반 위 바리캉" ratio="1 / 1" position="62% 45%" className="rounded-[24px]" /></div>
+          <div data-rv><Photo name="washroom" alt="새벽빛이 드는 빈 공동 세면장, 스테인리스 세면대 한 칸에 놓인 세안제와 흰 수건, 오렌지 컵" ratio="4 / 3" position="72% 55%" className="rounded-[24px]" /></div>
           <div>
             <p className="t-k" data-rv>FOR SERVICE LIFE</p>
             <h2 className="t-xl mt-4" data-rv>군 생활 중이라면,<br />여기부터.</h2>
