@@ -7,7 +7,8 @@ import { dayKey, dPlus, visibleItems } from "@/lib/engine";
 import { situationLabel, SITUATION_ORDER } from "@/lib/labels";
 import { actions, useStore } from "@/lib/store";
 import { track } from "@/lib/analytics";
-import type { RoutineItem } from "@/lib/types";
+import type { RoutineItem, Slot } from "@/lib/types";
+import { SKIN_PROFILES } from "@/lib/skintype";
 
 const fmtMin = (m: number) => (m < 1 ? "30초" : `${m}분`);
 
@@ -72,7 +73,7 @@ export function RoutineView() {
             <h2 className="sec-head h3">{slot === "am" ? "아침" : "저녁"}<span className="small ml-1 font-normal">{fmtMin(list.reduce((n, i) => n + i.minutes, 0))}</span></h2>
             <ul>
               {list.map((it) => (
-                <Item key={it.id} it={it} done={done.includes(it.id)} edit={edit} onToggle={() => toggle(it.id)} onExclude={() => actions.toggleEnabled(it.id)} />
+                <Item key={it.id} it={it} done={done.includes(it.id)} edit={edit} onToggle={() => toggle(it.id)} onExclude={() => (it.templateId === "custom" ? actions.removeCustom(it.id) : actions.toggleEnabled(it.id))} />
               ))}
             </ul>
           </section>
@@ -93,6 +94,19 @@ export function RoutineView() {
         </button>
         <Link href="/check/" className="btn btn-ghost">다시 체크해서 새로 만들기</Link>
       </div>
+
+      {edit && <AddCustom skinType={s.skin?.type} />}
+
+      {!edit && !s.skin && (
+        <Link href="/skin/" className="card card-link mt-6 flex items-center justify-between gap-4 p-5">
+          <span>
+            <span className="eyebrow !text-[11px]">SKIN TYPE</span>
+            <span className="mt-1 block font-bold">내 피부 타입부터 알고 루틴을 채워 보세요</span>
+            <span className="small">6문항 · 지성 · 건성 · 복합성 · 중성, 예민 여부</span>
+          </span>
+          <span aria-hidden="true">→</span>
+        </Link>
+      )}
 
       {edit && (
         <section className="mt-6 fade-in">
@@ -125,6 +139,7 @@ function Item({ it, done, edit, onToggle, onExclude }: { it: RoutineItem; done: 
         <p className="rtitle text-[16px] font-semibold tracking-tight">
           {it.title}
           {it.situations && <span className="badge badge-draft ml-2">오늘 상황</span>}
+          {it.templateId === "custom" && <span className="badge badge-draft ml-2">내 항목</span>}
         </p>
         <details className="group mt-1">
           <summary className="small cursor-pointer list-none select-none">
@@ -139,8 +154,69 @@ function Item({ it, done, edit, onToggle, onExclude }: { it: RoutineItem; done: 
       </div>
       <div className="flex flex-col items-end gap-1">
         <span className="small tabular-nums">{fmtMin(it.minutes)}</span>
-        {edit && <button type="button" className="text-[12.5px] font-semibold text-signal-ink underline underline-offset-2" onClick={onExclude}>빼기</button>}
+        {edit && <button type="button" className="text-[12.5px] font-semibold text-signal-ink underline underline-offset-2" onClick={onExclude}>{it.templateId === "custom" ? "삭제" : "빼기"}</button>}
       </div>
     </li>
+  );
+}
+
+const PRESETS: { title: string; slot: Slot; minutes: number; guide?: string }[] = [
+  { title: "비타민 C 세럼", slot: "am", minutes: 0.5, guide: "ingredient-basics" },
+  { title: "나이아신아마이드 세럼", slot: "am", minutes: 0.5 },
+  { title: "레티놀 (주 2~3회)", slot: "pm", minutes: 0.5, guide: "retinoid-start" },
+  { title: "BHA 토너 (주 2~3회)", slot: "pm", minutes: 1 },
+  { title: "선크림 덧바르기 (점심)", slot: "am", minutes: 0.5, guide: "sunscreen-types" },
+  { title: "립밤", slot: "pm", minutes: 0.5 },
+  { title: "뷰티 디바이스 (LED · 갈바닉 등)", slot: "pm", minutes: 5, guide: "px-beauty" },
+];
+
+function AddCustom({ skinType }: { skinType?: keyof typeof SKIN_PROFILES }) {
+  const [title, setTitle] = useState("");
+  const [slot, setSlot] = useState<Slot>("am");
+  const [added, setAdded] = useState<string | null>(null);
+  const suggestions = skinType ? SKIN_PROFILES[skinType].addons : [];
+  const add = (t: string, sl: Slot, minutes = 1, guide?: string) => {
+    actions.addCustom({ title: t, slot: sl, minutes, guide });
+    setAdded(t);
+    setTitle("");
+  };
+  return (
+    <section className="mt-6 rounded-[16px] border border-line p-5 fade-in" aria-label="내 항목 추가">
+      <h2 className="h3">내 항목 추가</h2>
+      <p className="small mt-1">아침 · 저녁에 내가 하기로 한 걸 직접 넣어요. 체크하면 오늘 충전에 같이 계산돼요.</p>
+      <form
+        className="mt-4 grid gap-2 sm:grid-cols-[1fr_auto_auto]"
+        onSubmit={(e) => { e.preventDefault(); if (title.trim()) add(title.trim(), slot); }}
+      >
+        <label className="sr-only" htmlFor="custom-title">항목 이름</label>
+        <input id="custom-title" className="field" placeholder="예: 비타민 C 세럼, 아이크림, 립밤" value={title} maxLength={40} onChange={(e) => setTitle(e.target.value)} />
+        <div className="flex gap-1" role="group" aria-label="시간대">
+          {(["am", "pm"] as const).map((x) => (
+            <button key={x} type="button" className="chip" aria-pressed={slot === x} onClick={() => setSlot(x)}>{x === "am" ? "아침" : "저녁"}</button>
+          ))}
+        </div>
+        <button type="submit" className="btn btn-dark !min-h-11" disabled={!title.trim()}>추가</button>
+      </form>
+      {added && <p className="small mt-2" role="status">&lsquo;{added}&rsquo;을(를) 넣었어요.</p>}
+
+      {suggestions.length > 0 && (
+        <div className="mt-5">
+          <p className="small font-semibold !text-ink">내 피부 타입({SKIN_PROFILES[skinType!].ko})에 맞춘 제안</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {suggestions.map((x) => (
+              <button key={x.title} type="button" className="chip" onClick={() => add(x.title, x.slot, x.minutes)}>+ {x.title}</button>
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="mt-5">
+        <p className="small font-semibold !text-ink">자주 넣는 항목</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {PRESETS.map((x) => (
+            <button key={x.title} type="button" className="chip" onClick={() => add(x.title, x.slot, x.minutes, x.guide)}>+ {x.title} · {x.slot === "am" ? "아침" : "저녁"}</button>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

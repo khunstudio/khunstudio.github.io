@@ -326,3 +326,5 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
 .t-cta { position: relative; overflow: hidden; min-height: min(92svh, 820px); padding: clamp(80px, 14vh, 150px) 0; background: #f2f1ee; }
 .t-cta .photo { background: #f2f1ee; }
 @media (max-width: 767px) { .t-cta { min-height: 640px; } .t-cta .photo img { object-position: 78% 70% !important; } }
+.field { width: 100%; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid var(--color-line); background: #fff; font-size: 15px; }
+.field:focus { outline: none; border-color: var(--color-ink); }

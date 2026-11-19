@@ -37,6 +37,35 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 2.5 철학 + 깊이 */}
+      <section className="t-sec band-ink">
+        <div className="wrap">
+          <p className="t-k" data-rv>WHAT WE BELIEVE</p>
+          <h2 className="t-xl mt-4" data-rv>챙기는 남자가<br />기본값이 되도록.</h2>
+          <p className="t-sub mt-6 max-w-2xl" data-rv>&lsquo;남자가 무슨 로션이야&rsquo;는 핑계예요. 선크림 · 보습 · 성분을 따지는 건 성별이 아니라 태도의 문제예요. 포장 말고 뒷면 성분표로 고르고, 여성용으로 나온 제품도 맞으면 그냥 써요.</p>
+          <ul className="mt-12 grid gap-3 md:grid-cols-3">
+            {[
+              { href: "/skin/", k: "01 SKIN TYPE", t: "내 피부 타입부터", d: "6문항 셀프 체크 → 맞는 성분 · 제품 종류 · 루틴 추가" },
+              { href: "/ingredients/", k: "02 INGREDIENTS", t: "성분이 하는 일", d: "레티놀 · 레티날 · 나이아신아마이드 · 비타민 C · 아젤라익산 · 판테놀" },
+              { href: "/care/acne-types/", k: "03 TROUBLE", t: "트러블 · 흉터 · 처방약", d: "모낭염 연고, 이소트레티노인, 패인 흉터까지 솔직하게" },
+            ].map((x, i) => (
+              <li key={x.href} data-rv style={{ ["--d" as string]: `${i * 90}ms` }}>
+                <Link href={x.href} className="block h-full rounded-[20px] border border-ink-line p-6 transition-colors hover:border-white">
+                  <span className="t-card-n">{x.k}</span>
+                  <span className="mt-6 block text-[22px] font-bold tracking-tight">{x.t}</span>
+                  <span className="mt-2 block text-[14.5px] leading-relaxed text-ink-mute">{x.d}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-[14.5px]" data-rv>
+            <Link href="/care/sunscreen-types/" className="link !text-white">무기 · 유기 · 혼합자차 차이</Link>
+            <Link href="/care/shaving-tools/" className="link !text-white">전기 vs 날면도기 · 면도 방향</Link>
+            <Link href="/care/px-beauty/" className="link !text-white">PX 뷰티템 · 디바이스</Link>
+          </div>
+        </div>
+      </section>
+
       {/* 3. 고정 스크롤: 체크 → 루틴 → 기록 */}
       <StoryScroll />
 

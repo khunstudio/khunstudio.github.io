@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { buildRoutine, dayKey, syncTodayPlan, visibleItems } from "./engine.ts";
-import type { CheckAnswers, Mode, Routine, Situation, Store } from "./types.ts";
+import type { CheckAnswers, Mode, Routine, RoutineItem, SkinRecord, Slot, Situation, Store } from "./types.ts";
 
 // 저장 어댑터: 지금은 localStorage. 계정을 도입하면 이 파일의 read/write만 서버 동기화로 교체한다.
 const KEY = "reboot:v1";
@@ -69,7 +69,13 @@ export const actions = {
     const routine: Routine =
       opts.keepRoutine && s.routine
         ? s.routine
-        : { items: buildRoutine(a), situation: s.routine?.situation ?? "default", createdAt: t, updatedAt: t };
+        : {
+            // 직접 추가한 항목은 다시 체크해도 남긴다
+            items: [...buildRoutine(a), ...(s.routine?.items.filter((i) => i.templateId === "custom") ?? [])],
+            situation: s.routine?.situation ?? "default",
+            createdAt: t,
+            updatedAt: t,
+          };
     const modeHistory = s.profile?.mode === a.mode ? s.modeHistory : [...s.modeHistory, { mode: a.mode, at: t }];
     write({ ...s, profile, routine, modeHistory });
   },
@@ -96,6 +102,40 @@ export const actions = {
     const prev = s.records[key]?.done ?? [];
     const done = prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id];
     write({ ...s, records: { ...s.records, [key]: { planned, done } } });
+  },
+
+  /** 내가 직접 정한 항목을 루틴에 추가한다 (예: 아침 비타민 C) */
+  addCustom(input: { title: string; slot: Slot; minutes?: number; why?: string; guide?: string }) {
+    const s = read();
+    if (!s.routine) return;
+    const title = input.title.trim().slice(0, 40);
+    if (!title) return;
+    if (s.routine.items.some((i) => i.templateId === "custom" && i.title === title && i.slot === input.slot)) return;
+    const item: RoutineItem = {
+      id: `custom-${Date.now().toString(36)}`,
+      templateId: "custom",
+      title,
+      slot: input.slot,
+      area: "skin",
+      minutes: input.minutes ?? 1,
+      why: input.why ?? "내가 직접 추가한 항목이에요.",
+      how: "정한 순서대로, 매일 같은 시간에.",
+      enabled: true,
+      guide: input.guide,
+    };
+    write({ ...s, routine: { ...s.routine, items: [...s.routine.items, item], updatedAt: now() } });
+  },
+
+  removeCustom(id: string) {
+    const s = read();
+    if (!s.routine) return;
+    const items = s.routine.items.filter((i) => !(i.id === id && i.templateId === "custom"));
+    write({ ...s, routine: { ...s.routine, items, updatedAt: now() } });
+  },
+
+  setSkin(skin: SkinRecord) {
+    const s = read();
+    write({ ...s, skin });
   },
 
   setNickname(nickname: string) {

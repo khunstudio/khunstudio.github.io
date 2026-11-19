@@ -1,5 +1,6 @@
 import type { Area, Mode } from "../lib/types.ts";
 import { MORE_GUIDES } from "./guides-more.ts";
+import { DEEP_GUIDES } from "./guides-deep.ts";
 
 // CARE 가이드. 모두 일반적인 생활 관리 정보이며, 의료 전문가 검수 전 상태로 표시한다.
 // 검수가 끝나면 review를 "reviewed"로 바꾸고 reviewer · reviewedAt을 채운다.
@@ -178,7 +179,7 @@ const IMAGES: Record<string, Guide["image"]> = {
   "outdoor-training": "track",
   "first-leave": "barber",
 };
-GUIDES.push(...MORE_GUIDES);
+GUIDES.push(...DEEP_GUIDES, ...MORE_GUIDES);
 GUIDES.forEach((g) => { if (!g.image && IMAGES[g.slug]) g.image = IMAGES[g.slug]; });
 
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug);

@@ -52,8 +52,16 @@ export interface DayRecord {
   done: string[];
 }
 
+export interface SkinRecord {
+  type: "oily" | "dry" | "combo" | "normal";
+  sensitive: boolean;
+  at: string;
+}
+
 export interface Store {
   version: 1;
+  /** 피부 타입 셀프 체크 결과 (진단 아님) */
+  skin?: SkinRecord;
   profile?: Profile;
   routine?: Routine;
   records: Record<string, DayRecord>;
