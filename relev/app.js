@@ -130,10 +130,14 @@
       [D.devices.length, "디바이스 샘플 자리표시"],
       [D.techs.concat(D.treatments).filter(function (x) { return x.status !== "draft" && x.status !== "sample"; }).length, "검수 완료"]
     ];
-    return '<section class="hero2">' +
-      '<div><p class="hero2__tag">ELEVATE YOUR BEAUTY.</p>' +
-      "<h1>아름다움을 이해하는<br>새로운 기준.</h1>" +
-      '<p class="sub">홈 디바이스에서 피부과 시술까지.</p>' +
+    return '<div class="bandwrap"><section class="band"><div class="band__in">' + pearlField("band__field", 3, 5) +
+      '<p class="band__eyebrow">BEAUTY INTELLIGENCE PLATFORM</p>' + logoSvg("band__logo", { trail: true }) +
+      '<p class="band__slogan">Elevate Your Beauty.</p><p class="band__sub">아름다움을 더 높은 단계로.</p>' +
+      '<div class="band__cta"><a class="btn btn--light" href="#science">기술 탐색하기</a><a class="btn btn--line" href="#brand">브랜드 시스템 보기</a></div></div></section></div>' +
+      '<section class="hero2">' +
+      '<div><p class="hero2__tag">FROM HOME TO CLINIC.</p>' +
+      "<h1>아름다움을 이해하는<br>새로운 단계.</h1>" +
+      '<p class="sub">홈 디바이스에서 피부과 시술까지, 나에게 맞는 뷰티 테크를 탐색하는 플랫폼.</p>' +
       '<p class="lead">상품명이 아니라 기술 · 성분 · 작용 기전으로 연결합니다. 무엇이 같고 무엇이 다른지, 그리고 아직 무엇이 확인되지 않았는지까지.</p>' +
       '<a class="btn btn--wide" href="#science">나의 뷰티 기술 탐색하기</a></div>' +
       '<div class="hero2__visual"><img src="assets/hero-model.webp" alt="맑은 피부 톤의 모델이 투명한 유리 곡면 사이에서 측면을 바라보는 RE:LEV 키 비주얼" width="1448" height="1086" fetchpriority="high"></div>' +
@@ -450,6 +454,109 @@
       block("브랜드 생태계", "<p><b>KHUN STUDIO</b>가 브랜드 전략, 콘텐츠, 웹 개발을 맡습니다. 남성 자기관리 플랫폼 <b>RE:BOOT</b>와는 독립적인 소비자 아이덴티티를 유지하되 리서치 · 콘텐츠 제작 · 개발 인프라를 공유합니다.</p>");
   }
 
+  // ── 로고 시스템: Rising Pearl ─────────────────────
+  // 워드마크는 둥근 끝의 모노라인 글자. 콜론은 두 개의 진주이며, 위쪽 진주가 기본 위치보다 떠올라 있다 (RE → LEV, 다시 → 더 높은 단계).
+  var logoN = 0;
+  var GLYPHS = '<path d="M6 106V6h28a25 25 0 0 1 0 50H6M30 56l30 50"/>' +
+    '<path transform="translate(84 0)" d="M44 6H6v100h38M6 56h32"/>' +
+    '<path transform="translate(198 0)" d="M6 6v100h36"/>' +
+    '<path transform="translate(262 0)" d="M44 6H6v100h38M6 56h32"/>' +
+    '<path transform="translate(330 0)" d="M4 6l30 100L64 6"/>';
+  function pearlDefs(id) {
+    return '<radialGradient id="' + id + '" cx="34%" cy="30%" r="78%"><stop offset="0" stop-color="#ffffff"/><stop offset=".42" stop-color="#e6e0f1"/><stop offset=".8" stop-color="#a99cd0"/><stop offset="1" stop-color="#8576b0"/></radialGradient>';
+  }
+  function pearl(id, cx, cy, r, cls) {
+    return '<circle class="' + (cls || "") + '" cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="url(#' + id + ')"/>';
+  }
+  function logoSvg(cls, opts) {
+    opts = opts || {};
+    var id = "pearl" + (++logoN);
+    return '<svg class="' + (cls || "") + '" viewBox="-8 -16 416 134" role="img" aria-label="RE:LEV"><defs>' + pearlDefs(id) + "</defs>" +
+      '<g fill="none" stroke="currentColor" stroke-width="' + (opts.weight || 10) + '" stroke-linecap="round" stroke-linejoin="round">' + GLYPHS + "</g>" +
+      (opts.trail ? '<line class="pearl-trail" x1="166" y1="78" x2="166" y2="36" stroke="url(#' + id + ')" stroke-width="4" stroke-linecap="round" opacity=".55"/>' : "") +
+      pearl(id, 166, 92, 11, "pearl-lo") + pearl(id, 166, 26, 11, "pearl-hi") + "</svg>";
+  }
+  function symbolSvg(cls, bg) {
+    var id = "pearl" + (++logoN), g = "bg" + logoN;
+    return '<svg class="' + (cls || "") + '" viewBox="0 0 120 120" role="img" aria-label="RE:LEV 심볼"><defs>' + pearlDefs(id) +
+      '<linearGradient id="' + g + '" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f6f4f1"/><stop offset=".55" stop-color="#d9d2e7"/><stop offset="1" stop-color="#9183b9"/></linearGradient></defs>' +
+      (bg ? '<rect width="120" height="120" rx="28" fill="url(#' + g + ')"/>' : "") +
+      '<line x1="60" y1="78" x2="60" y2="44" stroke="#ffffff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>' +
+      pearl(id, 60, 84, 14) + pearl(id, 60, 34, 14) + "</svg>";
+  }
+  // 확장 그래픽: 진주가 아래에서 위로 떠오르며 곡선을 그리는 Pearl Rise 필드
+  function pearlField(cls, n, seed) {
+    var id = "pearl" + (++logoN), out = "", s = seed || 7;
+    function rnd() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+    for (var k = 0; k < (n || 3); k++) {
+      for (var i = 0; i < 14; i++) {
+        var t = i / 13, x = 40 + t * 920, y = 340 - t * 260 - Math.sin(t * Math.PI * (1.2 + k * .3)) * (60 + k * 30) + k * 40;
+        var r = 3 + t * 11 + rnd() * 3;
+        out += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) + '" fill="url(#' + id + ')" opacity="' + (0.35 + t * 0.6).toFixed(2) + '"/>';
+      }
+    }
+    return '<svg class="' + (cls || "") + '" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + pearlDefs(id) + "</defs>" + out + "</svg>";
+  }
+
+  // ── 페이지: Brand (디자인 시스템 문서) ────────────
+  function pageBrand() {
+    var nav = [["overview", "Overview"], ["logo", "Logo"], ["symbol", "Symbol & Motion"], ["graphic", "Graphic"], ["color", "Color"], ["type", "Typography"], ["voice", "Voice & Tone"], ["copy", "Copywriting"]];
+    var colors = [["Signature Lavender", "#9183B9", "시그니처 · 로고 진주 · 아이콘", "10%"], ["Lavender Mist", "#D9D2E7", "보조 면 · 정보 강조", "20%"], ["Soft Porcelain", "#F6F4F1", "기본 배경", "55%"], ["Liquid Titanium", "#BFC3C8", "디바이스 · 기술 그래픽", "5%"], ["Deep Ink", "#26252D", "텍스트 · 워드마크", "10%"], ["Deep Iris", "#65558D", "버튼 · 강조", "CTA"]];
+    var sec = function (id, eyebrow, title, desc, body) {
+      return '<section class="doc" id="b-' + id + '"><p class="eyebrow">' + eyebrow + "</p><h2>" + title + "</h2>" + (desc ? '<p class="doc__desc">' + desc + "</p>" : "") + body + "</section>";
+    };
+    return '<div class="bandwrap"><section class="band band--brand"><div class="band__in">' + pearlField("band__field", 2, 11) +
+      '<p class="band__eyebrow">RE:LEV DESIGN</p>' + logoSvg("band__logo", { trail: true }) +
+      '<p class="band__slogan">Rise from within.</p><p class="band__sub">하나의 진주가 떠오르며 더 높은 단계로 — RE:LEV 브랜드 시스템</p></div></section></div>' +
+      '<div class="docs"><nav class="docs__nav" aria-label="브랜드 문서 목차">' + nav.map(function (n) { return '<a href="#brand" data-jump="b-' + n[0] + '">' + n[1] + "</a>"; }).join("") + "</nav><div class=\"docs__body\">" +
+
+      sec("overview", "Brand Harness", "Why · How · What", "",
+        '<div class="harness">' +
+        [["Why", "우리가 존재하는 이유", "누구나 자신의 아름다움을 더 건강하고, 더 나은 단계로 발전시킬 수 있도록."],
+         ["How", "우리가 하는 방식", "신뢰할 수 있는 정보와 맞춤 가이드로 홈케어와 전문 케어를 연결합니다."],
+         ["What", "우리가 제공하는 것", "뷰티 디바이스 · 시술 정보 탐색, 비교, 큐레이션, 개인 맞춤 관리 가이드, 콘텐츠."]]
+          .map(function (h, i) { return '<div class="harness__item h' + i + '"><b>' + h[0] + "</b><span>" + h[1] + "</span><p>" + h[2] + "</p></div>"; }).join("") +
+        '</div><div class="kw">' + ["Beauty Tech", "Personalized", "Professional", "Accessible", "Elevated"].map(function (k) { return "<span>" + k + "</span>"; }).join("") + "</div>") +
+
+      sec("logo", "Logo", "Rising Pearl 워드마크", "끝이 둥근 모노라인 글자와 두 개의 진주 콜론. 위쪽 진주는 일반 콜론보다 높이 떠 있습니다. RE(다시)에서 LEV(더 높은 단계)로 떠오르는 순간을 담았습니다.",
+        '<div class="spec-grid">' +
+        '<div class="sheet sheet--light">' + logoSvg("sheet__logo") + "<span>Primary · Porcelain</span></div>" +
+        '<div class="sheet sheet--ink">' + logoSvg("sheet__logo") + "<span>Reverse · Deep Ink</span></div>" +
+        '<div class="sheet sheet--mist">' + logoSvg("sheet__logo", { weight: 7 }) + "<span>Light weight · 에디토리얼</span></div>" +
+        '<div class="sheet sheet--grad">' + logoSvg("sheet__logo", { trail: true }) + "<span>Signature · Derma Gradient + 진주 궤적</span></div></div>" +
+        '<div class="anatomy">' + logoSvg("anatomy__logo") + '<ol><li><b>Monoline</b> 둥근 끝 · 둥근 모서리. 부드럽고 정확한 인상</li><li><b>Base Pearl</b> 지금의 나. 기준선에 놓인 진주</li><li><b>Rising Pearl</b> 기본 콜론 위치보다 높이 떠오른 진주 = Elevate</li><li><b>Clear space</b> 진주 지름만큼 사방 여백</li></ol></div>') +
+
+      sec("symbol", "Symbol & Motion", "진주 콜론 심볼", "워드마크에서 콜론만 떼어 앱 아이콘 · 파비콘 · 프로필에 사용합니다. 모션은 아래 진주가 빛의 궤적을 남기며 위로 떠오르는 한 번의 움직임입니다.",
+        '<div class="sym-row">' +
+        '<div class="sym">' + symbolSvg("sym__icon", true) + "<span>App icon</span></div>" +
+        '<div class="sym">' + symbolSvg("sym__icon sym__icon--sm", true) + "<span>Favicon</span></div>" +
+        '<div class="sym sym--plain">' + symbolSvg("sym__icon", false) + "<span>Symbol only</span></div>" +
+        '<div class="sym sym--motion"><button class="replay" data-replay>' + logoSvg("motion__logo", { trail: true }) + '</button><span>Motion · 눌러서 다시 보기</span></div></div>') +
+
+      sec("graphic", "Graphic", "Pearl Rise 확장 그래픽", "콜론의 진주가 화면 전체로 펼쳐집니다. 아래 작은 진주에서 위 큰 진주로 곡선을 그리며 떠오르는 흐름 하나로 배경, 구분선, 로딩, 리스트 기호까지 확장합니다.",
+        '<div class="gfx">' +
+        '<div class="gfx__card gfx__card--wide">' + pearlField("gfx__field", 3, 3) + "<span>Pearl Rise · 키 비주얼 배경</span></div>" +
+        '<div class="gfx__card">' + pearlField("gfx__field", 1, 21) + "<span>Single Rise · 배너 · 썸네일</span></div>" +
+        '<div class="gfx__card gfx__card--ui"><div class="ui-demo"><span class="pearl-bullet"></span>디바이스 기술 이해하기</div><div class="ui-demo"><span class="pearl-bullet"></span>나에게 맞는 관리 찾기</div><div class="pearl-loader" aria-label="로딩 예시"><i></i><i></i></div><span>UI 확장 · 리스트 기호 · 로딩</span></div>' +
+        '<div class="gfx__card gfx__card--photo"><img src="assets/hero-model.webp" alt="RE:LEV 키 비주얼 위에 워드마크를 올린 예시" loading="lazy">' + logoSvg("photo__logo") + "<span>사진 위 워드마크</span></div></div>") +
+
+      sec("color", "Color", "LILAC INTELLIGENCE", "피부 과학과 세련된 여성성의 균형. 채도를 낮춘 라벤더로 화장품 브랜드 특유의 가벼움과 구분합니다.",
+        '<div class="swatches">' + colors.map(function (c) { return '<button class="sw" data-copy="' + c[1] + '"><i style="background:' + c[1] + '"></i><b>' + c[0] + "</b><code>" + c[1] + "</code><span>" + c[2] + " · " + c[3] + "</span></button>"; }).join("") +
+        '</div><div class="usage"><i style="flex:55;background:#F6F4F1">55%</i><i style="flex:20;background:#D9D2E7">20%</i><i style="flex:10;background:#9183B9;color:#fff">10%</i><i style="flex:10;background:#26252D;color:#fff">10%</i><i style="flex:5;background:#BFC3C8">5%</i></div><p class="caption">색상 칩을 누르면 값이 복사됩니다.</p>') +
+
+      sec("type", "Typography", "SUIT + Pretendard", "헤딩은 SUIT로 현대적이고 세련되게, 본문은 Pretendard로 디지털 환경에서 편하게 읽히도록.",
+        '<div class="type-specimen"><p class="ts ts--display">Elevate Your Beauty.</p><p class="ts ts--h">아름다움을 이해하는 새로운 단계.</p><p class="ts ts--b">홈 디바이스에서 피부과 시술까지, 나에게 맞는 뷰티 테크를 탐색하는 플랫폼. 기술의 원리와 근거, 그리고 아직 확인되지 않은 것까지 정직하게 보여 줍니다.</p><p class="ts ts--c">CAPTION · JETBRAINS MONO · 1.0 MHz · 633 nm · 3.0 mm</p></div>') +
+
+      sec("voice", "Voice & Tone", "말하는 방식", "",
+        '<div class="voice">' + [["Informed", "정확하고 신뢰할 수 있는", "출처와 근거 수준을 함께 말합니다."], ["Refined", "세련되고 감각적인", "과장 없이, 짧고 정돈된 문장."], ["Supportive", "함께하는, 친근한", "선택을 강요하지 않고 곁에서 설명합니다."], ["Progressive", "지속적으로 발전하는", "오늘보다 한 단계 나아가는 관리."]]
+          .map(function (v) { return "<div><b>" + v[0] + "</b><span>" + v[1] + "</span><p>" + v[2] + "</p></div>"; }).join("") + "</div>") +
+
+      sec("copy", "Copywriting", "슬로건 · 태그라인", "",
+        '<div class="copytable">' + [["Elevate Your Beauty.", "아름다움을 더 높은 단계로."], ["Rise from Within.", "안에서부터 떠오르는 아름다움."], ["Your Beauty, Next Level.", "당신의 아름다움, 다음 단계로."], ["Discover the Right Care.", "나에게 맞는 뷰티 케어를 발견하세요."], ["From Home to Clinic.", "일상 관리부터 전문 케어까지, 하나로."], ["Understand, Choose, Elevate.", "이해하고, 선택하고, 더 나아가세요."], ["The Beauty Tech Guide.", "뷰티 테크의 새로운 기준."], ["A Smarter Way to Care.", "더 스마트한 아름다움 관리."]]
+          .map(function (c) { return "<div><b>" + c[0] + "</b><span>" + c[1] + "</span></div>"; }).join("") + "</div>") +
+      "</div></div>";
+  }
+
   // ── 라우터 ────────────────────────────────────────
   function route() {
     // 주소 형식: #device, #device--sample-a (공유 링크에도 그대로 남는 단순 해시)
@@ -463,12 +570,14 @@
       case "science": html = path[1] ? pageTech(path[1]) : pageScience(); break;
       case "compare": html = pageCompare(); break;
       case "about": html = pageAbout(); break;
+      case "brand": html = pageBrand(); break;
       case "search": html = pageSearch(searchQ); break;
       default: html = notFound();
     }
     view.innerHTML = html;
+    document.body.classList.toggle("has-band", nav === "" || nav === "brand");
     document.querySelectorAll("[data-nav]").forEach(function (a) { a.classList.toggle("on", a.dataset.nav === nav); });
-    document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", science: "explore", device: "explore", clinic: "explore", compare: "compare" }[nav] || "")); });
+    document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", science: "explore", device: "explore", clinic: "explore", compare: "compare", brand: "brand" }[nav] || "")); });
     var h1 = view.querySelector("h1");
     document.title = (h1 && nav ? h1.textContent + " — " : "") + "RE:LEV — Elevate your beauty.";
     renderTray();
@@ -476,6 +585,14 @@
 
   // ── 이벤트 ────────────────────────────────────────
   document.addEventListener("click", function (e) {
+    var j = e.target.closest("[data-jump],[data-replay],[data-copy]");
+    if (j) {
+      e.preventDefault();
+      if (j.dataset.jump) document.getElementById(j.dataset.jump).scrollIntoView({ behavior: "smooth", block: "start" });
+      else if (j.hasAttribute("data-replay")) { var svg = j.querySelector("svg"); svg.classList.remove("play"); void svg.getBoundingClientRect(); svg.classList.add("play"); }
+      else { var v = j.dataset.copy; try { navigator.clipboard.writeText(v).then(function () { j.classList.add("copied"); setTimeout(function () { j.classList.remove("copied"); }, 1200); }, function () {}); } catch (err) {} }
+      return;
+    }
     var t = e.target.closest("[data-compare],[data-untray],[data-filter],[data-calc-example]");
     if (!t) return;
     if (t.dataset.compare) {
@@ -514,6 +631,7 @@
   // ── 데이터 로드 ───────────────────────────────────
   function load(name) { return fetch("data/" + name + ".json").then(function (r) { if (!r.ok) throw new Error(name); return r.json(); }); }
   Promise.all([load("taxonomy"), load("technologies"), load("treatments"), load("devices")]).then(function (r) {
+    document.querySelectorAll("[data-logo]").forEach(function (el) { el.innerHTML = logoSvg("logo-svg"); });
     D.taxonomy = r[0]; D.techs = r[1]; D.treatments = r[2]; D.devices = r[3];
     route();
   }).catch(function () {

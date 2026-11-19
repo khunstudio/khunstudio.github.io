@@ -136,6 +136,14 @@ RE:LEV는 홈 뷰티 디바이스와 피부과 시술을 *상품명이 아니라
 
 그래픽 소재: Derma Gradient(포슬린 → 라벤더), Liquid Titanium, Fluid Glass, Pearlescent Surface. 프로토타입 히어로와 Home to Clinic 카드에 CSS · SVG로 적용.
 
+## 3-0. 로고 시스템: Rising Pearl
+
+- 워드마크: 끝이 둥근 모노라인 RE · LEV. 콜론은 두 개의 진주이며, 위 진주가 기본 콜론 위치보다 떠올라 있음(RE → LEV, Elevate).
+- 심볼: 진주 콜론 단독(앱 아이콘 · 파비콘 · 프로필), 모션은 아래 진주에서 빛의 궤적을 남기며 위 진주가 떠오르는 1회 동작.
+- 확장 그래픽: Pearl Rise(진주가 작은 크기에서 큰 크기로 곡선을 그리며 떠오르는 필드) → 키 비주얼 배경, 배너, 리스트 기호, 로딩.
+- 태그라인: Rise from within. / 서비스 슬로건: Elevate Your Beauty.
+- 웹 구현: `relev/app.js`의 logoSvg · symbolSvg · pearlField, 브랜드 문서 페이지 `#brand`.
+
 ## 3-1. 브랜드 아이덴티티 방향 3개 (초기 검토 기록)
 
 | | A. Clinical Editorial | B. Soft Spectrum | C. Precision Instrument |
