@@ -335,3 +335,4 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
 .concern-chip__d { font-size: 12px; color: var(--color-mute); }
 .concern-chip[aria-checked="true"] { border-color: var(--color-ink); background: var(--color-ink); color: #fff; }
 .concern-chip[aria-checked="true"] .concern-chip__d { color: rgba(255,255,255,.7); }
+.badge-ok { background: #111; color: #fff; border: 1px solid #111; }

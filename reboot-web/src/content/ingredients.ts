@@ -1,7 +1,9 @@
 // RE:BOOT 성분 사전. 일반적인 화장품 · 피부 관리 정보이며 진단이나 치료를 대신하지 않는다.
 // 처방 성분(트레티노인, 이소트레티노인 등)은 '처방' 단계로 표시하고 반드시 의사 상담을 안내한다.
 
-export type IngLevel = "입문" | "중급" | "처방";
+export type IngLevel = "입문" | "중급" | "처방" | "과장 주의";
+/** 바르는 화장품 기준 근거 수준 (RE:BOOT 편집 판단, 검수 전) */
+export type Evidence = "탄탄" | "보통" | "제한적";
 export type SkinKey = "oily" | "dry" | "combo" | "normal" | "sensitive";
 
 export interface Ingredient {
@@ -22,11 +24,14 @@ export interface Ingredient {
   caution: string[];
   pair?: string[];
   avoid?: string[];
+  evidence?: Evidence;
+  /** 과장 주의 항목의 한 줄 결론 */
+  verdict?: string;
 }
 
 export const INGREDIENTS: Ingredient[] = [
   {
-    slug: "niacinamide", ko: "나이아신아마이드", en: "Niacinamide", level: "입문",
+    slug: "niacinamide", ko: "나이아신아마이드", en: "Niacinamide", level: "입문", evidence: "탄탄",
     role: "피지 · 모공 · 톤 · 장벽을 두루 챙기는 만능형",
     tags: ["피지", "톤", "장벽"],
     what: "비타민 B3의 한 형태예요. 자극이 비교적 적어서 처음 고르는 '기능성 성분'으로 많이 추천돼요.",
@@ -38,7 +43,7 @@ export const INGREDIENTS: Ingredient[] = [
     pair: ["판테놀", "세라마이드", "자외선 차단제", "레티노이드(자극 완화용)"],
   },
   {
-    slug: "panthenol", ko: "판테놀", en: "Panthenol (Pro-Vitamin B5)", level: "입문",
+    slug: "panthenol", ko: "판테놀", en: "Panthenol (Pro-Vitamin B5)", level: "입문", evidence: "보통",
     role: "면도 후 · 따가울 때 진정과 보습",
     tags: ["진정", "보습", "면도 후"],
     what: "비타민 B5의 전구체예요. 피부에 흡수되면 판토텐산으로 바뀌어요.",
@@ -50,7 +55,7 @@ export const INGREDIENTS: Ingredient[] = [
     pair: ["나이아신아마이드", "세라마이드", "시카"],
   },
   {
-    slug: "ceramide", ko: "세라마이드", en: "Ceramides", level: "입문",
+    slug: "ceramide", ko: "세라마이드", en: "Ceramides", level: "입문", evidence: "탄탄",
     role: "무너진 피부 장벽을 메우는 벽돌 사이 시멘트",
     tags: ["장벽", "보습"],
     what: "피부 각질층 지질의 큰 비중을 차지하는 성분이에요. 화장품엔 비슷한 구조로 만든 성분이 들어가요.",
@@ -62,7 +67,7 @@ export const INGREDIENTS: Ingredient[] = [
     pair: ["판테놀", "나이아신아마이드", "레티노이드"],
   },
   {
-    slug: "centella", ko: "병풀 추출물 (시카)", en: "Centella Asiatica", level: "입문",
+    slug: "centella", ko: "병풀 추출물 (시카)", en: "Centella Asiatica", level: "입문", evidence: "보통",
     role: "붉고 예민할 때 쓰는 진정 성분",
     tags: ["진정"],
     what: "병풀에서 얻은 추출물로, 마데카소사이드 · 아시아티코사이드 같은 성분이 들어 있어요.",
@@ -73,7 +78,7 @@ export const INGREDIENTS: Ingredient[] = [
     caution: ["식물 추출물이라 드물게 맞지 않을 수 있어요"],
   },
   {
-    slug: "salicylic-acid", ko: "살리실산 (BHA)", en: "Salicylic Acid", level: "중급",
+    slug: "salicylic-acid", ko: "살리실산 (BHA)", en: "Salicylic Acid", level: "중급", evidence: "탄탄",
     role: "모공 속 피지와 각질을 녹이는 지성 · 블랙헤드용",
     tags: ["각질", "모공", "트러블"],
     what: "기름에 녹는 각질 제거 성분이에요. 국내 화장품에서는 보통 0.5~2% 범위로 쓰여요.",
@@ -85,7 +90,7 @@ export const INGREDIENTS: Ingredient[] = [
     avoid: ["같은 날 레티노이드 · AHA를 한꺼번에"],
   },
   {
-    slug: "aha", ko: "AHA (글리콜산 · 락틱산)", en: "Alpha Hydroxy Acids", level: "중급",
+    slug: "aha", ko: "AHA (글리콜산 · 락틱산)", en: "Alpha Hydroxy Acids", level: "중급", evidence: "탄탄",
     role: "표면 각질을 정리해 결 · 톤을 매끈하게",
     tags: ["각질", "톤", "결"],
     what: "물에 녹는 각질 제거 성분이에요. 글리콜산은 작고 강한 편, 락틱산은 비교적 순한 편이에요.",
@@ -97,7 +102,7 @@ export const INGREDIENTS: Ingredient[] = [
     avoid: ["면도 직후", "레티노이드와 같은 날"],
   },
   {
-    slug: "azelaic-acid", ko: "아젤라익산", en: "Azelaic Acid", level: "중급",
+    slug: "azelaic-acid", ko: "아젤라익산", en: "Azelaic Acid", level: "중급", evidence: "탄탄",
     role: "트러블 · 붉은 기 · 자국을 같이 보는 다목적 성분",
     tags: ["트러블", "붉은 기", "자국"],
     what: "곡물에서 유래한 산이에요. 화장품에는 저농도로, 고농도(15~20%) 제품은 국가에 따라 의약품으로 처방돼요.",
@@ -109,7 +114,7 @@ export const INGREDIENTS: Ingredient[] = [
     pair: ["나이아신아마이드", "자외선 차단제"],
   },
   {
-    slug: "retinol", ko: "레티놀", en: "Retinol", level: "중급",
+    slug: "retinol", ko: "레티놀", en: "Retinol", level: "중급", evidence: "탄탄",
     role: "피부 재생 주기를 당겨 결 · 모공 · 잔주름을 관리",
     tags: ["재생", "결", "노화", "트러블"],
     what: "비타민 A 계열(레티노이드) 중 화장품에 쓰이는 대표 성분이에요. 피부 안에서 레티날 → 레티노산으로 바뀌어 작용해요.",
@@ -122,7 +127,7 @@ export const INGREDIENTS: Ingredient[] = [
     avoid: ["같은 날 AHA · BHA", "면도 직후"],
   },
   {
-    slug: "retinal", ko: "레티날 (레티날데하이드)", en: "Retinaldehyde", level: "중급",
+    slug: "retinal", ko: "레티날 (레티날데하이드)", en: "Retinaldehyde", level: "중급", evidence: "보통",
     role: "레티놀보다 한 단계 빠른 레티노이드",
     tags: ["재생", "결", "노화", "트러블"],
     what: "레티놀이 피부 안에서 바뀌는 중간 단계 성분이에요. 레티노산까지 한 단계만 남아 있어요.",
@@ -133,7 +138,7 @@ export const INGREDIENTS: Ingredient[] = [
     caution: ["레티놀을 써 본 적 없다면 저농도 레티놀부터", "레티놀과 같은 주의사항"],
   },
   {
-    slug: "retinoids-rx", ko: "처방 레티노이드 (트레티노인 · 아다팔렌)", en: "Prescription Retinoids", level: "처방",
+    slug: "retinoids-rx", ko: "처방 레티노이드 (트레티노인 · 아다팔렌)", en: "Prescription Retinoids", level: "처방", evidence: "탄탄",
     role: "여드름 · 광노화 치료에 쓰이는 의약품",
     tags: ["처방", "여드름"],
     what: "레티노산 자체(트레티노인)나 이를 닮은 합성 성분(아다팔렌 등)이에요. 국내에서는 의약품으로 분류돼요.",
@@ -144,7 +149,7 @@ export const INGREDIENTS: Ingredient[] = [
     caution: ["임의로 구해서 쓰지 않아요", "임신 중 · 계획 중에는 사용하지 않는 성분이에요", "처방 시 함께 쓸 보습 · 자외선 차단 안내를 따라요"],
   },
   {
-    slug: "vitamin-c", ko: "비타민 C (아스코빅애씨드 · 유도체)", en: "Vitamin C", level: "중급",
+    slug: "vitamin-c", ko: "비타민 C (아스코빅애씨드 · 유도체)", en: "Vitamin C", level: "중급", evidence: "탄탄",
     role: "아침에 바르는 항산화 · 톤 관리",
     tags: ["항산화", "톤"],
     what: "순수 비타민 C(L-아스코빅애씨드)와, 안정성을 높인 유도체(에틸아스코빌에텔 · 소듐아스코빌포스페이트 등)가 있어요.",
@@ -156,7 +161,7 @@ export const INGREDIENTS: Ingredient[] = [
     pair: ["자외선 차단제", "비타민 E · 페룰산"],
   },
   {
-    slug: "hyaluronic-acid", ko: "히알루론산", en: "Hyaluronic Acid", level: "입문",
+    slug: "hyaluronic-acid", ko: "히알루론산", en: "Hyaluronic Acid", level: "입문", evidence: "보통",
     role: "수분을 끌어당기는 보습 성분",
     tags: ["보습"],
     what: "자기 무게의 많은 양의 물을 붙잡을 수 있는 보습 성분이에요. 분자 크기가 다른 여러 형태가 함께 쓰여요.",
@@ -167,7 +172,7 @@ export const INGREDIENTS: Ingredient[] = [
     caution: ["아주 건조한 환경에서 크림 없이 쓰면 오히려 당길 수 있어요"],
   },
   {
-    slug: "benzoyl-peroxide", ko: "벤조일퍼옥사이드", en: "Benzoyl Peroxide", level: "중급",
+    slug: "benzoyl-peroxide", ko: "벤조일퍼옥사이드", en: "Benzoyl Peroxide", level: "중급", evidence: "탄탄",
     role: "화농성 트러블에 쓰는 살균 성분",
     tags: ["트러블", "살균"],
     what: "여드름균을 줄이는 성분이에요. 국내에서는 일반의약품 연고 · 젤로 약국에서 구할 수 있어요.",
@@ -178,7 +183,7 @@ export const INGREDIENTS: Ingredient[] = [
     caution: ["건조 · 따가움이 흔해요", "수건 · 베개 · 옷을 탈색시킬 수 있어요", "제품 설명서와 약사 안내를 꼭 따라요"],
   },
   {
-    slug: "zinc-oxide", ko: "징크옥사이드 · 티타늄디옥사이드 (무기자차)", en: "Mineral UV Filters", level: "입문",
+    slug: "zinc-oxide", ko: "징크옥사이드 · 티타늄디옥사이드 (무기자차)", en: "Mineral UV Filters", level: "입문", evidence: "탄탄",
     role: "피부 위에서 자외선을 막는 무기자차 필터",
     tags: ["자외선"],
     what: "광물에서 얻은 자외선 차단 성분이에요. 이 둘이 주성분이면 '무기자차'라고 불러요.",
@@ -189,7 +194,7 @@ export const INGREDIENTS: Ingredient[] = [
     caution: ["백탁(하얗게 뜸)과 뻑뻑함이 있을 수 있어요", "땀에 밀리면 덧바르기"],
   },
   {
-    slug: "organic-filters", ko: "유기 자외선 필터 (유기자차)", en: "Organic (Chemical) UV Filters", level: "입문",
+    slug: "organic-filters", ko: "유기 자외선 필터 (유기자차)", en: "Organic (Chemical) UV Filters", level: "입문", evidence: "탄탄",
     role: "피부에 흡수돼 자외선을 열로 바꾸는 유기자차 필터",
     tags: ["자외선"],
     what: "에칠헥실메톡시신나메이트, 비스-에칠헥실옥시페놀메톡시페닐트리아진 같은 합성 필터예요. 이런 성분이 주력이면 '유기자차'라고 불러요.",
@@ -198,6 +203,221 @@ export const INGREDIENTS: Ingredient[] = [
     concerns: ["백탁이 싫을 때", "지성 · 땀 많은 피부", "매일 출근 · 외출"],
     use: ["외출 15분 전쯤 바르기", "2~3시간마다 덧바르기"],
     caution: ["눈가에 흘러 들어가면 시릴 수 있어요", "예민한 피부는 자극을 느낄 수 있어 무기자차나 혼합으로 바꿔 봐요"],
+  },
+
+  // ───────── 톤 · 자국 ─────────
+  {
+    slug: "tranexamic-acid", ko: "트라넥삼산", en: "Tranexamic Acid", level: "중급", evidence: "보통",
+    role: "기미 · 여드름 자국처럼 남는 갈색 톤을 다루는 성분",
+    tags: ["톤", "자국", "미백"],
+    what: "원래 지혈제로 쓰이던 성분이에요. 화장품에는 보통 2~5% 안팎으로 들어가요. 먹는 약은 전문의약품이라 처방이 필요해요.",
+    how: "자외선 · 염증 같은 자극이 색소 세포를 깨우는 신호(플라스민 경로)를 줄여 멜라닌이 덜 만들어지도록 돕는다고 알려져 있어요. 자극이 적은 편이라 나이아신아마이드와 함께 많이 써요.",
+    goodFor: ["oily", "combo", "normal", "dry", "sensitive"],
+    concerns: ["여드름 후 갈색 자국", "기미 · 잡티", "칙칙한 톤"],
+    use: ["아침 · 저녁 모두 가능", "세럼 형태로 세안 후", "최소 8~12주는 꾸준히"],
+    caution: ["자외선 차단 없이는 효과를 기대하기 어려워요", "먹는 트라넥삼산은 의사 처방으로만"],
+    pair: ["나이아신아마이드", "비타민 C", "자외선 차단제"],
+  },
+  {
+    slug: "arbutin", ko: "알부틴 · 알파-알부틴", en: "Arbutin / Alpha-Arbutin", level: "입문", evidence: "보통",
+    role: "식약처 미백 기능성 고시 성분, 순한 톤 관리",
+    tags: ["톤", "미백"],
+    what: "베어베리 등에서 유래한 성분으로, 국내에서는 미백 기능성 고시 성분이에요. 알파-알부틴은 안정성과 효율을 높인 형태예요.",
+    how: "멜라닌을 만드는 효소(티로시나아제)의 작용을 줄여 색소가 덜 생기도록 도와요. 이미 생긴 색을 지우기보다 새로 생기는 걸 줄이는 쪽이에요.",
+    goodFor: ["normal", "combo", "dry", "oily", "sensitive"],
+    concerns: ["잡티", "자국", "칙칙함"],
+    use: ["세럼 · 크림으로 아침 · 저녁", "자외선 차단과 함께"],
+    caution: ["효과는 몇 주 이상 꾸준히 써야 보여요"],
+    pair: ["나이아신아마이드", "트라넥삼산", "비타민 C"],
+  },
+  {
+    slug: "licorice", ko: "감초 추출물 (글라브리딘)", en: "Licorice Root Extract", level: "입문", evidence: "보통",
+    role: "진정과 톤 정리를 같이 하는 식물 성분",
+    tags: ["진정", "톤"],
+    what: "감초 뿌리 추출물이에요. 글라브리딘 같은 성분이 들어 있어요.",
+    how: "색소 생성을 줄이는 작용과 붉은 기를 가라앉히는 작용이 함께 알려져 있어요. 자극이 적어 예민한 피부의 톤 관리용으로 많이 쓰여요.",
+    goodFor: ["sensitive", "normal", "combo", "dry", "oily"],
+    concerns: ["붉은 기", "자국"],
+    use: ["토너 · 세럼으로"],
+    caution: ["추출물 함량이 제품마다 달라 체감 차이가 커요"],
+  },
+
+  // ───────── 주름 · 탄력 ─────────
+  {
+    slug: "adenosine", ko: "아데노신", en: "Adenosine", level: "입문", evidence: "보통",
+    role: "국내 주름 개선 기능성 고시 성분 중 가장 흔한 것",
+    tags: ["주름", "탄력"],
+    what: "몸 안에도 있는 성분으로, 국내 주름 개선 기능성 화장품에 고시된 성분이에요. 크림에 '주름 개선' 표시가 있으면 이 성분인 경우가 많아요.",
+    how: "피부 세포의 회복 · 콜라겐 관련 신호를 돕는다고 알려져 있어요. 레티놀보다 효과는 완만하지만 자극이 거의 없어요.",
+    goodFor: ["dry", "normal", "combo", "oily", "sensitive"],
+    concerns: ["잔주름", "탄력"],
+    use: ["아침 · 저녁 크림 · 아이크림으로"],
+    caution: ["극적인 변화를 기대하기보다 기본 관리 위에 더하는 성분이에요"],
+    pair: ["레티놀(저녁)", "자외선 차단제"],
+  },
+  {
+    slug: "peptides", ko: "펩타이드", en: "Peptides", level: "중급", evidence: "보통",
+    role: "피부에 '콜라겐 만들어' 신호를 보내는 짧은 아미노산 사슬",
+    tags: ["주름", "탄력"],
+    what: "아미노산이 짧게 이어진 성분이에요. 팔미토일펜타펩타이드-4 같은 '신호 펩타이드', 구리 펩타이드 등 종류가 많아요.",
+    how: "작아서 피부에 어느 정도 들어갈 수 있고, 콜라겐 생성을 돕는 신호처럼 작용한다고 알려져 있어요. 종류마다 연구 수준이 달라서 '펩타이드'라는 말만으로 효과를 판단하긴 어려워요.",
+    goodFor: ["dry", "normal", "combo", "sensitive"],
+    concerns: ["탄력", "잔주름", "레티놀이 부담스러울 때"],
+    use: ["세럼 · 크림으로 아침 · 저녁"],
+    caution: ["가격 대비 효과 차이가 커요. 성분표에 어떤 펩타이드인지 적혀 있는지 확인", "구리 펩타이드는 강한 산(AHA · 비타민 C 고농도)과 같은 시간대는 피해요"],
+  },
+  {
+    slug: "bakuchiol", ko: "바쿠치올", en: "Bakuchiol", level: "입문", evidence: "보통",
+    role: "레티놀이 따가운 사람을 위한 순한 대안",
+    tags: ["재생", "결", "노화"],
+    what: "식물(보골지)에서 얻은 성분으로, 레티놀과 구조는 다르지만 비슷한 방향의 작용이 보고됐어요.",
+    how: "소수의 연구에서 꾸준히 썼을 때 결 · 잔주름 개선이 레티놀과 비슷했고 자극은 적었다고 보고됐어요. 연구 규모는 아직 크지 않아요.",
+    goodFor: ["sensitive", "dry", "normal", "combo"],
+    concerns: ["레티놀이 따가울 때", "결 · 잔주름"],
+    use: ["아침 · 저녁 모두 가능"],
+    caution: ["레티놀만큼 근거가 쌓인 성분은 아니에요"],
+  },
+
+  // ───────── 보습 · 장벽 (기본기) ─────────
+  {
+    slug: "glycerin", ko: "글리세린", en: "Glycerin", level: "입문", evidence: "탄탄",
+    role: "가장 싸고 가장 확실한 보습 성분",
+    tags: ["보습"],
+    what: "거의 모든 보습제 전성분 앞쪽에 있는 성분이에요. 흔하다고 약한 게 아니에요.",
+    how: "물을 끌어당겨 각질층을 촉촉하게 하고, 장벽 기능 회복을 돕는다는 연구가 많아요.",
+    goodFor: ["dry", "combo", "normal", "oily", "sensitive"],
+    concerns: ["건조함", "당김"],
+    use: ["보습제 전성분 앞쪽에 있으면 OK"],
+    caution: ["고농도 단독 사용은 끈적일 수 있어요"],
+  },
+  {
+    slug: "squalane", ko: "스쿠알란", en: "Squalane", level: "입문", evidence: "보통",
+    role: "가볍게 덮어 수분을 잡아 주는 오일",
+    tags: ["보습", "장벽"],
+    what: "피지 성분인 스쿠알렌을 안정하게 만든 오일이에요. 무겁지 않아요.",
+    how: "피부 표면에 얇은 막을 만들어 수분 증발을 줄여요. 오일 치고 모공을 덜 막는 편이라고 알려져 있어요.",
+    goodFor: ["dry", "normal", "combo", "sensitive"],
+    concerns: ["건조함", "겨울철 당김"],
+    use: ["크림에 1~2방울 섞거나 마지막 단계"],
+    caution: ["지성 · 트러블 피부는 양을 적게"],
+  },
+  {
+    slug: "urea", ko: "우레아 (요소)", en: "Urea", level: "입문", evidence: "탄탄",
+    role: "거칠고 각질 많은 피부의 보습 · 정돈",
+    tags: ["보습", "각질"],
+    what: "피부가 원래 가진 보습 인자 중 하나예요. 낮은 농도는 보습, 높은 농도는 각질 연화에 쓰여요.",
+    how: "수분을 붙잡고, 농도가 높으면 단단한 각질을 부드럽게 풀어줘요. 손 · 발 · 팔꿈치 크림에 많이 쓰여요.",
+    goodFor: ["dry", "normal"],
+    concerns: ["각질", "거친 손 · 발", "건조함"],
+    use: ["얼굴은 저농도(5% 안팎), 손 · 발은 더 높은 농도"],
+    caution: ["상처 · 갈라진 피부에는 따가울 수 있어요"],
+  },
+  {
+    slug: "beta-glucan", ko: "베타글루칸", en: "Beta-Glucan", level: "입문", evidence: "보통",
+    role: "히알루론산과 비슷한 보습 · 진정",
+    tags: ["보습", "진정"],
+    what: "귀리 · 버섯 등에서 얻는 다당류예요.",
+    how: "수분을 붙잡고 자극받은 피부를 진정시키는 데 도움을 준다고 알려져 있어요.",
+    goodFor: ["sensitive", "dry", "normal", "combo", "oily"],
+    concerns: ["건조함", "면도 후"],
+    use: ["토너 · 세럼으로"],
+    caution: ["대부분 순해요"],
+  },
+  {
+    slug: "allantoin", ko: "알란토인", en: "Allantoin", level: "입문", evidence: "보통",
+    role: "면도 후 크림에 자주 들어가는 진정 성분",
+    tags: ["진정", "면도 후"],
+    what: "컴프리 등에서 유래하고 합성으로도 만드는 진정 성분이에요.",
+    how: "피부를 부드럽게 하고 자극을 가라앉히는 데 도움을 준다고 알려져 있어요.",
+    goodFor: ["sensitive", "dry", "normal", "combo", "oily"],
+    concerns: ["면도 후 따가움", "붉은 기"],
+    use: ["면도 후 보습제에 들어 있으면 좋아요"],
+    caution: ["대부분 순해요"],
+  },
+
+  // ───────── 트러블 · 각질 ─────────
+  {
+    slug: "pha-lha", ko: "PHA · LHA", en: "Polyhydroxy / Lipohydroxy Acids", level: "입문", evidence: "보통",
+    role: "AHA · BHA가 따가운 사람을 위한 순한 각질 제거",
+    tags: ["각질", "결"],
+    what: "PHA(글루코노락톤 등)는 분자가 커서 천천히, LHA는 살리실산 유도체로 모공 쪽에 작용해요.",
+    how: "표면 각질을 천천히 정리해 자극이 적은 편이에요. 예민하거나 면도를 자주 하는 피부에 입문용으로 좋아요.",
+    goodFor: ["sensitive", "dry", "combo", "normal"],
+    concerns: ["거친 결", "예민해서 AHA · BHA가 따가울 때"],
+    use: ["저녁 토너 · 패드로 주 2~3회부터"],
+    caution: ["순해도 각질 제거 성분이에요. 다음 날 자외선 차단"],
+  },
+  {
+    slug: "sulfur", ko: "황 (설퍼)", en: "Sulfur", level: "중급", evidence: "보통",
+    role: "트러블 부위에 찍어 바르는 오래된 성분",
+    tags: ["트러블"],
+    what: "오래전부터 트러블 관리에 쓰인 성분이에요. 스팟 제품 · 클레이 마스크에 들어가요.",
+    how: "각질을 정리하고 균의 증식을 억제하는 쪽으로 작용한다고 알려져 있어요.",
+    goodFor: ["oily", "combo"],
+    concerns: ["가끔 올라오는 트러블"],
+    use: ["트러블 부위에만 얇게"],
+    caution: ["냄새가 있고 건조해질 수 있어요"],
+  },
+  {
+    slug: "tea-tree", ko: "티트리 오일", en: "Tea Tree Oil", level: "중급", evidence: "제한적",
+    role: "트러블용으로 유명하지만 자극 가능성도 있는 식물 오일",
+    tags: ["트러블"],
+    what: "호주 티트리 잎에서 얻은 오일이에요. 화장품에는 저농도로 들어가요.",
+    how: "일부 연구에서 저농도 티트리 젤이 가벼운 트러블에 도움이 됐다고 보고됐어요. 다만 근거가 크지 않고, 원액은 자극 · 알레르기 위험이 있어요.",
+    goodFor: ["oily", "combo"],
+    concerns: ["가벼운 트러블"],
+    use: ["완제품 안에 들어간 형태로", "원액을 그대로 바르지 않기"],
+    caution: ["알레르기 · 접촉피부염 보고가 있어요. 패치 테스트 먼저"],
+  },
+
+  // ───────── 과장 주의 ─────────
+  {
+    slug: "pdrn-topical", ko: "PDRN · PN (바르는 제품)", en: "Polydeoxyribonucleotide, topical", level: "과장 주의", evidence: "제한적",
+    role: "주사 시술로 유명해졌지만, 바르는 제품의 근거는 약해요",
+    tags: ["과장 주의", "재생"],
+    what: "연어 등에서 얻은 DNA 조각이에요. 피부과에서는 주사(시술) 형태로 쓰여 유명해졌어요.",
+    how: "주사로 진피에 직접 넣었을 때의 연구와, 크림 · 앰플로 바를 때는 전혀 다른 이야기예요. 분자가 커서 피부 장벽을 통과해 진피까지 가는지에 대한 근거가 부족해요. 바르면 보습 성분 정도의 역할을 한다고 보는 게 현실적이에요.",
+    verdict: "‘시술 성분이 들어간 크림’이라는 이유만으로 비싸게 살 필요는 없어요.",
+    goodFor: ["dry", "normal", "sensitive"],
+    concerns: ["재생 · 탄력 광고"],
+    use: ["보습이 마음에 들면 써도 되지만, 효과를 시술과 비교하지 않기"],
+    caution: ["시술 효과를 기대하고 고가 제품을 사지 않기", "시술이 궁금하면 피부과 상담 (RE:LEV Clinic 참고)"],
+  },
+  {
+    slug: "collagen-topical", ko: "콜라겐 (바르는 제품)", en: "Collagen, topical", level: "과장 주의", evidence: "제한적",
+    role: "발라서 내 콜라겐이 채워지지는 않아요",
+    tags: ["과장 주의", "보습"],
+    what: "화장품 속 콜라겐은 동물 · 어류에서 얻은 단백질이나 그 조각이에요.",
+    how: "콜라겐 분자는 매우 커서 피부 속으로 들어가 내 콜라겐을 대신하거나 늘리지 못해요. 피부 표면에서 수분을 붙잡는 보습막 역할을 해요. 내 콜라겐을 늘리는 쪽은 레티노이드 · 비타민 C · 자외선 차단이 근거가 더 많아요.",
+    verdict: "‘콜라겐 크림’은 보습제예요. 탄력이 목적이면 레티놀 · 비타민 C · 선크림에 돈을 쓰세요.",
+    goodFor: ["dry", "normal"],
+    concerns: ["탄력 광고"],
+    use: ["보습제로서 마음에 들면 OK"],
+    caution: ["‘콜라겐 함유’ 함량 · 형태가 적혀 있지 않은 경우가 많아요"],
+  },
+  {
+    slug: "stem-cell", ko: "줄기세포 배양액", en: "Stem Cell Culture Extract", level: "과장 주의", evidence: "제한적",
+    role: "이름이 주는 인상에 비해 근거가 적어요",
+    tags: ["과장 주의"],
+    what: "식물 · 사람 세포를 배양한 액체예요. 살아 있는 줄기세포가 들어 있는 게 아니에요.",
+    how: "배양액 속 성장인자 등이 피부에 좋을 수 있다는 가설이 있지만, 바르는 화장품으로서의 연구는 많지 않고 제품마다 내용물이 제각각이에요.",
+    verdict: "‘줄기세포’라는 단어에 비싼 값을 내기 전에 기본 3단계와 근거 있는 성분부터.",
+    goodFor: ["normal", "dry"],
+    concerns: ["재생 광고"],
+    use: ["필수 아님"],
+    caution: ["효과를 단정하는 광고는 의심해요"],
+  },
+  {
+    slug: "spicule", ko: "스피큘 · 미세침 화장품 (리들샷류)", en: "Spicule / Microneedle Cosmetics", level: "과장 주의", evidence: "제한적",
+    role: "따끔한 느낌이 '효과'는 아니에요. 자극 관리가 먼저",
+    tags: ["과장 주의", "흡수"],
+    what: "해면동물에서 얻은 아주 작은 바늘 모양 입자(스피큘)를 넣은 제품이에요. 바르면 피부에 미세한 통로를 만들어 다음 단계 흡수를 돕는다고 광고돼요. 특정 브랜드 이름보다 '스피큘 제품'이라는 종류로 이해하면 돼요.",
+    how: "각질을 자극해 피부결이 정돈된 느낌을 주고, 이후 바른 성분의 흡수가 늘 수는 있어요. 다만 피부과 미세침 시술과는 깊이와 정밀도가 다르고, 화장품 형태의 효과 연구는 아직 많지 않아요. 흡수가 늘면 자극 성분의 자극도 같이 늘어요.",
+    verdict: "써 봐도 되지만 ‘시술 대체’로 기대하지 말고, 예민하거나 트러블이 있으면 피해요.",
+    goodFor: ["normal", "oily", "combo"],
+    concerns: ["결", "흡수 부스팅 광고"],
+    use: ["저농도 제품부터 주 1~2회", "사용한 날은 레티놀 · AHA · BHA · 비타민 C 고농도 쉬기", "다음 날 자외선 차단"],
+    caution: ["면도 직후 · 트러블 · 상처 부위 금지", "따가움이 오래가거나 붉어지면 중단", "예민한 피부는 피하는 게 무난해요"],
   },
 ];
 

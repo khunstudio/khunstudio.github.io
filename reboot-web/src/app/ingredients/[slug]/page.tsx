@@ -27,9 +27,11 @@ export default async function IngredientPage({ params }: { params: Promise<{ slu
       <p className="lead mt-3">{i.role}</p>
       <div className="mt-4 flex flex-wrap gap-1.5">
         <span className="badge badge-draft">{i.level}</span>
+        {i.evidence && <span className={`badge ${i.evidence === "탄탄" ? "badge-ok" : "badge-draft"}`}>근거 {i.evidence}</span>}
         {i.tags.map((t) => <span key={t} className="badge badge-draft">{t}</span>)}
       </div>
       {i.level === "처방" && <div className="notice notice-warn mt-6"><p>의약품이에요. 직접 구해서 쓰지 말고 피부과 진료 후 처방과 안내를 따라요.</p></div>}
+      {i.verdict && <div className="notice notice-warn mt-6"><p><b>RE:BOOT 결론</b> · {i.verdict}</p></div>}
 
       <section className="mt-10"><h2 className="sec-head h3">무엇인가요</h2><p className="mt-3 leading-relaxed">{i.what}</p></section>
       <section className="mt-8"><h2 className="sec-head h3">피부에서 이렇게 작용해요</h2><p className="mt-3 leading-relaxed">{i.how}</p></section>

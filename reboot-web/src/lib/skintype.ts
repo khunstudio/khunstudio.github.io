@@ -118,7 +118,7 @@ export const SKIN_PROFILES: Record<SkinTypeKey, SkinProfile> = {
       { step: "자외선", pick: "유기자차 · 혼합자차 (산뜻한 로션 · 젤)", why: "백탁과 무거움이 적어 매일 쓰기 쉬워요" },
       { step: "추가", pick: "BHA 토너 · 패드 (주 2~3회)", why: "모공 속 피지 · 각질 정리" },
     ],
-    ingredients: ["niacinamide", "salicylic-acid", "azelaic-acid", "retinol"],
+    ingredients: ["niacinamide", "salicylic-acid", "azelaic-acid", "retinol", "tranexamic-acid"],
     avoid: ["하루 3번 이상 세안", "알코올 느낌 강한 스킨으로 닦아내기", "보습 완전히 생략하기"],
     sunscreen: "유기자차나 혼합자차의 젤 · 로션 제형. 땀이 많으면 워터프루프.",
     addons: [
@@ -136,7 +136,7 @@ export const SKIN_PROFILES: Record<SkinTypeKey, SkinProfile> = {
       { step: "자외선", pick: "무기자차 · 혼합자차의 촉촉한 크림 제형", why: "건조함과 자극을 덜어요" },
       { step: "추가", pick: "저녁에 페이스 오일 1~2방울 (크림에 섞기)", why: "건조한 계절에 수분 증발을 한 번 더 막기" },
     ],
-    ingredients: ["ceramide", "hyaluronic-acid", "panthenol", "niacinamide"],
+    ingredients: ["ceramide", "glycerin", "squalane", "panthenol", "adenosine", "peptides"],
     avoid: ["뜨거운 물 세안", "스크럽 · 강한 각질 제거", "알코올 함량 높은 토너"],
     sunscreen: "무기자차나 혼합자차의 크림 제형.",
     addons: [
@@ -154,7 +154,7 @@ export const SKIN_PROFILES: Record<SkinTypeKey, SkinProfile> = {
       { step: "자외선", pick: "혼합자차 로션", why: "산뜻함과 순함의 중간" },
       { step: "추가", pick: "BHA는 T존에만 주 2회", why: "볼까지 바르면 건조해지기 쉬워요" },
     ],
-    ingredients: ["niacinamide", "salicylic-acid", "hyaluronic-acid", "ceramide"],
+    ingredients: ["niacinamide", "salicylic-acid", "pha-lha", "hyaluronic-acid", "ceramide"],
     avoid: ["얼굴 전체에 같은 강도의 각질 제거", "지성용 제품으로 볼까지 말리기"],
     sunscreen: "혼합자차 로션. T존이 무너지면 그 부위만 파우더 · 기름종이.",
     addons: [
@@ -172,7 +172,7 @@ export const SKIN_PROFILES: Record<SkinTypeKey, SkinProfile> = {
       { step: "자외선", pick: "쓰기 편한 제형 아무거나, SPF30 이상", why: "가장 좋은 선크림은 매일 바르게 되는 선크림" },
       { step: "추가", pick: "아침 비타민 C 또는 저녁 레티놀", why: "관리 목표(톤 · 결)에 맞춰 하나씩" },
     ],
-    ingredients: ["vitamin-c", "niacinamide", "retinol", "hyaluronic-acid"],
+    ingredients: ["vitamin-c", "niacinamide", "retinol", "tranexamic-acid", "adenosine"],
     avoid: ["한 번에 여러 기능성 제품 시작하기"],
     sunscreen: "SPF30 이상, 쓰기 편한 제형이면 충분해요.",
     addons: [
@@ -190,7 +190,7 @@ export const SENSITIVE_NOTE = {
     "면도 후엔 판테놀 · 시카 같은 진정 성분.",
     "붉은 기 · 따가움이 계속되면 피부과 상담을 받아요.",
   ],
-  ingredients: ["panthenol", "centella", "ceramide", "zinc-oxide"],
+  ingredients: ["panthenol", "centella", "allantoin", "beta-glucan", "zinc-oxide", "bakuchiol"],
 };
 
 export const SKIN_LABEL: Record<SkinKey, string> = { oily: "지성", dry: "건성", combo: "복합성", normal: "중성", sensitive: "예민" };
