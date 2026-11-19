@@ -7,13 +7,13 @@
   <meta name="description" content="홈 뷰티 디바이스와 피부과 시술을 상품명이 아니라 기술 · 성분 · 작용 기전으로 연결하는 뷰티 테크 플랫폼 프로토타입. KHUN STUDIO.">
   <!-- 프로토타입: 모든 레코드가 검수 전 초안이므로 검색 색인 제외 -->
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#f4f2ee">
+  <meta name="theme-color" content="#f6f4f1">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="app.css?v=4">
+  <link rel="stylesheet" href="app.css?v=5">
 </head>
 <body>
   <div class="proto-bar">PROTOTYPE · 모든 데이터는 검수 전 초안이며, 디바이스 항목은 실제 제품이 아닌 샘플 자리표시입니다.</div>
@@ -43,6 +43,14 @@
     <p class="foot__note">RE:LEV는 진단 · 시술 추천 · 처방을 제공하지 않습니다. 시술 여부와 홈 디바이스 병행 사용은 의료진과 제조사 공식 지침을 우선하세요.<br>A KHUN STUDIO project · <a href="../">khunstudio.github.io</a></p>
   </footer>
 
-  <script src="app.js?v=4"></script>
+  <nav class="tabbar" aria-label="하단 메뉴">
+    <a href="#home" data-tab="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg>홈</a>
+    <a href="#science" data-tab="explore"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M15 9l-2 4-4 2 2-4z"/></svg>탐색</a>
+    <a href="#compare" data-tab="compare"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M5 12h14M7 16h10"/></svg>비교</a>
+    <span title="준비 중"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>루틴</span>
+    <span title="준비 중"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 12.5-4 14 0"/></svg>MY</span>
+  </nav>
+
+  <script src="app.js?v=5"></script>
 </body>
 </html>

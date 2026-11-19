@@ -123,7 +123,20 @@ RE:LEV는 홈 뷰티 디바이스와 피부과 시술을 *상품명이 아니라
 
 ---
 
-## 3. 브랜드 아이덴티티 방향 3개
+## 3. 컬러 시스템 (확정: LILAC INTELLIGENCE)
+
+| 이름 | 값 | 역할 | 사용 비율 |
+|---|---|---|---|
+| Soft Porcelain | #F6F4F1 | 기본 배경 | 55% |
+| Lavender Mist | #D9D2E7 | 보조 컬러 · 정보 강조 면 | 20% |
+| Signature Lavender | #9183B9 | 시그니처 · 로고 콜론 · 아이콘 | 10% |
+| Deep Ink | #26252D | 텍스트 · 대비 | 10% |
+| Liquid Titanium | #BFC3C8 | 테크놀로지 · 디바이스 그래픽 | 5% |
+| Deep Iris | #65558D | 버튼 · 강조 (CTA) | — |
+
+그래픽 소재: Derma Gradient(포슬린 → 라벤더), Liquid Titanium, Fluid Glass, Pearlescent Surface. 프로토타입 히어로와 Home to Clinic 카드에 CSS · SVG로 적용.
+
+## 3-1. 브랜드 아이덴티티 방향 3개 (초기 검토 기록)
 
 | | A. Clinical Editorial | B. Soft Spectrum | C. Precision Instrument |
 |---|---|---|---|

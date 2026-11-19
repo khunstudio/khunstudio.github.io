@@ -84,15 +84,14 @@
       '<p class="caption">일반적인 설명을 위한 도식입니다. 실제 도달 깊이는 장비 · 설정 · 개인에 따라 다르며, 제품별로 검증된 값이 아닙니다.</p>';
   }
 
-  // ── 스펙트럼 라인 (홈 히어로) ──
-  function spectrumSvg() {
-    var paths = "", colors = ["#7d8fb8", "#a9a3d9", "#6aa3a3", "#c08a6a"];
-    colors.forEach(function (c, k) {
-      var d = "M0 36", wl = 18 + k * 22, amp = 10 + k * 3;
-      for (var x = 0; x <= 1200; x += 6) d += " L" + x + " " + (36 + Math.sin((x / wl) * Math.PI) * amp * Math.sin((x / 1200) * Math.PI)).toFixed(1);
-      paths += '<path d="' + d + '" fill="none" stroke="' + c + '" stroke-width="1.4" opacity=".85"/>';
-    });
-    return '<svg class="spectrum" viewBox="0 0 1200 72" preserveAspectRatio="none" aria-hidden="true">' + paths + "</svg>";
+  // ── 히어로 비주얼: Fluid Glass 모티프 (투명한 리본 두 줄) ──
+  function glassSvg() {
+    return '<svg viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice"><defs>' +
+      '<linearGradient id="gl1" x1="0" x2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".2"/><stop offset=".5" stop-color="#ffffff" stop-opacity=".85"/><stop offset="1" stop-color="#c6e2f0" stop-opacity=".35"/></linearGradient>' +
+      '<linearGradient id="gl2" x1="0" x2="1"><stop offset="0" stop-color="#65558d" stop-opacity=".15"/><stop offset=".6" stop-color="#9183b9" stop-opacity=".55"/><stop offset="1" stop-color="#ffffff" stop-opacity=".3"/></linearGradient></defs>' +
+      '<path d="M-20 250 C 80 140, 170 330, 270 210 S 430 90, 540 160" fill="none" stroke="url(#gl1)" stroke-width="46" stroke-linecap="round"/>' +
+      '<path d="M-20 270 C 90 170, 180 350, 280 235 S 440 120, 540 185" fill="none" stroke="url(#gl2)" stroke-width="10" stroke-linecap="round"/>' +
+      '<path d="M-20 300 C 100 230, 200 380, 300 290 S 450 200, 540 240" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/></svg>';
   }
 
   // ── 비교함 ────────────────────────────────────────
@@ -131,25 +130,30 @@
       [D.devices.length, "디바이스 샘플 자리표시"],
       [D.techs.concat(D.treatments).filter(function (x) { return x.status !== "draft" && x.status !== "sample"; }).length, "검수 완료"]
     ];
-    return '<section class="hero">' +
-      '<p class="eyebrow">RE:LEV — Beauty Intelligence Platform · Prototype</p>' +
-      "<h1>ELEVATE<br><em>YOUR BEAUTY.</em></h1>" +
-      '<p class="lead">아름다움의 새로운 단계. 홈 뷰티 디바이스와 피부과 시술을 상품명이 아니라 <b>기술 · 성분 · 작용 기전</b>으로 이해하고, 탐색하고, 스스로 선택하도록 돕습니다.</p>' +
-      '<div class="cta"><a class="btn" href="#science">기술부터 읽기</a><a class="btn btn--ghost" href="#compare">비교해 보기</a></div>' +
-      spectrumSvg() + "</section>" +
+    return '<section class="hero2">' +
+      '<div><p class="hero2__tag">ELEVATE YOUR BEAUTY.</p>' +
+      "<h1>아름다움을 이해하는<br>새로운 기준.</h1>" +
+      '<p class="sub">홈 디바이스에서 피부과 시술까지.</p>' +
+      '<p class="lead">상품명이 아니라 기술 · 성분 · 작용 기전으로 연결합니다. 무엇이 같고 무엇이 다른지, 그리고 아직 무엇이 확인되지 않았는지까지.</p>' +
+      '<a class="btn btn--wide" href="#science">나의 뷰티 기술 탐색하기</a></div>' +
+      '<div class="hero2__visual" aria-hidden="true">' + glassSvg() + '<span class="hero2__mark">RE<span>:</span>LEV</span></div>' +
+      "</section>" +
 
-      '<section class="section"><div class="rl">' +
-      '<div class="rl__col"><div class="rl__head"><b>READ.</b><span>이해하다</span></div>' +
-      rlItem("#device", "DEVICE", "디바이스 데이터베이스", "실제 작용 기전으로 분류. 공개되지 않은 스펙은 '미공개'.") +
-      rlItem("#science", "SCIENCE", "기술과 작용 기전", "RF, EMS, 미세전류, 집속 초음파, IPL… 그리고 단위 읽는 법.") +
-      rlItem("#clinic", "CLINIC", "피부과 시술 백과사전", "상품명 뒤의 기술 · 성분 · 알려진 위험.") +
-      '</div><div class="rl__col rl__col--lead"><div class="rl__head"><b>LEAD.</b><span>주도하다</span></div>' +
-      rlItem("#compare", "COMPARE", "기술 · 가격 · 제품 비교", "같은 기준으로만 비교하고, 못 하는 비교는 이유를 알려 드립니다.") +
-      rlItem(null, "ROUTINE", "나의 피부관리 루틴", "보유 기기 · 사용 기록 · 캘린더 (P1 준비 중)") +
-      rlItem(null, "SELECT", "합리적인 제품 선택", "광고와 분리된 큐레이션 (준비 중)") +
-      '</div></div><p class="rl__foot">정보를 이해하는 사람에서, 관리를 주도하는 사람으로.</p></section>' +
+      '<section class="section"><h2>Explore Technology</h2><div class="explore">' +
+        '<a class="tile" href="#science--rf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9c2.5-2 5.5-2 8 0s5.5 2 8 0M4 13c2.5-2 5.5-2 8 0s5.5 2 8 0M4 17c2.5-2 5.5-2 8 0s5.5 2 8 0"/></svg><b>RF</b><span>고주파</span></a>' +
+        '<a class="tile" href="#science--hifu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5h3M17 5h3v3M20 16v3h-3M7 19H4v-3"/><circle cx="12" cy="12" r="2.6"/></svg><b>HIFU</b><span>집속 초음파</span></a>' +
+        '<a class="tile" href="#science--ems"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M7 14l3-4 3 5 2-3 2 2"/></svg><b>EMS</b><span>전기 자극</span></a>' +
+        '<a class="tile" href="#science--led"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></svg><b>LED</b><span>광 에너지</span></a>' +
+        '<a class="tile" href="#science--ultrasound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11v2M7.5 8v8M11 5v14M14.5 8v8M18 10v4M21 11.5v1"/></svg><b>US</b><span>초음파</span></a>' +
+        '<a class="tile" href="#science--ha-filler"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l5 5M17.5 6.5l-9 9-3 1 1-3 9-9M9 12l3 3M4 20l2.5-2.5"/></svg><b>INJECT</b><span>주입형 시술</span></a>' +
+      "</div></section>" +
 
-      '<section class="section"><p class="eyebrow">From Home to Clinic</p><h2 style="font-size:26px;margin:6px 0 18px">같은 계열, 다른 도구.</h2>' +
+      '<section class="section"><h2>Home to Clinic</h2><div class="h2c">' +
+      '<a href="#device"><div class="art art--home" aria-hidden="true"><svg viewBox="0 0 160 100"><rect x="68" y="16" width="24" height="52" rx="12" fill="#ffffff" stroke="#c9bfe0"/><path d="M72 22c3-5 13-5 16 0" fill="#bfc3c8"/><rect x="76" y="40" width="8" height="14" rx="4" fill="none" stroke="#9183b9"/><ellipse cx="80" cy="74" rx="30" ry="7" fill="#d9d2e7"/></svg></div><b>Home Device</b><span>일상에서 시작하는 관리</span></a>' +
+      '<a href="#clinic"><div class="art art--clinic" aria-hidden="true"><svg viewBox="0 0 160 100"><rect x="56" y="14" width="48" height="30" rx="4" fill="#26252d"/><rect x="60" y="18" width="40" height="22" rx="2" fill="#3b3a48"/><rect x="66" y="48" width="28" height="34" rx="3" fill="#f6f4f1" stroke="#bfc3c8"/><path d="M66 60h28M66 71h28" stroke="#bfc3c8"/><circle cx="70" cy="88" r="3" fill="#8b8994"/><circle cx="90" cy="88" r="3" fill="#8b8994"/></svg></div><b>Clinical Care</b><span>전문적인 피부관리 탐색</span></a>' +
+      '</div><p class="note">홈 디바이스와 전문 시술은 같은 기술 계열이어도 서로를 대체하지 않습니다. RE:LEV는 두 영역의 차이를 설명할 뿐, 시술을 권하거나 홈케어를 깎아내리지 않습니다.</p></section>' +
+
+      '<section class="section"><p class="eyebrow">Same family, different tools</p><h2 style="font-size:26px;margin:6px 0 18px">같은 계열, 다른 도구.</h2>' +
       '<div class="bridge"><div class="bridge__row head"><span>HOME</span><span class="bridge__mid">TECHNOLOGY</span><span>CLINIC</span></div>' +
       bridges.map(function (b) {
         return '<div class="bridge__row"><div><b>' + esc(b.home) + '</b><div class="caption" style="margin-top:2px">' + esc(b.note) + "</div></div>" +
@@ -171,10 +175,7 @@
       stats.map(function (s) { return "<div><b>" + s[0] + "</b><span>" + s[1] + "</span></div>"; }).join("") + "</div>" +
       '<p class="note note--warn">프로토타입 단계입니다. 시술 · 기술 항목은 일반적으로 알려진 분류를 정리한 초안이며 전문가 검수 전입니다. 디바이스 항목은 데이터 구조를 보여 주기 위한 샘플 자리표시로, 실제 제품이 아닙니다.</p></section>';
   }
-  function rlItem(href, label, title, body) {
-    var inner = '<span class="rl__label">' + label + (href ? "" : ' <span class="badge">SOON</span>') + "</span><b>" + title + "</b><span>" + body + "</span>";
-    return href ? '<a class="rl__item" href="' + href + '">' + inner + "</a>" : '<div class="rl__item rl__item--off">' + inner + "</div>";
-  }
+
 
   // ── 페이지: 디바이스 ──────────────────────────────
   function pageDevices() {
@@ -466,6 +467,7 @@
     }
     view.innerHTML = html;
     document.querySelectorAll("[data-nav]").forEach(function (a) { a.classList.toggle("on", a.dataset.nav === nav); });
+    document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", science: "explore", device: "explore", clinic: "explore", compare: "compare" }[nav] || "")); });
     var h1 = view.querySelector("h1");
     document.title = (h1 && nav ? h1.textContent + " — " : "") + "RE:LEV — Elevate your beauty.";
     renderTray();
