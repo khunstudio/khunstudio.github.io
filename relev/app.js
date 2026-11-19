@@ -261,7 +261,7 @@
     if (!d) return notFound();
     var specs = D.taxonomy.specFields.map(function (f) {
       var s = d.specs[f.key];
-      var v = s && s.status === "disclosed" ? esc(s.value + " " + (s.unit || "")) + (s.condition ? ' <span class="caption">' + esc(s.condition) + "</span>" : "") : na(s && s.status === "undisclosed" ? "미공개" : "미입력");
+      var v = s && s.status === "disclosed" ? esc((typeof s.value === "number" ? s.value.toLocaleString("ko-KR") : s.value) + " " + (s.unit || "")) + (s.condition ? ' <span class="caption">' + esc(s.condition) + "</span>" : "") : na(s && s.status === "undisclosed" ? "미공개" : "미입력");
       return '<div class="spec"><span class="k">' + f.label + '</span><span class="v">' + v + '</span><span>' + (s && s.tier ? '<span class="badge">' + s.tier + "</span>" : "") + "</span></div>";
     }).join("");
     var related = clinicFor(d.techIds.concat(d.techCandidates || [])); var g = d.glowpick || {}, cand = d.techCandidates || [];
@@ -272,26 +272,31 @@
     var body =
       '<p class="summary">' + (d.techIds.length ? "<b>" + d.techIds.map(tagLabel).join(" + ") + "</b> 계열로 분류했습니다." : "판매 페이지만으로는 작용 기전을 확인할 수 없습니다.") + " 효능 문구는 옮기지 않습니다.</p>" +
       block("기술 분류", '<div class="specs">' +
-        '<div class="spec"><span class="k">확인된 기술</span><span class="v">' + (d.techIds.length ? chips(d.techIds) : na("없음")) + '</span><span><span class="badge">T6</span></span></div>' +
+        '<div class="spec"><span class="k">확인된 기술</span><span class="v">' + (d.techIds.length ? chips(d.techIds) : na("없음")) + '</span><span><span class="badge">' + ((d.sources || []).some(function (x) { return x.tier === "T5"; }) ? "T5" : "T6") + '</span></span></div>' +
         '<div class="spec"><span class="k">확인 필요</span><span class="v">' + (cand.length ? cand.map(function (t) { return '<span class="chip chip--cand f-' + familyOf(t) + '">' + esc(tagLabel(t)) + "?</span>"; }).join(" ") : '<span class="caption">없음</span>') + "</span><span></span></div>" +
         '<div class="spec"><span class="k">판매 페이지 표기</span><span class="v" style="font-family:var(--sans)">' + esc(d.listingNote || "") + "</span><span></span></div></div>" +
-        '<p class="caption">출처: 글로우픽 제품 페이지의 판매처 설명 (T6 광고성 설명). \'확인 필요\'는 모드 이름만 있고 기술명이 없어 제조사 상세 페이지 · 설명서로 확인해야 하는 후보입니다.</p>') +
+        '<p class="caption">출처: 제조사 공식 자료(T5)가 있으면 우선, 없으면 글로우픽 판매처 설명(T6 광고성 설명). \'확인 필요\'는 모드 이름만 있고 기술명이 없어 제조사 상세 페이지 · 설명서로 확인해야 하는 후보입니다.</p>') +
       block("기술 사양", '<div class="specs">' +
         '<div class="spec"><span class="k">제조사 기술 명칭</span><span class="v">' + (d.makerTechName ? esc(d.makerTechName) : na()) + "</span><span></span></div>" + specs + "</div>" +
         '<p class="caption">모든 값은 물리량 · 단위 · 측정 조건 · 출처 등급과 함께 저장됩니다. 공개되지 않은 값은 추정하지 않습니다.</p>') +
+      (d.makerModes ? block("제조사 공식 모드", '<div class="chips">' + d.makerModes.map(function (m) { return '<span class="chip chip--plain">' + esc(m) + "</span>"; }).join("") + "</div>" + (d.makerTechNote ? '<p class="note">' + esc(d.makerTechNote) + "</p>" : "")) : "") +
       block("사용 지침 (제조사 문서 기준)", '<div class="specs">' +
-        ["권장 사용 주기", "사용 가능 부위", "금기 · 주의사항"].map(function (k) { return '<div class="spec"><span class="k">' + k + '</span><span class="v">' + na() + "</span><span></span></div>"; }).join("") + "</div>" +
+        '<div class="spec"><span class="k">권장 사용 주기</span><span class="v" style="font-family:var(--sans)">' + (d.makerGuide ? d.makerGuide.map(esc).join("<br>") : na()) + "</span><span>" + (d.makerGuide ? '<span class="badge">T5</span>' : "") + "</span></div>" +
+        ["사용 가능 부위", "금기 · 주의사항"].map(function (k) { return '<div class="spec"><span class="k">' + k + '</span><span class="v">' + na() + "</span><span></span></div>"; }).join("") + "</div>" +
         '<p class="caption">기술 계열의 일반적인 주의사항 (제품 지침이 우선): ' + esc(safety.join(" · ")) + "</p>") +
       block("허가 · 인증", "<p>" + na("확인 필요") + ' <span class="caption">공산품 / 의료기기 등급과 허가 목적을 규제기관 문서(T1)로 확인해 기재합니다.</span></p>') +
       block("근거", '<div class="specs"><div class="spec"><span class="k">독립 연구 (T2)</span><span class="v">' + na() + '</span><span></span></div><div class="spec"><span class="k">제조사 인체적용시험 (T4)</span><span class="v">' + na() + "</span><span></span></div></div>") +
       block("비용", '<div class="specs">' +
         '<div class="spec"><span class="k">글로우픽 표기가</span><span class="v">' + (g.price ? won0(g.price) + ' <span class="caption">' + esc(g.observedAt) + " 조회</span>" : na()) + "</span><span></span></div>" +
+        (d.priceUsd ? '<div class="spec"><span class="k">글로벌 공식몰가</span><span class="v">US$' + d.priceUsd + ' <span class="caption">medicube.us · ' + esc(g.observedAt) + ' 조회</span></span><span><span class="badge">T5</span></span></div>' : "") +
         ["실구매가 (채널 · 날짜)", "소모품 비용", "보증기간"].map(function (k) { return '<div class="spec"><span class="k">' + k + '</span><span class="v">' + na() + "</span><span></span></div>"; }).join("") + "</div>") +
       block("HOME → CLINIC · 같은 기술 계열의 전문 시술", related.length
         ? '<div class="grid">' + related.map(treatmentCard).join("") + '</div><p class="note">같은 계열이라도 출력, 표적 깊이, 허가 목적, 시행 주체가 다릅니다. 이 연결은 대체 가능성을 뜻하지 않습니다.</p>'
         : '<p class="caption">이 기술 계열과 직접 대응하는 전문 시술 레코드가 아직 없습니다.</p>') +
       (sameTech.length ? block("같은 기술을 쓰는 다른 디바이스", '<div class="grid">' + sameTech.map(deviceCard).join("") + "</div>") : "") +
-      block("정보 출처", g.url ? '<p><a href="' + g.url + '" target="_blank" rel="noopener">글로우픽 제품 페이지</a> <span class="caption">순위 · 표기가 · 판매처 설명 (' + esc(g.observedAt) + ' 조회). 제조사 공식 스펙(T5)은 미입력</span></p>' : "<p>" + na("출처 미입력") + "</p>");
+      block("정보 출처", '<div class="srcs">' + (d.sources || []).map(function (x) { return '<p><span class="badge">' + x.tier + '</span> <a href="' + x.url + '" target="_blank" rel="noopener">' + esc(x.label) + "</a></p>"; }).join("") +
+        (g.url ? '<p><span class="badge">T6</span> <a href="' + g.url + '" target="_blank" rel="noopener">글로우픽 제품 페이지</a> <span class="caption">순위 · 표기가 · 판매처 설명 (' + esc(g.observedAt) + " 조회)</span></p>" : "") +
+        ((d.sources || []).length ? "" : '<p class="caption">제조사 공식 스펙(T5) 미입력</p>') + "</div>");
 
     return '<a class="back" href="#device">← Device</a><div class="split detail"><div>' +
       '<p class="eyebrow">' + esc(d.brand) + " · " + esc(d.form) + "</p><h1>" + esc(d.name) + "</h1>" + '<p class="sub">' + esc(d.purpose || "") + "</p>" + body + "</div>" +

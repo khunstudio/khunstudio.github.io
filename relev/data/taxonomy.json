@@ -189,6 +189,11 @@
    "key": "levels",
    "label": "강도 단계",
    "quantity": "count"
+  },
+  {
+   "key": "vibration",
+   "label": "진동",
+   "quantity": "vibrationRate"
   }
  ],
  "homeFamilies": [

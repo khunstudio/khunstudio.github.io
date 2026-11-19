@@ -92,16 +92,17 @@
   "name": "에이지알 부스터 프로 X2",
   "brand": "메디큐브",
   "form": "핸드헬드 · 멀티",
-  "techIds": [],
+  "techIds": [
+   "airshot",
+   "led"
+  ],
   "techCandidates": [
    "electroporation",
    "microcurrent",
-   "airshot",
-   "ems",
-   "led"
+   "ems"
   ],
   "purpose": "멀티 케어",
-  "listingNote": "7가지 모드 · 2개 모드 동시 출력(듀얼 모드)으로 표기. 개별 모드의 기술명은 판매 페이지에 없음",
+  "listingNote": "공식몰 기준 7가지 솔루션: Booster · Air Shot · MC · Derma Shot · Dual · Mask · AI 모드",
   "glowpick": {
    "id": 187813,
    "rank": 5,
@@ -111,7 +112,26 @@
   },
   "makerTechName": null,
   "specs": {},
-  "status": "draft"
+  "status": "draft",
+  "makerModes": [
+   "Booster X2",
+   "Air Shot X2",
+   "MC",
+   "Derma Shot",
+   "Dual Mode (2개 모드 동시)",
+   "Mask Mode",
+   "AI Mode",
+   "LED"
+  ],
+  "makerTechNote": "공식몰은 브랜드 차원에서 'RF, EMS, EP 기술'을 쓴다고 밝히지만 어느 모드가 어떤 기술인지는 제품 페이지에 명시하지 않음. MC는 통상 Microcurrent 약어이나 페이지에 풀이 없음.",
+  "sources": [
+   {
+    "tier": "T5",
+    "label": "medicube 공식몰 (글로벌) 제품 페이지",
+    "url": "https://medicube.us/products/booster-pro-x2"
+   }
+  ],
+  "priceUsd": 249
  },
  {
   "id": "gp-182781",
@@ -166,11 +186,13 @@
   "brand": "LG 프라엘",
   "form": "스틱형",
   "techIds": [
-   "iontophoresis"
+   "iontophoresis",
+   "led",
+   "vibration"
   ],
   "techCandidates": [],
   "purpose": "흡수 · 부스팅",
-  "listingNote": "'갈바닉' 제품명, '3 in 1 테크놀로지' 표기 (나머지 2가지 기술명 미기재)",
+  "listingNote": "'갈바닉' 제품명, '3 in 1 테크놀로지' 표기 → LG생활건강 보도자료에서 갈바닉 · 630nm LED · 진동으로 확인",
   "glowpick": {
    "id": 182100,
    "rank": 8,
@@ -179,8 +201,40 @@
    "url": "https://www.glowpick.com/products/182100"
   },
   "makerTechName": null,
-  "specs": {},
-  "status": "draft"
+  "specs": {
+   "current": {
+    "status": "disclosed",
+    "value": 250,
+    "unit": "µA",
+    "condition": "갈바닉 미세 출력량 (제조사 표기)",
+    "tier": "T5",
+    "source": "https://www.lg.co.kr/media/release/29074"
+   },
+   "wavelength": {
+    "status": "disclosed",
+    "value": 630,
+    "unit": "nm",
+    "condition": "LED (제조사 표기)",
+    "tier": "T5",
+    "source": "https://www.lg.co.kr/media/release/29074"
+   },
+   "vibration": {
+    "status": "disclosed",
+    "value": 8500,
+    "unit": "회/분",
+    "condition": "진동 (제조사 표기)",
+    "tier": "T5",
+    "source": "https://www.lg.co.kr/media/release/29074"
+   }
+  },
+  "status": "draft",
+  "sources": [
+   {
+    "tier": "T5",
+    "label": "LG생활건강 보도자료 (2025-06-23)",
+    "url": "https://www.lg.co.kr/media/release/29074"
+   }
+  ]
  },
  {
   "id": "gp-167692",
@@ -456,17 +510,17 @@
   "brand": "메디큐브",
   "form": "핸드헬드 · 멀티",
   "techIds": [
+   "airshot",
    "led",
    "vibration"
   ],
   "techCandidates": [
    "electroporation",
    "microcurrent",
-   "airshot",
    "ems"
   ],
   "purpose": "멀티 케어",
-  "listingNote": "'광채 · 탄력 · 볼륨 · 모공 · LED · 진동 6 in 1'로 표기. LED · 진동 외 모드의 기술명은 판매 페이지에 없음",
+  "listingNote": "공식몰 기준 6 in 1: Booster · Air Shot · MC · Derma Shot · Sonic Vibration · LED",
   "glowpick": {
    "id": 168659,
    "rank": null,
@@ -475,8 +529,38 @@
    "url": "https://www.glowpick.com/products/168659"
   },
   "makerTechName": null,
-  "specs": {},
-  "status": "draft"
+  "specs": {
+   "wavelength": {
+    "status": "disclosed",
+    "value": "400 초과",
+    "unit": "nm",
+    "condition": "LED 최단 파장이 400nm를 넘는 가시광선 (제조사 FAQ)",
+    "tier": "T5",
+    "source": "https://medicube.us/products/age-r-booster-pro"
+   }
+  },
+  "status": "draft",
+  "makerModes": [
+   "Booster (흡수)",
+   "Air Shot (모공 · 피부 표면 미세 통로)",
+   "MC (볼륨 · 라인)",
+   "Derma Shot (윤곽)",
+   "Sonic Vibration",
+   "LED (피부 접촉 시 점등)"
+  ],
+  "makerTechNote": "공식몰은 브랜드 차원에서 'RF, EMS, EP 기술'을 쓴다고 밝히지만 어느 모드가 어떤 기술인지는 제품 페이지에 명시하지 않음. MC는 통상 Microcurrent 약어이나 페이지에 풀이 없음.",
+  "makerGuide": [
+   "Air Shot: 주 2–3회 · 회당 5분, 세안 후 마른 피부에 먼저",
+   "Booster · MC · Derma Shot: 하루 1–3회 · 회당 5–10분, 스킨케어와 함께"
+  ],
+  "sources": [
+   {
+    "tier": "T5",
+    "label": "medicube 공식몰 (글로벌) 제품 페이지",
+    "url": "https://medicube.us/products/age-r-booster-pro"
+   }
+  ],
+  "priceUsd": 230
  },
  {
   "id": "gp-177622",
@@ -535,7 +619,7 @@
   ],
   "techCandidates": [],
   "purpose": "탄력 케어",
-  "listingNote": "'고주파와 초음파 듀얼 에너지', 80샷으로 표기",
+  "listingNote": "'고주파와 초음파 듀얼 에너지', 80샷으로 표기 · 공식몰 FAQ에서도 RF + 초음파로 확인",
   "glowpick": {
    "id": 155384,
    "rank": null,
@@ -545,7 +629,14 @@
   },
   "makerTechName": null,
   "specs": {},
-  "status": "draft"
+  "status": "draft",
+  "sources": [
+   {
+    "tier": "T5",
+    "label": "medicube 공식몰 FAQ — 'Deep Shot은 RF와 초음파 결합'",
+    "url": "https://medicube.us/products/age-r-ultra-tune-40-68"
+   }
+  ]
  },
  {
   "id": "gp-159532",
@@ -638,5 +729,41 @@
   "makerTechName": null,
   "specs": {},
   "status": "draft"
+ },
+ {
+  "id": "mc-ultra-tune",
+  "name": "에이지알 RF 울트라 튠 40.68",
+  "brand": "메디큐브",
+  "form": "핸드헬드",
+  "techIds": [
+   "rf"
+  ],
+  "techCandidates": [
+   "microcurrent"
+  ],
+  "purpose": "탄력 케어",
+  "listingNote": "공식몰 FAQ: 'RF와 MC 기술 결합', 딥샷보다 약 20배 높은 주파수로 표기. 제품명 '40.68'의 단위는 페이지에 없음",
+  "glowpick": {
+   "id": null,
+   "rank": null,
+   "price": null,
+   "observedAt": "2026-11-19",
+   "url": null
+  },
+  "makerTechName": null,
+  "specs": {},
+  "status": "draft",
+  "makerGuide": [
+   "하루 1–3회 · 회당 5–10분 (공식몰 FAQ)",
+   "별도 젤 없이 사용 가능 (공식몰 FAQ)"
+  ],
+  "sources": [
+   {
+    "tier": "T5",
+    "label": "medicube 공식몰 (글로벌) 제품 페이지",
+    "url": "https://medicube.us/products/age-r-ultra-tune-40-68"
+   }
+  ],
+  "priceUsd": 350
  }
 ]

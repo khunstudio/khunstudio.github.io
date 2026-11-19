@@ -640,3 +640,4 @@ body.is-home main > .section:first-of-type { margin-top: 72px; }
 .match-wrap summary { cursor: pointer; font-family: var(--display); font-weight: 600; font-size: 17px; margin-bottom: 12px; }
 .f-ems { --c: #c08a6a; } .f-microcurrent { --c: #7d8fb8; } .f-electroporation { --c: #9183b9; } .f-galvanic { --c: #6f9fb8; }
 .f-hifu { --c: #4f8f8f; } .f-led { --c: #d0a24a; } .f-ipl { --c: #c47a8e; } .f-cooling { --c: #7fb7d6; }
+.srcs { display: grid; gap: 6px; }
