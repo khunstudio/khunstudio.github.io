@@ -23,11 +23,28 @@ export const EXPERIENCES: Record<Experience, string> = {
 };
 
 export const MINUTES: Record<Minutes, string> = { 3: "하루 3분", 5: "하루 5분", 10: "하루 10분", 30: "하루 30분" };
-export const MINUTE_CHOICES: { m: Minutes; desc: string }[] = [
-  { m: 5, desc: "피부 기본만 확실하게. 세안 · 보습 · 자외선 차단" },
-  { m: 10, desc: "기본 + 고른 영역에서 한두 가지 (스트레칭 · 머리 손질 등)" },
-  { m: 30, desc: "운동 15분까지 포함한 제대로 된 하루 루틴" },
-];
+export const MINUTE_OPTIONS: Minutes[] = [5, 10, 30];
+
+/** 앞에서 고른 영역에 맞춰 시간 선택지 설명을 만든다 */
+export function minuteDesc(m: Minutes, interests: Area[]): string {
+  const has = (a: Area) => interests.includes(a);
+  if (m <= 5) return "피부 기본만 확실하게. 세안 · 보습 · 자외선 차단";
+  const parts: string[] = [];
+  if (m === 10) {
+    if (has("skin") || interests.length === 0) parts.push(interests.length > 1 ? "세럼" : "세럼과 저녁 기능성 한 단계");
+    if (has("body")) parts.push("스트레칭");
+    if (has("style")) parts.push("머리 손질");
+    if (has("life")) parts.push("내일 할 일 정리");
+    return `기본에 ${parts.slice(0, 3).join(", ")} 추가`;
+  }
+  const skinOnly = interests.length === 0 || (interests.length === 1 && has("skin"));
+  if (skinOnly) return "세럼 · 진정 패드 · 뷰티 디바이스까지 피부 풀코스";
+  parts.push(has("skin") ? "피부 기본과 세럼" : "피부 기본");
+  if (has("body")) parts.push("맨몸 운동");
+  if (has("style")) parts.push("헤어 · 옷 준비");
+  if (has("life")) parts.push("하루 정리");
+  return `${parts.join(", ")}까지 시간에 맞춰 나눠요`;
+}
 
 export const CONCERNS: Record<Concern, { ko: string; desc: string }> = {
   start: { ko: "기초부터 시작하고 싶어요", desc: "무엇부터 해야 할지 모름" },

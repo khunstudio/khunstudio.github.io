@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Choice } from "@/components/choice";
-import { AREAS, AREA_ORDER, CONCERNS, CONCERN_ORDER, EXPERIENCES, GOALS, MINUTES, MINUTE_CHOICES, MODES, MODE_ORDER } from "@/lib/labels";
+import { AREAS, AREA_ORDER, CONCERNS, CONCERN_ORDER, EXPERIENCES, GOALS, MINUTES, MINUTE_OPTIONS, minuteDesc, MODES, MODE_ORDER } from "@/lib/labels";
 import { getStore } from "@/lib/store";
 import { track } from "@/lib/analytics";
 import type { Area, CheckAnswers, Concern, Experience, Goal, Minutes, Mode } from "@/lib/types";
@@ -67,7 +67,7 @@ export function CheckFlow() {
     minutes: {
       q: "하루에 얼마나 쓸 수 있나요?",
       hint: "아침과 저녁을 합친 시간이에요. 고른 영역(피부 · 운동 · 헤어 · 생활)에 이 시간을 나눠 드려요.",
-      body: MINUTE_CHOICES.map(({ m, desc }) => <Choice key={m} selected={d.minutes === m} onClick={() => setD({ ...d, minutes: m })} title={MINUTES[m]} desc={desc} />),
+      body: MINUTE_OPTIONS.map((m) => <Choice key={m} selected={d.minutes === m} onClick={() => setD({ ...d, minutes: m })} title={MINUTES[m]} desc={minuteDesc(m, d.interests ?? [])} />),
     },
     concerns: {
       q: "요즘 신경 쓰이는 게 있나요?",
