@@ -272,47 +272,54 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
   .t-card-go { display: none; }
 }
 
-/* HERO · 설명과 시작 행동을 첫 화면에 */
-.start-hero { padding: 48px 0 64px; border-bottom: 1px solid var(--color-line); }
-.start-hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: clamp(36px, 5vw, 72px); }
-.start-hero-title { margin-top: 24px; font-size: clamp(48px, 5.5vw, 76px); font-weight: 700; line-height: 1.16; letter-spacing: -.055em; }
-.start-hero-description { margin-top: 28px; font-size: 18px; line-height: 1.85; color: var(--color-mute); }
-.start-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-.start-hero-note { margin-top: 16px; font-size: 13px; color: var(--color-mute); }
-.start-hero-visual { position: relative; height: clamp(480px, 66svh, 620px); min-width: 0; overflow: hidden; border-radius: 24px; background: var(--color-sand); }
-.start-hero-photo { width: 100%; height: 100%; }
-.start-hero-example { position: absolute; left: 20px; right: 20px; bottom: 20px; padding: 22px; border: 1px solid rgba(17,17,17,.08); border-radius: 16px; background: #fff; box-shadow: 0 8px 32px rgba(17,17,17,.08); }
-.start-hero-example-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
-.start-hero-example-heading p { font-size: 16px; font-weight: 700; }
-.start-hero-example-heading > span { font-size: 13px; color: var(--color-mute); }
-.start-hero-steps { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 20px; }
-.start-hero-steps li { display: grid; justify-items: start; gap: 6px; }
-.start-hero-step-number { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: #fff0e8; color: var(--color-signal-ink); font-family: var(--font-display); font-size: 13px; font-weight: 700; }
-.start-hero-step-title { font-size: 15px; font-weight: 700; }
-.start-hero-step-time { font-size: 13px; color: var(--color-mute); }
-.start-hero-example-note { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--color-line); font-size: 12px; color: var(--color-mute); }
+/* HERO · 두 점 사이에서 시작되는 변화 */
+.brand-hero { --journey: 0; position: relative; overflow: hidden; padding: clamp(40px, 7svh, 80px) 0 28px; background: #111111; color: #fff; }
+.brand-hero-grid { display: grid; grid-template-columns: 1fr 1.12fr; align-items: center; gap: 48px; min-height: min(600px, 72svh); }
+.brand-hero-kicker { color: #ff8a5d; font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: .14em; }
+.brand-hero-copy h1 { margin-top: 26px; font-size: clamp(42px, 4.4vw, 66px); font-weight: 700; line-height: 1.2; letter-spacing: -.05em; }
+.brand-hero-copy h1 > span { color: var(--color-signal); }
+.brand-hero-description { margin-top: 32px; font-size: 20px; line-height: 1.8; color: #d5d3ce; }
+.brand-hero-context { margin-top: 20px; font-size: 14px; color: #a7a6a1; }
+.brand-hero-experience { min-width: 0; }
+.brand-hero-stage { position: relative; height: clamp(300px, 43vw, 420px); cursor: grab; touch-action: pan-y; user-select: none; background: radial-gradient(ellipse at 50% 50%, rgba(255,90,31,calc(.025 + var(--journey) * .12)), transparent 68%); }
+.brand-hero-stage:active { cursor: grabbing; }
+.brand-hero-stage-label { position: absolute; top: 8px; left: 0; color: #a7a6a1; font-family: var(--font-display); font-size: 12px; letter-spacing: .16em; }
+.brand-hero-now, .brand-hero-next { position: absolute; font-size: 14px; color: #b6b4af; opacity: calc(1 - var(--journey) * .85); }
+.brand-hero-now { left: 10%; top: 87%; }
+.brand-hero-next { right: 10%; top: 9%; }
+.brand-hero-connection { position: absolute; inset: 0; overflow: visible; }
+.brand-hero-connection line { stroke: #ff5a1f; stroke-width: 1; opacity: calc(.2 + var(--journey) * .5); }
+.brand-hero-point { position: absolute; width: clamp(56px, 6.5vw, 88px); height: clamp(56px, 6.5vw, 88px); transform: translate(-50%, -50%); transition: left 90ms ease-out, top 90ms ease-out, background-color 150ms ease; }
+.brand-hero-point-now { left: calc(18% + var(--journey) * 32%); top: calc(68% - var(--journey) * 34%); border: 1px solid #c4c1ba; background: rgba(255,90,31,var(--journey)); }
+.brand-hero-point-next { left: calc(82% - var(--journey) * 32%); top: calc(28% + var(--journey) * 38%); background: #ff5a1f; box-shadow: 0 0 calc(var(--journey) * 64px) rgba(255,90,31,.22); }
+.brand-hero-stage-word { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; font-size: 14px; color: #d5d3ce; letter-spacing: .02em; }
+.brand-hero-control { margin: 28px auto 0; max-width: 440px; }
+.brand-hero-control label { display: block; font-size: 14px; text-align: center; color: #eee; }
+.brand-hero-control input { display: block; appearance: none; -webkit-appearance: none; width: 100%; height: 44px; margin-top: 8px; background: transparent; cursor: ew-resize; }
+.brand-hero-control input::-webkit-slider-runnable-track { height: 2px; background: #55534f; }
+.brand-hero-control input::-moz-range-track { height: 2px; background: #55534f; }
+.brand-hero-control input::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 24px; height: 24px; margin-top: -11px; border: 0; border-radius: 2px; background: #ff5a1f; box-shadow: 0 0 24px rgba(255,90,31,.3); }
+.brand-hero-control input::-moz-range-thumb { width: 24px; height: 24px; border: 0; border-radius: 2px; background: #ff5a1f; }
+.brand-hero-control input:focus-visible { outline: 2px solid #ff8a5d; outline-offset: 3px; }
+.brand-hero-control > p { margin-top: 4px; font-size: 12px; line-height: 1.7; text-align: center; color: #a7a6a1; }
+.brand-hero-bottom { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 28px; margin-top: 32px; border-top: 1px solid #373632; }
+.brand-hero-story { font-size: 16px; line-height: 1.7; color: #e7e4df; }
+.brand-hero-start { flex-shrink: 0; padding: 12px 0; font-size: 14px; color: #ff9a72; text-decoration: underline; text-underline-offset: 5px; }
 @media (max-width: 899px) {
-  .start-hero { padding: 32px 0 36px; }
-  .start-hero-grid { grid-template-columns: 1fr; gap: 28px; }
-  .start-hero-copy .t-k { font-size: 12px; letter-spacing: .1em; }
-  .start-hero-title { margin-top: 16px; font-size: clamp(40px, 9.6vw, 64px); }
-  .start-hero-description { margin-top: 18px; font-size: 16px; line-height: 1.75; }
-  .start-hero-actions { margin-top: 24px; gap: 10px; }
-  .start-hero-actions .btn { min-height: 48px; padding: 0 20px; font-size: 14px; }
-  .start-hero-note { margin-top: 12px; font-size: 12px; }
-  .start-hero-visual { height: 320px; border-radius: 18px; }
-  .start-hero-photo img { object-position: 43% 28% !important; }
-  .start-hero-example { left: 12px; right: 12px; bottom: 12px; padding: 16px; border-radius: 12px; }
-  .start-hero-example-heading p { font-size: 14px; }
-  .start-hero-example-heading > span { font-size: 12px; }
-  .start-hero-steps { margin-top: 14px; gap: 8px; }
-  .start-hero-step-title { font-size: 14px; }
-  .start-hero-example-note { margin-top: 12px; padding-top: 10px; }
-}
-@media (max-width: 359px) {
-  .start-hero-title { font-size: 36px; }
-  .start-hero-break { display: none; }
-  .start-hero-actions .btn { padding: 0 14px; }
+  .brand-hero { padding-top: 30px; padding-bottom: 22px; }
+  .brand-hero-grid { grid-template-columns: 1fr; min-height: 0; gap: 16px; }
+  .brand-hero-copy h1 { margin-top: 16px; font-size: clamp(36px, 8.2vw, 54px); }
+  .brand-hero-kicker { font-size: 12px; }
+  .brand-hero-description { margin-top: 16px; font-size: 15px; line-height: 1.6; }
+  .brand-hero-context { margin-top: 8px; font-size: 13px; }
+  .brand-hero-stage { height: 200px; }
+  .brand-hero-stage-label { font-size: 11px; }
+  .brand-hero-next { top: 0; right: 0; }
+  .brand-hero-control { margin-top: 14px; }
+  .brand-hero-control > p { max-width: 300px; margin-inline: auto; }
+  .brand-hero-bottom { margin-top: 24px; padding-top: 18px; align-items: flex-start; flex-direction: column; gap: 6px; }
+  .brand-hero-story { font-size: 14px; }
+  .brand-hero-start { font-size: 13px; }
 }
 
 /* 마지막 CTA: 사진 위 왼쪽 위 여백에 글 */
