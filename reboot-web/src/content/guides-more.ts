@@ -171,7 +171,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "barber-talk", area: "style", modes: ALL, kicker: "STYLE · HAIR",
     title: "미용실에서 원하는 머리 설명하는 법",
     summary: "'알아서 깔끔하게' 대신 사진 두 장과 단어 세 개. 실패 확률이 확 줄어요.",
-    read: 3, updated: U, review: "draft", image: "shirtup",
+    read: 3, updated: U, review: "draft", image: "barber",
     sections: [
       { h: "준비", list: ["원하는 머리 사진 2장 (정면 · 옆)", "싫은 머리 사진 1장도 있으면 좋아요", "평소 손질에 쓸 수 있는 시간 (5분 · 10분)"] },
       { h: "말할 것", list: ["옆머리 · 뒷머리를 얼마나 짧게 (예: 귀가 살짝 보이게)", "앞머리를 내릴지 올릴지", "다음 커트까지 몇 주 버틸지"] },

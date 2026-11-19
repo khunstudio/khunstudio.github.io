@@ -23,7 +23,7 @@ export interface Guide {
   review: "draft" | "reviewed";
   reviewer?: string;
   /** 대표 사진 (public/images) */
-  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit";
+  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit" | "barber" | "buzzside";
   /** 진료 · 건강 관련 내용이라 상단에 안내를 크게 띄운다 */
   medicalNotice?: boolean;
   sections: GuideSection[];
@@ -161,7 +161,7 @@ const IMAGES: Record<string, Guide["image"]> = {
   "workout-skin": "track",
   "next-chapter": "shirt",
   "hair-growing": "mirror",
-  "before-enlistment": "buzz",
+  "before-enlistment": "buzzside",
   "sleep-reset": "night",
 };
 GUIDES.forEach((g) => { if (IMAGES[g.slug]) g.image = IMAGES[g.slug]; });

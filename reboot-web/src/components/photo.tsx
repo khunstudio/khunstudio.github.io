@@ -1,7 +1,7 @@
 // 사진 컴포넌트.
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export type PhotoName = "night" | "buzz" | "shirt" | "shirtup" | "crew" | "cup" | "fogmirror" | "moisture" | "sunscreen" | "wash" | "hands" | "razor" | "track" | "mirror" | "kit";
+export type PhotoName = "barber" | "buzzside" | "night" | "buzz" | "shirt" | "shirtup" | "crew" | "cup" | "fogmirror" | "moisture" | "sunscreen" | "wash" | "hands" | "razor" | "track" | "mirror" | "kit";
 
 export function Photo({
   name, alt, className = "", sizes = "small", priority = false, ratio, position,
