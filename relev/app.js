@@ -64,7 +64,7 @@
   var TECH_LAYERS = {
     rf: [1], ems: [4], microcurrent: [0], electroporation: [0], iontophoresis: [0],
     ultrasound: [0, 1], hifu: [1, 2, 3], led: [0, 1], ipl: [0, 1], laser: [0, 1],
-    "ha-filler": [1, 2], biostimulator: [1, 2], "pn-pdrn": [1], toxin: [4]
+    "ha-filler": [1, 2], biostimulator: [1, 2], "pn-pdrn": [1], toxin: [4], "ultrasound-multi": [0, 1], airshot: [0], cooling: [0], vibration: [0]
   };
   function skinSvg(techIds) {
     var on = [];
@@ -149,7 +149,7 @@
         '<g class="intro__glyphs" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">' + GLYPHS + "</g>" +
         '<line class="intro__trail" x1="166" y1="80" x2="166" y2="38" stroke="url(#ip)" stroke-width="4" stroke-linecap="round"/>' +
         '<g class="intro__pearls"><circle class="intro__lo" cx="166" cy="92" r="11" fill="url(#ip)"/><circle class="intro__hi" cx="166" cy="26" r="11" fill="url(#ip)"/></g></svg>' +
-        '<p class="intro__slogan">Elevate Your Beauty.<span>아름다움을 더 높은 단계로.</span></p>' +
+        '<p class="intro__slogan">RE:LEVEL YOUR SKIN.<span>원리를 알고, 나에게 맞게 고르고, 피부를 한 단계 위로.</span></p>' +
         '<span class="intro__hint" aria-hidden="true">Scroll</span>' +
       "</div></section>" +
 
@@ -260,6 +260,73 @@
   }
   function figure(src, alt, cls) {
     return '<figure class="fig ' + (cls || "") + '"><img src="' + src + '" alt="' + esc(alt) + '" loading="lazy" width="1536" height="1024"><figcaption class="ai-tag">AI 생성 콘셉트 이미지</figcaption></figure>';
+  }
+
+  // ── 페이지: 기전 가이드 (LEARN) ─────────────────
+  var learnPick = "rf";
+  var LEARN = [
+    { id: "ems", e: "electric", name: "EMS (저주파)", one: "근육에 '움직여' 신호를 대신 보내 실제로 수축시킵니다.", like: "운동 신경을 바깥에서 대신 눌러 주는 리모컨", feel: "근육이 움찔하는 느낌", unit: "mA · 수 Hz~수백 Hz" },
+    { id: "ems", key: "midfreq", e: "electric", name: "중주파", one: "EMS처럼 근육 자극이 목적이지만 더 빠른 주파수를 써서 피부 표면 자극을 줄였다고 설명됩니다.", like: "EMS의 다른 버전 — 고주파(RF)와는 다른 것", feel: "움찔하지만 덜 따끔", unit: "대략 수 kHz" },
+    { id: "rf", e: "electric", name: "고주파 (RF)", one: "근육이 따라 반응하지 못할 만큼 빠르게 바뀌는 전류가 조직을 지나며 열을 만듭니다.", like: "전기가 지나가며 생기는 저항열 — 따뜻해지는 원리", feel: "따뜻함 · 열감", unit: "수백 kHz~수십 MHz" },
+    { id: "microcurrent", e: "electric", name: "미세전류", one: "느끼기 어려울 만큼 약한 전류를 흘립니다. 주파수보다 '세기'가 다른 기술입니다.", like: "EMS의 1/1000 수준 전류 (mA → µA)", feel: "거의 느껴지지 않음", unit: "µA" },
+    { id: "iontophoresis", e: "electric", name: "갈바닉 (이온)", one: "한 방향으로 흐르는 약한 전류로, 전하를 띤 성분을 피부 쪽으로 밀어 줍니다.", like: "같은 극끼리 밀어내는 자석", feel: "거의 없음 · 약간 찌릿", unit: "직류 · µA" },
+    { id: "electroporation", e: "electric", name: "일렉트로포레이션 (EP)", one: "짧고 센 전기 펄스로 피부 표면에 잠깐 길을 연다는 원리입니다. 홈 기기는 연구 조건과 다를 수 있습니다.", like: "아주 짧게 문을 열었다 닫는 펄스", feel: "약한 따끔함", unit: "짧은 고전압 펄스" },
+    { id: "ultrasound", e: "sound", name: "비집속 초음파", one: "들리지 않는 빠른 진동을 헤드 면적 전체로 넓게 전달합니다.", like: "넓게 울리는 스피커 진동", feel: "거의 없음 · 미지근", unit: "대략 1~3 MHz" },
+    { id: "ultrasound-multi", e: "sound", name: "물방울 · LDM 계열", one: "서로 다른 주파수의 초음파를 번갈아 · 교차로 줍니다. LDM은 특정 제조사의 기술명입니다.", like: "두세 개의 진동을 섞어 쓰는 스피커", feel: "거의 없음", unit: "다중 주파수" },
+    { id: "hifu", e: "sound", name: "집속 초음파 (HIFU)", one: "초음파를 피부 속 한 점에 모아 작은 열 응고점을 만듭니다.", like: "돋보기로 햇빛을 한 점에 모으기", feel: "찌릿한 열감 · 통증 (전문 장비)", unit: "수 MHz · 초점 깊이" },
+    { id: "led", e: "light", name: "LED 광원", one: "특정 색(파장)의 약한 빛을 넓게 쬡니다. 태우지 않습니다.", like: "색이 정해진 부드러운 조명", feel: "없음 · 밝음", unit: "nm (예: 630nm 빨간빛)" },
+    { id: "ipl", e: "light", name: "IPL", one: "여러 색이 섞인 강한 섬광을 짧게 터뜨리고 필터로 파장을 고릅니다.", like: "카메라 플래시", feel: "순간 따끔 · 열감", unit: "넓은 파장대 · J/cm²" },
+    { id: "laser", e: "light", name: "레이저", one: "한 가지 파장의 빛을 한 방향으로 정밀하게 쏩니다.", like: "한 색만 쓰는 정밀한 빛줄기", feel: "장비별 상이 (전문)", unit: "단일 파장 nm" },
+    { id: "cooling", e: "temp", name: "쿨링 · 크라이오", one: "피부 온도를 낮춰 일시적인 진정감을 줍니다.", like: "차가운 수건", feel: "차가움", unit: "온도" },
+    { id: "vibration", e: "temp", name: "진동 · 온열", one: "기계적 진동이나 열로 세안 · 마사지를 돕습니다.", like: "마사지기", feel: "떨림 · 따뜻함", unit: "회/분 · ℃" }
+  ];
+  var ENERGY = [
+    { id: "electric", name: "전기", en: "ELECTRIC", line: "전류를 흘려서 — 근육을 움직이거나, 성분을 밀어 넣거나, 열을 만든다", icon: '<svg viewBox="0 0 40 40"><path d="M22 4L8 22h10l-2 14 14-18H20z"/></svg>' },
+    { id: "sound", name: "소리 (진동)", en: "SOUND", line: "들리지 않는 초음파 진동을 — 넓게 퍼뜨리거나, 한 점에 모은다", icon: '<svg viewBox="0 0 40 40"><path d="M6 20h4M14 12v16M20 6v28M26 12v16M32 17v6"/></svg>' },
+    { id: "light", name: "빛", en: "LIGHT", line: "정해진 색(파장)의 빛을 — 약하게 쬐거나, 강하게 터뜨리거나, 정밀하게 쏜다", icon: '<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="6"/><path d="M20 4v5M20 31v5M4 20h5M31 20h5M8.7 8.7l3.5 3.5M27.8 27.8l3.5 3.5M8.7 31.3l3.5-3.5M27.8 12.2l3.5-3.5"/></svg>' },
+    { id: "temp", name: "온도 · 물리", en: "TEMP", line: "차갑게 · 따뜻하게 · 떨리게 — 표면에서 느끼는 관리", icon: '<svg viewBox="0 0 40 40"><path d="M17 6a3 3 0 0 1 6 0v18a7 7 0 1 1-6 0z"/><path d="M20 14v14"/></svg>' }
+  ];
+  var PAIRS = [
+    { a: "고주파 (RF)", b: "중주파 · 저주파 (EMS)", q: "이름이 비슷한데 하는 일이 정반대예요", diff: ["주파수가 낮으면(EMS) 근육이 신호를 따라 움찔합니다.", "주파수가 아주 높으면(RF) 근육이 따라가지 못하고, 대신 조직이 데워집니다.", "중주파는 '중간 RF'가 아니라 근육 자극(EMS) 계열입니다."], ta: "rf", tb: "ems" },
+    { a: "EMS", b: "미세전류", q: "둘 다 전기인데 뭐가 달라요?", diff: ["EMS는 mA 단위로 근육을 실제로 움직입니다.", "미세전류는 그 1/1000인 µA 단위로, 대개 느껴지지 않습니다.", "목적은 비슷하게 소개되지만(탄력) 근거의 양과 방식이 다릅니다."], ta: "ems", tb: "microcurrent" },
+    { a: "비집속 초음파", b: "집속 초음파 (HIFU)", q: "같은 초음파인데 왜 하나는 시술이에요?", diff: ["비집속은 진동을 넓게 퍼뜨려 표면 근처에 전달합니다.", "집속은 한 점에 모아 피부 속에 열 응고점을 만듭니다.", "'초음파'라는 이름만으로는 어느 쪽인지 알 수 없습니다."], ta: "ultrasound", tb: "hifu" },
+    { a: "갈바닉", b: "일렉트로포레이션", q: "둘 다 '흡수'라던데요?", diff: ["갈바닉은 약한 직류로 전하를 띤 성분을 밀어 줍니다.", "일렉트로포레이션은 짧은 펄스로 표면에 잠깐 길을 연다는 원리입니다.", "두 방식 모두 '부스터 모드'라고 불릴 수 있습니다."], ta: "iontophoresis", tb: "electroporation" },
+    { a: "LED", b: "IPL · 레이저", q: "다 빛인데 왜 LED는 집에서 써요?", diff: ["LED는 약한 빛을 넓게 쬐어 태우지 않습니다.", "IPL은 강한 섬광, 레이저는 한 파장의 정밀한 빛으로 열을 만듭니다.", "가정용 IPL은 주로 제모용입니다."], ta: "led", tb: "ipl" }
+  ];
+  function learnDetail(x) {
+    var t = byId(D.techs, x.id);
+    var n = D.devices.filter(function (d) { return d.techIds.indexOf(x.id) > -1; }).length;
+    return '<div class="lp__text"><p class="eyebrow">' + esc(ENERGY.filter(function (e) { return e.id === x.e; })[0].name) + "</p><h3>" + esc(x.name) + "</h3>" +
+      '<p class="lp__one">' + esc(x.one) + "</p>" +
+      '<dl class="lp__dl"><div><dt>비유</dt><dd>' + esc(x.like) + "</dd></div><div><dt>느낌</dt><dd>" + esc(x.feel) + "</dd></div><div><dt>단위 · 범위</dt><dd>" + esc(x.unit) + ' <span class="caption">일반적 범위 · 제품마다 다름</span></dd></div></dl>' +
+      '<p class="lp__links">' + (t ? '<a class="btn btn--ghost" href="#science--' + x.id + '">자세히 · 근거 보기</a>' : "") + (n ? ' <a class="btn btn--ghost" href="#device" data-goto-tech="' + x.id + '">이 기술 쓰는 디바이스 ' + n + "개</a>" : "") + "</p></div>" +
+      '<div class="lp__skin">' + (skinSvg([x.id]) || '<p class="caption">피부 표면에서 느끼는 관리</p>') + "</div>";
+  }
+  function pageLearn() {
+    var pick = LEARN.filter(function (x) { return (x.key || x.id) === learnPick; })[0] || LEARN[2];
+    return head("BASICS", "1분 기전 가이드", "고주파, 중주파, 집속 · 비집속 초음파, 일렉트로포레이션, LED, EMS, 갈바닉… 이름은 많아도 피부관리 기술은 결국 네 가지 에너지입니다.") +
+      '<div class="energy">' + ENERGY.map(function (e) {
+        var mem = LEARN.filter(function (x) { return x.e === e.id; });
+        return '<div class="energy__card en-' + e.id + '"><span class="energy__icon">' + e.icon + '</span><p class="eyebrow">' + e.en + "</p><h2>" + e.name + '</h2><p>' + esc(e.line) + '</p><div class="chips">' + mem.map(function (x) { return '<button class="chip chip--plain" data-learn="' + (x.key || x.id) + '">' + esc(x.name) + "</button>"; }).join("") + "</div></div>";
+      }).join("") + "</div>" +
+
+      '<section class="section"><p class="eyebrow">Pick one</p><h2 class="sec-h">피부 속 어디까지, 어떤 느낌으로?</h2>' +
+      '<div class="lp-tabs" role="tablist">' + LEARN.map(function (x) { var k = x.key || x.id; return '<button role="tab" data-learn="' + k + '" aria-selected="' + (k === learnPick) + '">' + esc(x.name) + "</button>"; }).join("") + "</div>" +
+      '<div class="lp" id="lp">' + learnDetail(pick) + "</div></section>" +
+
+      '<section class="section"><p class="eyebrow">Electric spectrum</p><h2 class="sec-h">전기는 \'얼마나 빠르게 바뀌느냐\'로 하는 일이 달라요</h2>' +
+      '<div class="spec-band"><div class="sb sb-dc"><b>직류</b><span>갈바닉</span><i>성분을 밀어 줌</i></div><div class="sb sb-low"><b>저주파</b><span>EMS · 수~수백 Hz</span><i>근육이 움찔</i></div><div class="sb sb-mid"><b>중주파</b><span>수 kHz</span><i>근육 자극 · 덜 따끔</i></div><div class="sb sb-high"><b>고주파 RF</b><span>수백 kHz~MHz</span><i>근육은 못 따라옴 → 열</i></div></div>' +
+      '<p class="caption">세기 축은 따로: 미세전류(µA)는 주파수가 아니라 \'아주 약한 세기\', 일렉트로포레이션은 \'아주 짧고 센 펄스\'가 특징입니다. 범위는 일반적인 설명이며 제품마다 다릅니다.</p></section>' +
+
+      '<section class="section"><p class="eyebrow">Don\'t mix up</p><h2 class="sec-h">가장 많이 헷갈리는 다섯 쌍</h2><div class="pairs">' + PAIRS.map(function (p) {
+        return '<article class="pair"><p class="pair__q">' + esc(p.q) + '</p><div class="pair__vs"><a href="#science--' + p.ta + '">' + esc(p.a) + '</a><span>vs</span><a href="#science--' + p.tb + '">' + esc(p.b) + "</a></div>" + list(p.diff) + "</article>";
+      }).join("") + "</div></section>" +
+
+      '<section class="section"><p class="eyebrow">Start from your goal</p><h2 class="sec-h">원하는 것에서 시작하기</h2><div class="goals">' + (D.taxonomy.concerns || []).map(function (c) {
+        var ts = D.techs.filter(function (t) { return (t.concerns || []).indexOf(c.id) > -1; });
+        return ts.length ? '<div class="goal"><b>' + esc(c.label) + '</b><div class="chips">' + ts.map(function (t) { return chip(t.id); }).join("") + "</div></div>" : "";
+      }).join("") + '</div><p class="caption">일반적으로 소개되는 목적입니다. 효과의 크기나 순위를 뜻하지 않으며, 각 기술 페이지에서 근거 수준을 확인하세요.</p></section>' +
+      '<p class="note">홈 디바이스와 전문 장비는 같은 이름의 기술이어도 출력 · 깊이 · 허가 범위가 다릅니다. <a href="#decode">제조사 용어 해독 보기 →</a></p>';
   }
 
   // ── 페이지: 용어 해독 (DECODE) ────────────────────
@@ -448,17 +515,14 @@
 
   // ── 페이지: 기술 백과 ─────────────────────────────
   function pageScience() {
-    var groups = D.taxonomy.families.map(function (f) {
-      var items = D.techs.filter(function (t) { return t.family === f.id; });
-      if (!items.length) return "";
-      return '<div data-group><div class="group-title"><h2>' + f.label + '</h2><span class="caption">' + f.ko + "</span></div>" +
-        '<div class="grid">' + items.map(function (t) {
-          var img = techImg(t.id);
-          return '<a class="card card--img" href="#science--' + t.id + '"' + dataAttrs({ concerns: t.concerns, techIds: [t.id] }, [t.name, t.en, t.question, t.summary, (t.aka || []).join(" ")].join(" ")) + ">" + (img ? '<img class="card__img" src="' + img + '" alt="" loading="lazy" width="1536" height="1024">' : "") + '<span class="eyebrow">' + esc(t.en) + "</span><h3>" + esc(t.question) + "</h3><p>" + esc(t.summary) + '</p><div class="meta">' + chip(t.id, false) + (t.studies && t.studies.length ? '<span class="badge">T2 논문 ' + t.studies.length + "</span>" : "") + "</div></a>";
-        }).join("") + "</div></div>";
-    }).join("");
-    return head("SCIENCE", "피부관리 기술 백과", "제품과 시술을 이해하기 위한 기본기. 원리, 쉬운 설명, 확인된 근거의 범위, 안전성과 한계를 함께 적습니다. 이미지는 AI 생성 콘셉트입니다.") +
-      listBar("기술 · 별칭 검색 (예: 갈바닉, EP, 물방울)") + concernChips(D.techs) + groups + '<p class="empty" data-listempty hidden>찾는 기술이 없습니다.</p>';
+    var order = D.taxonomy.families.map(function (f) { return f.id; });
+    var items = D.techs.slice().sort(function (a, b) { return order.indexOf(a.family) - order.indexOf(b.family); });
+    return head("SCIENCE", "피부관리 기술 백과", "제품과 시술을 이해하기 위한 기본기. 원리, 쉬운 설명, 확인된 근거의 범위, 안전성과 한계를 함께 적습니다. 처음이라면 <a href=\"#learn\">1분 기전 가이드</a>부터 보세요. 이미지는 AI 생성 콘셉트입니다.") +
+      listBar("기술 · 별칭 검색 (예: 갈바닉, EP, 물방울)") + concernChips(D.techs) +
+      '<div class="grid">' + items.map(function (t) {
+        var img = techImg(t.id), fam = familyMeta(t.family);
+        return '<a class="card card--img" href="#science--' + t.id + '"' + dataAttrs({ concerns: t.concerns, techIds: [t.id] }, [t.name, t.en, t.question, t.summary, (t.aka || []).join(" ")].join(" ")) + ">" + (img ? '<img class="card__img" src="' + img + '" alt="" loading="lazy" width="1536" height="1024">' : "") + '<span class="eyebrow">' + esc(fam ? fam.label : t.en) + "</span><h3>" + esc(t.question) + "</h3><p>" + esc(t.summary) + '</p><div class="meta">' + chip(t.id, false) + (t.studies && t.studies.length ? '<span class="badge">T2 논문 ' + t.studies.length + "</span>" : "") + "</div></a>";
+      }).join("") + '</div><p class="empty" data-listempty hidden>찾는 기술이 없습니다.</p>';
   }
   function pageTech(id) {
     var t = byId(D.techs, id);
@@ -728,7 +792,7 @@
           .map(function (v) { return "<div><b>" + v[0] + "</b><span>" + v[1] + "</span><p>" + v[2] + "</p></div>"; }).join("") + "</div>") +
 
       sec("copy", "Copywriting", "슬로건 · 태그라인", "",
-        '<div class="copytable">' + [["Elevate Your Beauty.", "아름다움을 더 높은 단계로."], ["Rise from Within.", "안에서부터 떠오르는 아름다움."], ["Your Beauty, Next Level.", "당신의 아름다움, 다음 단계로."], ["Discover the Right Care.", "나에게 맞는 뷰티 케어를 발견하세요."], ["From Home to Clinic.", "일상 관리부터 전문 케어까지, 하나로."], ["Understand, Choose, Elevate.", "이해하고, 선택하고, 더 나아가세요."], ["The Beauty Tech Guide.", "뷰티 테크의 새로운 기준."], ["A Smarter Way to Care.", "더 스마트한 아름다움 관리."]]
+        '<div class="copytable">' + [["RE:LEVEL YOUR SKIN.", "원리를 알고, 나에게 맞게 고르고, 피부를 한 단계 위로."], ["Know it. Choose it. Level up.", "알고, 고르고, 레벨업."], ["광고 말고 원리로.", "이름이 아니라 작용 기전으로 고르는 피부관리."], ["Rise from Within.", "안에서부터 떠오르는 아름다움."], ["Your Beauty, Next Level.", "당신의 아름다움, 다음 단계로."], ["Discover the Right Care.", "나에게 맞는 뷰티 케어를 발견하세요."], ["From Home to Clinic.", "일상 관리부터 전문 케어까지, 하나로."], ["Understand, Choose, Elevate.", "이해하고, 선택하고, 더 나아가세요."], ["The Beauty Tech Guide.", "뷰티 테크의 새로운 기준."], ["A Smarter Way to Care.", "더 스마트한 아름다움 관리."]]
           .map(function (c) { return "<div><b>" + c[0] + "</b><span>" + c[1] + "</span></div>"; }).join("") + "</div>") +
       "</div></div>";
   }
@@ -748,6 +812,7 @@
       case "about": html = pageAbout(); break;
       case "brand": html = pageBrand(); break;
       case "decode": html = pageDecode(); break;
+      case "learn": html = pageLearn(); break;
       case "contribute": html = pageContribute(path[1], path[2]); break;
       case "search": html = pageSearch(searchQ); break;
       default: html = notFound();
@@ -757,9 +822,9 @@
     document.body.classList.toggle("is-home", nav === "");
     onScrollFx();
     document.querySelectorAll("[data-nav]").forEach(function (a) { a.classList.toggle("on", a.dataset.nav === nav); });
-    document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", science: "explore", device: "explore", clinic: "explore", compare: "compare", brand: "brand" }[nav] || "")); });
+    document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", science: "explore", device: "explore", clinic: "explore", compare: "compare", brand: "brand", learn: "learn" }[nav] || "")); });
     var h1 = view.querySelector("h1");
-    document.title = (h1 && nav ? h1.textContent + " — " : "") + "RE:LEV — Elevate your beauty.";
+    document.title = (h1 && nav ? h1.textContent + " — " : "") + "RE:LEV — Re:level your skin.";
     renderTray();
     applyListFilter();
   }
@@ -772,6 +837,16 @@
       if (j.dataset.jump) document.getElementById(j.dataset.jump).scrollIntoView({ behavior: "smooth", block: "start" });
       else if (j.hasAttribute("data-replay")) { var svg = j.querySelector("svg"); svg.classList.remove("play"); void svg.getBoundingClientRect(); svg.classList.add("play"); }
       else { var v = j.dataset.copy; try { navigator.clipboard.writeText(v).then(function () { j.classList.add("copied"); setTimeout(function () { j.classList.remove("copied"); }, 1200); }, function () {}); } catch (err) {} }
+      return;
+    }
+    var lt = e.target.closest("[data-learn],[data-goto-tech]");
+    if (lt) {
+      if (lt.dataset.gotoTech) { listState = { q: "", c: "all", f: familyOf(lt.dataset.gotoTech) }; return; }
+      learnPick = lt.dataset.learn;
+      var x = LEARN.filter(function (y) { return (y.key || y.id) === learnPick; })[0];
+      var box = document.getElementById("lp"); if (box && x) box.innerHTML = learnDetail(x);
+      view.querySelectorAll(".lp-tabs [data-learn]").forEach(function (b) { b.setAttribute("aria-selected", b.dataset.learn === learnPick); });
+      if (lt.closest(".energy")) document.getElementById("lp").scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     var cz = e.target.closest("[data-concern],[data-cgroup]");
