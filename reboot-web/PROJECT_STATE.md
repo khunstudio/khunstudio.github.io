@@ -1,6 +1,6 @@
 # RE:BOOT · PROJECT STATE
 
-최종 갱신: 2026-11-19 (Asia/Seoul)
+최종 갱신: 2026-11-20 (Asia/Seoul)
 기준: BRAND, BUSINESS & PRODUCT MASTER PLAN v3.0. 기존 코드와 디자인을 유지한다.
 
 ## 점검 대상과 범위
@@ -37,7 +37,7 @@ DONE은 아래 명시된 범위의 실행 확인을 뜻한다. 코드 존재만�
 | CREW 실제 게시판 | NOT STARTED | 안내 페이지만 존재. 공개 조건인 인증·신고·차단·관리자 검토 미구현 |
 | SELECT 판매·제휴 DB | NOT STARTED | 준비 중/콘셉트 안내만 존재. 실제 판매·가격·제휴 성과로 표현하지 않음 |
 | 계정·동기화·PWA·네이티브 | NOT STARTED | 후속 단계. 이번 P0 보완에 포함하지 않음 |
-| 수정본 운영 배포 | BLOCKED | 코드 GitHub 반영 완료. Vercel 자동 배포 체크 없음, 대시보드 로그인 필요. 운영 반영 미확인 |
+| 수정본 운영 배포 | DONE | 2026-11-20 기존 Vercel reboot 프로젝트 프로덕션 READY. 실제 운영 주소에서 신규 출처 섹션 확인 |
 
 ## 브랜드·사업 기준에서 확인한 간극
 
@@ -97,9 +97,27 @@ DONE은 아래 명시된 범위의 실행 확인을 뜻한다. 코드 존재만�
 
 ## 배포 기록
 
+### 2026-11-19 최초 확인
+
 - 구현 커밋 `93e9747`을 `origin/reboot-concept`에 정상 push했다. [변경 확인](https://github.com/khunstudio/khunstudio.github.io/commit/93e9747).
 - 해당 커밋의 GitHub status와 check-runs, 브랜치 deployments에서 Vercel 실행 기록을 확인하지 못했다. status 응답의 `pending`은 실제 실행 중인 Vercel 배포의 증거가 아니다.
 - 이전 커밋 `3cf2087`에도 Vercel 체크가 없었다. 저장소의 확인된 최근 deployments는 `main`의 GitHub Pages 배포로, RE:BOOT의 Vercel 배포와 구분한다.
 - 현재 환경에 Vercel CLI 인증 설정이나 `VERCEL_TOKEN`이 없으며 대시보드 방문은 로그인 화면으로 이동했다. 기존 GitHub 인증은 정상이나 이를 Vercel 인증으로 간주하지 않는다.
 - 따라서 수정본의 실제 Vercel 배포는 **미완료**. 코드 push와 운영 배포를 구분한다. 로그인 후 `reboot`의 연결 저장소/Production Branch/Root Directory(`reboot-web`)/배포 커밋을 확인하고 배포해야 한다.
 - 이후 배포 성공 상태와 실제 주소에서 출처 섹션·보완된 이미지·기록 계산을 확인한 다음 이 상태를 갱신한다. 기존 도메인·프로젝트·접근 권한은 변경하지 않았다.
+
+
+### 2026-11-20 로그인 및 실제 배포 완료
+
+- 공식 Vercel CLI 66.2.0 전역 설치. `vercel whoami`로 `dbrudgns0424-4983` 인증 확인.
+- 기존 프로젝트 `reboot` 확인: `prj_5EWpbVsI3JVsN63ztFlKWhBZCzIq`, Git 저장소 미연결. 자동 배포 기록이 없던 이유를 확인했다.
+- 현재 앱 폴더를 기존 프로젝트에 연결했다. 프로젝트를 새로 만들거나 도메인·접근 권한을 바꾸지 않았다.
+- CLI가 생성한 `.vercel/` 및 `.env.local`은 커밋/제공 소스에서 제외한다. `.gitignore`에 `.env*` 추가.
+- `vercel deploy --prod --yes --scope dbrudgns0424-4983` 성공. 프로덕션 `READY`.
+- 배포 ID: `dpl_5Q5uo18wXiaVB1y4PTHUw6Ka47bj`.
+- 운영 주소: https://reboot-psi.vercel.app/
+- 배포 주소: https://reboot-2elyzhict-dbrudgns0424-4983.vercel.app
+- 관리 화면: https://vercel.com/dbrudgns0424-4983/reboot/5Q5uo18wXiaVB1y4PTHUw6Ka47bj
+- 소스 기준: `1818d48` (기능 변경은 `93e9747`, 상태 문서 변경은 `1818d48`). 이후 이 문서와 ignore 규칙만 갱신.
+- 운영 주소 `/care/skin-basics/`를 실제 브라우저로 열어 추가한 참고 출처·확인일·전문가 검수 전 안내를 확인했다. 전체 사용자 기능은 앞서 검증한 로컬 빌드 범위와 구분한다.
+- Vercel 공식 플러그인 0.54.1은 Codex 사용자 범위에 설치 확인. 공통 MCP `https://mcp.vercel.com` 등록 완료, OAuth 승인은 아직 사용자 입력 대기. MCP의 `list_teams` 인증 검사는 아직 실행하지 않았다.
