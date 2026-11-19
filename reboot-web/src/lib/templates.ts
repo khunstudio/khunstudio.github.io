@@ -21,7 +21,7 @@ export interface Template {
   concerns?: Concern[];
   /** 지정 시 해당 상황에서만 보이는 추가 항목 (시간 예산에 포함하지 않음) */
   situations?: Situation[];
-  minMinutes?: 3 | 5 | 10;
+  minMinutes?: number;
 }
 
 export const TEMPLATES: Template[] = [
@@ -77,7 +77,7 @@ export const TEMPLATES: Template[] = [
     guide: "skin-basics",
   },
   {
-    id: "lip-hand", title: "입술 · 손 보습", slot: "pm", area: "skin", minutes: 0.5, base: 24, concerns: ["dryness", "outdoor"],
+    id: "lip-hand", title: "입술 · 손 보습", slot: "pm", area: "skin", minutes: 0.5, base: 24, concerns: ["dryness", "outdoor"], areas: ["skin"], minMinutes: 10,
     why: "입술과 손은 피지가 적어 건조해지기 쉬운 곳이에요.",
     how: "립밤과 핸드크림을 자기 전에 한 번씩.",
   },
@@ -132,6 +132,75 @@ export const TEMPLATES: Template[] = [
     why: "한 번에 몰아서 준비하면 빠뜨리기 쉬워요. 하루에 하나씩이면 부담이 적어요.",
     how: "가이드의 준비 목록에서 오늘 하나를 확인해요. 실제 지참 물품은 입영 안내문을 기준으로 해요.",
     guide: "before-enlistment",
+  },
+
+
+  // ── 시간이 넉넉할 때 (10 · 30분) ──
+  {
+    id: "serum-step", title: "세럼 한 단계 (내 피부 타입 성분)", slot: "am", area: "skin", minutes: 0.5, base: 21, areas: ["skin"], minMinutes: 10,
+    why: "기초 3단계에 익숙해졌다면, 고민 하나에 맞는 성분 하나를 더할 때예요.",
+    how: "세안 후 보습 전에 얇게. 피부 타입 체크 결과의 추천 성분(예: 나이아신아마이드)부터.",
+    guide: "ingredient-basics",
+  },
+  {
+    id: "active-pm", title: "레티놀 · BHA 중 하나 (주 2~3회)", slot: "pm", area: "skin", minutes: 0.5, base: 19, areas: ["skin"], minMinutes: 10,
+    why: "결 · 모공 · 트러블 관리는 저녁에 쓰는 기능성 성분 하나로 시작해요.",
+    how: "같은 날 두 가지를 겹치지 않아요. 쓰지 않는 날은 체크만 하고 넘어가도 돼요.",
+    guide: "retinoid-start",
+  },
+  {
+    id: "hair-style", title: "드라이 + 스타일링", slot: "am", area: "style", minutes: 3, base: 17, areas: ["style"], minMinutes: 10,
+    why: "같은 머리도 말리는 방향과 제품 한 번으로 인상이 달라져요.",
+    how: "뿌리부터 말리고, 넘기고 싶은 방향의 반대로 먼저 말렸다가 원래 방향으로. 제품은 콩알만큼.",
+    guide: "hair-dry",
+  },
+  {
+    id: "outfit-prep", title: "내일 입을 옷 미리 꺼내기", slot: "pm", area: "style", minutes: 2, base: 13, areas: ["style"], minMinutes: 10,
+    why: "아침 시간을 아끼고, 구김 · 얼룩을 미리 확인할 수 있어요.",
+    how: "상의 · 하의 · 신발을 한곳에. 구김은 전날 펴 두기.",
+    guide: "basic-wardrobe",
+  },
+  {
+    id: "bodyweight", title: "맨몸 운동 15분", slot: "pm", area: "body", minutes: 15, base: 60, areas: ["body"], minMinutes: 30,
+    why: "기구 없이 방에서 할 수 있는 근력 운동이 체형과 컨디션의 바탕이 돼요.",
+    how: "스쿼트 · 팔굽혀펴기 · 플랭크 · 런지를 3바퀴. 통증이 있으면 멈추고, 질환이 있으면 먼저 상담해요.",
+    guide: "bodyweight-start",
+  },
+  {
+    id: "walk", title: "빠르게 걷기 10분", slot: "am", area: "body", minutes: 10, base: 24, areas: ["body"], minMinutes: 30,
+    why: "가장 진입 장벽이 낮은 유산소예요. 아침 햇빛까지 같이 챙겨요.",
+    how: "숨이 조금 찰 정도의 속도로 10분. 출근 · 이동 시간에 끼워 넣어도 돼요.",
+  },
+  {
+    id: "plan-tomorrow", title: "내일 할 일 3개 적기", slot: "pm", area: "life", minutes: 2, base: 11, areas: ["life"], minMinutes: 10,
+    why: "머릿속에 있는 걸 꺼내 두면 잠들기 쉽고 아침이 덜 급해요.",
+    how: "종이나 메모 앱에 딱 3개만.",
+    guide: "phone-night",
+  },
+  {
+    id: "read-10", title: "10분 읽기 · 정리", slot: "pm", area: "life", minutes: 10, base: 10, areas: ["life"], minMinutes: 30,
+    why: "화면 대신 다른 걸로 하루를 마무리하는 연습이에요.",
+    how: "책 · 공부 · 방 정리 중 하나를 10분. 생활관이라면 소등 규정 안에서.",
+    guide: "phone-night",
+  },
+
+  {
+    id: "noon-sunscreen", title: "점심에 선크림 덧바르기", slot: "am", area: "skin", minutes: 0.5, base: 18, areas: ["skin"], minMinutes: 10,
+    why: "아침에 바른 선크림은 땀 · 마찰로 오후엔 많이 지워져 있어요.",
+    how: "스틱이나 쿠션으로 얼굴 · 목 · 귀에 한 번 더.",
+    guide: "sunscreen-types",
+  },
+  {
+    id: "soothing-pad", title: "진정 패드 · 시트팩", slot: "pm", area: "skin", minutes: 5, base: 14, areas: ["skin"], minMinutes: 30,
+    why: "햇볕 · 면도 · 건조로 지친 날 피부를 한 번 진정시키는 시간이에요.",
+    how: "세안 후 판테놀 · 시카 같은 진정 성분 패드나 시트를 5분. 매일이 아니어도 돼요.",
+    guide: "ingredient-basics",
+  },
+  {
+    id: "device-care", title: "뷰티 디바이스 (LED · 갈바닉 등)", slot: "pm", area: "skin", minutes: 10, base: 12, areas: ["skin"], minMinutes: 30,
+    why: "기초 루틴 위에 더하는 선택 항목이에요. 기초를 대신하지 않아요.",
+    how: "제조사 설명서의 사용 시간 · 주기대로. 상처 · 심한 트러블 부위는 피하고, 생활관이면 규정을 먼저 확인해요.",
+    guide: "px-beauty",
   },
 
   // ── 상황별 추가 (시간 예산 밖) ──

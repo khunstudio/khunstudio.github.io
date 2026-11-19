@@ -3,7 +3,8 @@
 export type Mode = "prepare" | "service" | "next" | "everyday";
 export type Area = "skin" | "body" | "style" | "life";
 export type Experience = "new" | "sometimes" | "steady";
-export type Minutes = 3 | 5 | 10;
+/** 하루에 쓸 시간. 3은 이전 버전 호환용 (UI에서는 5 · 10 · 30만 고른다) */
+export type Minutes = 3 | 5 | 10 | 30;
 export type Concern = "dryness" | "shave" | "outdoor" | "start" | "sweat";
 export type Goal = "start" | "keep" | "adapt";
 export type Slot = "am" | "pm";

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildRoutine, completion, firstActions, recommendedGuides, streak, visibleItems, dayKey, shiftDays } from "../src/lib/engine.ts";
+import { allocate, buildRoutine, completion, firstActions, recommendedGuides, streak, visibleItems, dayKey, shiftDays } from "../src/lib/engine.ts";
 import { TEMPLATES } from "../src/lib/templates.ts";
 import type { CheckAnswers, Store } from "../src/lib/types.ts";
 
@@ -8,7 +8,7 @@ const base: CheckAnswers = { mode: "service", interests: ["skin"], experience: "
 const daily = (a: CheckAnswers) => visibleItems(buildRoutine(a), "default").reduce((n, i) => n + i.minutes, 0);
 
 test("하루 루틴은 선택한 시간 예산을 넘지 않는다", () => {
-  for (const minutes of [3, 5, 10] as const) {
+  for (const minutes of [5, 10, 30] as const) {
     for (const mode of ["prepare", "service", "next", "everyday"] as const) {
       const a = { ...base, minutes, mode, interests: ["skin", "body", "style", "life"] as CheckAnswers["interests"], concerns: ["shave", "dryness", "sweat", "outdoor"] as CheckAnswers["concerns"] };
       assert.ok(daily(a) <= minutes + 1e-9, `${mode} ${minutes}분: ${daily(a)}`);
@@ -78,4 +78,13 @@ test("D+ 카운트와 단계", async () => {
   assert.equal(milestone(12).current.ko, "적응");
   assert.equal(milestone(12).left, 18);
   assert.equal(milestone(100).next, undefined);
+});
+
+test("30분이면 운동 영역에 실제 운동이 들어가고, 배분 합이 전체 시간과 같다", () => {
+  const a: CheckAnswers = { ...base, minutes: 30, interests: ["skin", "body", "style", "life"], concerns: [] };
+  const ids = buildRoutine(a).map((i) => i.id);
+  assert.ok(ids.includes("bodyweight"), ids.join(","));
+  const al = allocate(a);
+  assert.ok(Math.abs(al.skin + al.body + al.style + al.life - 30) < 1e-9);
+  assert.ok(al.body > al.style);
 });

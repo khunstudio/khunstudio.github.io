@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { buildRoutine, firstActions, recommendedGuides } from "@/lib/engine";
-import { AREAS, GOALS, MINUTES, MODES } from "@/lib/labels";
+import { buildRoutine, allocate, firstActions, recommendedGuides } from "@/lib/engine";
+import { AREAS, AREA_ORDER, GOALS, MINUTES, MODES } from "@/lib/labels";
 import { actions, getStore } from "@/lib/store";
 import { track } from "@/lib/analytics";
 import { getGuide } from "@/content/guides";
@@ -64,7 +64,41 @@ export function ResultView() {
       </section>
 
       <div className="wrap-narrow py-10">
-        <h2 className="sec-head h3">지금 바로 할 3가지</h2>
+        <h2 className="sec-head h3">하루 {a.minutes}분, 이렇게 나눴어요</h2>
+        {(() => {
+          const al = allocate(a);
+          const used = { skin: 0, body: 0, style: 0, life: 0 } as Record<string, number>;
+          for (const i of daily) used[i.area] += i.minutes;
+          const rows = AREA_ORDER.filter((x) => used[x] > 0 || al[x] > 0);
+          const fmt = (n: number) => (n < 1 ? "30초" : `${Math.round(n * 10) / 10}분`);
+          return (
+            <div className="card p-5">
+              <div className="flex h-3 overflow-hidden rounded-full bg-line" aria-hidden="true">
+                {rows.map((x, k) => <i key={x} style={{ width: `${(used[x] / Math.max(total, 1)) * 100}%`, background: ["#111", "#ff5a1f", "#8a8a86", "#c9c8c3"][k % 4] }} />)}
+              </div>
+              <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {rows.map((x, k) => (
+                  <li key={x}>
+                    <span className="flex items-center gap-1.5 text-[13px] font-semibold"><i className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: ["#111", "#ff5a1f", "#8a8a86", "#c9c8c3"][k % 4] }} />{AREAS[x].ko}</span>
+                    <span className="display mt-1 block text-[26px]">{fmt(used[x])}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="small mt-3">피부 기본(세안 · 보습 · 자외선 차단)을 먼저 넣고, 남은 시간을 고른 영역에 나눴어요. 운동은 한 번에 시간이 많이 들어서 더 크게 잡았어요.</p>
+            </div>
+          );
+        })()}
+
+        <Link href="/skin/" className="card card-link mt-4 flex items-center justify-between gap-4 p-5">
+          <span>
+            <span className="eyebrow !text-[11px]">NEXT · SKIN TYPE</span>
+            <span className="mt-1 block font-bold">내 피부 타입을 알면 세럼 · 선크림까지 맞춰 드려요</span>
+            <span className="small">6문항 셀프 체크 · 결과에서 루틴에 바로 추가</span>
+          </span>
+          <span aria-hidden="true">→</span>
+        </Link>
+
+        <h2 className="sec-head h3 mt-12">지금 바로 할 3가지</h2>
         <ol className="grid gap-3">
           {first.map((it, n) => (
             <li key={it.id} className="card flex gap-4 p-5">

@@ -23,6 +23,8 @@ const isActive = (path: string, href: string) => (href === "/" ? path === "/" : 
 
 const TOP = [
   { href: "/care/", label: "CARE" },
+  { href: "/skin/", label: "SKIN TEST" },
+  { href: "/ingredients/", label: "성분" },
   { href: "/routine/", label: "ROUTINE" },
   { href: "/crew/", label: "CREW", badge: "Beta 준비" },
   { href: "/select/", label: "SELECT", badge: "Coming Soon" },

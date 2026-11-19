@@ -22,7 +22,12 @@ export const EXPERIENCES: Record<Experience, string> = {
   steady: "꾸준히 하고 있어요",
 };
 
-export const MINUTES: Record<Minutes, string> = { 3: "하루 3분", 5: "하루 5분", 10: "하루 10분" };
+export const MINUTES: Record<Minutes, string> = { 3: "하루 3분", 5: "하루 5분", 10: "하루 10분", 30: "하루 30분" };
+export const MINUTE_CHOICES: { m: Minutes; desc: string }[] = [
+  { m: 5, desc: "피부 기본만 확실하게. 세안 · 보습 · 자외선 차단" },
+  { m: 10, desc: "기본 + 고른 영역에서 한두 가지 (스트레칭 · 머리 손질 등)" },
+  { m: 30, desc: "운동 15분까지 포함한 제대로 된 하루 루틴" },
+];
 
 export const CONCERNS: Record<Concern, { ko: string; desc: string }> = {
   start: { ko: "기초부터 시작하고 싶어요", desc: "무엇부터 해야 할지 모름" },

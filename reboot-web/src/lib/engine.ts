@@ -1,5 +1,5 @@
 import { TEMPLATES, type Template } from "./templates.ts";
-import type { CheckAnswers, DayRecord, RoutineItem, Situation, Store } from "./types.ts";
+import type { Area, CheckAnswers, DayRecord, RoutineItem, Situation, Store } from "./types.ts";
 
 // 규칙 기반 루틴 엔진. 순수 함수만 두어 테스트하기 쉽게 한다.
 
@@ -26,6 +26,8 @@ const SEQ: Record<string, number> = {
   "am-cleanse": 10, "shave-prep": 15, "shave-after": 20, "am-moisturize": 30, "am-sunscreen": 40, "sunscreen-reapply": 45,
   "stretch": 50, "water": 55, "mirror-check": 60, "out-grooming": 65, "out-clinic-note": 70,
   "pm-cleanse": 10, "after-active-rinse": 12, "sweat-rinse": 14, "pm-moisturize": 30, "dry-extra": 32, "lip-hand": 35,
+  "serum-step": 25, "noon-sunscreen": 46, "hair-style": 58, "walk": 52,
+  "active-pm": 25, "soothing-pad": 33, "device-care": 34, "outfit-prep": 45, "bodyweight": 8, "plan-tomorrow": 62, "read-10": 63,
   "hair-dry": 40, "workout-log": 50, "enlist-checklist": 55, "screen-off": 60, "reflect": 65,
 };
 const seq = (id: string) => SEQ[id] ?? 99;
@@ -46,24 +48,47 @@ function toItem(t: Template): RoutineItem {
   };
 }
 
-/** 체크 응답으로 루틴을 만든다. 기본 항목 + 시간 예산 안의 추가 항목 + 상황별 항목. */
+/** 영역별 시간 가중치. 운동은 한 번에 시간이 많이 들어서 크게 잡는다. */
+const AREA_WEIGHT: Record<Area, number> = { skin: 1, body: 4, style: 1, life: 1 };
+
+/** 하루 시간을 고른 영역에 나눈다. 피부 기본(세안 · 보습 · 자외선 차단)은 항상 먼저. */
+export function allocate(a: CheckAnswers): Record<Area, number> {
+  const core = TEMPLATES.filter((t) => t.core).reduce((n, t) => n + t.minutes, 0);
+  const rest = Math.max(0, a.minutes - core);
+  const areas: Area[] = a.interests.length ? a.interests : ["skin"];
+  const wsum = areas.reduce((n, x) => n + AREA_WEIGHT[x], 0);
+  const out: Record<Area, number> = { skin: 0, body: 0, style: 0, life: 0 };
+  for (const x of areas) out[x] = (rest * AREA_WEIGHT[x]) / wsum;
+  out.skin += core;
+  return out;
+}
+
+/** 체크 응답으로 루틴을 만든다. 기본 항목 + 영역별 시간 안의 추가 항목 + 상황별 항목. */
 export function buildRoutine(a: CheckAnswers): RoutineItem[] {
   const pool = TEMPLATES.filter((t) => eligible(t, a));
   const core = pool.filter((t) => t.core);
   const situational = pool.filter((t) => t.situations);
   const extras = pool
     .filter((t) => !t.core && !t.situations)
+    // 처음 시작하는 사람은 짧은 시간을 골랐을 때 2분 이상 걸리는 항목을 넣지 않는다
+    .filter((t) => !(a.experience === "new" && a.minutes < 30 && t.minutes >= 2))
     .sort((x, y) => score(y, a) - score(x, a));
 
-  let budget = a.minutes - core.reduce((n, t) => n + t.minutes, 0);
+  const coreMin = core.reduce((n, t) => n + t.minutes, 0);
+  const alloc = allocate(a);
+  const areaLeft: Record<Area, number> = { ...alloc, skin: alloc.skin - coreMin };
+  let total = a.minutes - coreMin;
   const picked: Template[] = [];
+  // 1차: 각 영역에 배정된 시간 안에서
   for (const t of extras) {
-    // 처음 시작하는 사람에게는 2분 이상 걸리는 항목을 넣지 않는다
-    if (a.experience === "new" && t.minutes >= 2) continue;
-    if (t.minutes <= budget + 1e-9) {
-      picked.push(t);
-      budget -= t.minutes;
+    if (t.minutes <= areaLeft[t.area] + 1e-9 && t.minutes <= total + 1e-9) {
+      picked.push(t); areaLeft[t.area] -= t.minutes; total -= t.minutes;
     }
+  }
+  // 2차: 남은 시간을 점수 순으로 채운다 (고민 · 모드로 들어온 항목 포함)
+  for (const t of extras) {
+    if (picked.includes(t)) continue;
+    if (t.minutes <= total + 1e-9) { picked.push(t); total -= t.minutes; }
   }
   const slot = (t: Template) => (t.slot === "am" ? 0 : 1);
   return [...core, ...picked, ...situational]
