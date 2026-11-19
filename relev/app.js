@@ -124,39 +124,68 @@
       { home: "홈 초음파 디바이스 (비집속)", tech: "ultrasound", clinic: ["ulthera", "shurink"], note: "전문 시술은 집속 초음파(HIFU) — 다른 방식", techTo: "hifu" },
       { home: "LED 마스크", tech: "led", clinic: ["ipl-clinic", "laser-toning"], note: "같은 '빛' 계열이지만 LED · IPL · 레이저는 서로 다른 기술", techTo: "ipl" }
     ];
-    var stats = [
-      [D.techs.length, "기술 백과 초안"],
-      [D.treatments.length, "시술 백과 초안"],
-      [D.devices.length, "디바이스 샘플 자리표시"],
-      [D.techs.concat(D.treatments).filter(function (x) { return x.status !== "draft" && x.status !== "sample"; }).length, "검수 완료"]
+    var chips = ["RF", "HIFU", "EMS", "미세전류", "LED", "IPL", "PN", "PLLA", "PDLLA", "CaHA"];
+    var found = [
+      ["#device", "f-a", "Device DB", '<svg viewBox="0 0 60 60"><rect x="22" y="8" width="16" height="40" rx="8"/><circle cx="30" cy="18" r="4"/><path d="M18 52h24"/></svg>'],
+      ["#science", "f-b", "Science", '<svg viewBox="0 0 60 60"><path d="M8 30c6-10 12-10 18 0s12 10 18 0 10-8 10-8M8 42c6-10 12-10 18 0s12 10 18 0"/></svg>'],
+      ["#clinic", "f-c", "Clinic", '<svg viewBox="0 0 60 60"><path d="M14 52V24a16 16 0 0 1 32 0v28"/><path d="M24 52V34h12v18"/></svg>'],
+      ["#compare", "f-d", "Compare", '<svg viewBox="0 0 60 60"><rect x="8" y="14" width="18" height="32" rx="4"/><rect x="34" y="14" width="18" height="32" rx="4"/></svg>'],
+      ["#compare", "f-e", "Cost Calculator", '<svg viewBox="0 0 60 60"><rect x="12" y="8" width="36" height="44" rx="6"/><path d="M20 20h20M20 32h4M30 32h4M20 42h4M30 42h4"/></svg>'],
+      ["#about", "f-f", "Evidence Tier", '<svg viewBox="0 0 60 60"><path d="M10 48h40M16 48V36M26 48V26M36 48V18M46 48V10"/></svg>'],
+      ["#brand", "f-g", "Brand System", '<svg viewBox="0 0 60 60"><circle cx="30" cy="42" r="7"/><circle cx="30" cy="16" r="7"/><path d="M30 33V24" stroke-dasharray="2 3"/></svg>'],
+      ["#science--units", "f-h", "Spec Units", '<svg viewBox="0 0 60 60"><path d="M8 40h44M14 40V30M22 40V34M30 40V24M38 40V34M46 40V30"/></svg>'],
+      [null, "f-i", "Routine · Soon", '<svg viewBox="0 0 60 60"><rect x="10" y="12" width="40" height="38" rx="6"/><path d="M10 24h40M22 8v8M38 8v8"/></svg>'],
+      ["#clinic", "f-j", "Home to Clinic", '<svg viewBox="0 0 60 60"><path d="M8 44c10 0 14-24 22-24s12 24 22 24"/><circle cx="8" cy="44" r="4"/><circle cx="52" cy="44" r="4"/></svg>']
     ];
-    return '<div class="bandwrap"><section class="band"><div class="band__in">' + pearlField("band__field", 3, 5) +
-      '<p class="band__eyebrow">BEAUTY INTELLIGENCE PLATFORM</p>' + logoSvg("band__logo", { trail: true }) +
-      '<p class="band__slogan">Elevate Your Beauty.</p><p class="band__sub">아름다움을 더 높은 단계로.</p>' +
-      '<div class="band__cta"><a class="btn btn--light" href="#science">기술 탐색하기</a><a class="btn btn--line" href="#brand">브랜드 시스템 보기</a></div></div></section></div>' +
-      '<section class="hero2">' +
-      '<div><p class="hero2__tag">FROM HOME TO CLINIC.</p>' +
-      "<h1>아름다움을 이해하는<br>새로운 단계.</h1>" +
-      '<p class="sub">홈 디바이스에서 피부과 시술까지, 나에게 맞는 뷰티 테크를 탐색하는 플랫폼.</p>' +
-      '<p class="lead">상품명이 아니라 기술 · 성분 · 작용 기전으로 연결합니다. 무엇이 같고 무엇이 다른지, 그리고 아직 무엇이 확인되지 않았는지까지.</p>' +
-      '<a class="btn btn--wide" href="#science">나의 뷰티 기술 탐색하기</a></div>' +
-      '<div class="hero2__visual"><img src="assets/hero-model.webp" alt="맑은 피부 톤의 모델이 투명한 유리 곡면 사이에서 측면을 바라보는 RE:LEV 키 비주얼" width="1448" height="1086" fetchpriority="high"></div>' +
-      "</section>" +
+    var fcard = function (f) {
+      var inner = '<div class="fnd__art ' + f[1] + '">' + f[3] + "</div><span>" + f[2] + "</span>";
+      return f[0] ? '<a class="fnd" href="' + f[0] + '">' + inner + "</a>" : '<div class="fnd fnd--off">' + inner + "</div>";
+    };
+    var row = function (list) { return '<div class="marquee__track">' + list.map(fcard).join("") + list.map(fcard).join("").replace(/<a /g, '<a tabindex="-1" aria-hidden="true" ').replace(/<div class="fnd/g, '<div aria-hidden="true" class="fnd') + "</div>"; };
 
-      '<section class="section"><h2>Explore Technology</h2><div class="explore">' +
-        '<a class="tile" href="#science--rf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9c2.5-2 5.5-2 8 0s5.5 2 8 0M4 13c2.5-2 5.5-2 8 0s5.5 2 8 0M4 17c2.5-2 5.5-2 8 0s5.5 2 8 0"/></svg><b>RF</b><span>고주파</span></a>' +
-        '<a class="tile" href="#science--hifu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5h3M17 5h3v3M20 16v3h-3M7 19H4v-3"/><circle cx="12" cy="12" r="2.6"/></svg><b>HIFU</b><span>집속 초음파</span></a>' +
-        '<a class="tile" href="#science--ems"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M7 14l3-4 3 5 2-3 2 2"/></svg><b>EMS</b><span>전기 자극</span></a>' +
-        '<a class="tile" href="#science--led"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></svg><b>LED</b><span>광 에너지</span></a>' +
-        '<a class="tile" href="#science--ultrasound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11v2M7.5 8v8M11 5v14M14.5 8v8M18 10v4M21 11.5v1"/></svg><b>US</b><span>초음파</span></a>' +
-        '<a class="tile" href="#science--ha-filler"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l5 5M17.5 6.5l-9 9-3 1 1-3 9-9M9 12l3 3M4 20l2.5-2.5"/></svg><b>INJECT</b><span>주입형 시술</span></a>' +
+    return (
+      // ① 인트로: 진주 두 개 → 워드마크 (스크롤에 따라 조립)
+      '<section class="intro" id="intro" aria-label="RE:LEV"><div class="intro__stage">' +
+        '<svg class="intro__logo" viewBox="-8 -16 416 134" role="img" aria-label="RE:LEV"><defs>' + pearlDefs("ip") + "</defs>" +
+        '<g class="intro__glyphs" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">' + GLYPHS + "</g>" +
+        '<line class="intro__trail" x1="166" y1="80" x2="166" y2="38" stroke="url(#ip)" stroke-width="4" stroke-linecap="round"/>' +
+        '<g class="intro__pearls"><circle class="intro__lo" cx="166" cy="92" r="11" fill="url(#ip)"/><circle class="intro__hi" cx="166" cy="26" r="11" fill="url(#ip)"/></g></svg>' +
+        '<p class="intro__slogan">Elevate Your Beauty.<span>아름다움을 더 높은 단계로.</span></p>' +
+        '<span class="intro__hint" aria-hidden="true">Scroll</span>' +
       "</div></section>" +
 
-      '<section class="section"><h2>Home to Clinic</h2><div class="h2c">' +
-      '<a href="#device"><div class="art"><img src="assets/home-device.webp" alt="라벤더 배경 위 거치대에 놓인 화이트 홈 뷰티 디바이스" loading="lazy" width="1448" height="1086"></div><b>Home Device</b><span>일상에서 시작하는 관리</span></a>' +
-      '<a href="#clinic"><div class="art"><img src="assets/clinic-care.webp" alt="티타늄 리셉션과 라벤더 조명이 있는 피부과 라운지" loading="lazy" width="1448" height="1086"></div><b>Clinical Care</b><span>전문적인 피부관리 탐색</span></a>' +
-      '</div><p class="note">홈 디바이스와 전문 시술은 같은 기술 계열이어도 서로를 대체하지 않습니다. RE:LEV는 두 영역의 차이를 설명할 뿐, 시술을 권하거나 홈케어를 깎아내리지 않습니다.</p></section>' +
+      // ② 브랜드 콜라주 (벤토)
+      '<section class="bento" aria-label="RE:LEV 브랜드 콜라주">' +
+        '<a class="b b--photo b--tall" href="#science"><img src="assets/hero-model.webp" alt="맑은 피부의 모델과 투명한 유리 곡면" width="1448" height="1086"><span class="b__chip">나의 피부 기술 탐색</span></a>' +
+        '<div class="b b--chips"><p>어떤 기술이 궁금하세요?</p><div class="chipcloud">' + chips.map(function (c, i) { return '<span' + (i === 0 ? ' class="on"' : "") + ">" + c + "</span>"; }).join("") + "</div></div>" +
+        '<div class="b b--iris">' + symbolSvg("b__symbol", false) + "</div>" +
+        '<a class="b b--photo" href="#device"><img src="assets/home-device.webp" alt="거치대 위의 화이트 홈 뷰티 디바이스" loading="lazy" width="1448" height="1086"><span class="b__tag">스펙 · 출처 · 검수일</span></a>' +
+        '<div class="b b--mist"><p class="b__big">Rise from within.<br>Home to Clinic.</p></div>' +
+        '<a class="b b--photo" href="#clinic"><img src="assets/clinic-care.webp" alt="티타늄 리셉션이 있는 피부과 라운지" loading="lazy" width="1448" height="1086"><span class="b__chip b__chip--plus">+ 비교에 담기</span></a>' +
+        '<div class="b b--ink">' + '<svg class="b__arcs" viewBox="0 0 300 300" aria-hidden="true"><path d="M20 280C80 200 60 120 150 110S260 40 290 10" pathLength="1"/><path d="M-10 200C60 180 110 240 170 190S240 120 310 140" pathLength="1"/></svg>' + '<span class="b__dot d1"></span><span class="b__dot d2"></span><span class="b__dot d3"></span></div>' +
+      "</section>" +
 
+      // ③ 다크 섹션: 진주 궤적이 화면으로 펼쳐짐
+      '<section class="spread" id="spread"><div class="spread__copy"><h2>피부관리 기술의 지도<br>RE:LEV</h2>' +
+        "<p>RE:LEV는 홈 디바이스와 피부과 시술을 상품명이 아니라 기술 · 성분 · 작용 기전으로 연결하는 뷰티 인텔리전스 플랫폼이에요. 무엇이 같고 무엇이 다른지, 그리고 아직 확인되지 않은 것까지 같은 기준으로 보여 드려요.</p></div>" +
+        '<svg class="spread__art" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>' + pearlDefs("sp") + "</defs>" +
+        ['M-20 500C200 480 260 300 420 300S700 380 820 220 1060 60 1240 40', 'M100 540C220 400 380 420 520 360S760 160 900 150 1120 220 1240 160', 'M-40 380C120 360 240 440 380 400S560 220 700 240 980 360 1240 300', 'M300 560C340 460 460 470 560 420S640 300 760 300 940 420 1240 420', 'M600 560C620 470 700 440 780 380S900 200 1000 120 1180 40 1240 20']
+          .map(function (d, i) { return '<path class="sp sp' + i + '" d="' + d + '" pathLength="1"/>'; }).join("") +
+        [[420, 300, 14], [820, 220, 18], [1060, 70, 24], [520, 360, 10], [900, 150, 16], [700, 240, 12], [980, 360, 10], [760, 300, 12], [1000, 120, 20]]
+          .map(function (c, i) { return '<circle class="spp spp' + (i % 5) + '" cx="' + c[0] + '" cy="' + c[1] + '" r="' + c[2] + '" fill="url(#sp)"/>'; }).join("") +
+        "</svg></section>" +
+
+      // ④ 원칙: 왼쪽 고정 제목 + 오른쪽 카드
+      '<section class="principle"><h2 class="principle__title">RE:LEV의<br>원칙</h2><div class="principle__cards">' +
+        '<article class="pc"><div class="pc__art pc__art--a"><span class="pc__pearl"></span></div><h3>Informed &amp; Clear</h3><p>근거가 있는 정보만 사실로 쓰고<br>복잡한 기술을 쉬운 말로 풀어요</p></article>' +
+        '<article class="pc"><div class="pc__art pc__art--b"><div class="tiers-run">' + ["T1 규제", "T2 논문", "T3 독립시험", "T4 인체적용", "T5 공식스펙", "T6 광고", "T7 경험"].map(function (t) { return "<span>" + t + "</span>"; }).join("") + '</div></div><h3>Independent &amp; Transparent</h3><p>모든 값에 출처 등급과 검수일을 붙이고<br>광고는 평가와 순위에 영향을 주지 않아요</p></article>' +
+        '<article class="pc"><div class="pc__art pc__art--c">' + pearlField("pc__field", 2, 9) + '</div><h3>Continuous &amp; Elevating</h3><p>홈케어에서 전문 관리까지<br>오늘보다 한 단계 나아가는 관리를 함께해요</p></article>' +
+      "</div></section>" +
+
+      // ⑤ 기반: 흐르는 카드
+      '<section class="foundation"><h2>RE:LEV의 기반</h2><div class="marquee">' + row(found.slice(0, 5).concat(found.slice(0, 5))) + '</div><div class="marquee marquee--rev">' + row(found.slice(5).concat(found.slice(5))) + "</div></section>" +
+
+      // 데이터 브리지 · 현황 (정직하게)
       '<section class="section"><p class="eyebrow">Same family, different tools</p><h2 style="font-size:26px;margin:6px 0 18px">같은 계열, 다른 도구.</h2>' +
       '<div class="bridge"><div class="bridge__row head"><span>HOME</span><span class="bridge__mid">TECHNOLOGY</span><span>CLINIC</span></div>' +
       bridges.map(function (b) {
@@ -164,21 +193,39 @@
           '<div class="bridge__mid">' + chip(b.tech) + (b.techTo ? " " + chip(b.techTo) : "") + '<div class="bridge__line"></div></div>' +
           '<div class="chips">' + b.clinic.map(function (id) { var t = byId(D.treatments, id); return '<a class="chip chip--plain" href="#clinic--' + id + '">' + esc(t.name) + "</a>"; }).join("") + "</div></div>";
       }).join("") + "</div>" +
-      '<p class="note">이 연결은 같은 물리 원리 계열을 보여 줄 뿐, 홈 디바이스가 시술을 대체하거나 시술이 홈케어보다 낫다는 뜻이 아닙니다. 출력 · 표적 깊이 · 허가 목적 · 시행 주체가 모두 다릅니다.</p></section>' +
-
-      '<section class="section"><h2>RE:LEV가 지키는 것</h2><div class="principles">' +
-      [["SCIENCE", "과학적 원리와 검증 가능한 정보만 사실로 씁니다."],
-       ["CLARITY", "복잡한 기술을 쉬운 말로, 그러나 단순화하지 않고."],
-       ["TRANSPARENCY", "모든 값에 출처 등급과 검수 상태를 붙이고, 모르는 값은 모른다고 씁니다."],
-       ["ACCESSIBILITY", "전문적인 피부관리의 정보 장벽을 낮춥니다."],
-       ["CONTINUITY", "한 번의 구매를 지속적인 관리 경험으로 잇습니다."],
-       ["INDEPENDENCE", "광고는 평가 · 순위 · 데이터 값에 영향을 주지 않습니다."]]
-        .map(function (p) { return "<div><b>" + p[0] + "</b><p>" + p[1] + "</p></div>"; }).join("") + "</div></section>" +
-
-      '<section class="section"><h2>데이터 현황</h2><div class="stats">' +
-      stats.map(function (s) { return "<div><b>" + s[0] + "</b><span>" + s[1] + "</span></div>"; }).join("") + "</div>" +
-      '<p class="note note--warn">프로토타입 단계입니다. 시술 · 기술 항목은 일반적으로 알려진 분류를 정리한 초안이며 전문가 검수 전입니다. 디바이스 항목은 데이터 구조를 보여 주기 위한 샘플 자리표시로, 실제 제품이 아닙니다.</p></section>';
+      '<p class="note">이 연결은 같은 물리 원리 계열을 보여 줄 뿐, 홈 디바이스가 시술을 대체하거나 시술이 홈케어보다 낫다는 뜻이 아닙니다.</p>' +
+      '<p class="note note--warn">프로토타입 단계입니다. 기술 ' + D.techs.length + "건 · 시술 " + D.treatments.length + "건은 검수 전 초안이고, 디바이스 " + D.devices.length + "건은 실제 제품이 아닌 샘플 자리표시입니다.</p></section>"
+    );
   }
+
+  // 인트로 · 다크 섹션 스크롤 연출
+  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function ease(x) { return x * x * (3 - 2 * x); }
+  var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function onScrollFx() {
+    var intro = document.getElementById("intro");
+    if (intro) {
+      var r = intro.getBoundingClientRect(), span = intro.offsetHeight - window.innerHeight;
+      var p = REDUCED ? 1 : clamp01(-r.top / (span || 1));
+      var a = ease(clamp01(p / 0.45)), b = ease(clamp01((p - 0.35) / 0.3)), c = ease(clamp01((p - 0.6) / 0.25));
+      var s = 6 - 5 * a;
+      intro.style.setProperty("--pearl-scale", s.toFixed(3));
+      intro.style.setProperty("--glyph", b.toFixed(3));
+      intro.style.setProperty("--rise", ((1 - c) * 33).toFixed(2));
+      intro.style.setProperty("--trail", c.toFixed(3));
+      intro.style.setProperty("--slogan", ease(clamp01((p - 0.72) / 0.2)).toFixed(3));
+      intro.style.setProperty("--bgmix", (a * 100).toFixed(1) + "%");
+    }
+    var sp = document.getElementById("spread");
+    if (sp) {
+      var rr = sp.getBoundingClientRect();
+      var q = REDUCED ? 1 : clamp01((window.innerHeight - rr.top) / (rr.height + window.innerHeight * 0.2));
+      sp.style.setProperty("--draw", ease(q).toFixed(3));
+    }
+    document.body.classList.toggle("on-dark", !!(intro && intro.getBoundingClientRect().bottom > 60));
+  }
+  window.addEventListener("scroll", onScrollFx, { passive: true });
+  window.addEventListener("resize", onScrollFx);
 
 
   // ── 페이지: 디바이스 ──────────────────────────────
@@ -426,11 +473,11 @@
     var txs = s ? D.treatments.filter(function (t) { return hit(t, ["name", "en", "ingredients", "maker", "delivery"]) || t.techIds.some(function (x) { return tagLabel(x).toLowerCase().indexOf(s) > -1; }); }) : [];
     var devs = s ? D.devices.filter(function (d) { return hit(d, ["name", "brand"]) || d.techIds.some(function (x) { return tagLabel(x).toLowerCase().indexOf(s) > -1; }); }) : [];
     var total = techs.length + txs.length + devs.length;
-    return head("SEARCH", "“" + esc(q) + "” 검색 결과", total + "건") +
+    return '<form class="search-page" data-search><input type="search" id="q2" value="' + esc(q) + '" placeholder="기술 · 시술 · 성분 검색" aria-label="검색"><button class="btn">검색</button></form>' + head("SEARCH", q ? "“" + esc(q) + "” 검색 결과" : "검색", q ? total + "건" : "") +
       (techs.length ? '<div class="group-title"><h2>기술</h2></div><div class="grid">' + techs.map(function (t) { return '<a class="card" href="#science--' + t.id + '"><h3>' + esc(t.name) + "</h3><p>" + esc(t.summary) + "</p></a>"; }).join("") + "</div>" : "") +
       (txs.length ? '<div class="group-title"><h2>시술</h2></div><div class="grid">' + txs.map(treatmentCard).join("") + "</div>" : "") +
       (devs.length ? '<div class="group-title"><h2>디바이스</h2></div><div class="grid">' + devs.map(deviceCard).join("") + "</div>" : "") +
-      (total ? "" : '<p class="empty">결과가 없습니다. 예: RF, 초음파, PLLA, 써마지</p>');
+      (total ? "" : '<p class="empty">' + (s ? "결과가 없습니다. " : "") + "예: RF, 초음파, PLLA, 써마지</p>");
   }
 
   // ── 페이지: About ─────────────────────────────────
@@ -575,7 +622,9 @@
       default: html = notFound();
     }
     view.innerHTML = html;
-    document.body.classList.toggle("has-band", nav === "" || nav === "brand");
+    document.body.classList.toggle("has-band", nav === "brand");
+    document.body.classList.toggle("is-home", nav === "");
+    onScrollFx();
     document.querySelectorAll("[data-nav]").forEach(function (a) { a.classList.toggle("on", a.dataset.nav === nav); });
     document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", science: "explore", device: "explore", clinic: "explore", compare: "compare", brand: "brand" }[nav] || "")); });
     var h1 = view.querySelector("h1");
@@ -621,9 +670,10 @@
       document.getElementById("calc-result").innerHTML = calcResult();
     }
   });
-  document.getElementById("search").addEventListener("submit", function (e) {
+  document.addEventListener("submit", function (e) {
+    if (!e.target.matches("[data-search]")) return;
     e.preventDefault();
-    var q = document.getElementById("q").value.trim();
+    var q = e.target.querySelector("input").value.trim();
     if (q) { searchQ = q; if (location.hash === "#search") route(); else location.hash = "#search"; }
   });
   window.addEventListener("hashchange", function () { route(); window.scrollTo(0, 0); });
