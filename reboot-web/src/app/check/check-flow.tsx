@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Choice } from "@/components/choice";
-import { AREAS, AREA_ORDER, CONCERNS, CONCERN_ORDER, EXPERIENCES, GOALS, MINUTES, MINUTE_OPTIONS, minuteDesc, MODES, MODE_ORDER } from "@/lib/labels";
+import { AREAS, AREA_ORDER, CONCERNS, CONCERN_GROUPS, EXPERIENCES, GOALS, MINUTES, MINUTE_OPTIONS, minuteDesc, MODES, MODE_ORDER } from "@/lib/labels";
 import { getStore } from "@/lib/store";
 import { track } from "@/lib/analytics";
 import type { Area, CheckAnswers, Concern, Experience, Goal, Minutes, Mode } from "@/lib/types";
@@ -71,8 +71,29 @@ export function CheckFlow() {
     },
     concerns: {
       q: "요즘 신경 쓰이는 게 있나요?",
-      hint: "선택 사항이에요. 스스로 느끼는 정도를 참고할 뿐, 피부 상태를 진단하지 않아요.",
-      body: CONCERN_ORDER.map((c) => <Choice key={c} multi selected={d.concerns.includes(c)} onClick={() => setD({ ...d, concerns: toggle(d.concerns, c) })} title={CONCERNS[c].ko} desc={CONCERNS[c].desc} />),
+      hint: "여러 개 골라도 돼요. 스스로 느끼는 정도를 참고할 뿐, 진단하지 않아요.",
+      body: (
+        <div className="grid gap-5">
+          {CONCERN_GROUPS.map((g) => (
+            <div key={g.label}>
+              <p className="eyebrow !text-[11px]">{g.label}</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {g.items.map((c) => (
+                  <button
+                    key={c} type="button" role="checkbox" aria-checked={d.concerns.includes(c)}
+                    onClick={() => setD({ ...d, concerns: toggle(d.concerns, c) })}
+                    className="concern-chip"
+                  >
+                    <span className="font-semibold">{CONCERNS[c].ko}</span>
+                    <span className="concern-chip__d">{CONCERNS[c].desc}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+          {d.concerns.length > 0 && <p className="small">{d.concerns.length}개 골랐어요. 고른 고민에 맞춰 루틴 항목과 가이드가 바뀌어요.</p>}
+        </div>
+      ),
     },
     goal: {
       q: "이번에 가장 하고 싶은 건 뭔가요?",

@@ -47,13 +47,25 @@ export function minuteDesc(m: Minutes, interests: Area[]): string {
 }
 
 export const CONCERNS: Record<Concern, { ko: string; desc: string }> = {
-  start: { ko: "기초부터 시작하고 싶어요", desc: "무엇부터 해야 할지 모름" },
-  dryness: { ko: "얼굴이 자주 당겨요", desc: "보습 부족감" },
-  shave: { ko: "면도 후 따가워요", desc: "면도 후 자극" },
-  outdoor: { ko: "밖에 있는 시간이 길어요", desc: "야외활동 · 햇빛" },
-  sweat: { ko: "땀을 많이 흘려요", desc: "운동 · 활동 후 관리" },
+  start: { ko: "뭐부터 할지 모르겠어요", desc: "기초부터" },
+  dryness: { ko: "당기고 건조해요", desc: "보습 부족감" },
+  oily: { ko: "기름이 많아요", desc: "오후 번들거림" },
+  pores: { ko: "모공 · 블랙헤드", desc: "코 · 볼 모공" },
+  redness: { ko: "붉고 예민해요", desc: "자극 · 따가움" },
+  acne: { ko: "여드름이 자주 나요", desc: "좁쌀 · 붉은 여드름" },
+  bumps: { ko: "면도 후 오돌토돌 · 모낭염", desc: "털구멍마다 뾰루지" },
+  scars: { ko: "흉터 · 자국", desc: "갈색 · 붉은 자국, 패인 흉터" },
+  shave: { ko: "면도 후 따가워요", desc: "면도 자극" },
+  outdoor: { ko: "밖에 있는 시간이 길어요", desc: "야외 · 햇빛" },
+  sweat: { ko: "땀을 많이 흘려요", desc: "운동 · 활동 후" },
 };
-export const CONCERN_ORDER: Concern[] = ["start", "dryness", "shave", "outdoor", "sweat"];
+export const CONCERN_ORDER: Concern[] = ["start", "dryness", "oily", "pores", "redness", "acne", "bumps", "scars", "shave", "outdoor", "sweat"];
+export const CONCERN_GROUPS: { label: string; items: Concern[] }[] = [
+  { label: "피부 상태", items: ["dryness", "oily", "pores", "redness"] },
+  { label: "트러블", items: ["acne", "bumps", "scars"] },
+  { label: "면도", items: ["shave"] },
+  { label: "생활", items: ["outdoor", "sweat", "start"] },
+];
 
 export const GOALS: Record<Goal, string> = {
   start: "일단 시작해 보기",

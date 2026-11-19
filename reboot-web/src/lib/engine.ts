@@ -26,8 +26,8 @@ const SEQ: Record<string, number> = {
   "am-cleanse": 10, "shave-prep": 15, "shave-after": 20, "am-moisturize": 30, "am-sunscreen": 40, "sunscreen-reapply": 45,
   "stretch": 50, "water": 55, "mirror-check": 60, "out-grooming": 65, "out-clinic-note": 70,
   "pm-cleanse": 10, "after-active-rinse": 12, "sweat-rinse": 14, "pm-moisturize": 30, "dry-extra": 32, "lip-hand": 35,
-  "serum-step": 25, "noon-sunscreen": 46, "hair-style": 58, "walk": 52,
-  "active-pm": 25, "soothing-pad": 33, "device-care": 34, "outfit-prep": 45, "bodyweight": 8, "plan-tomorrow": 62, "read-10": 63,
+  "serum-step": 25, "shave-grain": 16, "blot-tzone": 47, "noon-sunscreen": 46, "hair-style": 58, "walk": 52,
+  "active-pm": 25, "soothe-quick": 29, "pillow-towel": 36, "hands-off": 37, "soothing-pad": 33, "device-care": 34, "outfit-prep": 45, "bodyweight": 8, "plan-tomorrow": 62, "read-10": 63,
   "hair-dry": 40, "workout-log": 50, "enlist-checklist": 55, "screen-off": 60, "reflect": 65,
 };
 const seq = (id: string) => SEQ[id] ?? 99;
@@ -79,8 +79,17 @@ export function buildRoutine(a: CheckAnswers): RoutineItem[] {
   const areaLeft: Record<Area, number> = { ...alloc, skin: alloc.skin - coreMin };
   let total = a.minutes - coreMin;
   const picked: Template[] = [];
+  // 0차: 지금 생활 단계에만 있는 항목(예: 입대 준비 목록)은 먼저
+  for (const t of extras) {
+    if (t.modes?.includes(a.mode) && t.minutes <= total + 1e-9) {
+      picked.push(t); total -= t.minutes;
+      if (areaLeft[t.area] > 0) areaLeft[t.area] = Math.max(0, areaLeft[t.area] - t.minutes);
+      else areaLeft.skin = Math.max(0, areaLeft.skin - t.minutes);
+    }
+  }
   // 1차: 각 영역에 배정된 시간 안에서
   for (const t of extras) {
+    if (picked.includes(t)) continue;
     if (t.minutes <= areaLeft[t.area] + 1e-9 && t.minutes <= total + 1e-9) {
       picked.push(t); areaLeft[t.area] -= t.minutes; total -= t.minutes;
     }
@@ -115,7 +124,13 @@ export function recommendedGuides(a: CheckAnswers): string[] {
   if (a.mode === "service") add("px");
   if (a.mode === "next") add("next-chapter");
   add("skin-basics");
-  if (a.concerns.includes("shave")) add("shaving");
+  if (a.concerns.includes("acne")) add("acne-types");
+  if (a.concerns.includes("bumps")) add("folliculitis");
+  if (a.concerns.includes("scars")) add("acne-scars");
+  if (a.concerns.includes("oily") || a.concerns.includes("pores")) add("oily-skin");
+  if (a.concerns.includes("redness")) add("ingredient-basics");
+  if (a.concerns.includes("dryness")) add("dry-skin-winter");
+  if (a.concerns.includes("shave") || a.concerns.includes("bumps")) add("shaving-tools");
   if (a.concerns.includes("outdoor")) add("outdoor-day");
   if (a.concerns.includes("sweat") || a.interests.includes("body")) add("workout-skin");
   if (a.interests.includes("style")) add("hair-growing");

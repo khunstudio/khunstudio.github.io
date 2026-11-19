@@ -128,22 +128,54 @@ export const TEMPLATES: Template[] = [
     how: "오늘 지킨 것 하나, 내일 바꿀 것 하나를 짧게 적어요.",
   },
   {
-    id: "enlist-checklist", title: "입대 준비 목록 하나 확인", slot: "pm", area: "life", minutes: 1, base: 26, modes: ["prepare"],
+    id: "enlist-checklist", title: "입대 준비 목록 하나 확인", slot: "pm", area: "life", minutes: 1, base: 50, modes: ["prepare"],
     why: "한 번에 몰아서 준비하면 빠뜨리기 쉬워요. 하루에 하나씩이면 부담이 적어요.",
     how: "가이드의 준비 목록에서 오늘 하나를 확인해요. 실제 지참 물품은 입영 안내문을 기준으로 해요.",
     guide: "before-enlistment",
   },
 
 
+  // ── 고민별 (짧고 구체적인 행동) ──
+  {
+    id: "blot-tzone", title: "오후에 기름종이로 T존 누르기", slot: "am", area: "skin", minutes: 0.5, base: 38, concerns: ["oily", "pores"],
+    why: "번들거린다고 세안을 더 하면 오히려 당김과 유분이 같이 올라오기 쉬워요.",
+    how: "문지르지 말고 눌러서 닦아요. 세안은 하루 두 번이면 충분해요.",
+    guide: "oily-skin",
+  },
+  {
+    id: "soothe-quick", title: "진정 보습 (판테놀 · 시카)", slot: "pm", area: "skin", minutes: 0.5, base: 37, concerns: ["redness", "bumps", "shave"],
+    why: "붉고 따가운 날에는 새 성분을 더하기보다 진정과 보습이 먼저예요.",
+    how: "세안 후 판테놀 · 시카 같은 진정 성분 보습제를 얇게. 새 제품은 하나씩.",
+    guide: "ingredient-basics",
+  },
+  {
+    id: "pillow-towel", title: "베개 커버 · 얼굴 수건 갈기", slot: "pm", area: "skin", minutes: 0.5, base: 36, concerns: ["acne", "bumps"],
+    why: "얼굴이 매일 닿는 천에는 피지 · 땀 · 균이 쌓여요.",
+    how: "베개 커버는 2~3일, 얼굴 수건은 한 번 쓰고 바꿔요. 오늘이 바꾸는 날이 아니면 체크만.",
+    guide: "breakout-dont",
+  },
+  {
+    id: "shave-grain", title: "결 방향으로만 면도 (역방향 쉬기)", slot: "am", area: "skin", minutes: 0.5, base: 41, concerns: ["bumps", "shave"],
+    why: "역방향 면도는 바짝 깎이지만 털이 피부 안으로 말려 들어가 뾰루지가 생기기 쉬워요.",
+    how: "수염이 자라는 방향으로 한 번만. 계속 올라오면 전기면도기로 바꿔 봐요.",
+    guide: "shaving-tools",
+  },
+  {
+    id: "hands-off", title: "트러블 · 자국 만지지 않기", slot: "pm", area: "skin", minutes: 0.5, base: 33, concerns: ["acne", "scars"],
+    why: "짜거나 뜯으면 염증이 깊어지고 자국 · 흉터가 오래 남아요.",
+    how: "오늘 하루 손으로 짜지 않았으면 체크. 깊고 아픈 트러블이 반복되면 피부과 상담.",
+    guide: "acne-scars",
+  },
+
   // ── 시간이 넉넉할 때 (10 · 30분) ──
   {
-    id: "serum-step", title: "세럼 한 단계 (내 피부 타입 성분)", slot: "am", area: "skin", minutes: 0.5, base: 21, areas: ["skin"], minMinutes: 10,
+    id: "serum-step", title: "세럼 한 단계 (내 피부 타입 성분)", slot: "am", area: "skin", minutes: 0.5, base: 21, areas: ["skin"], concerns: ["oily", "pores", "scars", "redness", "acne"],
     why: "기초 3단계에 익숙해졌다면, 고민 하나에 맞는 성분 하나를 더할 때예요.",
     how: "세안 후 보습 전에 얇게. 피부 타입 체크 결과의 추천 성분(예: 나이아신아마이드)부터.",
     guide: "ingredient-basics",
   },
   {
-    id: "active-pm", title: "레티놀 · BHA 중 하나 (주 2~3회)", slot: "pm", area: "skin", minutes: 0.5, base: 19, areas: ["skin"], minMinutes: 10,
+    id: "active-pm", title: "레티놀 · BHA 중 하나 (주 2~3회)", slot: "pm", area: "skin", minutes: 0.5, base: 19, areas: ["skin"], concerns: ["acne", "pores", "oily", "scars"],
     why: "결 · 모공 · 트러블 관리는 저녁에 쓰는 기능성 성분 하나로 시작해요.",
     how: "같은 날 두 가지를 겹치지 않아요. 쓰지 않는 날은 체크만 하고 넘어가도 돼요.",
     guide: "retinoid-start",
@@ -185,13 +217,13 @@ export const TEMPLATES: Template[] = [
   },
 
   {
-    id: "noon-sunscreen", title: "점심에 선크림 덧바르기", slot: "am", area: "skin", minutes: 0.5, base: 18, areas: ["skin"], minMinutes: 10,
+    id: "noon-sunscreen", title: "점심에 선크림 덧바르기", slot: "am", area: "skin", minutes: 0.5, base: 18, areas: ["skin"], concerns: ["outdoor", "scars"],
     why: "아침에 바른 선크림은 땀 · 마찰로 오후엔 많이 지워져 있어요.",
     how: "스틱이나 쿠션으로 얼굴 · 목 · 귀에 한 번 더.",
     guide: "sunscreen-types",
   },
   {
-    id: "soothing-pad", title: "진정 패드 · 시트팩", slot: "pm", area: "skin", minutes: 5, base: 14, areas: ["skin"], minMinutes: 30,
+    id: "soothing-pad", title: "진정 패드 · 시트팩", slot: "pm", area: "skin", minutes: 5, base: 14, areas: ["skin"], concerns: ["redness"], minMinutes: 10,
     why: "햇볕 · 면도 · 건조로 지친 날 피부를 한 번 진정시키는 시간이에요.",
     how: "세안 후 판테놀 · 시카 같은 진정 성분 패드나 시트를 5분. 매일이 아니어도 돼요.",
     guide: "ingredient-basics",

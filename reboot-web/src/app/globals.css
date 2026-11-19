@@ -328,3 +328,10 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
 @media (max-width: 767px) { .t-cta { min-height: 640px; } .t-cta .photo img { object-position: 78% 70% !important; } }
 .field { width: 100%; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid var(--color-line); background: #fff; font-size: 15px; }
 .field:focus { outline: none; border-color: var(--color-ink); }
+
+/* 체크: 고민 칩 */
+.concern-chip { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 10px 14px; border-radius: 14px; border: 1.5px solid var(--color-line); background: #fff; text-align: left; font-size: 14.5px; line-height: 1.35; }
+.concern-chip:hover { border-color: #b9b8b3; }
+.concern-chip__d { font-size: 12px; color: var(--color-mute); }
+.concern-chip[aria-checked="true"] { border-color: var(--color-ink); background: var(--color-ink); color: #fff; }
+.concern-chip[aria-checked="true"] .concern-chip__d { color: rgba(255,255,255,.7); }

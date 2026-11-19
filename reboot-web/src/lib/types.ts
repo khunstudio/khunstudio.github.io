@@ -5,7 +5,10 @@ export type Area = "skin" | "body" | "style" | "life";
 export type Experience = "new" | "sometimes" | "steady";
 /** 하루에 쓸 시간. 3은 이전 버전 호환용 (UI에서는 5 · 10 · 30만 고른다) */
 export type Minutes = 3 | 5 | 10 | 30;
-export type Concern = "dryness" | "shave" | "outdoor" | "start" | "sweat";
+export type Concern =
+  | "start" | "dryness" | "oily" | "pores" | "redness"
+  | "acne" | "bumps" | "scars"
+  | "shave" | "outdoor" | "sweat";
 export type Goal = "start" | "keep" | "adapt";
 export type Slot = "am" | "pm";
 /** 생활 상황. 라벨은 모드마다 다르게 보인다 (예: 복무 중이면 "야외활동이 많은 날"). */
