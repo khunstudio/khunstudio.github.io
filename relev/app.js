@@ -87,7 +87,7 @@
   function glassSvg() {
     return '<svg viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice"><defs>' +
       '<linearGradient id="gl1" x1="0" x2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".2"/><stop offset=".5" stop-color="#ffffff" stop-opacity=".85"/><stop offset="1" stop-color="#c6e2f0" stop-opacity=".35"/></linearGradient>' +
-      '<linearGradient id="gl2" x1="0" x2="1"><stop offset="0" stop-color="#65558d" stop-opacity=".15"/><stop offset=".6" stop-color="#9183b9" stop-opacity=".55"/><stop offset="1" stop-color="#ffffff" stop-opacity=".3"/></linearGradient></defs>' +
+      '<linearGradient id="gl2" x1="0" x2="1"><stop offset="0" stop-color="#6a52d9" stop-opacity=".15"/><stop offset=".6" stop-color="#9a84e6" stop-opacity=".55"/><stop offset="1" stop-color="#ffffff" stop-opacity=".3"/></linearGradient></defs>' +
       '<path d="M-20 250 C 80 140, 170 330, 270 210 S 430 90, 540 160" fill="none" stroke="url(#gl1)" stroke-width="46" stroke-linecap="round"/>' +
       '<path d="M-20 270 C 90 170, 180 350, 280 235 S 440 120, 540 185" fill="none" stroke="url(#gl2)" stroke-width="10" stroke-linecap="round"/>' +
       '<path d="M-20 300 C 100 230, 200 380, 300 290 S 450 200, 540 240" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="2"/></svg>';
@@ -155,7 +155,7 @@
 
       // ② 브랜드 콜라주 (벤토)
       '<section class="bento" aria-label="RE:LEV 브랜드 콜라주">' +
-        '<a class="b b--photo b--tall" href="#science"><img src="assets/hero-model.webp" alt="맑은 피부의 모델과 투명한 유리 곡면" width="1448" height="1086"><span class="b__chip">나의 피부 기술 탐색</span><span class="ai-tag">AI 생성 콘셉트</span></a>' +
+        '<a class="b b--photo b--tall" href="#science"><img src="assets/relev/models/model-hand.webp" style="object-position:36% 40%" alt="라벤더 배경의 모델 클로즈업" width="1448" height="1086"><span class="b__chip">나의 피부 기술 탐색</span><span class="ai-tag">AI 생성 콘셉트</span></a>' +
         '<div class="b b--chips"><p>어떤 기술이 궁금하세요?</p><div class="chipcloud">' + chips.map(function (c, i) { return '<span' + (i === 0 ? ' class="on"' : "") + ">" + c + "</span>"; }).join("") + "</div></div>" +
         '<div class="b b--iris">' + symbolSvg("b__symbol", false) + "</div>" +
         '<a class="b b--photo" href="#device"><img src="assets/home-device.webp" alt="거치대 위의 화이트 홈 뷰티 디바이스" loading="lazy" width="1448" height="1086"><span class="b__tag">스펙 · 출처 · 검수일</span><span class="ai-tag">AI 생성 · 가상 제품</span></a>' +
@@ -335,7 +335,7 @@
     return D.devices.filter(function (d) { return (d.fullName || d.name).indexOf(term.match) > -1; });
   }
   function pageDecode() {
-    return pageHero("assets/relev/editorial/skin-texture.webp", "65% 40%", "DECODE", "이름 말고,<br>방식으로", "제조사가 만든 기능 이름이 실제로 어떤 기술인지 풀어 둡니다. 같은 이름이 제품마다 다른 기술을 가리키는 경우도 데이터로 보여 드립니다.", "피부 결이 보이는 얼굴 클로즈업 (AI 생성 콘셉트)") +
+    return pageHero("assets/relev/models/model-closeup.webp", "60% 35%", "DECODE", "이름 말고,<br>방식으로", "제조사가 만든 기능 이름이 실제로 어떤 기술인지 풀어 둡니다. 같은 이름이 제품마다 다른 기술을 가리키는 경우도 데이터로 보여 드립니다.", "피부 결이 보이는 얼굴 클로즈업 (AI 생성 콘셉트)") +
       listBar("에어샷, 쎄라, 부스터…") +
       '<div class="decode">' + D.terms.map(function (t) {
         var ds = termDevices(t), dist = {};
@@ -702,7 +702,7 @@
     '<path transform="translate(262 0)" d="M44 6H6v100h38M6 56h32"/>' +
     '<path transform="translate(330 0)" d="M4 6l30 100L64 6"/>';
   function pearlDefs(id) {
-    return '<radialGradient id="' + id + '" cx="34%" cy="30%" r="78%"><stop offset="0" stop-color="#ffffff"/><stop offset=".42" stop-color="#e6e0f1"/><stop offset=".8" stop-color="#a99cd0"/><stop offset="1" stop-color="#8576b0"/></radialGradient>';
+    return '<radialGradient id="' + id + '" cx="34%" cy="30%" r="78%"><stop offset="0" stop-color="#ffffff"/><stop offset=".42" stop-color="#ece4fd"/><stop offset=".8" stop-color="#ad9bef"/><stop offset="1" stop-color="#8b72e0"/></radialGradient>';
   }
   function pearl(id, cx, cy, r, cls) {
     return '<circle class="' + (cls || "") + '" cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="url(#' + id + ')"/>';
@@ -718,7 +718,7 @@
   function symbolSvg(cls, bg) {
     var id = "pearl" + (++logoN), g = "bg" + logoN;
     return '<svg class="' + (cls || "") + '" viewBox="0 0 120 120" role="img" aria-label="RE:LEV 심볼"><defs>' + pearlDefs(id) +
-      '<linearGradient id="' + g + '" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f6f4f1"/><stop offset=".55" stop-color="#d9d2e7"/><stop offset="1" stop-color="#9183b9"/></linearGradient></defs>' +
+      '<linearGradient id="' + g + '" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f8f6fd"/><stop offset=".55" stop-color="#e6ddfb"/><stop offset="1" stop-color="#9a84e6"/></linearGradient></defs>' +
       (bg ? '<rect width="120" height="120" rx="28" fill="url(#' + g + ')"/>' : "") +
       '<line x1="60" y1="78" x2="60" y2="44" stroke="#ffffff" stroke-opacity=".7" stroke-width="3" stroke-linecap="round"/>' +
       pearl(id, 60, 84, 14) + pearl(id, 60, 34, 14) + "</svg>";
@@ -740,7 +740,7 @@
   // ── 페이지: Brand (디자인 시스템 문서) ────────────
   function pageBrand() {
     var nav = [["overview", "Overview"], ["logo", "Logo"], ["symbol", "Symbol & Motion"], ["graphic", "Graphic"], ["imagery", "Imagery"], ["color", "Color"], ["type", "Typography"], ["voice", "Voice & Tone"], ["copy", "Copywriting"]];
-    var colors = [["Signature Lavender", "#9183B9", "시그니처 · 로고 진주 · 아이콘", "10%"], ["Lavender Mist", "#D9D2E7", "보조 면 · 정보 강조", "20%"], ["Soft Porcelain", "#F6F4F1", "기본 배경", "55%"], ["Liquid Titanium", "#BFC3C8", "디바이스 · 기술 그래픽", "5%"], ["Deep Ink", "#26252D", "텍스트 · 워드마크", "10%"], ["Deep Iris", "#65558D", "버튼 · 강조", "CTA"]];
+    var colors = [["Signature Lavender", "#9a84e6", "시그니처 · 로고 진주 · 아이콘", "10%"], ["Lavender Mist", "#e6ddfb", "보조 면 · 정보 강조", "20%"], ["Soft Porcelain", "#f8f6fd", "기본 배경", "55%"], ["Liquid Titanium", "#BFC3C8", "디바이스 · 기술 그래픽", "5%"], ["Deep Ink", "#26252D", "텍스트 · 워드마크", "10%"], ["Deep Iris", "#6a52d9", "버튼 · 강조", "CTA"]];
     var sec = function (id, eyebrow, title, desc, body) {
       return '<section class="doc" id="b-' + id + '"><p class="eyebrow">' + eyebrow + "</p><h2>" + title + "</h2>" + (desc ? '<p class="doc__desc">' + desc + "</p>" : "") + body + "</section>";
     };
@@ -777,15 +777,15 @@
         '<div class="gfx__card gfx__card--wide">' + pearlField("gfx__field", 3, 3) + "<span>Pearl Rise · 키 비주얼 배경</span></div>" +
         '<div class="gfx__card">' + pearlField("gfx__field", 1, 21) + "<span>Single Rise · 배너 · 썸네일</span></div>" +
         '<div class="gfx__card gfx__card--ui"><div class="ui-demo"><span class="pearl-bullet"></span>디바이스 기술 이해하기</div><div class="ui-demo"><span class="pearl-bullet"></span>나에게 맞는 관리 찾기</div><div class="pearl-loader" aria-label="로딩 예시"><i></i><i></i></div><span>UI 확장 · 리스트 기호 · 로딩</span></div>' +
-        '<div class="gfx__card gfx__card--photo"><img src="assets/hero-model.webp" alt="RE:LEV 키 비주얼 위에 워드마크를 올린 예시" loading="lazy">' + logoSvg("photo__logo") + "<span>사진 위 워드마크</span></div></div>") +
+        '<div class="gfx__card gfx__card--photo"><img src="assets/relev/models/model-wide.webp" alt="RE:LEV 키 비주얼 위에 워드마크를 올린 예시" loading="lazy">' + logoSvg("photo__logo") + "<span>사진 위 워드마크</span></div></div>") +
 
       sec("imagery", "Imagery", "이미지 라이브러리", "라벤더 · 포슬린 · 티타늄 · 투명 유리 톤. 모든 이미지는 AI 생성 콘셉트로, 실제 제품 · 의료진 · 기관 · 사용자나 임상 결과로 표시하지 않습니다.",
-        '<div class="mood">' + [["editorial/hero-wide", "브랜드 모델"], ["editorial/skin-texture", "피부 결"], ["editorial/routine", "홈케어 루틴"], ["editorial/consultation", "상담"], ["editorial/evidence", "근거 · 연구"], ["editorial/fluid-glass", "Fluid Glass"], ["editorial/mature", "4050"], ["editorial/men", "남성"], ["editorial/cooling", "쿨링"], ["editorial/surface-care", "표면 관리"]]
+        '<div class="mood">' + [["models/model-wide", "브랜드 모델"], ["models/model-closeup", "피부 클로즈업"], ["editorial/hero-wide", "브랜드 모델 2"], ["editorial/skin-texture", "피부 결"], ["editorial/routine", "홈케어 루틴"], ["editorial/consultation", "상담"], ["editorial/evidence", "근거 · 연구"], ["editorial/fluid-glass", "Fluid Glass"], ["editorial/mature", "4050"], ["editorial/men", "남성"], ["editorial/cooling", "쿨링"], ["editorial/surface-care", "표면 관리"]]
           .map(function (m) { return '<figure class="fig"><img src="assets/relev/' + m[0] + '.webp" alt="' + esc(m[1]) + ' 콘셉트 이미지" loading="lazy" width="1536" height="1024"><figcaption class="ai-tag">' + esc(m[1]) + " · AI 생성</figcaption></figure>"; }).join("") + "</div>") +
 
       sec("color", "Color", "LILAC INTELLIGENCE", "피부 과학과 세련된 여성성의 균형. 채도를 낮춘 라벤더로 화장품 브랜드 특유의 가벼움과 구분합니다.",
         '<div class="swatches">' + colors.map(function (c) { return '<button class="sw" data-copy="' + c[1] + '"><i style="background:' + c[1] + '"></i><b>' + c[0] + "</b><code>" + c[1] + "</code><span>" + c[2] + " · " + c[3] + "</span></button>"; }).join("") +
-        '</div><div class="usage"><i style="flex:55;background:#F6F4F1">55%</i><i style="flex:20;background:#D9D2E7">20%</i><i style="flex:10;background:#9183B9;color:#fff">10%</i><i style="flex:10;background:#26252D;color:#fff">10%</i><i style="flex:5;background:#BFC3C8">5%</i></div><p class="caption">색상 칩을 누르면 값이 복사됩니다.</p>') +
+        '</div><div class="usage"><i style="flex:55;background:#f8f6fd">55%</i><i style="flex:20;background:#e6ddfb">20%</i><i style="flex:10;background:#9a84e6;color:#fff">10%</i><i style="flex:10;background:#26252D;color:#fff">10%</i><i style="flex:5;background:#BFC3C8">5%</i></div><p class="caption">색상 칩을 누르면 값이 복사됩니다.</p>') +
 
       sec("type", "Typography", "SUIT + Pretendard", "헤딩은 SUIT로 현대적이고 세련되게, 본문은 Pretendard로 디지털 환경에서 편하게 읽히도록.",
         '<div class="type-specimen"><p class="ts ts--display">Elevate Your Beauty.</p><p class="ts ts--h">아름다움을 이해하는 새로운 단계.</p><p class="ts ts--b">홈 디바이스에서 피부과 시술까지, 나에게 맞는 뷰티 테크를 탐색하는 플랫폼. 기술의 원리와 근거, 그리고 아직 확인되지 않은 것까지 정직하게 보여 줍니다.</p><p class="ts ts--c">CAPTION · JETBRAINS MONO · 1.0 MHz · 633 nm · 3.0 mm</p></div>') +
