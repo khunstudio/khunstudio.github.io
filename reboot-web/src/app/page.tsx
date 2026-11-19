@@ -2,7 +2,7 @@ import Link from "next/link";
 import { GUIDES } from "@/content/guides";
 import { GuideCard } from "@/components/guide-browser";
 import { TodayStrip } from "@/components/home-today";
-import { FogHero } from "@/components/home/fog-hero";
+import { HomeHero } from "@/components/home/home-hero";
 import { RevealObserver } from "@/components/home/reveal";
 import { StoryScroll } from "@/components/home/story-scroll";
 import { DPlusCount } from "@/components/home/dplus-count";
@@ -24,8 +24,7 @@ export default function Home() {
       <RevealObserver />
       <TodayStrip />
 
-      {/* 1. HERO: 스크롤하면 거울의 김이 걷힌다 */}
-      <FogHero />
+      <HomeHero />
 
       {/* 2. 한 문장 */}
       <section className="t-sec">

@@ -153,22 +153,6 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
 /* 사진은 칸보다 넓어지지 않는다 (aspect-ratio + stretch로 옆 칸을 침범하던 문제) */
 .photo { min-width: 0; max-width: 100%; }
 
-/* HERO: 김 서린 거울 */
-.fog-canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; transition: opacity 1.2s ease; }
-.fog-canvas:active { cursor: grabbing; }
-.fog-canvas[data-done] { opacity: 0; pointer-events: none; }
-.fog-chip { position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 10px; height: 36px; padding: 0 14px; border-radius: 999px; background: rgba(17,17,17,.82); color: #fff; font-size: 13px; font-weight: 700; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); pointer-events: none; transition: background-color .4s ease; }
-.fog-chip__label { white-space: nowrap; }
-.fog-chip__bar { position: relative; width: 64px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.22); overflow: hidden; }
-.fog-chip__bar i { position: absolute; inset: 0 auto 0 0; background: var(--color-signal); border-radius: 2px; transition: width .25s ease; }
-.fog-chip[data-done] { background: var(--color-signal); }
-.fog-chip__dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; }
-@media (min-width: 768px) { .fog-chip { left: 24px; bottom: 24px; } }
-.hero-colon { display: inline-block; transition: color .3s ease; }
-html[data-booted] .hero-colon { animation: colon-boot .9s cubic-bezier(.3,1.4,.5,1) 1; }
-@keyframes colon-boot { 0% { opacity: .2; } 30% { opacity: 1; transform: scale(1.25); } 100% { transform: none; } }
-@media (prefers-reduced-motion: reduce) { html[data-booted] .hero-colon { animation: none; } .fog-canvas { transition: none; } }
-
 /* ================= HOME · 토스식 리듬 =================
    한 화면에 한 문장, 크고 굵은 한글, 스크롤로 아래에서 올라오는 등장, 연회색과 흰색이 번갈아 */
 .band-mist { background: #f4f4f2; }
@@ -288,33 +272,47 @@ html[data-booted] .hero-colon { animation: colon-boot .9s cubic-bezier(.3,1.4,.5
   .t-card-go { display: none; }
 }
 
-/* HERO · 스크롤로 김 걷기 */
-.fh { position: relative; height: 230vh; }
-.fh-pin { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; }
-.fh-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(32px, 6vw, 88px); }
-.fh-title { font-size: clamp(36px, 5.2vw, 66px); }
-.fh-photo { position: relative; height: min(calc(100svh - 120px), 760px); aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: var(--color-ink-2); }
-.fh-fog { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.fh-img { position: absolute; inset: -24px; will-change: filter; }
-.fh-haze { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(232,236,238,.9), rgba(214,220,224,.82)); }
-.fh-smoke { position: absolute; inset: -20%; pointer-events: none; filter: blur(10px); background-size: cover; background-position: center; will-change: transform, opacity; }
-.fh-smoke--a { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='1000'%3E%3Cfilter id='f' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0018 0.0032' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.94  0 0 0 0 0.96  0 0 0 0 0.97  0 0 0 1.5 -0.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); }
-.fh-smoke--b { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='1000'%3E%3Cfilter id='f' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0032 0.0055' numOctaves='5' seed='23'/%3E%3CfeColorMatrix values='0 0 0 0 0.94  0 0 0 0 0.96  0 0 0 0 0.97  0 0 0 1.3 -0.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); animation: fh-drift 18s ease-in-out infinite alternate; }
-@keyframes fh-drift { from { margin-left: -2%; } to { margin-left: 2%; } }
-.fh-grain { position: absolute; inset: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"); background-size: 240px; mix-blend-mode: multiply; }
-@media (prefers-reduced-motion: reduce) { .fh-smoke--b { animation: none; } }
-.fh-hint { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); font-size: 12.5px; font-weight: 700; color: var(--color-mute); letter-spacing: .08em; transition: opacity .4s ease; }
-.fh-hint[data-hide] { opacity: 0; }
+/* HERO · 설명과 시작 행동을 첫 화면에 */
+.start-hero { padding: 48px 0 64px; border-bottom: 1px solid var(--color-line); }
+.start-hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: clamp(36px, 5vw, 72px); }
+.start-hero-title { margin-top: 24px; font-size: clamp(48px, 5.5vw, 76px); font-weight: 700; line-height: 1.16; letter-spacing: -.055em; }
+.start-hero-description { margin-top: 28px; font-size: 18px; line-height: 1.85; color: var(--color-mute); }
+.start-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.start-hero-note { margin-top: 16px; font-size: 13px; color: var(--color-mute); }
+.start-hero-visual { position: relative; height: clamp(480px, 66svh, 620px); min-width: 0; overflow: hidden; border-radius: 24px; background: var(--color-sand); }
+.start-hero-photo { width: 100%; height: 100%; }
+.start-hero-example { position: absolute; left: 20px; right: 20px; bottom: 20px; padding: 22px; border: 1px solid rgba(17,17,17,.08); border-radius: 16px; background: #fff; box-shadow: 0 8px 32px rgba(17,17,17,.08); }
+.start-hero-example-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
+.start-hero-example-heading p { font-size: 16px; font-weight: 700; }
+.start-hero-example-heading > span { font-size: 13px; color: var(--color-mute); }
+.start-hero-steps { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 20px; }
+.start-hero-steps li { display: grid; justify-items: start; gap: 6px; }
+.start-hero-step-number { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: #fff0e8; color: var(--color-signal-ink); font-family: var(--font-display); font-size: 13px; font-weight: 700; }
+.start-hero-step-title { font-size: 15px; font-weight: 700; }
+.start-hero-step-time { font-size: 13px; color: var(--color-mute); }
+.start-hero-example-note { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--color-line); font-size: 12px; color: var(--color-mute); }
 @media (max-width: 899px) {
-  .fh-pin { align-items: flex-start; padding-top: 76px; }
-  .fh-grid { grid-template-columns: 1fr; gap: 20px; }
-  .fh-copy .t-sub { font-size: 15px; margin-top: 12px; }
-  .fh-copy .t-k { font-size: 11.5px; }
-  .fh-copy .mt-5 { margin-top: 10px; }
-  .fh-copy .mt-8 { margin-top: 18px; }
-  .fh-title { font-size: clamp(28px, 7.6vw, 40px); }
-  .fh-photo { height: auto; width: 100%; aspect-ratio: auto; height: calc(100svh - 430px); min-height: 260px; border-radius: 20px; }
-  .fh-hint { display: none; }
+  .start-hero { padding: 32px 0 36px; }
+  .start-hero-grid { grid-template-columns: 1fr; gap: 28px; }
+  .start-hero-copy .t-k { font-size: 12px; letter-spacing: .1em; }
+  .start-hero-title { margin-top: 16px; font-size: clamp(40px, 9.6vw, 64px); }
+  .start-hero-description { margin-top: 18px; font-size: 16px; line-height: 1.75; }
+  .start-hero-actions { margin-top: 24px; gap: 10px; }
+  .start-hero-actions .btn { min-height: 48px; padding: 0 20px; font-size: 14px; }
+  .start-hero-note { margin-top: 12px; font-size: 12px; }
+  .start-hero-visual { height: 320px; border-radius: 18px; }
+  .start-hero-photo img { object-position: 43% 28% !important; }
+  .start-hero-example { left: 12px; right: 12px; bottom: 12px; padding: 16px; border-radius: 12px; }
+  .start-hero-example-heading p { font-size: 14px; }
+  .start-hero-example-heading > span { font-size: 12px; }
+  .start-hero-steps { margin-top: 14px; gap: 8px; }
+  .start-hero-step-title { font-size: 14px; }
+  .start-hero-example-note { margin-top: 12px; padding-top: 10px; }
+}
+@media (max-width: 359px) {
+  .start-hero-title { font-size: 36px; }
+  .start-hero-break { display: none; }
+  .start-hero-actions .btn { padding: 0 14px; }
 }
 
 /* 마지막 CTA: 사진 위 왼쪽 위 여백에 글 */
