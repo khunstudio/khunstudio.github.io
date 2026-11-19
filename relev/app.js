@@ -188,7 +188,7 @@
       '<section class="section"><p class="eyebrow">Same family, different tools</p><h2 style="font-size:26px;margin:6px 0 18px">홈 디바이스 기술 ↔ 피부과 · 관리실</h2>' +
       bridgeTable() +
       '<p class="note">이 연결은 같은 물리 원리 계열을 보여 줄 뿐, 홈 디바이스가 시술을 대체하거나 시술이 홈케어보다 낫다는 뜻이 아닙니다.</p>' +
-      '<p class="note note--warn">프로토타입 단계입니다. 기술 ' + D.techs.length + "건 · 시술 " + D.treatments.length + "건은 검수 전 초안이고, 디바이스 " + D.devices.length + "건은 글로우픽 순위 기반 실제 제품으로 기술 분류는 판매 페이지 표기 기준(검수 전)입니다.</p></section>"
+      '<p class="note note--warn">프로토타입 단계입니다. 기술 ' + D.techs.length + "건 · 시술 " + D.treatments.length + "건은 검수 전 초안이고, 디바이스 " + D.devices.length + "건의 기술 분류는 판매 표기 기준으로 제조사 확인 전입니다."
     );
   }
 
@@ -345,7 +345,7 @@
           '<header><h2>' + esc(t.term) + "</h2>" + (t.tech ? chip(t.tech) : "") + "</header>" +
           '<p class="term__evokes"><span>연상되는 것</span>' + esc(t.evokes || "—") + "</p>" +
           '<p class="term__plain">' + esc(t.plain) + "</p>" +
-          (ds.length ? '<div class="term__data"><p class="caption">이름에 \'' + esc(t.match) + "'가 들어간 제품 " + ds.length + "개의 실제 방식 (판매 · 다나와 표기 기준. 다나와의 '초음파'는 집속 여부가 없어 비집속으로 묶임)</p>" + '<div class="chips">' + distHtml + "</div>" +
+          (ds.length ? '<div class="term__data"><p class="caption">이름에 \'' + esc(t.match) + "'가 들어간 제품 " + ds.length + "개의 실제 방식 (판매 표기 기준. '초음파'로만 표기된 것은 집속 여부를 알 수 없어 비집속으로 묶임)</p>" + '<div class="chips">' + distHtml + "</div>" +
             '<ul class="term__list">' + ds.slice(0, 8).map(function (d) { return '<li><a href="#device--' + d.id + '">' + esc(d.fullName || d.brand + " " + d.name) + "</a> " + d.techIds.map(function (x) { return '<span class="mini f-' + familyOf(x) + '">' + esc(tagLabel(x)) + "</span>"; }).join("") + "</li>"; }).join("") + "</ul></div>" : "") +
           "</article>";
       }).join("") + '</div><p class="empty" data-listempty hidden>찾는 용어가 없습니다. <a href="#contribute">용어 추가 제안하기</a></p>';
@@ -399,7 +399,7 @@
   function pageDevices() {
     var fams = D.taxonomy.families.filter(function (f) { return HOME_FAMILIES.indexOf(f.id) > -1 && D.devices.some(function (d) { return d.techIds.concat(d.techCandidates || []).some(function (t) { return familyOf(t) === f.id; }); }); });
     var items = D.devices.slice().sort(function (a, b) { return ((a.glowpick && a.glowpick.rank) || 999) - ((b.glowpick && b.glowpick.rank) || 999); });
-    return pageHero("assets/device-banner.webp", "58% 60%", "DEVICE", "홈 디바이스<br>데이터베이스", "글로우픽 순위 상위 20개 · 주요 제품과 다나와 '피부관리기' 상품 정보(2026-11-19 조회)를 작용 기전으로 분류했습니다. 제조사 공식 자료(T5)가 있으면 우선하고, 이름만 있는 모드는 '확인 필요'로 둡니다.", "흰색 홈 뷰티 디바이스와 유리 리본 (AI 생성 콘셉트)") +
+    return pageHero("assets/device-banner.webp", "58% 60%", "DEVICE", "홈 디바이스<br>데이터베이스", "주요 제품과 상품 정보를 바탕으로 디바이스를 작용 기전별로 분류했습니다. 제조사 공식 자료가 있으면 우선하고, 이름만 있는 모드는 '확인 필요'로 둡니다.", "흰색 홈 뷰티 디바이스와 유리 리본 (AI 생성 콘셉트)") +
       listBar("제품 · 브랜드 · 기술 검색 (예: 메디큐브, 갈바닉, LDM)") + concernChips(items) +
       '<div class="filters" role="group" aria-label="기술 계열 필터"><span class="filters__label">기술</span>' +
       '<button class="chip chip--plain" data-filter="all" aria-pressed="' + (listState.f === "all") + '">전체</button>' +
@@ -432,7 +432,7 @@
         '<div class="spec"><span class="k">확인된 기술</span><span class="v">' + (d.techIds.length ? chips(d.techIds) : na("없음")) + '</span><span><span class="badge">' + ((d.sources || []).some(function (x) { return x.tier === "T5"; }) ? "T5" : "T6") + '</span></span></div>' +
         '<div class="spec"><span class="k">확인 필요</span><span class="v">' + (cand.length ? cand.map(function (t) { return '<span class="chip chip--cand f-' + familyOf(t) + '">' + esc(tagLabel(t)) + "?</span>"; }).join(" ") : '<span class="caption">없음</span>') + "</span><span></span></div>" +
         '<div class="spec"><span class="k">판매 페이지 표기</span><span class="v" style="font-family:var(--sans)">' + esc(d.listingNote || "") + "</span><span></span></div></div>" +
-        '<p class="caption">출처: 제조사 공식 자료(T5)가 있으면 우선, 없으면 글로우픽 판매처 설명(T6 광고성 설명). \'확인 필요\'는 모드 이름만 있고 기술명이 없어 제조사 상세 페이지 · 설명서로 확인해야 하는 후보입니다.</p>') +
+        '<p class="caption">출처: 제조사 공식 자료(T5)가 있으면 우선, 없으면 판매 페이지 설명(T6 광고성 설명). \'확인 필요\'는 모드 이름만 있고 기술명이 없어 제조사 상세 페이지 · 설명서로 확인해야 하는 후보입니다.</p>') +
       block("기술 사양", '<div class="specs">' +
         '<div class="spec"><span class="k">제조사 기술 명칭</span><span class="v">' + (d.makerTechName ? esc(d.makerTechName) : na()) + "</span><span></span></div>" + specs + "</div>" +
         '<p class="caption">모든 값은 물리량 · 단위 · 측정 조건 · 출처 등급과 함께 저장됩니다. 공개되지 않은 값은 추정하지 않습니다.</p>') +
@@ -444,7 +444,7 @@
       block("허가 · 인증", "<p>" + na("확인 필요") + ' <span class="caption">공산품 / 의료기기 등급과 허가 목적을 규제기관 문서(T1)로 확인해 기재합니다.</span></p>') +
       block("근거", '<div class="specs"><div class="spec"><span class="k">독립 연구 (T2)</span><span class="v">' + na() + '</span><span></span></div><div class="spec"><span class="k">제조사 인체적용시험 (T4)</span><span class="v">' + na() + "</span><span></span></div></div>") +
       block("비용", '<div class="specs">' +
-        '<div class="spec"><span class="k">정가 (글로우픽 등록가)</span><span class="v">' + (g.price ? won0(g.price) + ' <span class="caption">' + esc(g.observedAt) + " 조회</span>" : na()) + "</span><span></span></div>" +
+        '<div class="spec"><span class="k">정가</span><span class="v">' + (g.price ? won0(g.price) + ' <span class="caption">' + esc(g.observedAt) + " 조회</span>" : na()) + "</span><span></span></div>" +
         (d.priceUsd ? '<div class="spec"><span class="k">글로벌 공식몰가</span><span class="v">US$' + d.priceUsd + ' <span class="caption">medicube.us · ' + esc(g.observedAt) + ' 조회</span></span><span><span class="badge">T5</span></span></div>' : "") +
         '<div class="spec"><span class="k">최저가 · 구매 링크</span><span class="v" style="font-family:var(--sans)"><span class="caption">제휴 링크 연동 예정 — 연결 시 \'광고 · 제휴\' 표기, 순위 · 평가와 분리</span></span><span></span></div>' +
         ["소모품 비용", "보증기간"].map(function (k) { return '<div class="spec"><span class="k">' + k + '</span><span class="v">' + na() + "</span><span></span></div>"; }).join("") + "</div>") +
@@ -453,12 +453,12 @@
         : '<p class="caption">이 기술 계열과 직접 대응하는 전문 시술 레코드가 아직 없습니다.</p>') +
       (sameTech.length ? block("같은 기술을 쓰는 다른 디바이스", '<div class="grid">' + sameTech.map(deviceCard).join("") + "</div>") : "") +
       block("정보 출처", '<div class="srcs">' + (d.sources || []).map(function (x) { return '<p><span class="badge">' + x.tier + '</span> <a href="' + x.url + '" target="_blank" rel="noopener">' + esc(x.label) + "</a></p>"; }).join("") +
-        (g.url ? '<p><span class="badge">T6</span> <a href="' + g.url + '" target="_blank" rel="noopener">글로우픽 제품 페이지</a> <span class="caption">순위 · 표기가 · 판매처 설명 (' + esc(g.observedAt) + " 조회)</span></p>" : "") +
+        (g.url ? '<p><span class="badge">T6</span> <a href="' + g.url + '" target="_blank" rel="noopener">제품 랭킹 페이지</a> <span class="caption">순위 · 정가 · 판매처 설명 (' + esc(g.observedAt) + " 조회)</span></p>" : "") +
         ((d.sources || []).length ? "" : '<p class="caption">제조사 공식 스펙(T5) 미입력</p>') + "</div>");
 
     return '<a class="back" href="#device">← Device</a><div class="split detail"><div>' +
       '<p class="eyebrow">' + esc(d.brand) + " · " + esc(d.form) + "</p><h1>" + esc(d.name) + "</h1>" + '<p class="sub">' + esc(d.purpose || "") + "</p>" + body + "</div>" +
-      aside([["글로우픽 순위", g.rank ? "#" + g.rank + ' <span class="caption">뷰티 디바이스 · ' + esc(g.observedAt) + "</span>" : '<span class="caption">순위 외 주요 제품</span>'], ["레코드 상태", statusBadge(d.status)], ["기술 계열", d.techIds.length ? chips(d.techIds) : na("확인 필요")], ["마지막 검증일", na("검증 전")]], "device:" + d.id) + "</div>";
+      aside([["인기 순위", g.rank ? "#" + g.rank + ' <span class="caption">뷰티 디바이스 · ' + esc(g.observedAt) + "</span>" : '<span class="caption">–</span>'], ["레코드 상태", statusBadge(d.status)], ["기술 계열", d.techIds.length ? chips(d.techIds) : na("확인 필요")], ["마지막 검증일", na("검증 전")]], "device:" + d.id) + "</div>";
   }
 
   // ── 페이지: 시술 ──────────────────────────────────
@@ -596,7 +596,7 @@
       ["적용 층 (일반 설명)", function (e) { return esc(uniq(techsOf(e).map(function (t) { var x = byId(D.techs, t); return x ? x.layer : null; }).filter(Boolean)).join(" / ")) || na(); }, true],
       ["시행 주체", function (e) { return e.kind === "device" ? "사용자 본인 · 제조사 지침" : "의료인"; }],
       ["허가 · 인증", function () { return na("확인 필요"); }, true],
-      ["가격", function (e) { var g = e.rec.glowpick; return g && g.price ? won0(g.price) + ' <span class="caption">글로우픽 표기 · ' + g.observedAt + "</span>" : na(e.kind === "device" ? "미입력" : "조사 전"); }, true],
+      ["가격", function (e) { var g = e.rec.glowpick; return g && g.price ? won0(g.price) + ' <span class="caption">정가 · ' + g.observedAt + "</span>" : na(e.kind === "device" ? "미입력" : "조사 전"); }, true],
       ["회복", function (e) { return e.kind === "device" ? '<span class="caption">해당 없음 / 제조사 지침</span>' : "개인차 · 의료진 안내"; }],
       ["알려진 위험", function (e) {
         if (e.kind === "clinic") return list(e.rec.risks);
