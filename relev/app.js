@@ -136,7 +136,7 @@
       '<p class="sub">홈 디바이스에서 피부과 시술까지.</p>' +
       '<p class="lead">상품명이 아니라 기술 · 성분 · 작용 기전으로 연결합니다. 무엇이 같고 무엇이 다른지, 그리고 아직 무엇이 확인되지 않았는지까지.</p>' +
       '<a class="btn btn--wide" href="#science">나의 뷰티 기술 탐색하기</a></div>' +
-      '<div class="hero2__visual" aria-hidden="true">' + glassSvg() + '<span class="hero2__mark">RE<span>:</span>LEV</span></div>' +
+      '<div class="hero2__visual"><img src="assets/hero-model.webp" alt="맑은 피부 톤의 모델이 투명한 유리 곡면 사이에서 측면을 바라보는 RE:LEV 키 비주얼" width="1448" height="1086" fetchpriority="high"></div>' +
       "</section>" +
 
       '<section class="section"><h2>Explore Technology</h2><div class="explore">' +
@@ -149,8 +149,8 @@
       "</div></section>" +
 
       '<section class="section"><h2>Home to Clinic</h2><div class="h2c">' +
-      '<a href="#device"><div class="art art--home" aria-hidden="true"><svg viewBox="0 0 160 100"><rect x="68" y="16" width="24" height="52" rx="12" fill="#ffffff" stroke="#c9bfe0"/><path d="M72 22c3-5 13-5 16 0" fill="#bfc3c8"/><rect x="76" y="40" width="8" height="14" rx="4" fill="none" stroke="#9183b9"/><ellipse cx="80" cy="74" rx="30" ry="7" fill="#d9d2e7"/></svg></div><b>Home Device</b><span>일상에서 시작하는 관리</span></a>' +
-      '<a href="#clinic"><div class="art art--clinic" aria-hidden="true"><svg viewBox="0 0 160 100"><rect x="56" y="14" width="48" height="30" rx="4" fill="#26252d"/><rect x="60" y="18" width="40" height="22" rx="2" fill="#3b3a48"/><rect x="66" y="48" width="28" height="34" rx="3" fill="#f6f4f1" stroke="#bfc3c8"/><path d="M66 60h28M66 71h28" stroke="#bfc3c8"/><circle cx="70" cy="88" r="3" fill="#8b8994"/><circle cx="90" cy="88" r="3" fill="#8b8994"/></svg></div><b>Clinical Care</b><span>전문적인 피부관리 탐색</span></a>' +
+      '<a href="#device"><div class="art"><img src="assets/home-device.webp" alt="라벤더 배경 위 거치대에 놓인 화이트 홈 뷰티 디바이스" loading="lazy" width="1448" height="1086"></div><b>Home Device</b><span>일상에서 시작하는 관리</span></a>' +
+      '<a href="#clinic"><div class="art"><img src="assets/clinic-care.webp" alt="티타늄 리셉션과 라벤더 조명이 있는 피부과 라운지" loading="lazy" width="1448" height="1086"></div><b>Clinical Care</b><span>전문적인 피부관리 탐색</span></a>' +
       '</div><p class="note">홈 디바이스와 전문 시술은 같은 기술 계열이어도 서로를 대체하지 않습니다. RE:LEV는 두 영역의 차이를 설명할 뿐, 시술을 권하거나 홈케어를 깎아내리지 않습니다.</p></section>' +
 
       '<section class="section"><p class="eyebrow">Same family, different tools</p><h2 style="font-size:26px;margin:6px 0 18px">같은 계열, 다른 도구.</h2>' +
@@ -183,7 +183,7 @@
     var items = D.devices.filter(function (d) {
       return deviceFilter === "all" || d.techIds.some(function (t) { return familyOf(t) === deviceFilter; });
     });
-    return head("DEVICE", "홈 디바이스 데이터베이스", "제품을 실제 작용 기전으로 분류합니다. 한 제품이 여러 기술을 쓰면 여러 태그가 붙습니다. 지금 보이는 항목은 실제 제품이 아닌 데이터 구조 샘플입니다.") +
+    return banner("assets/device-banner.webp", "유리 리본 옆에 놓인 화이트 홈 뷰티 디바이스") + head("DEVICE", "홈 디바이스 데이터베이스", "제품을 실제 작용 기전으로 분류합니다. 한 제품이 여러 기술을 쓰면 여러 태그가 붙습니다. 지금 보이는 항목은 실제 제품이 아닌 데이터 구조 샘플입니다.") +
       '<div class="filters" role="group" aria-label="기술 계열 필터">' +
       '<button class="chip chip--plain" data-filter="all" aria-pressed="' + (deviceFilter === "all") + '">전체</button>' +
       fams.map(function (f) { return '<button class="chip f-' + f.id + '" data-filter="' + f.id + '" aria-pressed="' + (deviceFilter === f.id) + '">' + f.label + " · " + f.ko + "</button>"; }).join("") +
@@ -231,7 +231,7 @@
 
   // ── 페이지: 시술 ──────────────────────────────────
   function pageClinic() {
-    return head("CLINIC", "피부과 시술 백과", "상품명이 아니라 작용 기전과 성분으로 시술을 이해하도록 돕습니다. 시술 추천 · 진단 · 개인별 치료 계획은 제공하지 않습니다.") +
+    return banner("assets/clinic-banner.webp", "곡선형 벽과 라벤더 유리 파티션이 있는 피부과 대기 공간") + head("CLINIC", "피부과 시술 백과", "상품명이 아니라 작용 기전과 성분으로 시술을 이해하도록 돕습니다. 시술 추천 · 진단 · 개인별 치료 계획은 제공하지 않습니다.") +
       ["energy", "injectable", "surface"].map(function (k) {
         var items = D.treatments.filter(function (t) { return t.kind === k; });
         return '<div class="group-title"><h2>' + KIND_LABEL[k] + '</h2><span class="caption">' + KIND_KO[k] + " · " + items.length + "</span></div>" +
@@ -319,6 +319,7 @@
   function head(eyebrow, title, desc) {
     return '<div class="page-head"><p class="eyebrow">' + eyebrow + "</p><h1>" + title + "</h1><p>" + desc + "</p></div>";
   }
+  function banner(src, alt) { return '<div class="banner"><img src="' + src + '" alt="' + esc(alt) + '" width="1448" height="1086"></div>'; }
   function notFound() { return head("404", "항목을 찾을 수 없습니다", '<a href="#home">홈으로</a>'); }
 
   // ── 페이지: 비교 ──────────────────────────────────
