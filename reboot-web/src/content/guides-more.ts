@@ -37,7 +37,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "oily-skin", area: "skin", modes: ALL, kicker: "SKIN",
     title: "오후만 되면 번들거릴 때 해볼 것",
     summary: "기름이 많다고 세안을 늘리면 오히려 당김과 번들거림이 같이 오기 쉬워요. 순서부터 점검해요.",
-    read: 3, updated: U, review: "draft", image: "blot",
+    read: 3, updated: U, review: "draft", image: "blot2",
     sections: [
       { h: "먼저 확인", list: ["하루 세안 횟수가 너무 많지 않은지", "보습을 아예 빼고 있지는 않은지", "자외선 차단제가 너무 무겁지 않은지"] },
       { h: "바꿔볼 것", list: ["보습제는 가벼운 젤 · 로션 타입으로 얇게.", "낮에는 세안 대신 기름종이로 눌러 닦기.", "베개 커버와 수건을 자주 갈기.", "휴대폰 화면을 가끔 닦기. 볼에 닿는 면이에요."] },
@@ -80,7 +80,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "tired-eyes", area: "skin", modes: ALL, kicker: "SKIN · LIFE",
     title: "피곤해 보인다는 말을 들을 때",
     summary: "눈가는 제품보다 잠과 화면 시간에 먼저 반응해요. 생활부터 점검해요.",
-    read: 2, updated: U, review: "draft",
+    read: 2, updated: U, review: "draft", image: "blot",
     sections: [
       { h: "먼저 보는 것", list: ["잠드는 시간이 매일 크게 달라지지 않는지", "자기 직전까지 화면을 보는지", "물을 너무 적게 마시지 않는지", "짠 야식이 잦은지"] },
       { h: "아침에", list: ["찬물로 세안하고 가볍게 눌러 닦기", "눈가는 문지르지 말고 톡톡 두드려 보습", "선글라스나 모자로 눈부심 줄이기"] },
@@ -103,7 +103,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "desk-stretch", area: "body", modes: ALL, kicker: "BODY · 5MIN",
     title: "오래 앉아 있는 날, 5분 스트레칭",
     summary: "목 · 어깨 · 허리 · 고관절. 의자에서 일어나기만 해도 반은 한 거예요.",
-    read: 3, updated: U, review: "draft",
+    read: 3, updated: U, review: "draft", image: "stretch",
     sections: [
       { h: "5분 순서", steps: ["일어나서 제자리 걷기 30초", "목을 천천히 좌우로 기울이기, 각 15초", "양손 깍지 끼고 위로 쭉 펴기 20초", "벽 짚고 가슴 열기, 좌우 20초", "의자 잡고 엉덩이 뒤로 빼며 허리 펴기 30초", "한쪽 다리 뒤로 뻗어 고관절 앞쪽 늘이기, 좌우 20초"] },
       { h: "언제", list: ["50분 앉았으면 한 번", "점심 먹고 바로 한 번", "퇴근 직후 한 번"] },
@@ -114,7 +114,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "sweat-odor", area: "body", modes: ALL, kicker: "BODY · DAILY",
     title: "땀 냄새, 기본 관리 순서",
     summary: "씻는 법, 말리는 법, 갈아입는 타이밍. 향으로 덮기 전에 순서부터.",
-    read: 3, updated: U, review: "draft",
+    read: 3, updated: U, review: "draft", image: "gymbag",
     sections: [
       { h: "씻을 때", list: ["겨드랑이 · 등 · 발은 비누 거품으로 한 번 더", "씻은 뒤 물기를 완전히 말리기"] },
       { h: "옷", list: ["땀 많이 흘린 옷은 바로 빨래통으로", "운동복은 젖은 채로 가방에 오래 두지 않기", "속옷 · 양말은 하루 한 번 이상 갈아입기"] },
@@ -126,7 +126,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "bodyweight-start", area: "body", modes: ALL, kicker: "BODY · START",
     title: "맨몸 운동, 주 3회 20분으로 시작",
     summary: "기구 없이 방에서. 횟수보다 매주 같은 요일에 하는 게 먼저예요.",
-    read: 4, updated: U, review: "draft",
+    read: 4, updated: U, review: "draft", image: "pushup",
     sections: [
       { h: "20분 구성", steps: ["준비운동 3분 (제자리 걷기, 팔 돌리기)", "스쿼트 10회", "무릎 대고 팔굽혀펴기 8회", "플랭크 20초", "런지 좌우 6회씩", "위 4가지를 3바퀴, 바퀴 사이 1분 휴식", "정리운동 3분"] },
       { h: "늘리는 법", list: ["2주 동안 같은 횟수로 자세 익히기", "편해지면 한 동작씩 2회 늘리기", "무릎 팔굽혀펴기가 쉬워지면 일반 자세로"] },
@@ -148,7 +148,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "foot-care", area: "body", modes: ["prepare", "service", "everyday"], kicker: "BODY · FEET",
     title: "오래 걷고 신발을 오래 신는 날의 발 관리",
     summary: "발은 하루 종일 갇혀 있어요. 씻고, 말리고, 양말을 갈아 신는 게 기본이에요.",
-    read: 3, updated: U, review: "draft",
+    read: 3, updated: U, review: "draft", image: "shoes",
     sections: [
       { h: "매일", list: ["발가락 사이까지 씻고 완전히 말리기", "양말은 땀이 차면 갈아 신기", "신발은 하루 신었으면 하루 말리기"] },
       { h: "발톱", list: ["너무 짧게, 둥글게 깎지 않기", "일자로 깎고 모서리만 살짝 다듬기"] },
