@@ -37,7 +37,7 @@ export const MORE_GUIDES: Guide[] = [
     slug: "oily-skin", area: "skin", modes: ALL, kicker: "SKIN",
     title: "오후만 되면 번들거릴 때 해볼 것",
     summary: "기름이 많다고 세안을 늘리면 오히려 당김과 번들거림이 같이 오기 쉬워요. 순서부터 점검해요.",
-    read: 3, updated: U, review: "draft",
+    read: 3, updated: U, review: "draft", image: "blot",
     sections: [
       { h: "먼저 확인", list: ["하루 세안 횟수가 너무 많지 않은지", "보습을 아예 빼고 있지는 않은지", "자외선 차단제가 너무 무겁지 않은지"] },
       { h: "바꿔볼 것", list: ["보습제는 가벼운 젤 · 로션 타입으로 얇게.", "낮에는 세안 대신 기름종이로 눌러 닦기.", "베개 커버와 수건을 자주 갈기.", "휴대폰 화면을 가끔 닦기. 볼에 닿는 면이에요."] },

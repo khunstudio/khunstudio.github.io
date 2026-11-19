@@ -23,7 +23,7 @@ export interface Guide {
   review: "draft" | "reviewed";
   reviewer?: string;
   /** 대표 사진 (public/images) */
-  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit" | "barber" | "buzzside";
+  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit" | "barber" | "buzzside" | "blot";
   /** 진료 · 건강 관련 내용이라 상단에 안내를 크게 띄운다 */
   medicalNotice?: boolean;
   sections: GuideSection[];
