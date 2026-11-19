@@ -641,3 +641,64 @@ body.is-home main > .section:first-of-type { margin-top: 72px; }
 .f-ems { --c: #c08a6a; } .f-microcurrent { --c: #7d8fb8; } .f-electroporation { --c: #9183b9; } .f-galvanic { --c: #6f9fb8; }
 .f-hifu { --c: #4f8f8f; } .f-led { --c: #d0a24a; } .f-ipl { --c: #c47a8e; } .f-cooling { --c: #7fb7d6; }
 .srcs { display: grid; gap: 6px; }
+
+/* ── 목록 검색 · 목적 필터 ── */
+.listbar { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.listbar input { flex: 1; min-width: 0; padding: 13px 18px; border-radius: 99px; border: 1px solid var(--line); background: var(--paper); font-size: 15.5px; }
+.listbar input:focus { outline: 2px solid var(--lavender); outline-offset: 1px; }
+.listbar__count { font-family: var(--mono); font-size: 13px; color: var(--ink-3); white-space: nowrap; }
+.filters { align-items: center; margin-bottom: 12px; }
+.filters__label { font-size: 12px; color: var(--ink-3); margin-right: 4px; font-family: var(--mono); }
+.seg { display: inline-flex; gap: 4px; padding: 4px; border-radius: 99px; background: var(--mist-soft); margin: 4px 0 8px; }
+.seg button, .seg label { border: 0; background: transparent; padding: 7px 14px; border-radius: 99px; font-size: 14px; cursor: pointer; color: var(--ink-2); display: inline-flex; gap: 6px; align-items: center; }
+.seg button[aria-pressed="true"], .seg label:has(input:checked) { background: var(--paper); color: var(--carbon); font-weight: 600; box-shadow: 0 1px 4px rgba(38,37,45,.08); }
+.seg input { accent-color: var(--iris); }
+.mini { display: inline-block; font-size: 11.5px; padding: 1px 7px; border-radius: 99px; background: color-mix(in srgb, var(--c, #9b9890) 16%, transparent); margin-left: 4px; }
+.mini--c { background: var(--mist-soft); color: var(--lavender-ink); margin: 0 4px 0 0; }
+.price { color: var(--carbon); }
+[data-q][hidden], [data-group][hidden] { display: none !important; }
+
+/* ── 이미지 ── */
+.card--img { padding-top: 0; overflow: hidden; }
+.card__img { width: calc(100% + 40px); max-width: none; margin: 0 -20px 6px; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.fig { position: relative; margin: 0; border-radius: 18px; overflow: hidden; background: var(--mist-soft); }
+.fig img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.fig--cover { margin: 18px 0 8px; }
+.ai-tag { position: absolute; right: 10px; bottom: 10px; font-size: 11px; padding: 3px 9px; border-radius: 99px; background: rgba(38,37,45,.55); color: #fff; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.banner .ai-tag { z-index: 1; }
+.b .ai-tag { top: 12px; bottom: auto; right: 12px; }
+.mood { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+
+/* ── 연구 목록 ── */
+.studies { margin: 0; padding-left: 20px; display: grid; gap: 10px; }
+.studies li { display: grid; gap: 2px; }
+.studies a { font-weight: 500; }
+
+/* ── 용어 해독 ── */
+.decode { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 14px; }
+.term { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 22px; display: grid; gap: 10px; align-content: start; }
+.term header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.term h2 { font-size: 22px; font-weight: 700; }
+.term__evokes { font-size: 14px; color: var(--ink-2); }
+.term__evokes span { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-right: 8px; }
+.term__plain { font-size: 15px; }
+.term__data { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; }
+.term__list { margin: 0; padding-left: 18px; font-size: 13.5px; display: grid; gap: 4px; }
+.term__list a { text-decoration: none; }
+.term__list a:hover { text-decoration: underline; }
+
+/* ── 참여 폼 ── */
+.flow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.flow span { padding: 8px 14px; border-radius: 99px; background: var(--mist-soft); font-size: 14px; }
+.flow b { font-family: var(--mono); color: var(--iris); margin-right: 6px; }
+.contrib { display: grid; gap: 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 22px; padding: 24px; max-width: 860px; }
+.contrib label { display: grid; gap: 6px; font-size: 14px; color: var(--ink-2); }
+.contrib input:not([type=checkbox]):not([type=radio]), .contrib select, .contrib textarea { padding: 11px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--porcelain); font-size: 15px; width: 100%; }
+.contrib__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.contrib fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; }
+.contrib legend { font-size: 14px; color: var(--ink-2); margin-bottom: 6px; }
+.chk { display: inline-flex !important; grid-auto-flow: column; align-items: center; gap: 6px !important; padding: 6px 12px; border-radius: 99px; border: 1px solid var(--line); background: var(--porcelain); cursor: pointer; }
+.chk input { accent-color: var(--iris); }
+.form-error { color: #b4443a; font-size: 14px; }
+.subs { display: grid; gap: 8px; }
+.sub { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 12px 16px; border-radius: 14px; background: var(--paper); border: 1px solid var(--line); }

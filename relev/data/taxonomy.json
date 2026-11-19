@@ -296,5 +296,52 @@
    "clinic": [],
    "note": "세안 · 마사지 보조. 직접 대응하는 의료 시술 없음"
   }
+ ],
+ "concerns": [
+  {
+   "id": "lifting",
+   "label": "리프팅 · 탄력",
+   "en": "Lifting"
+  },
+  {
+   "id": "volume",
+   "label": "볼륨 · 주름",
+   "en": "Volume"
+  },
+  {
+   "id": "absorption",
+   "label": "흡수 · 부스팅",
+   "en": "Absorption"
+  },
+  {
+   "id": "hydration",
+   "label": "수분 · 보습",
+   "en": "Hydration"
+  },
+  {
+   "id": "soothing",
+   "label": "진정 · 장벽 · 붓기",
+   "en": "Soothing"
+  },
+  {
+   "id": "pores",
+   "label": "모공 · 피지",
+   "en": "Pores"
+  },
+  {
+   "id": "tone",
+   "label": "톤 · 광채 · 색소",
+   "en": "Tone"
+  },
+  {
+   "id": "cleansing",
+   "label": "클렌징 · 각질",
+   "en": "Cleansing"
+  },
+  {
+   "id": "hair",
+   "label": "제모",
+   "en": "Hair removal"
+  }
  ]
 }

@@ -5,7 +5,6 @@
   var D = {};            // taxonomy, techs, treatments, devices
   var view = document.getElementById("view");
   var trayEl = document.getElementById("tray");
-  var deviceFilter = "all";
   var searchQ = "";
   var calcState = { price: "", consumable: "", years: "", session: "" };
 
@@ -156,12 +155,12 @@
 
       // ② 브랜드 콜라주 (벤토)
       '<section class="bento" aria-label="RE:LEV 브랜드 콜라주">' +
-        '<a class="b b--photo b--tall" href="#science"><img src="assets/hero-model.webp" alt="맑은 피부의 모델과 투명한 유리 곡면" width="1448" height="1086"><span class="b__chip">나의 피부 기술 탐색</span></a>' +
+        '<a class="b b--photo b--tall" href="#science"><img src="assets/hero-model.webp" alt="맑은 피부의 모델과 투명한 유리 곡면" width="1448" height="1086"><span class="b__chip">나의 피부 기술 탐색</span><span class="ai-tag">AI 생성 콘셉트</span></a>' +
         '<div class="b b--chips"><p>어떤 기술이 궁금하세요?</p><div class="chipcloud">' + chips.map(function (c, i) { return '<span' + (i === 0 ? ' class="on"' : "") + ">" + c + "</span>"; }).join("") + "</div></div>" +
         '<div class="b b--iris">' + symbolSvg("b__symbol", false) + "</div>" +
-        '<a class="b b--photo" href="#device"><img src="assets/home-device.webp" alt="거치대 위의 화이트 홈 뷰티 디바이스" loading="lazy" width="1448" height="1086"><span class="b__tag">스펙 · 출처 · 검수일</span></a>' +
+        '<a class="b b--photo" href="#device"><img src="assets/home-device.webp" alt="거치대 위의 화이트 홈 뷰티 디바이스" loading="lazy" width="1448" height="1086"><span class="b__tag">스펙 · 출처 · 검수일</span><span class="ai-tag">AI 생성 · 가상 제품</span></a>' +
         '<div class="b b--mist"><p class="b__big">Rise from within.<br>Home to Clinic.</p></div>' +
-        '<a class="b b--photo" href="#clinic"><img src="assets/clinic-care.webp" alt="티타늄 리셉션이 있는 피부과 라운지" loading="lazy" width="1448" height="1086"><span class="b__chip b__chip--plus">+ 비교에 담기</span></a>' +
+        '<a class="b b--photo" href="#clinic"><img src="assets/clinic-care.webp" alt="티타늄 리셉션이 있는 피부과 라운지" loading="lazy" width="1448" height="1086"><span class="b__chip b__chip--plus">+ 비교에 담기</span><span class="ai-tag">AI 생성 · 가상 공간</span></a>' +
         '<div class="b b--ink">' + '<svg class="b__arcs" viewBox="0 0 300 300" aria-hidden="true"><path d="M20 280C80 200 60 120 150 110S260 40 290 10" pathLength="1"/><path d="M-10 200C60 180 110 240 170 190S240 120 310 140" pathLength="1"/></svg>' + '<span class="b__dot d1"></span><span class="b__dot d2"></span><span class="b__dot d3"></span></div>' +
       "</section>" +
 
@@ -223,6 +222,100 @@
   window.addEventListener("resize", onScrollFx);
 
 
+  // ── 목록 검색 · 목적 필터 (Device · Science · Clinic 공통) ─────────
+  var listState = { q: "", c: "all", f: "all" };
+  var clinicGroup = "concern";
+  function concernLabel(id) { var c = byId(D.taxonomy.concerns || [], id); return c ? c.label : id; }
+  function concernChips(items) {
+    var used = (D.taxonomy.concerns || []).filter(function (c) { return items.some(function (x) { return (x.concerns || []).indexOf(c.id) > -1; }); });
+    return '<div class="filters" role="group" aria-label="목적 필터"><span class="filters__label">목적</span>' +
+      '<button class="chip chip--plain" data-concern="all" aria-pressed="' + (listState.c === "all") + '">전체</button>' +
+      used.map(function (c) { return '<button class="chip chip--plain" data-concern="' + c.id + '" aria-pressed="' + (listState.c === c.id) + '">' + c.label + "</button>"; }).join("") + "</div>";
+  }
+  function listBar(placeholder, extra) {
+    return '<div class="listbar"><input type="search" data-listq value="' + esc(listState.q) + '" placeholder="' + esc(placeholder) + '" aria-label="목록 안에서 검색"><span class="listbar__count" data-listcount></span></div>' + (extra || "");
+  }
+  function dataAttrs(o, text) {
+    return ' data-q="' + esc(text.toLowerCase()) + '" data-c="' + esc((o.concerns || []).join(" ")) + '" data-f="' + esc(uniq((o.techIds || []).concat(o.techCandidates || []).map(familyOf)).join(" ")) + '"';
+  }
+  function applyListFilter() {
+    var q = listState.q.trim().toLowerCase(), n = 0;
+    view.querySelectorAll("[data-q]").forEach(function (el) {
+      var ok = (!q || el.dataset.q.indexOf(q) > -1) &&
+        (listState.c === "all" || (" " + el.dataset.c + " ").indexOf(" " + listState.c + " ") > -1) &&
+        (listState.f === "all" || (" " + el.dataset.f + " ").indexOf(" " + listState.f + " ") > -1);
+      el.hidden = !ok; if (ok) n++;
+    });
+    view.querySelectorAll("[data-group]").forEach(function (g) { g.hidden = !g.querySelector("[data-q]:not([hidden])"); });
+    var cnt = view.querySelector("[data-listcount]"); if (cnt) cnt.textContent = n + "개";
+    var empty = view.querySelector("[data-listempty]"); if (empty) empty.hidden = n > 0;
+  }
+
+  // ── 이미지 (AI 생성 콘셉트) ───────────────────────
+  var TECH_IMG = { "ultrasound-multi": "technology/ultrasound", airshot: "technology/electroporation", cooling: "editorial/cooling", vibration: "editorial/surface-care" };
+  function techImg(id) {
+    var known = ["biostimulator", "electroporation", "ems", "ha-filler", "hifu", "iontophoresis", "ipl", "laser", "led", "microcurrent", "pn-pdrn", "rf", "toxin", "ultrasound", "units"];
+    var p = TECH_IMG[id] || (known.indexOf(id) > -1 ? "technology/" + id : null);
+    return p ? "assets/relev/" + p + ".webp" : null;
+  }
+  function figure(src, alt, cls) {
+    return '<figure class="fig ' + (cls || "") + '"><img src="' + src + '" alt="' + esc(alt) + '" loading="lazy" width="1536" height="1024"><figcaption class="ai-tag">AI 생성 콘셉트 이미지</figcaption></figure>';
+  }
+
+  // ── 페이지: 용어 해독 (DECODE) ────────────────────
+  function termDevices(term) {
+    if (!term.match) return [];
+    return D.devices.filter(function (d) { return (d.fullName || d.name).indexOf(term.match) > -1; });
+  }
+  function pageDecode() {
+    return head("DECODE", "이름 말고, 방식으로", "제조사가 만든 기능 이름이 실제로 어떤 기술인지 풀어 둡니다. 같은 이름이 제품마다 다른 기술을 가리키는 경우도 데이터로 보여 드립니다.") +
+      listBar("에어샷, 쎄라, 부스터…") +
+      '<div class="decode">' + D.terms.map(function (t) {
+        var ds = termDevices(t), dist = {};
+        ds.forEach(function (d) { d.techIds.forEach(function (x) { dist[x] = (dist[x] || 0) + 1; }); });
+        var distHtml = Object.keys(dist).sort(function (a, b) { return dist[b] - dist[a]; }).map(function (x) { return '<span class="chip f-' + familyOf(x) + '">' + esc(tagLabel(x)) + " <b>" + dist[x] + "</b></span>"; }).join("");
+        return '<article class="term" data-q="' + esc((t.term + " " + (t.evokes || "") + " " + t.plain).toLowerCase()) + '" data-c="" data-f="">' +
+          '<header><h2>' + esc(t.term) + "</h2>" + (t.tech ? chip(t.tech) : "") + "</header>" +
+          '<p class="term__evokes"><span>연상되는 것</span>' + esc(t.evokes || "—") + "</p>" +
+          '<p class="term__plain">' + esc(t.plain) + "</p>" +
+          (ds.length ? '<div class="term__data"><p class="caption">이름에 \'' + esc(t.match) + "'가 들어간 제품 " + ds.length + "개의 실제 방식 (판매 · 다나와 표기 기준. 다나와의 '초음파'는 집속 여부가 없어 비집속으로 묶임)</p>" + '<div class="chips">' + distHtml + "</div>" +
+            '<ul class="term__list">' + ds.slice(0, 8).map(function (d) { return '<li><a href="#device--' + d.id + '">' + esc(d.fullName || d.brand + " " + d.name) + "</a> " + d.techIds.map(function (x) { return '<span class="mini f-' + familyOf(x) + '">' + esc(tagLabel(x)) + "</span>"; }).join("") + "</li>"; }).join("") + "</ul></div>" : "") +
+          "</article>";
+      }).join("") + '</div><p class="empty" data-listempty hidden>찾는 용어가 없습니다. <a href="#contribute">용어 추가 제안하기</a></p>';
+  }
+
+  // ── 페이지: 참여 (등록 · 수정 요청) ─────────────────
+  function pageContribute(kind, targetId) {
+    var mine = store("relev.submissions") || [];
+    var fams = D.taxonomy.families.filter(function (f) { return HOME_FAMILIES.indexOf(f.id) > -1; });
+    var target = targetId ? (byId(D.devices, targetId) || byId(D.treatments, targetId) || byId(D.techs, targetId)) : null;
+    kind = kind === "edit" ? "edit" : "new";
+    return head("CONTRIBUTE", "함께 만드는 데이터베이스", "제조사 · 의료기관 · 사용자 누구나 디바이스를 등록하거나 정보 수정을 요청할 수 있습니다. 모든 제출은 출처가 있어야 하며, 편집팀 확인 뒤에만 반영됩니다.") +
+      '<div class="flow"><span><b>1</b> 제출</span><span><b>2</b> 출처 확인</span><span><b>3</b> 편집 검수</span><span><b>4</b> 반영 · 출처 등급 표시</span></div>' +
+      '<form class="contrib" data-contrib>' +
+      '<div class="seg" role="radiogroup" aria-label="제출 종류"><label><input type="radio" name="kind" value="new"' + (kind === "new" ? " checked" : "") + '> 새 디바이스 등록</label><label><input type="radio" name="kind" value="edit"' + (kind === "edit" ? " checked" : "") + '> 정보 수정 요청</label></div>' +
+      (target ? '<p class="note">대상: <b>' + esc(target.fullName || target.name) + '</b><input type="hidden" name="target" value="' + esc(target.id) + '"></p>' : "") +
+      '<div class="contrib__grid">' +
+      '<label>제품 · 항목 이름 *<input name="name" id="c-name" required value="' + esc(target ? (target.fullName || target.name) : "") + '"></label>' +
+      '<label>브랜드 · 제조사<input name="brand" id="c-brand" value="' + esc(target && target.brand ? target.brand : "") + '"></label>' +
+      "</div>" +
+      '<fieldset><legend>사용 기술 (해당하는 것 모두)</legend><div class="chips">' + fams.map(function (f) { return '<label class="chk"><input type="checkbox" name="tech" value="' + f.id + '"> ' + esc(f.ko) + "</label>"; }).join("") + "</div></fieldset>" +
+      '<label>내용 *<textarea name="body" id="c-body" rows="4" required placeholder="예: 공식 설명서 12쪽에 \'부스터 모드는 일렉트로포레이션 방식\'이라고 적혀 있습니다."></textarea></label>' +
+      '<div class="contrib__grid">' +
+      '<label>출처 URL *<input name="url" id="c-url" type="url" required placeholder="https://"></label>' +
+      '<label>출처 종류 *<select name="tier" id="c-tier" required><option value="">선택</option>' + D.taxonomy.tiers.map(function (t) { return '<option value="' + t.id + '">' + t.id + " · " + esc(t.label) + "</option>"; }).join("") + "</select></label>" +
+      '<label>제출자 *<select name="who" id="c-who" required><option value="">선택</option><option>제조사 · 브랜드</option><option>의료기관 · 의료진</option><option>사용자</option><option>연구자 · 기타</option></select></label>' +
+      "</div>" +
+      '<label class="chk"><input type="checkbox" name="disclose" id="c-disc"> 이 제품과 이해관계(제조 · 판매 · 광고)가 있습니다</label>' +
+      '<p class="form-error" data-formerr hidden></p>' +
+      '<button class="btn">제출하기</button>' +
+      '<p class="caption">프로토타입: 제출 내용은 지금 이 브라우저에만 저장되고 편집팀에 전송되지 않습니다. 공개 전에는 회원 · 서버 저장(예: Supabase)과 검수 화면을 연결해야 합니다.</p>' +
+      "</form>" +
+      (mine.length ? '<section class="section"><h2>내 제출</h2><div class="subs">' + mine.slice().reverse().map(function (s) {
+        return '<div class="sub"><span class="badge badge--draft">검토 대기</span><b>' + esc(s.kind === "edit" ? "수정 요청" : "새 디바이스") + " · " + esc(s.name) + '</b><span class="caption">' + esc(s.tier) + " · " + esc(s.who) + " · " + esc(s.at) + "</span></div>";
+      }).join("") + "</div></section>" : "");
+  }
+
   // ── 페이지: 디바이스 ──────────────────────────────
   function bridgeFor(tag) { return (D.taxonomy.bridge || []).filter(function (b) { return b.tech === tag; })[0]; }
   function clinicFor(techIds) { return uniq([].concat.apply([], techIds.map(function (t) { var b = bridgeFor(t); return b ? b.clinic : []; }))).map(function (id) { return byId(D.treatments, id); }).filter(Boolean); }
@@ -237,23 +330,20 @@
       }).join("") + "</tbody></table></div>";
   }
   function pageDevices() {
-    var fams = D.taxonomy.families.filter(function (f) { return HOME_FAMILIES.indexOf(f.id) > -1; });
-    var items = D.devices.filter(function (d) {
-      return deviceFilter === "all" || d.techIds.concat(d.techCandidates || []).some(function (t) { return familyOf(t) === deviceFilter; });
-    }).sort(function (a, b) { return ((a.glowpick && a.glowpick.rank) || 999) - ((b.glowpick && b.glowpick.rank) || 999); });
-    fams = fams.filter(function (f) { return D.devices.some(function (d) { return d.techIds.concat(d.techCandidates || []).some(function (t) { return familyOf(t) === f.id; }); }); });
-    return banner("assets/device-banner.webp", "유리 리본 옆에 놓인 화이트 홈 뷰티 디바이스") + head("DEVICE", "홈 디바이스 데이터베이스", "글로우픽 뷰티 디바이스 순위(2026-11-19 조회) 상위 20개와 주요 제품 8개를 작용 기전으로 분류했습니다. 판매 페이지에 기술명이 적힌 것만 '확인', 이름만 있는 모드는 '확인 필요'로 둡니다.") +
-      '<div class="filters" role="group" aria-label="기술 계열 필터">' +
-      '<button class="chip chip--plain" data-filter="all" aria-pressed="' + (deviceFilter === "all") + '">전체</button>' +
-      fams.map(function (f) { return '<button class="chip f-' + f.id + '" data-filter="' + f.id + '" aria-pressed="' + (deviceFilter === f.id) + '">' + f.label + " · " + f.ko + "</button>"; }).join("") +
-      "</div>" +
-      (items.length ? '<div class="grid">' + items.map(deviceCard).join("") + "</div>" : '<p class="empty">이 계열로 등록된 항목이 아직 없습니다.</p>');
+    var fams = D.taxonomy.families.filter(function (f) { return HOME_FAMILIES.indexOf(f.id) > -1 && D.devices.some(function (d) { return d.techIds.concat(d.techCandidates || []).some(function (t) { return familyOf(t) === f.id; }); }); });
+    var items = D.devices.slice().sort(function (a, b) { return ((a.glowpick && a.glowpick.rank) || 999) - ((b.glowpick && b.glowpick.rank) || 999); });
+    return banner("assets/device-banner.webp", "유리 리본 옆에 놓인 화이트 홈 뷰티 디바이스 (AI 생성 콘셉트)") + head("DEVICE", "홈 디바이스 데이터베이스", "글로우픽 순위 상위 20개 · 주요 제품과 다나와 '피부관리기' 상품 정보(2026-11-19 조회)를 작용 기전으로 분류했습니다. 제조사 공식 자료(T5)가 있으면 우선하고, 이름만 있는 모드는 '확인 필요'로 둡니다.") +
+      listBar("제품 · 브랜드 · 기술 검색 (예: 메디큐브, 갈바닉, LDM)") + concernChips(items) +
+      '<div class="filters" role="group" aria-label="기술 계열 필터"><span class="filters__label">기술</span>' +
+      '<button class="chip chip--plain" data-filter="all" aria-pressed="' + (listState.f === "all") + '">전체</button>' +
+      fams.map(function (f) { return '<button class="chip f-' + f.id + '" data-filter="' + f.id + '" aria-pressed="' + (listState.f === f.id) + '">' + f.ko + "</button>"; }).join("") + "</div>" +
+      '<div class="grid">' + items.map(deviceCard).join("") + '</div><p class="empty" data-listempty hidden>조건에 맞는 제품이 없습니다. <a href="#contribute">새 디바이스 등록하기</a></p>';
   }
   function deviceCard(d) {
     var g = d.glowpick || {}, cand = d.techCandidates || [];
-    return '<a class="card dcard" href="#device--' + d.id + '">' + (g.rank ? '<span class="rank">#' + g.rank + "</span>" : "") +
+    return '<a class="card dcard" href="#device--' + d.id + '"' + dataAttrs(d, [d.fullName || d.name, d.brand, d.maker || "", d.purpose || "", (d.danawaMethods || []).join(" "), d.techIds.concat(cand).map(tagLabel).join(" ")].join(" ")) + ">" + (g.rank ? '<span class="rank">#' + g.rank + "</span>" : "") +
       '<span class="eyebrow">' + esc(d.brand) + " · " + esc(d.form) + "</span><h3>" + esc(d.name) + "</h3>" +
-      "<p>" + esc(d.purpose || "") + (g.price ? " · " + won0(g.price) : "") + "</p>" +
+      "<p>" + esc(d.purpose || "") + (g.price ? ' · <span class="price">정가 ' + won0(g.price) + "</span>" : "") + "</p>" +
       '<div class="meta">' + (d.techIds.length ? chips(d.techIds, false) : "") + (cand.length ? '<span class="badge badge--draft">확인 필요 ' + cand.length + "</span>" : "") + "</div></a>";
   }
   function pageDevice(id) {
@@ -287,9 +377,10 @@
       block("허가 · 인증", "<p>" + na("확인 필요") + ' <span class="caption">공산품 / 의료기기 등급과 허가 목적을 규제기관 문서(T1)로 확인해 기재합니다.</span></p>') +
       block("근거", '<div class="specs"><div class="spec"><span class="k">독립 연구 (T2)</span><span class="v">' + na() + '</span><span></span></div><div class="spec"><span class="k">제조사 인체적용시험 (T4)</span><span class="v">' + na() + "</span><span></span></div></div>") +
       block("비용", '<div class="specs">' +
-        '<div class="spec"><span class="k">글로우픽 표기가</span><span class="v">' + (g.price ? won0(g.price) + ' <span class="caption">' + esc(g.observedAt) + " 조회</span>" : na()) + "</span><span></span></div>" +
+        '<div class="spec"><span class="k">정가 (글로우픽 등록가)</span><span class="v">' + (g.price ? won0(g.price) + ' <span class="caption">' + esc(g.observedAt) + " 조회</span>" : na()) + "</span><span></span></div>" +
         (d.priceUsd ? '<div class="spec"><span class="k">글로벌 공식몰가</span><span class="v">US$' + d.priceUsd + ' <span class="caption">medicube.us · ' + esc(g.observedAt) + ' 조회</span></span><span><span class="badge">T5</span></span></div>' : "") +
-        ["실구매가 (채널 · 날짜)", "소모품 비용", "보증기간"].map(function (k) { return '<div class="spec"><span class="k">' + k + '</span><span class="v">' + na() + "</span><span></span></div>"; }).join("") + "</div>") +
+        '<div class="spec"><span class="k">최저가 · 구매 링크</span><span class="v" style="font-family:var(--sans)"><span class="caption">제휴 링크 연동 예정 — 연결 시 \'광고 · 제휴\' 표기, 순위 · 평가와 분리</span></span><span></span></div>' +
+        ["소모품 비용", "보증기간"].map(function (k) { return '<div class="spec"><span class="k">' + k + '</span><span class="v">' + na() + "</span><span></span></div>"; }).join("") + "</div>") +
       block("HOME → CLINIC · 같은 기술 계열의 전문 시술", related.length
         ? '<div class="grid">' + related.map(treatmentCard).join("") + '</div><p class="note">같은 계열이라도 출력, 표적 깊이, 허가 목적, 시행 주체가 다릅니다. 이 연결은 대체 가능성을 뜻하지 않습니다.</p>'
         : '<p class="caption">이 기술 계열과 직접 대응하는 전문 시술 레코드가 아직 없습니다.</p>') +
@@ -305,17 +396,21 @@
 
   // ── 페이지: 시술 ──────────────────────────────────
   function pageClinic() {
-    return banner("assets/clinic-banner.webp", "곡선형 벽과 라벤더 유리 파티션이 있는 피부과 대기 공간") + head("CLINIC", "피부과 시술 백과", "상품명이 아니라 작용 기전과 성분으로 시술을 이해하도록 돕습니다. 시술 추천 · 진단 · 개인별 치료 계획은 제공하지 않습니다.") +
-      ["energy", "aesthetic", "injectable", "surface"].map(function (k) {
-        var items = D.treatments.filter(function (t) { return t.kind === k; });
-        return '<div class="group-title"><h2>' + KIND_LABEL[k] + '</h2><span class="caption">' + KIND_KO[k] + " · " + items.length + "</span></div>" +
-          '<div class="grid">' + items.map(treatmentCard).join("") + "</div>";
-      }).join("");
+    var groups = clinicGroup === "concern"
+      ? (D.taxonomy.concerns || []).map(function (c) { return { title: c.label, sub: "목적별", items: D.treatments.filter(function (t) { return (t.concerns || []).indexOf(c.id) > -1; }) }; })
+      : ["energy", "aesthetic", "injectable", "surface"].map(function (k) { return { title: KIND_LABEL[k], sub: KIND_KO[k], items: D.treatments.filter(function (t) { return t.kind === k; }) }; });
+    return banner("assets/clinic-banner.webp", "곡선형 벽과 라벤더 유리 파티션이 있는 피부관리 공간 (AI 생성 콘셉트)") + head("CLINIC", "피부과 · 관리실 시술 백과", "상품명이 아니라 작용 기전과 성분으로 시술을 이해하도록 돕습니다. 목적은 일반적으로 소개되는 범위이며 효과를 보장하지 않습니다. 시술 추천 · 진단은 제공하지 않습니다.") +
+      listBar("시술 · 성분 · 장비 검색 (예: 써마지, PLLA, LDM)") +
+      '<div class="seg seg--sm" role="group" aria-label="묶는 방식"><button data-cgroup="concern" aria-pressed="' + (clinicGroup === "concern") + '">목적별</button><button data-cgroup="kind" aria-pressed="' + (clinicGroup === "kind") + '">방식별</button></div>' +
+      groups.filter(function (g) { return g.items.length; }).map(function (g) {
+        return '<div data-group><div class="group-title"><h2>' + esc(g.title) + '</h2><span class="caption">' + esc(g.sub) + " · " + g.items.length + "</span></div>" +
+          '<div class="grid">' + g.items.map(treatmentCard).join("") + "</div></div>";
+      }).join("") + '<p class="empty" data-listempty hidden>조건에 맞는 시술이 없습니다.</p>';
   }
   function treatmentCard(t) {
-    return '<a class="card" href="#clinic--' + t.id + '"><span class="eyebrow">' + esc(t.en) + "</span><h3>" + esc(t.name) + "</h3>" +
+    return '<a class="card" href="#clinic--' + t.id + '"' + dataAttrs(t, [t.name, t.en, t.product, t.maker, t.ingredients.join(" "), t.delivery, t.techIds.map(tagLabel).join(" ")].join(" ")) + '><span class="eyebrow">' + esc(t.en) + "</span><h3>" + esc(t.name) + "</h3>" +
       "<p>" + esc(t.ingredients.length ? "주요 성분: " + t.ingredients.join(", ") : t.delivery) + "</p>" +
-      '<div class="meta">' + chips(t.techIds, false) + statusBadge(t.status) + "</div></a>";
+      '<div class="meta">' + chips(t.techIds, false) + (t.concerns || []).map(function (c) { return '<span class="mini mini--c">' + esc(concernLabel(c)) + "</span>"; }).join("") + "</div></a>";
   }
   function pageTreatment(id) {
     var t = byId(D.treatments, id);
@@ -356,12 +451,14 @@
     var groups = D.taxonomy.families.map(function (f) {
       var items = D.techs.filter(function (t) { return t.family === f.id; });
       if (!items.length) return "";
-      return '<div class="group-title"><h2>' + f.label + '</h2><span class="caption">' + f.ko + "</span></div>" +
+      return '<div data-group><div class="group-title"><h2>' + f.label + '</h2><span class="caption">' + f.ko + "</span></div>" +
         '<div class="grid">' + items.map(function (t) {
-          return '<a class="card" href="#science--' + t.id + '"><span class="eyebrow">' + esc(t.en) + "</span><h3>" + esc(t.question) + "</h3><p>" + esc(t.summary) + '</p><div class="meta">' + chip(t.id, false) + statusBadge(t.status) + "</div></a>";
-        }).join("") + "</div>";
+          var img = techImg(t.id);
+          return '<a class="card card--img" href="#science--' + t.id + '"' + dataAttrs({ concerns: t.concerns, techIds: [t.id] }, [t.name, t.en, t.question, t.summary, (t.aka || []).join(" ")].join(" ")) + ">" + (img ? '<img class="card__img" src="' + img + '" alt="" loading="lazy" width="1536" height="1024">' : "") + '<span class="eyebrow">' + esc(t.en) + "</span><h3>" + esc(t.question) + "</h3><p>" + esc(t.summary) + '</p><div class="meta">' + chip(t.id, false) + (t.studies && t.studies.length ? '<span class="badge">T2 논문 ' + t.studies.length + "</span>" : "") + "</div></a>";
+        }).join("") + "</div></div>";
     }).join("");
-    return head("SCIENCE", "피부관리 기술 백과", "제품과 시술을 이해하기 위한 기본기. 원리, 쉬운 설명, 확인된 근거의 범위, 안전성과 한계를 함께 적습니다.") + groups;
+    return head("SCIENCE", "피부관리 기술 백과", "제품과 시술을 이해하기 위한 기본기. 원리, 쉬운 설명, 확인된 근거의 범위, 안전성과 한계를 함께 적습니다. 이미지는 AI 생성 콘셉트입니다.") +
+      listBar("기술 · 별칭 검색 (예: 갈바닉, EP, 물방울)") + concernChips(D.techs) + groups + '<p class="empty" data-listempty hidden>찾는 기술이 없습니다.</p>';
   }
   function pageTech(id) {
     var t = byId(D.techs, id);
@@ -370,7 +467,9 @@
     var treatments = D.treatments.filter(function (x) { return x.techIds.indexOf(id) > -1; });
     var fam = familyMeta(t.family);
     var body =
+      (techImg(id) ? figure(techImg(id), t.name + " 기술을 표현한 콘셉트 이미지", "fig--cover") : "") +
       '<p class="summary">' + esc(t.summary) + "</p>" +
+      ((t.concerns || []).length ? '<p class="chips" style="margin-top:12px">' + t.concerns.map(function (c) { return '<span class="mini mini--c">' + esc(concernLabel(c)) + "</span>"; }).join("") + '<span class="caption">일반적으로 소개되는 목적 · 효과 보장 아님</span></p>' : "") +
       block("쉬운 설명", '<p class="plain">' + esc(t.plain) + "</p>") +
       block(t.id === "units" ? "단위별 의미" : "작용 방식", list(t.mechanism)) +
       (TECH_LAYERS[id] ? block("적용 층 (일반 설명)", skinSvg([id])) : "") +
@@ -379,7 +478,9 @@
       (t.safety.length ? block("안전성 · 제한사항", list(t.safety)) : "") +
       (devices.length ? block("대표 홈 디바이스", '<div class="grid">' + devices.map(deviceCard).join("") + "</div>") : "") +
       (treatments.length ? block("관련 전문 장비 · 시술", '<div class="grid">' + treatments.map(treatmentCard).join("") + "</div>") : "") +
-      block("관련 연구 · 출처", "<p>" + na("출처 미입력") + ' <span class="caption">출처는 T1–T7 등급으로 구분해 표시합니다.</span></p>');
+      block("관련 연구 (PubMed)", (t.studyNote ? '<p class="note">' + esc(t.studyNote) + "</p>" : "") +
+        ((t.studies || []).length ? '<ol class="studies">' + t.studies.map(function (x) { return '<li><span class="badge">T2</span> <a href="https://pubmed.ncbi.nlm.nih.gov/' + x.pmid + '/" target="_blank" rel="noopener">' + esc(x.title) + '</a><span class="caption">' + esc(x.journal || "") + " · " + esc(x.year) + (x.type ? " · " + esc(x.type) : "") + " · PMID " + x.pmid + "</span></li>"; }).join("") + "</ol>" : "<p>" + na("관련 연구 없음") + "</p>") +
+        (t.studySearch ? '<p class="caption">PubMed 검색 ' + t.studySearch.count + "건 중 관련도 높은 문헌 선별 (" + t.studySearch.date + "). 논문이 있다는 것이 특정 제품의 효과를 뜻하지는 않습니다.</p>" : ""));
     return '<a class="back" href="#science">← Science</a><div class="split detail"><div>' +
       '<p class="eyebrow">' + esc(t.question) + "</p><h1>" + esc(t.name) + '</h1><p class="sub">' + esc(t.en) + "</p>" + body + "</div>" +
       aside([["레코드 상태", statusBadge(t.status)], ["계열", fam ? '<span class="chip f-' + fam.id + '">' + fam.label + "</span>" : ""], ["다른 이름", esc(t.aka.join(", "))], ["검수일", na("검수 전")]]) + "</div>";
@@ -388,12 +489,12 @@
   function aside(rows, compareKey) {
     return '<aside class="aside"><dl>' + rows.map(function (r) { return "<div><dt>" + r[0] + "</dt><dd>" + r[1] + "</dd></div>"; }).join("") + "</dl>" +
       (compareKey ? compareBtn(compareKey) : "") +
-      '<a class="caption" href="#about">정보 수정 요청 · 편집 원칙 →</a></aside>';
+      '<a class="caption" href="#contribute--edit' + (compareKey ? "--" + compareKey.split(":")[1] : "") + '">정보 수정 요청하기 →</a></aside>';
   }
   function head(eyebrow, title, desc) {
     return '<div class="page-head"><p class="eyebrow">' + eyebrow + "</p><h1>" + title + "</h1><p>" + desc + "</p></div>";
   }
-  function banner(src, alt) { return '<div class="banner"><img src="' + src + '" alt="' + esc(alt) + '" width="1448" height="1086"></div>'; }
+  function banner(src, alt) { return '<div class="banner"><img src="' + src + '" alt="' + esc(alt) + '" width="1672" height="941"><span class="ai-tag">AI 생성 콘셉트 이미지</span></div>'; }
   function notFound() { return head("404", "항목을 찾을 수 없습니다", '<a href="#home">홈으로</a>'); }
 
   // ── 페이지: 비교 ──────────────────────────────────
@@ -571,7 +672,7 @@
 
   // ── 페이지: Brand (디자인 시스템 문서) ────────────
   function pageBrand() {
-    var nav = [["overview", "Overview"], ["logo", "Logo"], ["symbol", "Symbol & Motion"], ["graphic", "Graphic"], ["color", "Color"], ["type", "Typography"], ["voice", "Voice & Tone"], ["copy", "Copywriting"]];
+    var nav = [["overview", "Overview"], ["logo", "Logo"], ["symbol", "Symbol & Motion"], ["graphic", "Graphic"], ["imagery", "Imagery"], ["color", "Color"], ["type", "Typography"], ["voice", "Voice & Tone"], ["copy", "Copywriting"]];
     var colors = [["Signature Lavender", "#9183B9", "시그니처 · 로고 진주 · 아이콘", "10%"], ["Lavender Mist", "#D9D2E7", "보조 면 · 정보 강조", "20%"], ["Soft Porcelain", "#F6F4F1", "기본 배경", "55%"], ["Liquid Titanium", "#BFC3C8", "디바이스 · 기술 그래픽", "5%"], ["Deep Ink", "#26252D", "텍스트 · 워드마크", "10%"], ["Deep Iris", "#65558D", "버튼 · 강조", "CTA"]];
     var sec = function (id, eyebrow, title, desc, body) {
       return '<section class="doc" id="b-' + id + '"><p class="eyebrow">' + eyebrow + "</p><h2>" + title + "</h2>" + (desc ? '<p class="doc__desc">' + desc + "</p>" : "") + body + "</section>";
@@ -611,6 +712,10 @@
         '<div class="gfx__card gfx__card--ui"><div class="ui-demo"><span class="pearl-bullet"></span>디바이스 기술 이해하기</div><div class="ui-demo"><span class="pearl-bullet"></span>나에게 맞는 관리 찾기</div><div class="pearl-loader" aria-label="로딩 예시"><i></i><i></i></div><span>UI 확장 · 리스트 기호 · 로딩</span></div>' +
         '<div class="gfx__card gfx__card--photo"><img src="assets/hero-model.webp" alt="RE:LEV 키 비주얼 위에 워드마크를 올린 예시" loading="lazy">' + logoSvg("photo__logo") + "<span>사진 위 워드마크</span></div></div>") +
 
+      sec("imagery", "Imagery", "이미지 라이브러리", "라벤더 · 포슬린 · 티타늄 · 투명 유리 톤. 모든 이미지는 AI 생성 콘셉트로, 실제 제품 · 의료진 · 기관 · 사용자나 임상 결과로 표시하지 않습니다.",
+        '<div class="mood">' + [["editorial/hero-wide", "브랜드 모델"], ["editorial/skin-texture", "피부 결"], ["editorial/routine", "홈케어 루틴"], ["editorial/consultation", "상담"], ["editorial/evidence", "근거 · 연구"], ["editorial/fluid-glass", "Fluid Glass"], ["editorial/mature", "4050"], ["editorial/men", "남성"], ["editorial/cooling", "쿨링"], ["editorial/surface-care", "표면 관리"]]
+          .map(function (m) { return '<figure class="fig"><img src="assets/relev/' + m[0] + '.webp" alt="' + esc(m[1]) + ' 콘셉트 이미지" loading="lazy" width="1536" height="1024"><figcaption class="ai-tag">' + esc(m[1]) + " · AI 생성</figcaption></figure>"; }).join("") + "</div>") +
+
       sec("color", "Color", "LILAC INTELLIGENCE", "피부 과학과 세련된 여성성의 균형. 채도를 낮춘 라벤더로 화장품 브랜드 특유의 가벼움과 구분합니다.",
         '<div class="swatches">' + colors.map(function (c) { return '<button class="sw" data-copy="' + c[1] + '"><i style="background:' + c[1] + '"></i><b>' + c[0] + "</b><code>" + c[1] + "</code><span>" + c[2] + " · " + c[3] + "</span></button>"; }).join("") +
         '</div><div class="usage"><i style="flex:55;background:#F6F4F1">55%</i><i style="flex:20;background:#D9D2E7">20%</i><i style="flex:10;background:#9183B9;color:#fff">10%</i><i style="flex:10;background:#26252D;color:#fff">10%</i><i style="flex:5;background:#BFC3C8">5%</i></div><p class="caption">색상 칩을 누르면 값이 복사됩니다.</p>') +
@@ -642,6 +747,8 @@
       case "compare": html = pageCompare(); break;
       case "about": html = pageAbout(); break;
       case "brand": html = pageBrand(); break;
+      case "decode": html = pageDecode(); break;
+      case "contribute": html = pageContribute(path[1], path[2]); break;
       case "search": html = pageSearch(searchQ); break;
       default: html = notFound();
     }
@@ -654,6 +761,7 @@
     var h1 = view.querySelector("h1");
     document.title = (h1 && nav ? h1.textContent + " — " : "") + "RE:LEV — Elevate your beauty.";
     renderTray();
+    applyListFilter();
   }
 
   // ── 이벤트 ────────────────────────────────────────
@@ -666,6 +774,11 @@
       else { var v = j.dataset.copy; try { navigator.clipboard.writeText(v).then(function () { j.classList.add("copied"); setTimeout(function () { j.classList.remove("copied"); }, 1200); }, function () {}); } catch (err) {} }
       return;
     }
+    var cz = e.target.closest("[data-concern],[data-cgroup]");
+    if (cz) {
+      if (cz.dataset.cgroup) { clinicGroup = cz.dataset.cgroup; route(); return; }
+      listState.c = cz.dataset.concern; view.querySelectorAll("[data-concern]").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.concern === listState.c); }); applyListFilter(); return;
+    }
     var t = e.target.closest("[data-compare],[data-untray],[data-filter],[data-calc-example]");
     if (!t) return;
     if (t.dataset.compare) {
@@ -675,7 +788,7 @@
     } else if (t.dataset.untray) {
       setTray(tray().filter(function (x) { return x !== t.dataset.untray; })); route();
     } else if (t.dataset.filter) {
-      deviceFilter = t.dataset.filter; route();
+      listState.f = t.dataset.filter; view.querySelectorAll("[data-filter]").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.filter === listState.f); }); applyListFilter();
     } else if (t.hasAttribute("data-calc-example")) {
       calcState = { price: "800000", consumable: "", years: "", session: "100000" };
       route();
@@ -689,12 +802,22 @@
     }
   });
   document.addEventListener("input", function (e) {
+    if (e.target.hasAttribute && e.target.hasAttribute("data-listq")) { listState.q = e.target.value; applyListFilter(); return; }
     if (e.target.dataset.calc) {
       calcState[e.target.dataset.calc] = e.target.value;
       document.getElementById("calc-result").innerHTML = calcResult();
     }
   });
   document.addEventListener("submit", function (e) {
+    if (e.target.matches("[data-contrib]")) {
+      e.preventDefault();
+      var f = e.target, fd = new FormData(f), err = f.querySelector("[data-formerr]");
+      var rec = { kind: fd.get("kind"), target: fd.get("target") || null, name: (fd.get("name") || "").trim(), brand: (fd.get("brand") || "").trim(), tech: fd.getAll("tech"), body: (fd.get("body") || "").trim(), url: (fd.get("url") || "").trim(), tier: fd.get("tier"), who: fd.get("who"), disclose: !!fd.get("disclose"), at: new Date().toISOString().slice(0, 10) };
+      if (!rec.name || !rec.body || !/^https?:\/\//.test(rec.url) || !rec.tier || !rec.who) { err.hidden = false; err.textContent = "이름, 내용, 출처 URL(https://로 시작), 출처 종류, 제출자를 모두 입력해 주세요. 출처가 없는 정보는 반영하지 않습니다."; return; }
+      var all = store("relev.submissions") || []; all.push(rec); store("relev.submissions", all);
+      route(); var top = view.querySelector(".subs"); if (top) top.scrollIntoView({ block: "center" });
+      return;
+    }
     if (!e.target.matches("[data-search]")) return;
     e.preventDefault();
     var q = e.target.querySelector("input").value.trim();
@@ -704,9 +827,9 @@
 
   // ── 데이터 로드 ───────────────────────────────────
   function load(name) { return fetch("data/" + name + ".json").then(function (r) { if (!r.ok) throw new Error(name); return r.json(); }); }
-  Promise.all([load("taxonomy"), load("technologies"), load("treatments"), load("devices")]).then(function (r) {
+  Promise.all([load("taxonomy"), load("technologies"), load("treatments"), load("devices"), load("terms")]).then(function (r) {
     document.querySelectorAll("[data-logo]").forEach(function (el) { el.innerHTML = logoSvg("logo-svg"); });
-    D.taxonomy = r[0]; HOME_FAMILIES = r[0].homeFamilies || []; D.techs = r[1]; D.treatments = r[2]; D.devices = r[3];
+    D.taxonomy = r[0]; HOME_FAMILIES = r[0].homeFamilies || []; D.techs = r[1]; D.treatments = r[2]; D.devices = r[3]; D.terms = r[4];
     route();
   }).catch(function () {
     view.innerHTML = '<p class="empty">데이터를 불러오지 못했습니다. 로컬에서 열 때는 저장소 루트에서 <code>python3 -m http.server</code>로 실행하세요.</p>';

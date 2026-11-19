@@ -31,7 +31,32 @@
    "바이폴라",
    "멀티폴라"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "35856592",
+    "title": "Radiofrequency and skin rejuvenation: a systematic review.",
+    "journal": "J Cosmet Laser Ther",
+    "year": "2022",
+    "type": "Systematic Review"
+   },
+   {
+    "pmid": "26560216",
+    "title": "Radiofrequency for the treatment of skin laxity: myth or truth.",
+    "journal": "An Bras Dermatol",
+    "year": "2015",
+    "type": "Review"
+   }
+  ],
+  "studyNote": "대부분 의료기관 RF 장비 · RF 마이크로니들링 연구. 홈 RF 디바이스에 그대로 적용할 수 없다.",
+  "studySearch": {
+   "query": "radiofrequency[ti] AND (skin[ti] OR facial[ti] OR laxity[ti])",
+   "count": 513,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "ems",
@@ -60,7 +85,32 @@
    "저주파",
    "근육 자극"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "38992992",
+    "title": "Neuromuscular electrical stimulation for facial wrinkles and sagging: The 8-week prospective, split-face, controlled trial in Asians.",
+    "journal": "J Cosmet Dermatol",
+    "year": "2024",
+    "type": "Controlled Clinical Trial"
+   },
+   {
+    "pmid": "35526073",
+    "title": "Volunteers' concerns about facial neuromuscular electrical stimulation.",
+    "journal": "BMC Psychol",
+    "year": "2022",
+    "type": ""
+   }
+  ],
+  "studyNote": "얼굴 근육 전기 자극 연구는 소수(검색 5건). 대조군 임상 1건이 확인된다.",
+  "studySearch": {
+   "query": "(electrical muscle stimulation[tiab] OR neuromuscular electrical stimulation[tiab]) AND (wrinkles[tiab] OR facial[tiab]) AND (skin[tiab] OR sagging[tiab])",
+   "count": 5,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "microcurrent",
@@ -87,7 +137,25 @@
    "마이크로커런트",
    "MCT"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "38236440",
+    "title": "Efficacy and safety of a home-use handheld multi-energy-based device for skin rejuvenation: clinical, ex vivo, and histological studies.",
+    "journal": "Lasers Med Sci",
+    "year": "2024",
+    "type": "Randomized Controlled Trial"
+   }
+  ],
+  "studyNote": "미용 목적 미세전류 단독 연구는 매우 적다. 확인된 무작위 대조 연구는 여러 에너지를 결합한 홈 디바이스 연구다.",
+  "studySearch": {
+   "query": "microcurrent[tiab] AND (facial[tiab] OR face[tiab] OR skin aging[tiab] OR wrinkle[tiab])",
+   "count": 14,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "electroporation",
@@ -117,7 +185,32 @@
    "일렉트로포레이션",
    "부스터 모드"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "15019751",
+    "title": "Skin electroporation for transdermal and topical delivery.",
+    "journal": "Adv Drug Deliv Rev",
+    "year": "2004",
+    "type": "Review"
+   },
+   {
+    "pmid": "38244842",
+    "title": "Skin electroporation for transdermal drug delivery: Electrical measurements, numerical model and molecule delivery.",
+    "journal": "J Control Release",
+    "year": "2024",
+    "type": ""
+   }
+  ],
+  "studyNote": "주로 약물 · 백신의 경피 전달 연구다. 홈 뷰티 디바이스의 '부스터 모드'를 직접 평가한 독립 연구는 아직 찾지 못했다.",
+  "studySearch": {
+   "query": "electroporation[ti] AND (skin[ti] OR transdermal[ti] OR cosmetic[tiab])",
+   "count": 164,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "absorption"
+  ]
  },
  {
   "id": "iontophoresis",
@@ -144,7 +237,33 @@
    "갈바닉",
    "이온 도입"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "36671660",
+    "title": "Portable Iontophoresis Device for Efficient Drug Delivery.",
+    "journal": "Bioengineering (Basel)",
+    "year": "2023",
+    "type": ""
+   },
+   {
+    "pmid": "28426265",
+    "title": "Transdermal iontophoresis patch with reverse electrodialysis.",
+    "journal": "Drug Deliv",
+    "year": "2017",
+    "type": ""
+   }
+  ],
+  "studyNote": "주로 약물 전달 장치 연구다. 화장품 흡수용 홈 디바이스 연구는 드물다.",
+  "studySearch": {
+   "query": "iontophoresis[ti] AND (cosmetic[tiab] OR facial[tiab] OR skin aging[tiab] OR melasma[tiab])",
+   "count": 31,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "absorption",
+   "cleansing"
+  ]
  },
  {
   "id": "ultrasound",
@@ -173,7 +292,33 @@
    "초음파 마사지",
    "멀티 주파수 초음파"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "18450318",
+    "title": "Low-frequency sonophoresis: current status and future prospects.",
+    "journal": "Adv Drug Deliv Rev",
+    "year": "2008",
+    "type": "Review"
+   },
+   {
+    "pmid": "15629020",
+    "title": "Sonophoresis-mechanisms and application.",
+    "journal": "Bosn J Basic Med Sci",
+    "year": "2004",
+    "type": ""
+   }
+  ],
+  "studyNote": "초음파 영동(sonophoresis) 기전 연구 중심. 홈 디바이스 제품 연구와 구분해야 한다.",
+  "studySearch": {
+   "query": "(sonophoresis[ti] OR low-frequency ultrasound[ti]) AND skin[tiab]",
+   "count": 133,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "absorption",
+   "hydration"
+  ]
  },
  {
   "id": "hifu",
@@ -203,7 +348,32 @@
    "하이푸",
    "MFU"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "36674277",
+    "title": "A Systematic Review of the Efficacy of Microfocused Ultrasound for Facial Skin Tightening.",
+    "journal": "Int J Environ Res Public Health",
+    "year": "2023",
+    "type": "Systematic Review"
+   },
+   {
+    "pmid": "40184185",
+    "title": "A Systematic Review of High-Intensity Focused Ultrasound in Skin Tightening and Body Contouring.",
+    "journal": "Aesthet Surg J",
+    "year": "2025",
+    "type": "Systematic Review"
+   }
+  ],
+  "studyNote": "체계적 문헌고찰이 있으나 대상은 의료용 장비다. 홈 HIFU 연구와 동일시하지 않는다.",
+  "studySearch": {
+   "query": "(microfocused ultrasound[tiab] OR high-intensity focused ultrasound[tiab]) AND (skin laxity[tiab] OR facial[tiab])",
+   "count": 152,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "led",
@@ -233,7 +403,33 @@
    "근적외선",
    "블루라이트"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "40751922",
+    "title": "The Application of Light Emitting Diode (LED) in Cosmetic Dermatology.",
+    "journal": "Photodermatol Photoimmunol Photomed",
+    "year": "2025",
+    "type": "Review"
+   },
+   {
+    "pmid": "33471046",
+    "title": "Photobiomodulation: The Clinical Applications of Low-Level Light Therapy.",
+    "journal": "Aesthet Surg J",
+    "year": "2021",
+    "type": "Review"
+   }
+  ],
+  "studyNote": "광생물조절(PBM) 리뷰가 다수. 파장 · 광출력 · 조사 시간이 제품마다 달라 제품별 확인이 필요하다.",
+  "studySearch": {
+   "query": "(light-emitting diode[tiab] OR photobiomodulation[tiab]) AND (skin rejuvenation[tiab] OR wrinkles[tiab])",
+   "count": 68,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "tone",
+   "soothing"
+  ]
  },
  {
   "id": "ipl",
@@ -264,7 +460,26 @@
    "포토페이셜",
    "가정용 제모기"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "11149607",
+    "title": "Hair removal by lasers and intense pulsed light sources.",
+    "journal": "Semin Cutan Med Surg",
+    "year": "2000",
+    "type": "Review"
+   }
+  ],
+  "studyNote": "제모 목적 IPL · 레이저 리뷰.",
+  "studySearch": {
+   "query": "intense pulsed light[ti] AND (home-use[tiab] OR hair removal[tiab])",
+   "count": 89,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "tone",
+   "hair"
+  ]
  },
  {
   "id": "laser",
@@ -294,7 +509,33 @@
    "프랙셔널",
    "피코"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "36658259",
+    "title": "An update on fractional picosecond laser treatment: histology and clinical applications.",
+    "journal": "Lasers Med Sci",
+    "year": "2023",
+    "type": "Review"
+   },
+   {
+    "pmid": "31779940",
+    "title": "Nonablative and Hybrid Fractional Laser Skin Rejuvenation.",
+    "journal": "Facial Plast Surg Clin North Am",
+    "year": "2020",
+    "type": "Review"
+   }
+  ],
+  "studyNote": "의료용 레이저 리뷰.",
+  "studySearch": {
+   "query": "(picosecond laser[ti] OR fractional laser[ti]) AND (skin[tiab] OR pigmentation[tiab])",
+   "count": 442,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "tone",
+   "hair"
+  ]
  },
  {
   "id": "ha-filler",
@@ -321,7 +562,32 @@
   "aka": [
    "HA 필러"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "37563436",
+    "title": "Adverse Events Associated with Hyaluronic Acid Filler Injection for Non-surgical Facial Aesthetics: A Systematic Review of High Level of Evidence Studies.",
+    "journal": "Aesthetic Plast Surg",
+    "year": "2024",
+    "type": "Systematic Review"
+   },
+   {
+    "pmid": "40963300",
+    "title": "Complications of Periorbital Cosmetic Hyaluronic Acid Filler Injections: A Major Review.",
+    "journal": "Turk J Ophthalmol",
+    "year": "2025",
+    "type": "Review"
+   }
+  ],
+  "studyNote": "부작용 · 합병증 체계적 고찰.",
+  "studySearch": {
+   "query": "hyaluronic acid filler[tiab] AND (safety[tiab] OR complications[tiab]) AND review[pt]",
+   "count": 45,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "volume"
+  ]
  },
  {
   "id": "biostimulator",
@@ -352,7 +618,33 @@
    "CaHA",
    "콜라겐 부스터"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "41184662",
+    "title": "Efficacy, Durability, and Safety of Collagen Biostimulators Based on Poly-L-Lactic Acid (PLLA) and Calcium Hydroxyapatite (CaHA) in the Face: A Systematic Review.",
+    "journal": "Aesthetic Plast Surg",
+    "year": "2026",
+    "type": "Systematic Review"
+   },
+   {
+    "pmid": "39339028",
+    "title": "Efficacy and Safety of Poly-l-Lactic Acid in Facial Aesthetics: A Systematic Review.",
+    "journal": "Polymers (Basel)",
+    "year": "2024",
+    "type": "Review"
+   }
+  ],
+  "studyNote": "PLLA · CaHA 효능 · 안전성 체계적 고찰.",
+  "studySearch": {
+   "query": "(poly-L-lactic acid[tiab] OR calcium hydroxylapatite[tiab] OR poly-D,L-lactic acid[tiab]) AND (facial[tiab] OR skin[tiab])",
+   "count": 825,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "volume",
+   "lifting"
+  ]
  },
  {
   "id": "pn-pdrn",
@@ -380,7 +672,40 @@
    "폴리뉴클레오타이드",
    "연어 주사"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "39645667",
+    "title": "The Effectiveness of Polynucleotides in Esthetic Medicine: A Systematic Review.",
+    "journal": "J Cosmet Dermatol",
+    "year": "2025",
+    "type": "Systematic Review"
+   },
+   {
+    "pmid": "40871045",
+    "title": "Comparison of Polynucleotide and Polydeoxyribonucleotide in Dermatology: Molecular Mechanisms and Clinical Perspectives.",
+    "journal": "Pharmaceutics",
+    "year": "2025",
+    "type": "Review"
+   },
+   {
+    "pmid": "38481069",
+    "title": "Skin boosters: Definitions and varied classifications.",
+    "journal": "Skin Res Technol",
+    "year": "2024",
+    "type": "Review, Retracted Publication"
+   }
+  ],
+  "studyNote": "PN · PDRN 비교와 스킨부스터 분류 리뷰.",
+  "studySearch": {
+   "query": "(polynucleotide[tiab] OR polydeoxyribonucleotide[tiab]) AND (skin[tiab] OR rejuvenation[tiab])",
+   "count": 137,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "hydration",
+   "soothing"
+  ]
  },
  {
   "id": "toxin",
@@ -408,7 +733,32 @@
    "보톡스(상표명)",
    "톡신"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "26910696",
+    "title": "Global Aesthetics Consensus: Botulinum Toxin Type A--Evidence-Based Review, Emerging Concepts, and Consensus Recommendations for Aesthetic Use, Including Updates on Complications.",
+    "journal": "Plast Reconstr Surg",
+    "year": "2016",
+    "type": "Review, Consensus Statement"
+   },
+   {
+    "pmid": "25077722",
+    "title": "Botulinum toxin injection for facial wrinkles.",
+    "journal": "Am Fam Physician",
+    "year": "2014",
+    "type": "Review"
+   }
+  ],
+  "studyNote": "합의 기반 리뷰 · 주름 치료 리뷰.",
+  "studySearch": {
+   "query": "botulinum toxin[ti] AND (glabellar[tiab] OR aesthetic[tiab]) AND review[pt]",
+   "count": 196,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "volume"
+  ]
  },
  {
   "id": "units",
@@ -438,7 +788,9 @@
    "단위",
    "출력"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [],
+  "concerns": []
  },
  {
   "id": "airshot",
@@ -466,7 +818,13 @@
    "Air Shot",
    "무침 부스터"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [],
+  "studyNote": "제조사 고유 기술명으로, 해당 명칭의 피어리뷰 연구는 없다.",
+  "concerns": [
+   "absorption",
+   "pores"
+  ]
  },
  {
   "id": "ultrasound-multi",
@@ -497,7 +855,27 @@
    "교차 초음파",
    "3중 주파수"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "37877460",
+    "title": "Application of dual-frequency ultrasound for reduction of perilesional edema and ecchymosis after rhinoseptoplasty.",
+    "journal": "J Cosmet Dermatol",
+    "year": "2024",
+    "type": "Multicenter Study, Randomized Controlled Trial"
+   }
+  ],
+  "studyNote": "'LDM' · 다중 주파수 초음파에 대한 피어리뷰 연구는 매우 드물다(검색 8건 중 관련 1건).",
+  "studySearch": {
+   "query": "dual-frequency ultrasound[tiab] AND (skin[tiab] OR dermal[tiab] OR acne[tiab] OR rosacea[tiab])",
+   "count": 8,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "hydration",
+   "soothing",
+   "lifting"
+  ]
  },
  {
   "id": "cooling",
@@ -525,7 +903,17 @@
    "냉각",
    "쿨링 마사저"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [],
+  "studyNote": "미용 목적 쿨링 디바이스에 대한 연구는 찾지 못했다 (검색된 냉동치료 연구는 병변 제거용).",
+  "studySearch": {
+   "query": "(cryotherapy[ti] OR skin cooling[ti]) AND (cosmetic[tiab] OR face[tiab] OR facial[tiab])",
+   "count": 119,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "soothing"
+  ]
  },
  {
   "id": "vibration",
@@ -553,6 +941,31 @@
    "소닉 브러시",
    "온열"
   ],
-  "status": "draft"
+  "status": "draft",
+  "studies": [
+   {
+    "pmid": "30985993",
+    "title": "Facial cleansing with a sonic brush-A review of the literature and current recommendations.",
+    "journal": "J Cosmet Dermatol",
+    "year": "2019",
+    "type": "Review"
+   },
+   {
+    "pmid": "33619809",
+    "title": "Skin effect of facial cleansing combined with an electric sonic device.",
+    "journal": "J Cosmet Dermatol",
+    "year": "2021",
+    "type": ""
+   }
+  ],
+  "studyNote": "음파 클렌징 브러시 리뷰 · 연구.",
+  "studySearch": {
+   "query": "(sonic cleansing[tiab] OR facial cleansing brush[tiab])",
+   "count": 16,
+   "date": "2026-11-19"
+  },
+  "concerns": [
+   "cleansing"
+  ]
  }
 ]

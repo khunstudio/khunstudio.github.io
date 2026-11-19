@@ -23,7 +23,10 @@
   "similar": [
    "shurink"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "shurink",
@@ -49,7 +52,10 @@
   "similar": [
    "ulthera"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "thermage",
@@ -75,7 +81,10 @@
   "similar": [
    "oligio"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "oligio",
@@ -101,7 +110,10 @@
   "similar": [
    "thermage"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "ipl-clinic",
@@ -126,7 +138,10 @@
   "similar": [
    "laser-toning"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "tone"
+  ]
  },
  {
   "id": "laser-toning",
@@ -152,7 +167,10 @@
   "similar": [
    "ipl-clinic"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "tone"
+  ]
  },
  {
   "id": "ha-filler-tx",
@@ -180,7 +198,10 @@
    "radiesse",
    "sculptra"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "volume"
+  ]
  },
  {
   "id": "juvelook",
@@ -209,7 +230,11 @@
    "sculptra",
    "radiesse"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "volume",
+   "lifting"
+  ]
  },
  {
   "id": "sculptra",
@@ -237,7 +262,11 @@
    "juvelook",
    "radiesse"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "volume",
+   "lifting"
+  ]
  },
  {
   "id": "radiesse",
@@ -265,7 +294,11 @@
    "sculptra",
    "juvelook"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "volume",
+   "lifting"
+  ]
  },
  {
   "id": "rejuran",
@@ -289,7 +322,11 @@
    "주입 통증 · 부기 · 멍 — 의료진 설명 필요"
   ],
   "similar": [],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "hydration",
+   "soothing"
+  ]
  },
  {
   "id": "microneedle",
@@ -313,7 +350,11 @@
    "감염 · 색소 변화 — 의료진 설명 필요"
   ],
   "similar": [],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "pores",
+   "tone"
+  ]
  },
  {
   "id": "emface",
@@ -339,7 +380,10 @@
   "similar": [
    "thermage"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "ldm",
@@ -363,7 +407,12 @@
   "similar": [
    "ulthera"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "hydration",
+   "soothing",
+   "lifting"
+  ]
  },
  {
   "id": "led-clinic",
@@ -388,7 +437,11 @@
   "similar": [
    "ipl-clinic"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "soothing",
+   "tone"
+  ]
  },
  {
   "id": "ep-care",
@@ -413,7 +466,11 @@
   "similar": [
    "rejuran"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "absorption",
+   "hydration"
+  ]
  },
  {
   "id": "ionto-care",
@@ -435,7 +492,11 @@
    "전극 접촉 부위 자극"
   ],
   "similar": [],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "absorption",
+   "cleansing"
+  ]
  },
  {
   "id": "microcurrent-care",
@@ -457,7 +518,10 @@
    "이식형 전자기기 보유자 주의"
   ],
   "similar": [],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "lifting"
+  ]
  },
  {
   "id": "cryo-care",
@@ -479,7 +543,10 @@
    "과냉각에 의한 동상 · 자극"
   ],
   "similar": [],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "soothing"
+  ]
  },
  {
   "id": "laser-hair",
@@ -505,6 +572,9 @@
   "similar": [
    "ipl-clinic"
   ],
-  "status": "draft"
+  "status": "draft",
+  "concerns": [
+   "hair"
+  ]
  }
 ]
