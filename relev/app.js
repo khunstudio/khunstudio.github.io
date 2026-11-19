@@ -132,9 +132,9 @@
       [D.techs.concat(D.treatments).filter(function (x) { return x.status !== "draft" && x.status !== "sample"; }).length, "검수 완료"]
     ];
     return '<section class="hero">' +
-      '<p class="eyebrow">RE:LEV — The Skin Intelligence Platform · Prototype</p>' +
-      "<h1>READ YOUR SKIN.<br><em>LEAD YOUR CARE.</em></h1>" +
-      '<p class="lead">피부를 이해하고, 관리를 주도하다. 홈 뷰티 디바이스와 피부과 시술을 상품명이 아니라 <b>기술 · 성분 · 작용 기전</b>으로 읽고, 그 이해를 바탕으로 스스로 선택하도록 돕습니다.</p>' +
+      '<p class="eyebrow">RE:LEV — Beauty Intelligence Platform · Prototype</p>' +
+      "<h1>ELEVATE<br><em>YOUR BEAUTY.</em></h1>" +
+      '<p class="lead">아름다움의 새로운 단계. 홈 뷰티 디바이스와 피부과 시술을 상품명이 아니라 <b>기술 · 성분 · 작용 기전</b>으로 이해하고, 탐색하고, 스스로 선택하도록 돕습니다.</p>' +
       '<div class="cta"><a class="btn" href="#science">기술부터 읽기</a><a class="btn btn--ghost" href="#compare">비교해 보기</a></div>' +
       spectrumSvg() + "</section>" +
 
@@ -467,7 +467,7 @@
     view.innerHTML = html;
     document.querySelectorAll("[data-nav]").forEach(function (a) { a.classList.toggle("on", a.dataset.nav === nav); });
     var h1 = view.querySelector("h1");
-    document.title = (h1 && nav ? h1.textContent + " — " : "") + "RE:LEV — Read your skin. Lead your care.";
+    document.title = (h1 && nav ? h1.textContent + " — " : "") + "RE:LEV — Elevate your beauty.";
     renderTray();
   }
 
