@@ -37,7 +37,7 @@ DONE은 아래 명시된 범위의 실행 확인을 뜻한다. 코드 존재만�
 | CREW 실제 게시판 | NOT STARTED | 안내 페이지만 존재. 공개 조건인 인증·신고·차단·관리자 검토 미구현 |
 | SELECT 판매·제휴 DB | NOT STARTED | 준비 중/콘셉트 안내만 존재. 실제 판매·가격·제휴 성과로 표현하지 않음 |
 | 계정·동기화·PWA·네이티브 | NOT STARTED | 후속 단계. 이번 P0 보완에 포함하지 않음 |
-| 수정본 운영 배포 | PARTIAL | 로컬 정적 빌드 통과. 실제 원격 배포 결과는 아래 배포 기록에 갱신 |
+| 수정본 운영 배포 | BLOCKED | 코드 GitHub 반영 완료. Vercel 자동 배포 체크 없음, 대시보드 로그인 필요. 운영 반영 미확인 |
 
 ## 브랜드·사업 기준에서 확인한 간극
 
@@ -67,6 +67,7 @@ DONE은 아래 명시된 범위의 실행 확인을 뜻한다. 코드 존재만�
 - `npm run typecheck`: 통과.
 - 최종 `npm run build`: 통과. Next.js가 59개 정적 페이지 생성 과정을 완료하고 `out/` export.
 - `git diff --check`: 통과.
+- export된 HTML 파일 58개의 내부 `href`/`src` 경로를 정적 출력과 대조: 누락 대상 0개. 외부 URL 전체의 가용성 검사는 아님.
 - 모바일 390×844: 생활습관/초보/3분 체크→저장→아침 세안 완료→저녁 보습 제외→새로고침→25% 유지. MY 오늘 셀 25%, 최근 7일 평균 4% 확인.
 - 데스크톱 1280×900: CARE 카드 레이아웃·PX/상담 준비 이미지·검색 결과 없음 확인. 보이는 이미지 실패 없음.
 - 모듈 유형 자동 감지 및 Node 26의 module.register 관련 경고가 있었으나 테스트·타입·빌드 실패는 없었다. 이번 작업에서 런타임·패키지 버전은 변경하지 않았다.
@@ -96,4 +97,9 @@ DONE은 아래 명시된 범위의 실행 확인을 뜻한다. 코드 존재만�
 
 ## 배포 기록
 
-로컬 빌드 완료. GitHub 반영 및 Vercel 상태 확인 후 결과를 갱신한다.
+- 구현 커밋 `93e9747`을 `origin/reboot-concept`에 정상 push했다. [변경 확인](https://github.com/khunstudio/khunstudio.github.io/commit/93e9747).
+- 해당 커밋의 GitHub status와 check-runs, 브랜치 deployments에서 Vercel 실행 기록을 확인하지 못했다. status 응답의 `pending`은 실제 실행 중인 Vercel 배포의 증거가 아니다.
+- 이전 커밋 `3cf2087`에도 Vercel 체크가 없었다. 저장소의 확인된 최근 deployments는 `main`의 GitHub Pages 배포로, RE:BOOT의 Vercel 배포와 구분한다.
+- 현재 환경에 Vercel CLI 인증 설정이나 `VERCEL_TOKEN`이 없으며 대시보드 방문은 로그인 화면으로 이동했다. 기존 GitHub 인증은 정상이나 이를 Vercel 인증으로 간주하지 않는다.
+- 따라서 수정본의 실제 Vercel 배포는 **미완료**. 코드 push와 운영 배포를 구분한다. 로그인 후 `reboot`의 연결 저장소/Production Branch/Root Directory(`reboot-web`)/배포 커밋을 확인하고 배포해야 한다.
+- 이후 배포 성공 상태와 실제 주소에서 출처 섹션·보완된 이미지·기록 계산을 확인한 다음 이 상태를 갱신한다. 기존 도메인·프로젝트·접근 권한은 변경하지 않았다.
