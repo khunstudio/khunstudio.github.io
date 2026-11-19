@@ -304,7 +304,7 @@
   }
   function pageLearn() {
     var pick = LEARN.filter(function (x) { return (x.key || x.id) === learnPick; })[0] || LEARN[2];
-    return head("BASICS", "1분 기전 가이드", "고주파, 중주파, 집속 · 비집속 초음파, 일렉트로포레이션, LED, EMS, 갈바닉… 이름은 많아도 피부관리 기술은 결국 네 가지 에너지입니다.") +
+    return pageHero("assets/relev/editorial/fluid-glass.webp", "50% 50%", "BASICS", "1분<br>기전 가이드", "고주파, 중주파, 집속 · 비집속 초음파, 일렉트로포레이션, LED, EMS, 갈바닉… 이름은 많아도 피부관리 기술은 결국 네 가지 에너지입니다.", "투명한 유리 리본 (AI 생성 콘셉트)") +
       '<div class="energy">' + ENERGY.map(function (e) {
         var mem = LEARN.filter(function (x) { return x.e === e.id; });
         return '<div class="energy__card en-' + e.id + '"><span class="energy__icon">' + e.icon + '</span><p class="eyebrow">' + e.en + "</p><h2>" + e.name + '</h2><p>' + esc(e.line) + '</p><div class="chips">' + mem.map(function (x) { return '<button class="chip chip--plain" data-learn="' + (x.key || x.id) + '">' + esc(x.name) + "</button>"; }).join("") + "</div></div>";
@@ -335,7 +335,7 @@
     return D.devices.filter(function (d) { return (d.fullName || d.name).indexOf(term.match) > -1; });
   }
   function pageDecode() {
-    return head("DECODE", "이름 말고, 방식으로", "제조사가 만든 기능 이름이 실제로 어떤 기술인지 풀어 둡니다. 같은 이름이 제품마다 다른 기술을 가리키는 경우도 데이터로 보여 드립니다.") +
+    return pageHero("assets/relev/editorial/skin-texture.webp", "65% 40%", "DECODE", "이름 말고,<br>방식으로", "제조사가 만든 기능 이름이 실제로 어떤 기술인지 풀어 둡니다. 같은 이름이 제품마다 다른 기술을 가리키는 경우도 데이터로 보여 드립니다.", "피부 결이 보이는 얼굴 클로즈업 (AI 생성 콘셉트)") +
       listBar("에어샷, 쎄라, 부스터…") +
       '<div class="decode">' + D.terms.map(function (t) {
         var ds = termDevices(t), dist = {};
@@ -399,7 +399,7 @@
   function pageDevices() {
     var fams = D.taxonomy.families.filter(function (f) { return HOME_FAMILIES.indexOf(f.id) > -1 && D.devices.some(function (d) { return d.techIds.concat(d.techCandidates || []).some(function (t) { return familyOf(t) === f.id; }); }); });
     var items = D.devices.slice().sort(function (a, b) { return ((a.glowpick && a.glowpick.rank) || 999) - ((b.glowpick && b.glowpick.rank) || 999); });
-    return banner("assets/device-banner.webp", "유리 리본 옆에 놓인 화이트 홈 뷰티 디바이스 (AI 생성 콘셉트)") + head("DEVICE", "홈 디바이스 데이터베이스", "글로우픽 순위 상위 20개 · 주요 제품과 다나와 '피부관리기' 상품 정보(2026-11-19 조회)를 작용 기전으로 분류했습니다. 제조사 공식 자료(T5)가 있으면 우선하고, 이름만 있는 모드는 '확인 필요'로 둡니다.") +
+    return pageHero("assets/device-banner.webp", "58% 60%", "DEVICE", "홈 디바이스<br>데이터베이스", "글로우픽 순위 상위 20개 · 주요 제품과 다나와 '피부관리기' 상품 정보(2026-11-19 조회)를 작용 기전으로 분류했습니다. 제조사 공식 자료(T5)가 있으면 우선하고, 이름만 있는 모드는 '확인 필요'로 둡니다.", "흰색 홈 뷰티 디바이스와 유리 리본 (AI 생성 콘셉트)") +
       listBar("제품 · 브랜드 · 기술 검색 (예: 메디큐브, 갈바닉, LDM)") + concernChips(items) +
       '<div class="filters" role="group" aria-label="기술 계열 필터"><span class="filters__label">기술</span>' +
       '<button class="chip chip--plain" data-filter="all" aria-pressed="' + (listState.f === "all") + '">전체</button>' +
@@ -466,7 +466,7 @@
     var groups = clinicGroup === "concern"
       ? (D.taxonomy.concerns || []).map(function (c) { return { title: c.label, sub: "목적별", items: D.treatments.filter(function (t) { return (t.concerns || []).indexOf(c.id) > -1; }) }; })
       : ["energy", "aesthetic", "injectable", "surface"].map(function (k) { return { title: KIND_LABEL[k], sub: KIND_KO[k], items: D.treatments.filter(function (t) { return t.kind === k; }) }; });
-    return banner("assets/clinic-banner.webp", "곡선형 벽과 라벤더 유리 파티션이 있는 피부관리 공간 (AI 생성 콘셉트)") + head("CLINIC", "피부과 · 관리실 시술 백과", "상품명이 아니라 작용 기전과 성분으로 시술을 이해하도록 돕습니다. 목적은 일반적으로 소개되는 범위이며 효과를 보장하지 않습니다. 시술 추천 · 진단은 제공하지 않습니다.") +
+    return pageHero("assets/clinic-banner.webp", "70% 50%", "CLINIC", "피부과 · 관리실<br>시술 백과", "상품명이 아니라 작용 기전과 성분으로 시술을 이해하도록 돕습니다. 목적은 일반적으로 소개되는 범위이며 효과를 보장하지 않습니다. 시술 추천 · 진단은 제공하지 않습니다.", "라벤더 유리 파티션이 있는 피부관리 공간 (AI 생성 콘셉트)") +
       listBar("시술 · 성분 · 장비 검색 (예: 써마지, PLLA, LDM)") +
       '<div class="seg seg--sm" role="group" aria-label="묶는 방식"><button data-cgroup="concern" aria-pressed="' + (clinicGroup === "concern") + '">목적별</button><button data-cgroup="kind" aria-pressed="' + (clinicGroup === "kind") + '">방식별</button></div>' +
       groups.filter(function (g) { return g.items.length; }).map(function (g) {
@@ -517,7 +517,7 @@
   function pageScience() {
     var order = D.taxonomy.families.map(function (f) { return f.id; });
     var items = D.techs.slice().sort(function (a, b) { return order.indexOf(a.family) - order.indexOf(b.family); });
-    return head("SCIENCE", "피부관리 기술 백과", "제품과 시술을 이해하기 위한 기본기. 원리, 쉬운 설명, 확인된 근거의 범위, 안전성과 한계를 함께 적습니다. 처음이라면 <a href=\"#learn\">1분 기전 가이드</a>부터 보세요. 이미지는 AI 생성 콘셉트입니다.") +
+    return pageHero("assets/relev/editorial/evidence.webp", "72% 55%", "SCIENCE", "피부관리<br>기술 백과", "제품과 시술을 이해하기 위한 기본기. 원리, 쉬운 설명, 확인된 근거의 범위, 안전성과 한계를 함께 적습니다. 처음이라면 <a href=\"#learn\">1분 기전 가이드</a>부터 보세요. 이미지는 AI 생성 콘셉트입니다.", "현미경과 연구 노트 (AI 생성 콘셉트)") +
       listBar("기술 · 별칭 검색 (예: 갈바닉, EP, 물방울)") + concernChips(D.techs) +
       '<div class="grid">' + items.map(function (t) {
         var img = techImg(t.id), fam = familyMeta(t.family);
@@ -559,6 +559,9 @@
     return '<div class="page-head"><p class="eyebrow">' + eyebrow + "</p><h1>" + title + "</h1><p>" + desc + "</p></div>";
   }
   function banner(src, alt) { return '<div class="banner"><img src="' + src + '" alt="' + esc(alt) + '" width="1672" height="941"><span class="ai-tag">AI 생성 콘셉트 이미지</span></div>'; }
+  function pageHero(src, pos, eyebrow, title, desc, alt) {
+    return '<div class="bandwrap"><section class="phero" style="--pos:' + pos + '"><img src="' + src + '" alt="' + esc(alt) + '" width="1672" height="941" fetchpriority="high"><div class="phero__in"><div class="phero__text"><p class="eyebrow">' + eyebrow + "</p><h1>" + title + "</h1><p>" + desc + '</p></div></div><span class="ai-tag">AI 생성 콘셉트 이미지</span></section></div>';
+  }
   function notFound() { return head("404", "항목을 찾을 수 없습니다", '<a href="#home">홈으로</a>'); }
 
   // ── 페이지: 비교 ──────────────────────────────────
@@ -820,6 +823,7 @@
     view.innerHTML = html;
     document.body.classList.toggle("has-band", nav === "brand");
     document.body.classList.toggle("is-home", nav === "");
+    document.body.classList.toggle("has-phero", !!view.querySelector(".phero"));
     onScrollFx();
     document.querySelectorAll("[data-nav]").forEach(function (a) { a.classList.toggle("on", a.dataset.nav === nav); });
     document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", science: "explore", device: "explore", clinic: "explore", compare: "compare", brand: "brand", learn: "learn" }[nav] || "")); });

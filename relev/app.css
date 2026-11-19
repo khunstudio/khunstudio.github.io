@@ -746,3 +746,27 @@ body.is-home main > .section:first-of-type { margin-top: 72px; }
 .pair ul { margin: 0; padding-left: 18px; font-size: 14.5px; display: grid; gap: 4px; }
 .goals { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 10px; }
 .goal { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 10px; }
+
+/* ── 페이지 히어로: 화면을 채우는 이미지 + 텍스트 오버레이 ── */
+body.has-phero main { padding-top: 0; }
+.phero { position: relative; height: min(56.25vw, 92vh); min-height: 520px; overflow: hidden; background: #ece8f3; margin-bottom: 40px; }
+.phero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 60% 50%); }
+.phero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(246,244,241,.94) 0%, rgba(246,244,241,.78) 30%, rgba(246,244,241,0) 58%); }
+.phero__in { position: relative; z-index: 2; height: 100%; max-width: var(--max); margin: 0 auto; padding: 96px max(16px, env(safe-area-inset-left, 0px)) 48px; display: flex; align-items: center; }
+.phero__text { max-width: 500px; color: #26252d; }
+.phero__text .eyebrow { color: #4a4170; }
+.phero__text h1 { font-size: clamp(40px, 5.4vw, 72px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.08; margin: 10px 0 18px; }
+.phero__text p:not(.eyebrow) { color: #4a4858; font-size: 16px; }
+.phero__text a { color: #65558d; }
+.phero .ai-tag { z-index: 3; }
+@media (max-width: 760px) {
+  .phero { height: auto; min-height: 0; background: var(--porcelain); padding: 72px max(12px, env(safe-area-inset-left, 0px)) 0; }
+  .phero::before { display: none; }
+  .phero > img { position: relative; display: block; height: auto; aspect-ratio: 16 / 9; border-radius: 18px; }
+  .phero__in { padding: 22px max(16px, env(safe-area-inset-left, 0px)) 0; }
+  .phero__text { color: var(--carbon); }
+  .phero__text p:not(.eyebrow) { color: var(--ink-2); }
+  .phero__text h1 { font-size: 36px; }
+  .phero .ai-tag { top: 80px; bottom: auto; right: 22px; }
+  .phero__in { padding-left: 4px; padding-right: 4px; }
+}
