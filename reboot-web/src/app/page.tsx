@@ -12,7 +12,7 @@ import { MODES, MODE_ORDER } from "@/lib/labels";
 const AREAS_PHOTO = [
   { a: "skin", en: "SKIN", ko: "피부", d: "세안 · 보습 · 자외선 · 면도", photo: "sunscreen" as const, alt: "현관 창가에서 귀 뒤와 목에 선크림을 바르는 짧은 머리 남자" },
   { a: "body", en: "BODY", ko: "운동", d: "스트레칭 · 땀 관리", photo: "track" as const, alt: "해 뜨는 운동장에서 스트레칭하는 짧은 머리의 남자" },
-  { a: "style", en: "STYLE", ko: "헤어 · 스타일", d: "헤어 · 옷 · 외출 준비", photo: "mirror" as const, alt: "외출 전 거울을 보며 머리를 정리하는 남자" },
+  { a: "style", en: "STYLE", ko: "헤어 · 스타일", d: "헤어 · 옷 · 외출 준비", photo: "shirt" as const, alt: "거울 앞에서 흰 셔츠 깃을 정리하는 짧은 머리 남자" },
 ];
 
 export default function Home() {
@@ -92,7 +92,7 @@ export default function Home() {
             <li data-rv style={{ ["--d" as string]: "270ms" }}>
               <Link href="/care/life/" className="area-tile">
                 <div className="flex aspect-[4/5] flex-col justify-between rounded-[12px] bg-ink p-4 text-white">
-                  <p className="display mt-6 text-center text-[52px] sm:text-[72px]">06<span className="colon">:</span>00</p>
+                  <p className="display mt-6 text-center text-[clamp(34px,9vw,60px)] whitespace-nowrap">06<span className="colon">:</span>00</p>
                   <div>
                     <p className="display text-[34px]">LIFE</p>
                     <p className="mt-1 text-[14px] font-bold">생활습관</p>
@@ -133,11 +133,13 @@ export default function Home() {
       {/* 8. CREW · SELECT: 준비 중 두 장 */}
       <section className="t-sec">
         <div className="wrap grid gap-4 md:grid-cols-2">
-          <Link href="/crew/" className="t-panel band-ink" data-rv>
-            <span className="badge badge-soon">Beta 준비 중</span>
-            <p className="t-lg mt-6">&ldquo;내가 겪어봤으니,<br />너는 조금 덜 헤매도 된다.&rdquo;</p>
-            <p className="t-sub mt-4 !text-ink-mute">경험을 물려주는 CREW. 신고 · 차단 · 운영 원칙이 갖춰진 뒤에 열어요.</p>
-            <span className="t-panel-go">CREW가 만들려는 문화 →</span>
+          <Link href="/crew/" className="t-panel t-panel-photo" data-rv>
+            <div className="absolute inset-0"><Photo name="crew" alt="새벽 운동장 트랙에서 한 사람이 다른 사람의 어깨에 손을 얹고 나란히 선 두 남자의 뒷모습" position="50% 60%" className="h-full" /></div>
+            <div className="relative">
+              <span className="badge badge-soon">Beta 준비 중</span>
+              <p className="t-lg mt-6">&ldquo;내가 겪어봤으니,<br />너는 조금 덜 헤매도 된다.&rdquo;</p>
+              <p className="mt-4 text-[14px] text-white/80">경험을 물려주는 CREW. 신고 · 차단 · 운영 원칙이 갖춰진 뒤에 열어요.</p>
+            </div>
           </Link>
           <Link href="/select/" className="t-panel t-panel-photo" data-rv style={{ ["--d" as string]: "90ms" }}>
             <div className="absolute inset-0"><Photo name="kit" alt="세면대 위에 01, 02, 03 번호가 적힌 검정 용기 세 개 (콘셉트 디자인)" className="h-full" /></div>
@@ -150,14 +152,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9. 마지막 CTA */}
-      <section className="t-sec band-ink">
-        <div className="wrap text-center">
+      {/* 9. 마지막 CTA: 아침 햇빛 속 오렌지 컵 */}
+      <section className="t-cta">
+        <div className="absolute inset-0"><Photo name="cup" alt="아침 햇빛이 드는 흰 타일 선반 위의 오렌지 칫솔컵" sizes="large" position="70% 60%" className="h-full" /></div>
+        <div className="wrap relative">
           <p className="t-xxl" data-rv>오늘<span className="colon">,</span><br />다시 켜볼까요?</p>
           <div className="mt-10" data-rv style={{ ["--d" as string]: "120ms" }}>
             <Link href="/start/" className="btn btn-primary btn-lg">30초 체크 시작</Link>
           </div>
-          <p className="mt-5 text-[13px] text-ink-mute" data-rv style={{ ["--d" as string]: "200ms" }}>로그인 없이 · 기록은 내 브라우저에만 저장</p>
+          <p className="mt-5 text-[13px] text-mute" data-rv style={{ ["--d" as string]: "200ms" }}>로그인 없이 · 기록은 내 브라우저에만 저장</p>
         </div>
       </section>
 
