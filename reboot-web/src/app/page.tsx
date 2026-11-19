@@ -12,7 +12,7 @@ import { MODES, MODE_ORDER } from "@/lib/labels";
 const AREAS_PHOTO = [
   { a: "skin", en: "SKIN", ko: "피부", d: "세안 · 보습 · 자외선 · 면도", photo: "sunscreen" as const, alt: "현관 창가에서 귀 뒤와 목에 선크림을 바르는 짧은 머리 남자" },
   { a: "body", en: "BODY", ko: "운동", d: "스트레칭 · 땀 관리", photo: "track" as const, alt: "해 뜨는 운동장에서 스트레칭하는 짧은 머리의 남자" },
-  { a: "style", en: "STYLE", ko: "헤어 · 스타일", d: "헤어 · 옷 · 외출 준비", photo: "shirt" as const, alt: "거울 앞에서 흰 셔츠 깃을 정리하는 짧은 머리 남자" },
+  { a: "style", en: "STYLE", ko: "헤어 · 스타일", d: "헤어 · 옷 · 외출 준비", photo: "shirtup" as const, alt: "창가에서 흰 셔츠 깃을 여미며 위를 바라보는 짧은 머리 남자" },
 ];
 
 export default function Home() {
@@ -111,7 +111,7 @@ export default function Home() {
       {/* 7. 군 생활 */}
       <section className="t-sec band-mist">
         <div className="wrap grid items-center gap-10 md:grid-cols-[1fr_1.1fr] md:gap-16">
-          <div data-rv><Photo name="razor" alt="김 서린 거울 앞 스테인리스 선반 위의 면도기와 수건" ratio="1 / 1" className="rounded-[24px]" /></div>
+          <div data-rv><Photo name="buzz" alt="흰 이발 가운을 두르고 짧게 민 뒷머리, 앞에 놓인 바리캉" ratio="1 / 1" position="50% 30%" className="rounded-[24px]" /></div>
           <div>
             <p className="t-k" data-rv>FOR SERVICE LIFE</p>
             <h2 className="t-xl mt-4" data-rv>군 생활 중이라면,<br />여기부터.</h2>

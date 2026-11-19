@@ -1,4 +1,5 @@
 import type { Area, Mode } from "../lib/types.ts";
+import { MORE_GUIDES } from "./guides-more.ts";
 
 // CARE 가이드. 모두 일반적인 생활 관리 정보이며, 의료 전문가 검수 전 상태로 표시한다.
 // 검수가 끝나면 review를 "reviewed"로 바꾸고 reviewer · reviewedAt을 채운다.
@@ -22,7 +23,7 @@ export interface Guide {
   review: "draft" | "reviewed";
   reviewer?: string;
   /** 대표 사진 (public/images) */
-  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup";
+  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit";
   /** 진료 · 건강 관련 내용이라 상단에 안내를 크게 띄운다 */
   medicalNotice?: boolean;
   sections: GuideSection[];
@@ -155,14 +156,15 @@ export const GUIDES: Guide[] = [
 // 가이드별 대표 사진
 const IMAGES: Record<string, Guide["image"]> = {
   "skin-basics": "moisture",
-  "outdoor-day": "sunscreen",
+  "outdoor-day": "track",
   shaving: "razor",
   "workout-skin": "track",
   "next-chapter": "shirt",
-  "hair-growing": "shirtup",
+  "hair-growing": "mirror",
   "before-enlistment": "buzz",
   "sleep-reset": "night",
 };
 GUIDES.forEach((g) => { if (IMAGES[g.slug]) g.image = IMAGES[g.slug]; });
+GUIDES.push(...MORE_GUIDES);
 
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug);
