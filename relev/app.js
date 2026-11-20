@@ -149,7 +149,7 @@
           '<form class="h-search" data-search role="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input type="search" placeholder="제품 · 기술 · 시술 검색 (예: 갈바닉, 써마지)" aria-label="통합 검색"><button type="submit">검색</button></form>' +
           '<div class="h-cta"><a class="btn btn--lg" href="#learn">1분 기전 가이드</a><a class="btn btn--soft btn--lg" href="#device">디바이스 찾기</a></div>' +
         "</div>" +
-        '<figure class="h-hero__img"><img src="assets/relev/models/model-hand.webp" alt="라벤더 배경의 모델 클로즈업" width="1448" height="1086" fetchpriority="high"><figcaption class="ai-tag">AI 생성 이미지</figcaption></figure>' +
+        '<figure class="h-hero__img"><img src="assets/relev/models/model-hand.webp" alt="라벤더 배경의 모델 클로즈업" width="1448" height="1086" fetchpriority="high"></figure>' +
       "</div></section>" +
 
       '<section class="h-sec"><h2 class="h-title">바로 시작하기</h2><div class="cells">' +
@@ -252,7 +252,7 @@
     return p ? "assets/relev/" + p + ".webp" : null;
   }
   function figure(src, alt, cls) {
-    return '<figure class="fig ' + (cls || "") + '"><img src="' + src + '" alt="' + esc(alt) + '" loading="lazy" width="1536" height="1024"><figcaption class="ai-tag">AI 생성 콘셉트 이미지</figcaption></figure>';
+    return '<figure class="fig ' + (cls || "") + '"><img src="' + src + '" alt="' + esc(alt) + '" loading="lazy" width="1536" height="1024"></figure>';
   }
 
   // ── 페이지: 기전 가이드 (LEARN) ─────────────────
@@ -295,6 +295,14 @@
       '<p class="lp__links">' + (t ? '<a class="btn btn--ghost" href="#science--' + x.id + '">자세히 · 근거 보기</a>' : "") + (n ? ' <a class="btn btn--ghost" href="#device" data-goto-tech="' + x.id + '">이 기술 쓰는 디바이스 ' + n + "개</a>" : "") + "</p></div>" +
       '<div class="lp__skin">' + (skinSvg([x.id]) || '<p class="caption">피부 표면에서 느끼는 관리</p>') + "</div>";
   }
+  function lpPicker() {
+    var cur = LEARN.filter(function (x) { return (x.key || x.id) === learnPick; })[0] || LEARN[2];
+    return '<div class="seg" role="tablist" aria-label="에너지 종류">' + ENERGY.map(function (e) {
+        var n = LEARN.filter(function (x) { return x.e === e.id; }).length;
+        return '<button role="tab" data-energy="' + e.id + '" aria-selected="' + (e.id === cur.e) + '">' + esc(e.name.replace(/\s*\(.*\)/, "")) + "<small>" + n + "</small></button>";
+      }).join("") + "</div>" +
+      '<div class="lp-tabs" role="group" aria-label="기술 선택">' + LEARN.filter(function (x) { return x.e === cur.e; }).map(function (x) { var k = x.key || x.id; return '<button data-learn="' + k + '" aria-pressed="' + (k === learnPick) + '">' + esc(x.name) + "</button>"; }).join("") + "</div>";
+  }
   function pageLearn() {
     var pick = LEARN.filter(function (x) { return (x.key || x.id) === learnPick; })[0] || LEARN[2];
     return pageHero("assets/relev/editorial/fluid-glass.webp", "50% 50%", "BASICS", "1분<br>기전 가이드", "고주파, 중주파, 집속 · 비집속 초음파, 일렉트로포레이션, LED, EMS, 갈바닉… 이름은 많아도 피부관리 기술은 결국 네 가지 에너지입니다.", "투명한 유리 리본 (AI 생성 콘셉트)") +
@@ -304,7 +312,7 @@
       }).join("") + "</div>" +
 
       '<section class="section"><p class="eyebrow">Pick one</p><h2 class="sec-h">피부 속 어디까지, 어떤 느낌으로?</h2>' +
-      '<div class="lp-tabs" role="tablist">' + LEARN.map(function (x) { var k = x.key || x.id; return '<button role="tab" data-learn="' + k + '" aria-selected="' + (k === learnPick) + '">' + esc(x.name) + "</button>"; }).join("") + "</div>" +
+      '<div id="lpPick">' + lpPicker() + "</div>" +
       '<div class="lp" id="lp">' + learnDetail(pick) + "</div></section>" +
 
       '<section class="section"><p class="eyebrow">Electric spectrum</p><h2 class="sec-h">전기는 \'얼마나 빠르게 바뀌느냐\'로 하는 일이 달라요</h2>' +
@@ -513,7 +521,7 @@
   function pageScience() {
     var order = D.taxonomy.families.map(function (f) { return f.id; });
     var items = D.techs.slice().sort(function (a, b) { return order.indexOf(a.family) - order.indexOf(b.family); });
-    return pageHero("assets/relev/editorial/evidence.webp", "72% 55%", "SCIENCE", "피부관리<br>기술 백과", "제품과 시술을 이해하기 위한 기본기. 원리, 쉬운 설명, 확인된 근거의 범위, 안전성과 한계를 함께 적습니다. 처음이라면 <a href=\"#learn\">1분 기전 가이드</a>부터 보세요. 이미지는 AI 생성 콘셉트입니다.", "현미경과 연구 노트 (AI 생성 콘셉트)") +
+    return pageHero("assets/relev/editorial/evidence.webp", "72% 55%", "SCIENCE", "피부관리<br>기술 백과", "제품과 시술을 이해하기 위한 기본기. 원리, 쉬운 설명, 확인된 근거의 범위, 안전성과 한계를 함께 적습니다. 처음이라면 <a href=\"#learn\">1분 기전 가이드</a>부터 보세요.", "현미경과 연구 노트 (AI 생성 콘셉트)") +
       listBar("기술 · 별칭 검색 (예: 갈바닉, EP, 물방울)") + concernChips(D.techs) +
       '<div class="grid">' + items.map(function (t) {
         var img = techImg(t.id), fam = familyMeta(t.family);
@@ -554,9 +562,9 @@
   function head(eyebrow, title, desc) {
     return '<div class="page-head"><p class="eyebrow">' + eyebrow + "</p><h1>" + title + "</h1><p>" + desc + "</p></div>";
   }
-  function banner(src, alt) { return '<div class="banner"><img src="' + src + '" alt="' + esc(alt) + '" width="1672" height="941"><span class="ai-tag">AI 생성 콘셉트 이미지</span></div>'; }
+  function banner(src, alt) { return '<div class="banner"><img src="' + src + '" alt="' + esc(alt) + '" width="1672" height="941"></div>'; }
   function pageHero(src, pos, eyebrow, title, desc, alt) {
-    return '<div class="bandwrap"><section class="phero" style="--pos:' + pos + '"><img src="' + src + '" alt="' + esc(alt) + '" width="1672" height="941" fetchpriority="high"><div class="phero__in"><div class="phero__text"><p class="eyebrow">' + eyebrow + "</p><h1>" + title + "</h1><p>" + desc + '</p></div></div><span class="ai-tag">AI 생성 콘셉트 이미지</span></section></div>';
+    return '<div class="bandwrap"><section class="phero" style="--pos:' + pos + '"><img src="' + src + '" alt="' + esc(alt) + '" width="1672" height="941" fetchpriority="high"><div class="phero__in"><div class="phero__text"><p class="eyebrow">' + eyebrow + "</p><h1>" + title + "</h1><p>" + desc + '</p></div></div></section></div>';
   }
   function notFound() { return head("404", "항목을 찾을 수 없습니다", '<a href="#home">홈으로</a>'); }
 
@@ -735,7 +743,7 @@
 
   // ── 페이지: Brand (디자인 시스템 문서) ────────────
   function pageBrand() {
-    var nav = [["overview", "Overview"], ["logo", "Logo"], ["symbol", "Symbol & Motion"], ["graphic", "Graphic"], ["imagery", "Imagery"], ["color", "Color"], ["type", "Typography"], ["voice", "Voice & Tone"], ["copy", "Copywriting"]];
+    var nav = [["overview", "Overview"], ["logo", "Logo"], ["symbol", "Symbol & Motion"], ["graphic", "Graphic"], ["color", "Color"], ["type", "Typography"], ["voice", "Voice & Tone"], ["copy", "Copywriting"]];
     var colors = [["Signature Lavender", "#9a84e6", "시그니처 · 로고 진주 · 아이콘", "10%"], ["Lavender Mist", "#e6ddfb", "보조 면 · 정보 강조", "20%"], ["Soft Porcelain", "#f8f6fd", "기본 배경", "55%"], ["Liquid Titanium", "#BFC3C8", "디바이스 · 기술 그래픽", "5%"], ["Deep Ink", "#26252D", "텍스트 · 워드마크", "10%"], ["Deep Iris", "#6a52d9", "버튼 · 강조", "CTA"]];
     var sec = function (id, eyebrow, title, desc, body) {
       return '<section class="doc" id="b-' + id + '"><p class="eyebrow">' + eyebrow + "</p><h2>" + title + "</h2>" + (desc ? '<p class="doc__desc">' + desc + "</p>" : "") + body + "</section>";
@@ -774,10 +782,6 @@
         '<div class="gfx__card">' + pearlField("gfx__field", 1, 21) + "<span>Single Rise · 배너 · 썸네일</span></div>" +
         '<div class="gfx__card gfx__card--ui"><div class="ui-demo"><span class="pearl-bullet"></span>디바이스 기술 이해하기</div><div class="ui-demo"><span class="pearl-bullet"></span>나에게 맞는 관리 찾기</div><div class="pearl-loader" aria-label="로딩 예시"><i></i><i></i></div><span>UI 확장 · 리스트 기호 · 로딩</span></div>' +
         '<div class="gfx__card gfx__card--photo"><img src="assets/relev/models/model-wide.webp" alt="RE:LEV 키 비주얼 위에 워드마크를 올린 예시" loading="lazy">' + logoSvg("photo__logo") + "<span>사진 위 워드마크</span></div></div>") +
-
-      sec("imagery", "Imagery", "이미지 라이브러리", "라벤더 · 포슬린 · 티타늄 · 투명 유리 톤. 모든 이미지는 AI 생성 콘셉트로, 실제 제품 · 의료진 · 기관 · 사용자나 임상 결과로 표시하지 않습니다.",
-        '<div class="mood">' + [["models/model-wide", "브랜드 모델"], ["models/model-closeup", "피부 클로즈업"], ["editorial/hero-wide", "브랜드 모델 2"], ["editorial/skin-texture", "피부 결"], ["editorial/routine", "홈케어 루틴"], ["editorial/consultation", "상담"], ["editorial/evidence", "근거 · 연구"], ["editorial/fluid-glass", "Fluid Glass"], ["editorial/mature", "4050"], ["editorial/men", "남성"], ["editorial/cooling", "쿨링"], ["editorial/surface-care", "표면 관리"]]
-          .map(function (m) { return '<figure class="fig"><img src="assets/relev/' + m[0] + '.webp" alt="' + esc(m[1]) + ' 콘셉트 이미지" loading="lazy" width="1536" height="1024"><figcaption class="ai-tag">' + esc(m[1]) + " · AI 생성</figcaption></figure>"; }).join("") + "</div>") +
 
       sec("color", "Color", "LILAC INTELLIGENCE", "피부 과학과 세련된 여성성의 균형. 채도를 낮춘 라벤더로 화장품 브랜드 특유의 가벼움과 구분합니다.",
         '<div class="swatches">' + colors.map(function (c) { return '<button class="sw" data-copy="' + c[1] + '"><i style="background:' + c[1] + '"></i><b>' + c[0] + "</b><code>" + c[1] + "</code><span>" + c[2] + " · " + c[3] + "</span></button>"; }).join("") +
@@ -822,12 +826,26 @@
     document.body.classList.toggle("has-phero", !!view.querySelector(".phero"));
     onScrollFx();
     document.querySelectorAll("[data-nav]").forEach(function (a) { a.classList.toggle("on", a.dataset.nav === nav); });
-    document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", science: "explore", device: "explore", clinic: "explore", compare: "compare", brand: "brand", learn: "learn" }[nav] || "")); });
+    document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", learn: "learn", device: "device", clinic: "clinic", science: "learn", decode: "learn", compare: "compare" }[nav] || "")); });
     var h1 = view.querySelector("h1");
     document.title = (h1 && nav ? h1.textContent + " — " : "") + "RE:LEV — Re:level your skin.";
     renderTray();
     applyListFilter();
+    scrollHints();
   }
+
+  // 가로 스크롤 힌트: 더 넘길 내용이 있으면 끝을 흐리게
+  function scrollHints() {
+    view.querySelectorAll(".filters, .hscroll, .docs__nav").forEach(function (el) {
+      var upd = function () {
+        var more = el.scrollWidth - el.clientWidth > 4;
+        el.classList.toggle("can-r", more && el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+        el.classList.toggle("can-l", more && el.scrollLeft > 4);
+      };
+      upd(); if (!el.dataset.hint) { el.dataset.hint = 1; el.addEventListener("scroll", upd, { passive: true }); }
+    });
+  }
+  window.addEventListener("resize", function () { scrollHints(); });
 
   // ── 이벤트 ────────────────────────────────────────
   document.addEventListener("click", function (e) {
@@ -839,13 +857,21 @@
       else { var v = j.dataset.copy; try { navigator.clipboard.writeText(v).then(function () { j.classList.add("copied"); setTimeout(function () { j.classList.remove("copied"); }, 1200); }, function () {}); } catch (err) {} }
       return;
     }
+    var en = e.target.closest("[data-energy]");
+    if (en) {
+      var first = LEARN.filter(function (y) { return y.e === en.dataset.energy; })[0];
+      learnPick = first.key || first.id;
+      document.getElementById("lpPick").innerHTML = lpPicker();
+      document.getElementById("lp").innerHTML = learnDetail(first);
+      return;
+    }
     var lt = e.target.closest("[data-learn],[data-goto-tech]");
     if (lt) {
       if (lt.dataset.gotoTech) { listState = { q: "", c: "all", f: familyOf(lt.dataset.gotoTech) }; return; }
       learnPick = lt.dataset.learn;
       var x = LEARN.filter(function (y) { return (y.key || y.id) === learnPick; })[0];
       var box = document.getElementById("lp"); if (box && x) box.innerHTML = learnDetail(x);
-      view.querySelectorAll(".lp-tabs [data-learn]").forEach(function (b) { b.setAttribute("aria-selected", b.dataset.learn === learnPick); });
+      var pk = document.getElementById("lpPick"); if (pk) pk.innerHTML = lpPicker();
       if (lt.closest(".energy")) document.getElementById("lp").scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }

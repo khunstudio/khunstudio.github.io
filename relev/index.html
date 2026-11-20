@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css">
-  <link rel="stylesheet" href="app.css?v=17">
+  <link rel="stylesheet" href="app.css?v=19">
 </head>
 <body>
   <header class="pill" role="banner">
@@ -27,7 +27,6 @@
       <a href="#clinic" data-nav="clinic">Clinic</a>
       <a href="#compare" data-nav="compare">Compare</a>
       <a href="#decode" data-nav="decode">Decode</a>
-      <a href="#brand" data-nav="brand">Brand</a>
       <a href="#about" data-nav="about">About</a>
     </nav>
     <a class="pill__search" href="#search" aria-label="검색"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg></a>
@@ -42,21 +41,25 @@
       <p class="foot2__tag">Re:level your skin.</p>
       <div class="foot2__row">
         <a class="foot2__logo" href="#home" aria-label="RE:LEV 홈" data-logo>RE:LEV</a>
-        <nav aria-label="하단 메뉴"><a href="#learn">기전 가이드</a><a href="#device">Device</a><a href="#science">Science</a><a href="#clinic">Clinic</a><a href="#compare">Compare</a><a href="#decode">Decode</a><a href="#brand">Brand</a><a href="#about">About</a><a href="#contribute">정보 등록 · 수정 요청</a></nav>
+        <nav aria-label="하단 메뉴"><a href="#learn">기전 가이드</a><a href="#device">Device</a><a href="#science">Science</a><a href="#clinic">Clinic</a><a href="#compare">Compare</a><a href="#decode">Decode</a></nav>
       </div>
-      <p class="foot2__note">PROTOTYPE · 모든 데이터는 검수 전 초안이며, 디바이스 기술 분류는 판매 표기 기준으로 제조사 확인 전입니다. RE:LEV는 진단 · 시술 추천 · 처방을 제공하지 않습니다. 시술 여부와 홈 디바이스 병행 사용은 의료진과 제조사 공식 지침을 우선하세요.</p>
-      <p class="foot2__note">© 2026 RE:LEV · A KHUN STUDIO project</p>
+      <div class="foot2__biz">
+        <nav aria-label="회사 정보"><a href="#about">서비스 소개</a><a href="#brand">브랜드</a><a href="#contribute">정보 등록 · 수정 요청</a></nav>
+        <p>RE:LEV · A KHUN STUDIO project</p>
+      </div>
+      <p class="foot2__note">PROTOTYPE · 모든 데이터는 검수 전 초안이며, 디바이스 기술 분류는 판매 표기 기준으로 제조사 확인 전입니다. RE:LEV는 진단 · 시술 추천 · 처방을 제공하지 않습니다. 시술 여부와 홈 디바이스 병행 사용은 의료진과 제조사 공식 지침을 우선하세요. 사이트의 인물 · 제품 · 공간 이미지는 AI로 만든 연출 이미지입니다.</p>
+      <p class="foot2__note">© 2026 RE:LEV</p>
     </div>
   </footer>
 
   <nav class="tabbar" aria-label="하단 메뉴">
     <a href="#home" data-tab="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg>홈</a>
     <a href="#learn" data-tab="learn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="16" r="3"/></svg>기전</a>
-    <a href="#science" data-tab="explore"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M15 9l-2 4-4 2 2-4z"/></svg>탐색</a>
-    <a href="#compare" data-tab="compare"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M5 12h14M7 16h10"/></svg>비교</a>
-    <a href="#brand" data-tab="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="17" r="3"/><circle cx="12" cy="6" r="3"/></svg>Brand</a>
+    <a href="#device" data-tab="device"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="15" rx="3"/><path d="M8 21h8"/></svg>디바이스</a>
+    <a href="#clinic" data-tab="clinic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10a7 7 0 0 1 14 0v10"/><path d="M10 20v-6h4v6"/></svg>시술</a>
+    <a href="#compare" data-tab="compare"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="7" height="14" rx="2"/><rect x="14" y="5" width="7" height="14" rx="2"/></svg>비교</a>
   </nav>
 
-  <script src="app.js?v=22"></script>
+  <script src="app.js?v=24"></script>
 </body>
 </html>
