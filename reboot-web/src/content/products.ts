@@ -1,6 +1,10 @@
+import { PARTNER_LINKS } from "./partner-links.generated.ts";
+
 // 성분별 "많이 알려진 예시 제품". 추천 순위가 아니라, 그 성분을 내세운 대표적인 제품을 보여 주는 목록이다.
 // - 고르는 기준은 성분이며, 수수료 유무로 넣거나 빼지 않는다.
-// - partnerUrl: 쿠팡 파트너스에서 생성한 링크(link.coupang.com/a/...)를 붙여 넣는다. 없으면 일반 검색으로 연결한다.
+// - partnerUrl: 쿠팡 파트너스에서 직접 만든 링크(link.coupang.com/a/...)를 붙여 넣으면 그대로 쓴다.
+// - 없으면 빌드 때 scripts/partner-links.mts가 API로 만든 링크(PARTNER_LINKS)를 쓰고, 그것도 없으면 일반 검색으로 연결한다.
+// - coupangUrl: 정확한 상품 페이지 주소. 있으면 자동 링크가 검색 결과 대신 이 페이지로 간다.
 // - 제품 처방은 바뀔 수 있으므로 화면에 "구매 전 전성분 확인"을 함께 보여 준다.
 
 export interface Product {
@@ -15,6 +19,8 @@ export interface Product {
   note: string;
   /** 쿠팡 파트너스 링크 (있을 때만 제휴 표시) */
   partnerUrl?: string;
+  /** 쿠팡 상품 페이지 주소 (자동 링크 생성용) */
+  coupangUrl?: string;
 }
 
 export const PRODUCTS: Product[] = [
@@ -39,6 +45,9 @@ export const PRODUCTS: Product[] = [
   { id: "tbs-teatree", ingredient: "tea-tree", brand: "더바디샵", name: "티트리 오일", kind: "오일 (부분용)", note: "티트리 오일로 가장 많이 알려진 제품. 원액을 넓게 바르지 말고 부분에만" },
   { id: "vt-reedle100", ingredient: "spicule", brand: "VT", name: "리들샷 100 에센스", kind: "에센스", note: "스피큘 화장품을 대중화한 제품. 숫자가 낮은 100부터 시작해요" },
 ];
+
+// 빌드 때 생성된 파트너스 링크를 합친다 (직접 넣은 partnerUrl이 우선)
+for (const p of PRODUCTS) if (!p.partnerUrl && PARTNER_LINKS[p.id]) p.partnerUrl = PARTNER_LINKS[p.id];
 
 export const productsFor = (slug: string) => PRODUCTS.filter((p) => p.ingredient === slug);
 

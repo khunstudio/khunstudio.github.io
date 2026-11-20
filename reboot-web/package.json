@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node --experimental-strip-types scripts/partner-links.mts || true",
     "build": "next build",
     "start": "npx serve out",
     "lint": "next lint",
