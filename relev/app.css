@@ -1202,3 +1202,16 @@ body.psheet-open { overflow: hidden; }
 .subfilters__note { margin-left: auto; font-size: 12px; color: var(--t3); }
 @media (max-width: 760px) { .subfilters__note { display: none; } }
 .nmbar__ticks span { white-space: nowrap; }
+
+/* ── 페이지 히어로 v2: 텍스트 + 이미지 카드 (데스크톱) ── */
+@media (min-width: 761px) {
+  .phero { height: auto; min-height: 0; max-width: var(--max); margin: 0 auto 48px; padding: 104px 20px 0; background: transparent; overflow: visible;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 56px; align-items: center; }
+  .phero::before { display: none; }
+  .phero > img { position: relative; inset: auto; order: 2; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 24px; object-fit: cover; }
+  .phero__in { height: auto; max-width: none; margin: 0; padding: 0; display: block; }
+  .phero__text { max-width: 480px; }
+  .phero__text h1 { font-size: clamp(34px, 3.6vw, 48px); margin: 8px 0 14px; }
+  .phero__text p:not(.eyebrow) { font-size: 16px; color: var(--t2); }
+}
+@media (min-width: 761px) and (max-width: 1000px) { .phero { grid-template-columns: 1fr 1fr; gap: 32px; } }
