@@ -1,4 +1,4 @@
-import type { Area, Concern, Experience, Goal, Minutes, Mode, Situation } from "./types.ts";
+import type { AgeBand, Area, Concern, Focus, Status, Experience, Goal, Minutes, Mode, Situation } from "./types.ts";
 
 export const MODES: Record<Mode, { en: string; ko: string; desc: string }> = {
   prepare: { en: "PREPARE", ko: "입대 준비", desc: "입대 전에 기본 관리 습관을 만들어 두고 싶어요" },
@@ -80,3 +80,25 @@ export function situationLabel(mode: Mode, s: Situation): string {
   return (mode === "service" ? service : other)[s];
 }
 export const SITUATION_ORDER: Situation[] = ["default", "active", "out"];
+
+export const AGES: Record<AgeBand, string> = { teen: "10대", "20e": "20대 초반", "20l": "20대 후반", "30s": "30대", "40p": "40대 이상" };
+export const AGE_ORDER: AgeBand[] = ["teen", "20e", "20l", "30s", "40p"];
+
+export const STATUSES: Record<Status, string> = { student: "학생", jobseeker: "취업 준비", worker: "직장인", freelance: "프리랜서 · 자영업", service: "군 복무 중", other: "그 외" };
+/** 생활 단계에 맞는 선택지만 보여 준다 */
+export function statusOptions(mode?: Mode): Status[] {
+  if (mode === "service") return ["service"];
+  if (mode === "prepare") return ["student", "jobseeker", "worker", "freelance", "other"];
+  return ["student", "jobseeker", "worker", "freelance", "other"];
+}
+
+export const FOCUSES: Record<Focus, { ko: string; desc: string }> = {
+  looks: { ko: "인상 · 외모", desc: "피부 · 헤어 · 옷으로 첫인상" },
+  fitness: { ko: "몸 만들기", desc: "운동 · 체력 · 체형" },
+  dating: { ko: "연애 · 만남", desc: "만나기 전 준비 · 향" },
+  career: { ko: "취업 · 커리어", desc: "면접 · 이력서 · 출근" },
+  health: { ko: "건강 · 컨디션", desc: "수면 · 검진 · 피로" },
+  money: { ko: "돈 관리", desc: "저축 · 소비 습관" },
+  study: { ko: "공부 · 자격증", desc: "시험 · 꾸준한 공부" },
+};
+export const FOCUS_ORDER: Focus[] = ["looks", "fitness", "career", "dating", "health", "study", "money"];

@@ -8,6 +8,16 @@ function score(t: Template, a: CheckAnswers): number {
   if (t.concerns?.some((c) => a.concerns.includes(c))) s += 30;
   if (t.areas?.some((x) => a.interests.includes(x))) s += 20;
   if (t.modes?.includes(a.mode)) s += 20;
+  s += personal(t, a);
+  return s;
+}
+
+/** 개인화 가점: 관심사 · 지금 생활 · 나이대 */
+function personal(t: Template, a: CheckAnswers): number {
+  let s = 0;
+  if (t.focus?.some((f) => a.focus?.includes(f))) s += 25;
+  if (a.status && t.statuses?.includes(a.status)) s += 25;
+  if (a.age && t.ages?.includes(a.age)) s += 15;
   return s;
 }
 
@@ -18,7 +28,7 @@ function eligible(t: Template, a: CheckAnswers): boolean {
   const byArea = t.areas?.some((x) => a.interests.includes(x)) ?? false;
   const byConcern = t.concerns?.some((c) => a.concerns.includes(c)) ?? false;
   const byMode = t.modes?.includes(a.mode) ?? false;
-  return byArea || byConcern || byMode;
+  return byArea || byConcern || byMode || personal(t, a) > 0;
 }
 
 // 실제로 하는 순서 (같은 시간대 안에서 이 값이 작은 것부터)
@@ -27,7 +37,7 @@ const SEQ: Record<string, number> = {
   "stretch": 50, "water": 55, "mirror-check": 60, "out-grooming": 65, "out-clinic-note": 70,
   "pm-cleanse": 10, "after-active-rinse": 12, "sweat-rinse": 14, "pm-moisturize": 30, "dry-extra": 32, "lip-hand": 35,
   "serum-step": 25, "shave-grain": 16, "blot-tzone": 47, "noon-sunscreen": 46, "hair-style": 58, "walk": 52,
-  "active-pm": 25, "soothe-quick": 29, "pillow-towel": 36, "hands-off": 37, "soothing-pad": 33, "device-care": 34, "outfit-prep": 45, "bodyweight": 8, "plan-tomorrow": 62, "read-10": 63,
+  "active-pm": 25, "soothe-quick": 29, "pillow-towel": 36, "hands-off": 37, "soothing-pad": 33, "device-care": 34, "outfit-prep": 45, "bodyweight": 8, "plan-tomorrow": 62, "read-10": 63, "intro-1min": 64, "study-log": 64, "spend-log": 66, "nail-lip": 36, "eye-neck": 31, "commute-check": 61, "scent-one": 62, "posture-reset": 51,
   "hair-dry": 40, "workout-log": 50, "enlist-checklist": 55, "screen-off": 60, "reflect": 65,
 };
 const seq = (id: string) => SEQ[id] ?? 99;
@@ -87,6 +97,16 @@ export function buildRoutine(a: CheckAnswers): RoutineItem[] {
       else areaLeft.skin = Math.max(0, areaLeft.skin - t.minutes);
     }
   }
+  // 0.5차: 나이대 · 생활 · 관심사로 맞춘 항목은 두 개까지 먼저 (짧은 것만)
+  let personalCount = 0;
+  for (const t of extras) {
+    if (personalCount >= 2) break;
+    if (picked.includes(t) || personal(t, a) === 0 || t.minutes > 1) continue;
+    if (t.minutes <= total + 1e-9) {
+      picked.push(t); total -= t.minutes; personalCount++;
+      areaLeft[t.area] = Math.max(0, areaLeft[t.area] - t.minutes);
+    }
+  }
   // 1차: 각 영역에 배정된 시간 안에서
   for (const t of extras) {
     if (picked.includes(t)) continue;
@@ -136,7 +156,11 @@ export function recommendedGuides(a: CheckAnswers): string[] {
   if (a.interests.includes("style")) add("hair-growing");
   if (a.interests.includes("life")) add("sleep-reset");
   if (a.mode === "service") add("leave-prep");
-  return out.slice(0, 4);
+  // 관심사는 앞쪽(기본 가이드 다음)에 끼워 넣는다
+  const byFocus: Partial<Record<string, string>> = { career: "interview-day", dating: "fragrance-start", fitness: "bodyweight-start", health: "sleep-reset" };
+  const focusGuides = (a.focus ?? []).map((f) => byFocus[f]).filter((x): x is string => !!x && !out.slice(0, 2).includes(x));
+  const merged = [...out.slice(0, 2), ...focusGuides, ...out.slice(2)].filter((x, i, arr) => arr.indexOf(x) === i);
+  return merged.slice(0, 4);
 }
 
 /** 현재 상황에서 보이는 활성 항목 */

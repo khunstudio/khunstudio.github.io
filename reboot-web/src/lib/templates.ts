@@ -1,4 +1,4 @@
-import type { Area, Concern, Mode, Situation, Slot } from "./types.ts";
+import type { AgeBand, Focus, Status, Area, Concern, Mode, Situation, Slot } from "./types.ts";
 
 // 루틴 항목 템플릿. 모든 문구는 일반적인 생활 관리 정보이며 진단·처방이 아니다.
 // 특정 브랜드 제품을 추천하지 않고 제품 "종류"만 말한다.
@@ -22,6 +22,10 @@ export interface Template {
   /** 지정 시 해당 상황에서만 보이는 추가 항목 (시간 예산에 포함하지 않음) */
   situations?: Situation[];
   minMinutes?: number;
+  /** 개인화: 요즘 관심사 · 지금 생활 · 나이대가 맞으면 추천 (선택 입력) */
+  focus?: Focus[];
+  statuses?: Status[];
+  ages?: AgeBand[];
 }
 
 export const TEMPLATES: Template[] = [
@@ -88,13 +92,13 @@ export const TEMPLATES: Template[] = [
     guide: "workout-skin",
   },
   {
-    id: "stretch", title: "5분 스트레칭", slot: "am", area: "body", minutes: 2, base: 22, areas: ["body"], minMinutes: 5,
+    id: "stretch", focus: ["fitness","health"], title: "5분 스트레칭", slot: "am", area: "body", minutes: 2, base: 22, areas: ["body"], minMinutes: 5,
     why: "굳은 몸을 풀어두면 하루 컨디션과 자세에 도움이 됩니다.",
     how: "목·어깨·허리·햄스트링을 각 30초씩 천천히 늘려요. 아프면 멈춰요.",
     guide: "workout-skin",
   },
   {
-    id: "workout-log", title: "운동 한 줄 기록", slot: "pm", area: "body", minutes: 1, base: 18, areas: ["body"], minMinutes: 10,
+    id: "workout-log", focus: ["fitness"], title: "운동 한 줄 기록", slot: "pm", area: "body", minutes: 1, base: 18, areas: ["body"], minMinutes: 10,
     why: "무엇을 얼마나 했는지 적어 두면 무리하지 않고 꾸준히 늘릴 수 있어요.",
     how: "종목 · 세트 · 느낌을 한 줄로 메모해요.",
   },
@@ -105,19 +109,19 @@ export const TEMPLATES: Template[] = [
     guide: "hair-growing",
   },
   {
-    id: "mirror-check", title: "외출 전 거울 30초", slot: "am", area: "style", minutes: 0.5, base: 16, areas: ["style"],
+    id: "mirror-check", focus: ["looks","dating"], title: "외출 전 거울 30초", slot: "am", area: "style", minutes: 0.5, base: 16, areas: ["style"],
     why: "머리 뻗침, 눈썹·코털, 옷 구김처럼 작은 것만 정리해도 인상이 정돈돼 보여요.",
     how: "정면 · 옆모습을 한 번씩 보고 눈에 띄는 것 하나만 고쳐요.",
     guide: "next-chapter",
   },
   {
-    id: "water", title: "물 한 병 채우기", slot: "am", area: "life", minutes: 0.5, base: 14, areas: ["life", "body"],
+    id: "water", focus: ["health"], title: "물 한 병 채우기", slot: "am", area: "life", minutes: 0.5, base: 14, areas: ["life", "body"],
     why: "물을 가까이 두면 마시는 양을 챙기기 쉬워요.",
     how: "아침에 물병을 채워 눈에 보이는 곳에 둬요.",
     guide: "sleep-reset",
   },
   {
-    id: "screen-off", title: "잠들기 전 화면 끄기", slot: "pm", area: "life", minutes: 1, base: 15, areas: ["life"], minMinutes: 5,
+    id: "screen-off", focus: ["health"], title: "잠들기 전 화면 끄기", slot: "pm", area: "life", minutes: 1, base: 15, areas: ["life"], minMinutes: 5,
     why: "잠들기 직전까지 화면을 보면 잠드는 데 시간이 더 걸릴 수 있어요.",
     how: "자기 10분 전에 휴대폰을 내려놓고 다음 날 알람만 확인해요. 사용 규정이 있는 곳에서는 그 규정을 따라요.",
     guide: "sleep-reset",
@@ -181,36 +185,36 @@ export const TEMPLATES: Template[] = [
     guide: "retinoid-start",
   },
   {
-    id: "hair-style", title: "드라이 + 스타일링", slot: "am", area: "style", minutes: 3, base: 17, areas: ["style"], minMinutes: 10,
+    id: "hair-style", focus: ["looks","dating"], title: "드라이 + 스타일링", slot: "am", area: "style", minutes: 3, base: 17, areas: ["style"], minMinutes: 10,
     why: "같은 머리도 말리는 방향과 제품 한 번으로 인상이 달라져요.",
     how: "뿌리부터 말리고, 넘기고 싶은 방향의 반대로 먼저 말렸다가 원래 방향으로. 제품은 콩알만큼.",
     guide: "hair-dry",
   },
   {
-    id: "outfit-prep", title: "내일 입을 옷 미리 꺼내기", slot: "pm", area: "style", minutes: 2, base: 13, areas: ["style"], minMinutes: 10,
+    id: "outfit-prep", focus: ["looks","career","dating"], title: "내일 입을 옷 미리 꺼내기", slot: "pm", area: "style", minutes: 2, base: 13, areas: ["style"], minMinutes: 10,
     why: "아침 시간을 아끼고, 구김 · 얼룩을 미리 확인할 수 있어요.",
     how: "상의 · 하의 · 신발을 한곳에. 구김은 전날 펴 두기.",
     guide: "basic-wardrobe",
   },
   {
-    id: "bodyweight", title: "맨몸 운동 15분", slot: "pm", area: "body", minutes: 15, base: 60, areas: ["body"], minMinutes: 30,
+    id: "bodyweight", focus: ["fitness"], title: "맨몸 운동 15분", slot: "pm", area: "body", minutes: 15, base: 60, areas: ["body"], minMinutes: 30,
     why: "기구 없이 방에서 할 수 있는 근력 운동이 체형과 컨디션의 바탕이 돼요.",
     how: "스쿼트 · 팔굽혀펴기 · 플랭크 · 런지를 3바퀴. 통증이 있으면 멈추고, 질환이 있으면 먼저 상담해요.",
     guide: "bodyweight-start",
   },
   {
-    id: "walk", title: "빠르게 걷기 10분", slot: "am", area: "body", minutes: 10, base: 24, areas: ["body"], minMinutes: 30,
+    id: "walk", focus: ["fitness","health"], title: "빠르게 걷기 10분", slot: "am", area: "body", minutes: 10, base: 24, areas: ["body"], minMinutes: 30,
     why: "가장 진입 장벽이 낮은 유산소예요. 아침 햇빛까지 같이 챙겨요.",
     how: "숨이 조금 찰 정도의 속도로 10분. 출근 · 이동 시간에 끼워 넣어도 돼요.",
   },
   {
-    id: "plan-tomorrow", title: "내일 할 일 3개 적기", slot: "pm", area: "life", minutes: 2, base: 11, areas: ["life"], minMinutes: 10,
+    id: "plan-tomorrow", focus: ["career","study"], title: "내일 할 일 3개 적기", slot: "pm", area: "life", minutes: 2, base: 11, areas: ["life"], minMinutes: 10,
     why: "머릿속에 있는 걸 꺼내 두면 잠들기 쉽고 아침이 덜 급해요.",
     how: "종이나 메모 앱에 딱 3개만.",
     guide: "phone-night",
   },
   {
-    id: "read-10", title: "10분 읽기 · 정리", slot: "pm", area: "life", minutes: 10, base: 10, areas: ["life"], minMinutes: 30,
+    id: "read-10", focus: ["study","career"], title: "10분 읽기 · 정리", slot: "pm", area: "life", minutes: 10, base: 10, areas: ["life"], minMinutes: 30,
     why: "화면 대신 다른 걸로 하루를 마무리하는 연습이에요.",
     how: "책 · 공부 · 방 정리 중 하나를 10분. 생활관이라면 소등 규정 안에서.",
     guide: "phone-night",
@@ -236,6 +240,49 @@ export const TEMPLATES: Template[] = [
   },
 
   // ── 상황별 추가 (시간 예산 밖) ──
+  // ── 개인화 (나이대 · 지금 생활 · 관심사) ──
+  {
+    id: "intro-1min", title: "1분 자기소개 소리 내 말하기", slot: "pm", area: "life", minutes: 1, base: 12, focus: ["career"], statuses: ["jobseeker"],
+    why: "면접에서 가장 먼저, 가장 자주 듣는 질문이에요. 소리 내 본 횟수만큼 덜 떨려요.",
+    how: "타이머 1분. 지금 하는 일 · 잘하는 것 · 지원 이유 순서로. 녹음해서 한 번 들어 보면 더 좋아요.",
+    guide: "interview-day",
+  },
+  {
+    id: "commute-check", title: "출근 전 30초 점검", slot: "am", area: "style", minutes: 0.5, base: 14, statuses: ["worker"], focus: ["career"],
+    why: "매일 보는 사람들에게 남는 인상은 큰 변화보다 작은 정돈에서 나와요.",
+    how: "현관 거울에서 머리 뒤쪽 · 코털 · 셔츠 깃 · 신발 순서로 훑어요.",
+  },
+  {
+    id: "scent-one", title: "향 한 번 (손목 · 목 뒤)", slot: "am", area: "style", minutes: 0.2, base: 12, focus: ["dating", "looks"],
+    why: "향은 가까이 왔을 때만 느껴지는 정도가 좋아요. 뿌리는 위치가 양보다 중요해요.",
+    how: "손목 안쪽이나 목 뒤에 한 번. 비비지 말고 그대로 말려요.",
+    guide: "fragrance-start",
+  },
+  {
+    id: "nail-lip", title: "손톱 · 입술 점검", slot: "pm", area: "style", minutes: 0.5, base: 12, focus: ["dating", "looks"],
+    why: "악수하거나 마주 앉으면 가장 먼저 보이는 곳이에요.",
+    how: "손톱이 하얀 부분 1mm 넘으면 정리, 입술이 일어나면 립밤.",
+  },
+  {
+    id: "spend-log", title: "오늘 쓴 돈 한 줄", slot: "pm", area: "life", minutes: 1, base: 11, focus: ["money"],
+    why: "어디에 쓰는지 보이기 시작하면 줄일 곳도 저절로 보여요.",
+    how: "메모 앱에 '항목 · 금액' 한 줄. 일주일 뒤 합계만 봐요.",
+  },
+  {
+    id: "study-log", title: "오늘 공부 한 줄 기록", slot: "pm", area: "life", minutes: 1, base: 11, focus: ["study"], statuses: ["student", "jobseeker"],
+    why: "공부한 양보다 '끊기지 않는 것'이 시험까지 가는 힘이에요.",
+    how: "과목 · 범위 · 시간 한 줄. GOALS에 시험일을 넣으면 D-day 점검도 같이 잡혀요.",
+  },
+  {
+    id: "eye-neck", title: "눈가 · 목까지 보습 이어 바르기", slot: "pm", area: "skin", minutes: 0.3, base: 14, ages: ["30s", "40p"], focus: ["looks"],
+    why: "얼굴만 바르고 끝내기 쉬운 곳인데, 피부가 얇아 건조함이 먼저 드러나요.",
+    how: "얼굴에 바르고 남은 크림을 약지로 눈가에 톡톡, 손바닥으로 목을 아래에서 위로.",
+  },
+  {
+    id: "posture-reset", title: "앉은 자세 리셋 1분", slot: "am", area: "body", minutes: 1, base: 12, statuses: ["worker", "student", "freelance"], focus: ["health", "fitness"],
+    why: "오래 앉아 있으면 어깨가 말리고 목이 앞으로 빠지기 쉬워요.",
+    how: "의자 끝에 앉아 어깨를 뒤로 크게 다섯 번 돌리고, 턱을 당긴 채 10초 버티기를 세 번.",
+  },
   {
     id: "sunscreen-reapply", title: "자외선 차단제 덧바르기", slot: "am", area: "skin", minutes: 0.5, base: 50, situations: ["active"],
     why: "밖에 오래 있는 날은 땀과 마찰로 차단제가 지워지기 쉬워요.",

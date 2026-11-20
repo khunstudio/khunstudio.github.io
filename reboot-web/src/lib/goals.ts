@@ -1,4 +1,4 @@
-import type { Anchor, Checkpoint, LifeGoal, Mode } from "./types.ts";
+import type { AgeBand, Anchor, Checkpoint, Focus, LifeGoal, Mode, Status } from "./types.ts";
 
 // 목표 · 버킷리스트 · 남은 기간별 추천. 규칙 기반이다 (AI 아님).
 // 추천 목록은 RE:BOOT 편집 제안이며, 실제 사용자 통계가 아니다.
@@ -44,6 +44,49 @@ export const BUCKET_SUGGESTIONS: Record<Mode, string[]> = {
   next: ["이력서 · 포트폴리오 완성", "새 헤어스타일 찾기", "옷장 다시 짜기", "건강검진 받기", "운동 루틴 3개월 유지", "가 보고 싶던 곳 여행", "자격증 · 공부 목표"],
   everyday: ["올해 여행 한 번", "운동 루틴 3개월 유지", "책 12권 읽기", "새 취미 하나", "저축 목표", "피부 루틴 100일", "건강검진 받기"],
 };
+
+/** 관심사 · 지금 생활 · 나이대별 버킷리스트 제안 */
+const BY_FOCUS: Record<Focus, string[]> = {
+  looks: ["나한테 맞는 헤어스타일 찾기", "피부 루틴 100일", "기본 옷 5벌로 옷장 정리"],
+  fitness: ["3개월 운동 루틴 유지", "5km 쉬지 않고 달리기", "턱걸이 10개"],
+  dating: ["나한테 어울리는 향 하나 찾기", "사진 잘 나오는 옷 · 헤어 정리", "같이 할 취미 하나 만들기"],
+  career: ["이력서 · 포트폴리오 완성", "모의 면접 3번", "업무 관련 자격증 하나"],
+  health: ["건강검진 받기", "수면 시간 7시간 한 달", "치과 스케일링"],
+  money: ["비상금 3개월치 모으기", "고정 지출 점검 · 구독 정리", "매달 저축 목표 지키기"],
+  study: ["목표 시험 날짜 정하고 접수", "매일 공부 기록 30일", "자격증 하나 따기"],
+};
+const BY_STATUS: Partial<Record<Status, string[]>> = {
+  student: ["학기 목표 학점 정하기", "방학에 해 볼 것 하나"],
+  jobseeker: ["지원서 10곳 넣기", "면접 복장 한 벌 맞추기"],
+  worker: ["연차로 혼자 여행", "출근 전 운동 습관"],
+  freelance: ["작업 시간 · 쉬는 시간 정하기", "포트폴리오 업데이트"],
+};
+const BY_AGE: Partial<Record<AgeBand, string[]>> = {
+  "30s": ["눈가 · 목까지 보습 습관", "기초 체력 측정해 보기"],
+  "40p": ["정기 건강검진 일정 잡기", "관절에 무리 없는 운동 찾기"],
+  teen: ["하고 싶은 일 세 가지 적어 보기"],
+};
+
+export interface Persona { age?: AgeBand; status?: Status; focus?: Focus[] }
+
+/** 생활 단계 + 개인화 정보를 합친 제안 (관심사 먼저, 중복 제거) */
+export function bucketFor(mode: Mode, me: Persona = {}): string[] {
+  const list = [
+    ...(me.focus ?? []).flatMap((f) => BY_FOCUS[f]),
+    ...(me.status ? BY_STATUS[me.status] ?? [] : []),
+    ...(me.age ? BY_AGE[me.age] ?? [] : []),
+    ...BUCKET_SUGGESTIONS[mode],
+  ];
+  return list.filter((x, i) => list.indexOf(x) === i).slice(0, 14);
+}
+
+/** 단계별 할 일에 관심사에 맞는 항목을 앞에 더한다 */
+export function personalizePhase(ph: Phase, me: Persona = {}): Phase {
+  if (!ph.todo.length || !me.focus?.length) return ph;
+  const extra = me.focus.slice(0, 2).map((f) => BY_FOCUS[f][0]);
+  const todo = [...extra, ...ph.todo].filter((x, i, a) => a.indexOf(x) === i).slice(0, 6);
+  return { ...ph, todo };
+}
 
 const MARKS = [300, 200, 100, 30, 7];
 

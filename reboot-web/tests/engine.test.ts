@@ -88,3 +88,12 @@ test("30분이면 운동 영역에 실제 운동이 들어가고, 배분 합이 
   assert.ok(Math.abs(al.skin + al.body + al.style + al.life - 30) < 1e-9);
   assert.ok(al.body > al.style);
 });
+
+test("개인화: 관심사 · 지금 생활에 맞는 항목과 가이드가 들어간다", () => {
+  const base = { mode: "next" as const, interests: ["skin" as const], experience: "sometimes" as const, minutes: 10 as const, concerns: [], goal: "start" as const };
+  const plain = buildRoutine(base).map((i) => i.templateId);
+  const job = buildRoutine({ ...base, status: "jobseeker", focus: ["career"] }).map((i) => i.templateId);
+  assert.ok(!plain.includes("intro-1min"));
+  assert.ok(job.includes("intro-1min"));
+  assert.ok(recommendedGuides({ ...base, focus: ["career"] }).includes("interview-day"));
+});

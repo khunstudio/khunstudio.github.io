@@ -30,9 +30,9 @@ export default function Home() {
       <section className="t-sec">
         <div className="wrap text-center">
           <p className="t-xl" data-rv>
-            잘생겨지라는 게 아니에요.<br />
-            <span className="text-mute">오늘 뭘 할지 알려주고,</span><br />
-            <span className="text-mute">했는지 같이 기록할게요.</span>
+            타고난 건 그대로 두고,<br />
+            오늘의 나를 다시 켜요.<br />
+            <span className="text-mute">뭘 할지 알려주고, 했는지 같이 기록할게요.</span>
           </p>
         </div>
       </section>

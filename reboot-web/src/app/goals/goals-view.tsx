@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Check } from "@/components/chrome";
 import { dPlus } from "@/lib/engine";
 import {
-  ANCHOR_LABEL, BUCKET_SUGGESTIONS, anchorKindFor, daysUntil, googleCalendarUrl, newGoal, phaseFor, toICS, ymd,
+  ANCHOR_LABEL, bucketFor, personalizePhase, anchorKindFor, daysUntil, googleCalendarUrl, newGoal, phaseFor, toICS, ymd,
 } from "@/lib/goals";
 import { MODES } from "@/lib/labels";
 import { actions, useStore } from "@/lib/store";
@@ -34,11 +34,12 @@ export function GoalsView() {
   const kind: Anchor["kind"] = s.anchor?.kind ?? anchorKindFor(mode);
   const anchor = s.anchor && s.anchor.kind === kind ? s.anchor : undefined;
   const left = anchor ? daysUntil(anchor.date) : null;
-  const phase = left !== null ? phaseFor(kind, left) : null;
+  const me = { age: s.profile?.age, status: s.profile?.status, focus: s.profile?.focus };
+  const phase = left !== null ? personalizePhase(phaseFor(kind, left), me) : null;
   const goals = s.goals ?? [];
   const open = goals.filter((g) => !g.done);
   const done = goals.filter((g) => g.done);
-  const suggestions = BUCKET_SUGGESTIONS[mode].filter((t) => !goals.some((g) => g.title === t));
+  const suggestions = bucketFor(mode, me).filter((t) => !goals.some((g) => g.title === t));
   const today = ymd(new Date());
 
   const allEvents = [

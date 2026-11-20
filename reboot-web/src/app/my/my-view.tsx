@@ -8,6 +8,7 @@ import { actions, useStore } from "@/lib/store";
 import { track } from "@/lib/analytics";
 import { canvasToBlob, drawCard, type CardFormat } from "@/lib/share-card";
 import type { Mode, Store } from "@/lib/types";
+import { PersonaEditor, type PersonaValue } from "@/components/persona-editor";
 
 function download(name: string, data: BlobPart, type: string) {
   const url = URL.createObjectURL(new Blob([data], { type }));
@@ -104,10 +105,35 @@ function MyInner({ s }: { s: Store }) {
         </section>
 
         <ModeSection s={s} />
+        <PersonaSection s={s} />
         <ShareSection s={s} days={days} streakDays={st} week={week.map((d) => d.ratio)} goal={GOALS[p.goal]} />
         <DataSection s={s} />
       </div>
     </div>
+  );
+}
+
+function PersonaSection({ s }: { s: Store }) {
+  const p = s.profile!;
+  const [v, setV] = useState<PersonaValue>({ age: p.age, status: p.status, focus: p.focus });
+  const [saved, setSaved] = useState("");
+  const dirty = v.age !== p.age || v.status !== p.status || (v.focus ?? []).join() !== (p.focus ?? []).join();
+  function save(rebuild: boolean) {
+    actions.setPersona({ ...v, focus: v.focus?.length ? v.focus : undefined }, rebuild);
+    track("persona_save");
+    setSaved(rebuild ? "저장하고 루틴을 다시 구성했어요. 직접 추가한 항목은 그대로예요." : "저장했어요. GOALS 추천에 바로 반영돼요.");
+  }
+  return (
+    <section className="mt-14">
+      <h2 className="sec-head h3">나에 대해</h2>
+      <p className="small -mt-2 mb-5">나이대 · 지금 생활 · 관심사에 따라 루틴 항목, 가이드, 목표 추천이 달라져요. 이 브라우저에만 저장돼요.</p>
+      <PersonaEditor mode={p.mode} value={v} onChange={(x) => { setV(x); setSaved(""); }} />
+      <div className="mt-5 flex flex-wrap gap-2">
+        <button type="button" className="btn btn-dark !min-h-11" disabled={!dirty} onClick={() => save(true)}>저장하고 루틴 다시 구성</button>
+        <button type="button" className="btn btn-ghost" disabled={!dirty} onClick={() => save(false)}>정보만 저장</button>
+      </div>
+      {saved && <p className="small mt-3" role="status">{saved}</p>}
+    </section>
   );
 }
 

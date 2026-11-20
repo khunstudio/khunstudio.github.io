@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { buildRoutine, dayKey, syncTodayPlan, visibleItems } from "./engine.ts";
-import type { Anchor, CheckAnswers, LifeGoal, Mode, Routine, RoutineItem, SkinRecord, Slot, Situation, Store } from "./types.ts";
+import type { Anchor, CheckAnswers, LifeGoal, Mode, Profile, Routine, RoutineItem, SkinRecord, Slot, Situation, Store } from "./types.ts";
 
 // 저장 어댑터: 지금은 localStorage. 계정을 도입하면 이 파일의 read/write만 서버 동기화로 교체한다.
 const KEY = "reboot:v1";
@@ -167,6 +167,15 @@ export const actions = {
   setSkin(skin: SkinRecord) {
     const s = read();
     write({ ...s, skin });
+  },
+
+  /** 나이대 · 지금 생활 · 관심사만 바꾼다. rebuild면 루틴도 다시 구성 (직접 추가한 항목은 유지) */
+  setPersona(me: { age?: Profile["age"]; status?: Profile["status"]; focus?: Profile["focus"] }, rebuild = false) {
+    const s = read();
+    if (!s.profile) return;
+    const next = { ...s.profile, ...me, updatedAt: now() };
+    if (rebuild) { actions.saveCheck(next); return; }
+    write({ ...s, profile: next });
   },
 
   setNickname(nickname: string) {
