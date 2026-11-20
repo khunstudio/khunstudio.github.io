@@ -216,27 +216,33 @@
 
 
   // ── 목록 검색 · 목적 필터 (Device · Science · Clinic 공통) ─────────
-  var listState = { q: "", c: "all", f: "all" };
+  var listState = { q: "", c: "all", f: "all", e: "all" };
+  var lastConcernItems = [];
   var clinicGroup = "concern";
   function concernLabel(id) { var c = byId(D.taxonomy.concerns || [], id); return c ? c.label : id; }
   function concernChips(items) {
+    lastConcernItems = items;
     var used = (D.taxonomy.concerns || []).filter(function (c) { return items.some(function (x) { return (x.concerns || []).indexOf(c.id) > -1; }); });
-    return '<div class="filters" role="group" aria-label="목적 필터"><span class="filters__label">목적</span>' +
+    var grp = EFFECT_GROUPS.filter(function (g) { return g.c === listState.c; })[0];
+    var subs = grp && items.some(function (x) { return x.purpose !== undefined; }) ? grp.items.filter(function (it) { return items.some(function (x) { return effectsOf(x).indexOf(it) > -1; }); }) : [];
+    return '<div data-cwrap><div class="filters" role="group" aria-label="목적 필터"><span class="filters__label">목적</span>' +
       '<button class="chip chip--plain" data-concern="all" aria-pressed="' + (listState.c === "all") + '">전체</button>' +
-      used.map(function (c) { return '<button class="chip chip--plain" data-concern="' + c.id + '" aria-pressed="' + (listState.c === c.id) + '">' + c.label + "</button>"; }).join("") + "</div>";
+      used.map(function (c) { return '<button class="chip chip--plain" data-concern="' + c.id + '" aria-pressed="' + (listState.c === c.id) + '">' + c.label + "</button>"; }).join("") + "</div>" +
+      (subs.length > 1 ? '<div class="subfilters" role="group" aria-label="세부 효과 (판매 표기)"><span class="filters__label">세부</span><button data-effect="all" aria-pressed="' + (listState.e === "all") + '">전체</button>' + subs.map(function (it) { return '<button data-effect="' + esc(it) + '" aria-pressed="' + (listState.e === it) + '">' + esc(it) + "</button>"; }).join("") + '<span class="subfilters__note">판매 표기 기준</span></div>' : "") + "</div>";
   }
   function listBar(placeholder, extra) {
     return '<div class="listbar"><input type="search" data-listq value="' + esc(listState.q) + '" placeholder="' + esc(placeholder) + '" aria-label="목록 안에서 검색"><span class="listbar__count" data-listcount></span></div>' + (extra || "");
   }
   function dataAttrs(o, text) {
-    return ' data-q="' + esc(text.toLowerCase()) + '" data-c="' + esc((o.concerns || []).join(" ")) + '" data-f="' + esc(uniq((o.techIds || []).concat(o.techCandidates || []).map(familyOf)).join(" ")) + '"';
+    return ' data-q="' + esc(text.toLowerCase()) + '" data-e="' + esc(o.purpose !== undefined ? "|" + effectsOf(o).join("|") + "|" : "") + '" data-c="' + esc((o.concerns || []).join(" ")) + '" data-f="' + esc(uniq((o.techIds || []).concat(o.techCandidates || []).map(familyOf)).join(" ")) + '"';
   }
   function applyListFilter() {
     var q = listState.q.trim().toLowerCase(), n = 0;
     view.querySelectorAll("[data-q]").forEach(function (el) {
       var ok = (!q || el.dataset.q.indexOf(q) > -1) &&
         (listState.c === "all" || (" " + el.dataset.c + " ").indexOf(" " + listState.c + " ") > -1) &&
-        (listState.f === "all" || (" " + el.dataset.f + " ").indexOf(" " + listState.f + " ") > -1);
+        (listState.f === "all" || (" " + el.dataset.f + " ").indexOf(" " + listState.f + " ") > -1) &&
+        (listState.e === "all" || (el.dataset.e || "").indexOf("|" + listState.e + "|") > -1);
       el.hidden = !ok; if (ok) n++;
     });
     view.querySelectorAll("[data-group]").forEach(function (g) { g.hidden = !g.querySelector("[data-q]:not([hidden])"); });
@@ -258,26 +264,32 @@
   // ── 페이지: 기전 가이드 (LEARN) ─────────────────
   var learnPick = "rf";
   var LEARN = [
-    { id: "ems", e: "electric", name: "EMS (저주파)", one: "근육에 '움직여' 신호를 대신 보내 실제로 수축시킵니다.", like: "운동 신경을 바깥에서 대신 눌러 주는 리모컨", feel: "근육이 움찔하는 느낌", unit: "mA · 수 Hz~수백 Hz" },
-    { id: "ems", key: "midfreq", e: "electric", name: "중주파", one: "EMS처럼 근육 자극이 목적이지만 더 빠른 주파수를 써서 피부 표면 자극을 줄였다고 설명됩니다.", like: "EMS의 다른 버전 — 고주파(RF)와는 다른 것", feel: "움찔하지만 덜 따끔", unit: "대략 수 kHz" },
-    { id: "rf", e: "electric", name: "고주파 (RF)", one: "근육이 따라 반응하지 못할 만큼 빠르게 바뀌는 전류가 조직을 지나며 열을 만듭니다.", like: "전기가 지나가며 생기는 저항열 — 따뜻해지는 원리", feel: "따뜻함 · 열감", unit: "수백 kHz~수십 MHz" },
-    { id: "microcurrent", e: "electric", name: "미세전류", one: "느끼기 어려울 만큼 약한 전류를 흘립니다. 주파수보다 '세기'가 다른 기술입니다.", like: "EMS의 1/1000 수준 전류 (mA → µA)", feel: "거의 느껴지지 않음", unit: "µA" },
-    { id: "iontophoresis", e: "electric", name: "갈바닉 (이온)", one: "한 방향으로 흐르는 약한 전류로, 전하를 띤 성분을 피부 쪽으로 밀어 줍니다.", like: "같은 극끼리 밀어내는 자석", feel: "거의 없음 · 약간 찌릿", unit: "직류 · µA" },
-    { id: "electroporation", e: "electric", name: "일렉트로포레이션 (EP)", one: "짧고 센 전기 펄스로 피부 표면에 잠깐 길을 연다는 원리입니다. 홈 기기는 연구 조건과 다를 수 있습니다.", like: "아주 짧게 문을 열었다 닫는 펄스", feel: "약한 따끔함", unit: "짧은 고전압 펄스" },
-    { id: "ultrasound", e: "sound", name: "비집속 초음파", one: "들리지 않는 빠른 진동을 헤드 면적 전체로 넓게 전달합니다.", like: "넓게 울리는 스피커 진동", feel: "거의 없음 · 미지근", unit: "대략 1~3 MHz" },
-    { id: "ultrasound-multi", e: "sound", name: "물방울 · LDM 계열", one: "서로 다른 주파수의 초음파를 번갈아 · 교차로 줍니다. LDM은 특정 제조사의 기술명입니다.", like: "두세 개의 진동을 섞어 쓰는 스피커", feel: "거의 없음", unit: "다중 주파수" },
-    { id: "hifu", e: "sound", name: "집속 초음파 (HIFU)", one: "초음파를 피부 속 한 점에 모아 작은 열 응고점을 만듭니다.", like: "돋보기로 햇빛을 한 점에 모으기", feel: "찌릿한 열감 · 통증 (전문 장비)", unit: "수 MHz · 초점 깊이" },
-    { id: "led", e: "light", name: "LED 광원", one: "특정 색(파장)의 약한 빛을 넓게 쬡니다. 태우지 않습니다.", like: "색이 정해진 부드러운 조명", feel: "없음 · 밝음", unit: "nm (예: 630nm 빨간빛)" },
-    { id: "ipl", e: "light", name: "IPL", one: "여러 색이 섞인 강한 섬광을 짧게 터뜨리고 필터로 파장을 고릅니다.", like: "카메라 플래시", feel: "순간 따끔 · 열감", unit: "넓은 파장대 · J/cm²" },
-    { id: "laser", e: "light", name: "레이저", one: "한 가지 파장의 빛을 한 방향으로 정밀하게 쏩니다.", like: "한 색만 쓰는 정밀한 빛줄기", feel: "장비별 상이 (전문)", unit: "단일 파장 nm" },
-    { id: "cooling", e: "temp", name: "쿨링 · 크라이오", one: "피부 온도를 낮춰 일시적인 진정감을 줍니다.", like: "차가운 수건", feel: "차가움", unit: "온도" },
-    { id: "vibration", e: "temp", name: "진동 · 온열", one: "기계적 진동이나 열로 세안 · 마사지를 돕습니다.", like: "마사지기", feel: "떨림 · 따뜻함", unit: "회/분 · ℃" }
+    { id: "ems", dm: ["EMS"], e: "electric", name: "EMS (저주파)", one: "근육에 '움직여' 신호를 대신 보내 실제로 수축시킵니다.", like: "운동 신경을 바깥에서 대신 눌러 주는 리모컨", feel: "근육이 움찔하는 느낌", unit: "mA · 수 Hz~수백 Hz" },
+    { id: "ems", key: "midfreq", dm: ["중주파"], e: "electric", name: "중주파", one: "EMS처럼 근육 자극이 목적이지만 더 빠른 주파수를 써서 피부 표면 자극을 줄였다고 설명됩니다.", like: "EMS의 다른 버전 — 고주파(RF)와는 다른 것", feel: "움찔하지만 덜 따끔", unit: "대략 수 kHz" },
+    { id: "rf", dm: ["고주파"], e: "electric", name: "고주파 (RF)", one: "근육이 따라 반응하지 못할 만큼 빠르게 바뀌는 전류가 조직을 지나며 열을 만듭니다.", like: "전기가 지나가며 생기는 저항열 — 따뜻해지는 원리", feel: "따뜻함 · 열감", unit: "수백 kHz~수십 MHz" },
+    { id: "microcurrent", dm: ["미세전류", "MC"], e: "electric", name: "미세전류", one: "느끼기 어려울 만큼 약한 전류를 흘립니다. 주파수보다 '세기'가 다른 기술입니다.", like: "EMS의 1/1000 수준 전류 (mA → µA)", feel: "거의 느껴지지 않음", unit: "µA" },
+    { id: "iontophoresis", dm: ["갈바닉"], e: "electric", name: "갈바닉 (이온)", one: "한 방향으로 흐르는 약한 전류로, 전하를 띤 성분을 피부 쪽으로 밀어 줍니다.", like: "같은 극끼리 밀어내는 자석", feel: "거의 없음 · 약간 찌릿", unit: "직류 · µA" },
+    { id: "electroporation", dm: ["EP"], e: "electric", name: "일렉트로포레이션 (EP)", one: "짧고 센 전기 펄스로 피부 표면에 잠깐 길을 연다는 원리입니다. 홈 기기는 연구 조건과 다를 수 있습니다.", like: "아주 짧게 문을 열었다 닫는 펄스", feel: "약한 따끔함", unit: "짧은 고전압 펄스" },
+    { id: "plasma", key: "plasma", dm: ["플라즈마"], e: "electric", name: "플라즈마", one: "높은 전압으로 공기를 이온화해 만든 플라즈마(전하를 띤 기체)를 피부 표면에 닿게 하는 방식으로 설명됩니다. 가정용 제품은 출력 · 방식 정보가 거의 공개되지 않습니다.", like: "아주 작은 번개를 표면에 스치듯 대는 것", feel: "약한 찌릿함 · 따뜻함으로 소개됨", unit: "고전압 방전" },
+    { id: "ultrasound", dm: ["초음파"], e: "sound", name: "비집속 초음파", one: "들리지 않는 빠른 진동을 헤드 면적 전체로 넓게 전달합니다.", like: "넓게 울리는 스피커 진동", feel: "거의 없음 · 미지근", unit: "대략 1~3 MHz" },
+    { id: "ultrasound-multi", dm: ["LDM"], e: "sound", name: "물방울 · LDM 계열", one: "서로 다른 주파수의 초음파를 번갈아 · 교차로 줍니다. LDM은 특정 제조사의 기술명입니다.", like: "두세 개의 진동을 섞어 쓰는 스피커", feel: "거의 없음", unit: "다중 주파수" },
+    { id: "hifu", dm: ["HIFU", "HIFU(MFU)"], e: "sound", name: "집속 초음파 (HIFU)", one: "초음파를 피부 속 한 점에 모아 작은 열 응고점을 만듭니다.", like: "돋보기로 햇빛을 한 점에 모으기", feel: "찌릿한 열감 · 통증 (전문 장비)", unit: "수 MHz · 초점 깊이" },
+    { id: "led", dm: ["LED광선"], e: "light", name: "LED 광원", one: "특정 색(파장)의 약한 빛을 넓게 쬡니다. 태우지 않습니다.", like: "색이 정해진 부드러운 조명", feel: "없음 · 밝음", unit: "nm (예: 630nm 빨간빛)" },
+    { id: "ipl", dm: ["IPL"], e: "light", name: "IPL", one: "여러 색이 섞인 강한 섬광을 짧게 터뜨리고 필터로 파장을 고릅니다.", like: "카메라 플래시", feel: "순간 따끔 · 열감", unit: "넓은 파장대 · J/cm²" },
+    { id: "laser", dm: ["레이저식"], e: "light", name: "레이저", one: "한 가지 파장의 빛을 한 방향으로 정밀하게 쏩니다.", like: "한 색만 쓰는 정밀한 빛줄기", feel: "장비별 상이 (전문)", unit: "단일 파장 nm" },
+    { id: "far-infrared", key: "far-infrared", dm: ["원적외선"], e: "light", name: "원적외선", one: "눈에 보이지 않는 긴 파장의 적외선으로, 주로 따뜻함(복사열)을 주는 기능으로 표기됩니다. LED 마스크의 근적외선(약 800~1000nm)과는 다른 영역입니다.", like: "햇볕을 쬘 때 느끼는 따스함", feel: "은은한 따뜻함", unit: "µm 단위 파장 · 제품마다 정의 다름" },
+    { id: "cooling", dm: ["쿨링", "크라이오쿨링"], e: "temp", name: "쿨링 · 크라이오", one: "피부 온도를 낮춰 일시적인 진정감을 줍니다.", like: "차가운 수건", feel: "차가움", unit: "온도" },
+    { id: "heating", key: "heating", dm: ["온열"], e: "temp", name: "온열", one: "헤드를 데워 피부 표면에 따뜻함을 전합니다. 고주파(RF)처럼 조직 안에서 열이 생기는 방식과는 다릅니다.", like: "따뜻한 찜질팩", feel: "따뜻함", unit: "℃" },
+    { id: "vibration", dm: ["진동"], e: "temp", name: "진동", one: "모터의 기계적 진동으로 세안 · 마사지를 돕습니다.", like: "진동 칫솔 · 마사지건", feel: "떨림", unit: "회/분" },
+    { id: "massage", key: "massage", dm: ["마사지"], e: "temp", name: "마사지 (롤러 · 헤드)", one: "롤러나 헤드가 피부를 문지르고 누르는 물리적 관리입니다. 전기 · 빛 기능 없이 이것만 있는 제품도 많습니다.", like: "손으로 하는 마사지를 도구로", feel: "누르는 압 · 문지름", unit: "회전수 · 압력" },
+    { id: "microderm", key: "microderm", dm: ["다이아몬드필링"], e: "temp", name: "다이아몬드 필링", one: "미세한 다이아몬드 입자가 박힌 팁으로 각질을 물리적으로 갈아내고 흡입합니다. 관리실의 마이크로더마브레이전과 같은 계열입니다.", like: "아주 고운 사포 + 흡입", feel: "약한 마찰 · 당김", unit: "흡입 압력 · 팁 거칠기" },
+    { id: "mist", key: "mist", dm: ["미스트"], e: "temp", name: "미스트", one: "물이나 화장수를 아주 작은 입자로 뿜어 수분을 더하는 보조 기능입니다. 진동판(초음파)이나 압력으로 입자를 만듭니다.", like: "가습기의 작은 버전", feel: "촉촉함 · 시원함", unit: "분사량 · 입자 크기" }
   ];
   var ENERGY = [
     { id: "electric", name: "전기", en: "ELECTRIC", line: "전류를 흘려서 — 근육을 움직이거나, 성분을 밀어 넣거나, 열을 만든다", icon: '<svg viewBox="0 0 40 40"><path d="M22 4L8 22h10l-2 14 14-18H20z"/></svg>' },
     { id: "sound", name: "소리 (진동)", en: "SOUND", line: "들리지 않는 초음파 진동을 — 넓게 퍼뜨리거나, 한 점에 모은다", icon: '<svg viewBox="0 0 40 40"><path d="M6 20h4M14 12v16M20 6v28M26 12v16M32 17v6"/></svg>' },
     { id: "light", name: "빛", en: "LIGHT", line: "정해진 색(파장)의 빛을 — 약하게 쬐거나, 강하게 터뜨리거나, 정밀하게 쏜다", icon: '<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="6"/><path d="M20 4v5M20 31v5M4 20h5M31 20h5M8.7 8.7l3.5 3.5M27.8 27.8l3.5 3.5M8.7 31.3l3.5-3.5M27.8 12.2l3.5-3.5"/></svg>' },
-    { id: "temp", name: "온도 · 물리", en: "TEMP", line: "차갑게 · 따뜻하게 · 떨리게 — 표면에서 느끼는 관리", icon: '<svg viewBox="0 0 40 40"><path d="M17 6a3 3 0 0 1 6 0v18a7 7 0 1 1-6 0z"/><path d="M20 14v14"/></svg>' }
+    { id: "temp", name: "온도 · 물리", en: "TEMP", line: "차갑게 · 따뜻하게 · 떨리게 · 문지르게 — 표면에서 느끼는 관리", icon: '<svg viewBox="0 0 40 40"><path d="M17 6a3 3 0 0 1 6 0v18a7 7 0 1 1-6 0z"/><path d="M20 14v14"/></svg>' }
   ];
   var PAIRS = [
     { a: "고주파 (RF)", b: "중주파 · 저주파 (EMS)", q: "이름이 비슷한데 하는 일이 정반대예요", diff: ["주파수가 낮으면(EMS) 근육이 신호를 따라 움찔합니다.", "주파수가 아주 높으면(RF) 근육이 따라가지 못하고, 대신 조직이 데워집니다.", "중주파는 '중간 RF'가 아니라 근육 자극(EMS) 계열입니다."], ta: "rf", tb: "ems" },
@@ -288,12 +300,62 @@
   ];
   function learnDetail(x) {
     var t = byId(D.techs, x.id);
-    var n = D.devices.filter(function (d) { return d.techIds.indexOf(x.id) > -1; }).length;
+    var n = !x.key && t ? D.devices.filter(function (d) { return d.techIds.indexOf(x.id) > -1; }).length : 0;
+    var dmN = (x.dm || []).length ? D.devices.filter(function (d) { return (d.danawaMethods || []).some(function (m) { return x.dm.indexOf(m) > -1; }); }).length : 0;
     return '<div class="lp__text"><p class="eyebrow">' + esc(ENERGY.filter(function (e) { return e.id === x.e; })[0].name) + "</p><h3>" + esc(x.name) + "</h3>" +
       '<p class="lp__one">' + esc(x.one) + "</p>" +
-      '<dl class="lp__dl"><div><dt>비유</dt><dd>' + esc(x.like) + "</dd></div><div><dt>느낌</dt><dd>" + esc(x.feel) + "</dd></div><div><dt>단위 · 범위</dt><dd>" + esc(x.unit) + ' <span class="caption">일반적 범위 · 제품마다 다름</span></dd></div></dl>' +
-      '<p class="lp__links">' + (t ? '<a class="btn btn--ghost" href="#science--' + x.id + '">자세히 · 근거 보기</a>' : "") + (n ? ' <a class="btn btn--ghost" href="#device" data-goto-tech="' + x.id + '">이 기술 쓰는 디바이스 ' + n + "개</a>" : "") + "</p></div>" +
+      '<dl class="lp__dl"><div><dt>비유</dt><dd>' + esc(x.like) + "</dd></div><div><dt>느낌</dt><dd>" + esc(x.feel) + "</dd></div><div><dt>단위 · 범위</dt><dd>" + esc(x.unit) + ' <span class="caption">일반적 범위 · 제품마다 다름</span></dd></div>' +
+        ((x.dm || []).length ? '<div><dt>판매 표기</dt><dd>' + x.dm.map(function (m) { return '<span class="dm">' + esc(m) + "</span>"; }).join(" ") + (dmN ? ' <span class="caption">이 표기를 쓴 제품 ' + dmN + "개</span>" : "") + "</dd></div>" : "") + "</dl>" +
+      '<p class="lp__links">' + (t ? '<a class="btn btn--ghost" href="#science--' + x.id + '">자세히 · 근거 보기</a>' : "") + (n ? ' <a class="btn btn--ghost" href="#device" data-goto-tech="' + x.id + '">이 기술 쓰는 디바이스 ' + n + "개</a>" : dmN ? ' <a class="btn btn--ghost" href="#device" data-goto-q="' + esc(x.dm[0]) + '">\'' + esc(x.dm[0]) + "\' 표기 제품 " + dmN + "개</a>" : "") + "</p></div>" +
       '<div class="lp__skin">' + (skinSvg([x.id]) || '<p class="caption">피부 표면에서 느끼는 관리</p>') + "</div>";
+  }
+  var LED_COLORS = [
+    { name: "블루", c: "#4c6ef5", nm: "약 405~470nm", peak: "415nm 전후", depth: 1, topic: "여드름균(C. acnes)이 만드는 포르피린이 청색광을 흡수한다는 원리로, 여드름 관련 연구가 많습니다. 결과는 연구마다 엇갈립니다.", ev: "일부", note: "눈부심이 강해 눈 보호가 권장됩니다." },
+    { name: "그린", c: "#2fb36d", nm: "약 495~570nm", peak: "525nm 전후", depth: 2, topic: "톤 · 색소 관련으로 소개되지만 연구가 적습니다.", ev: "제한적" },
+    { name: "옐로우", c: "#f2c230", nm: "약 570~590nm", peak: "590nm 전후", depth: 2, topic: "붉은기 · 진정, 광노화 관련 소규모 연구가 있습니다.", ev: "제한적" },
+    { name: "오렌지", c: "#f08a3c", nm: "약 590~620nm", peak: "605nm 전후", depth: 3, topic: "레드와 옐로우 사이 파장으로, 톤 관련으로 소개됩니다. 이 색만 다룬 연구는 드뭅니다.", ev: "제한적" },
+    { name: "레드", c: "#e5484d", nm: "약 620~700nm", peak: "630 · 633 · 660nm", depth: 4, topic: "광생물조절(PBM) 연구가 가장 많은 색입니다. 주름 · 탄력 관련 임상이 있지만 대부분 소규모이고 조건이 제각각입니다.", ev: "상대적으로 많음" },
+    { name: "근적외선", c: "#8a3b47", nm: "약 700~1000nm+", peak: "830 · 850nm", depth: 5, topic: "눈에는 거의 보이지 않고 가시광선보다 깊이 들어갑니다. 레드와 함께 PBM 연구에 자주 쓰입니다.", ev: "일부" },
+    { name: "IR 표기", c: "#5b2a33", nm: "대개 근적외선", peak: "제품 확인 필요", depth: 5, topic: "제품의 'IR'은 보통 근적외선 LED(830 · 850nm 등)를 뜻합니다. 따뜻함을 주는 '원적외선'과는 다른 영역입니다.", ev: "표기 해설", mix: true },
+    { name: "퍼플", c: "linear-gradient(135deg,#e5484d,#4c6ef5)", nm: "혼합광", peak: "보통 레드 + 블루", depth: 0, topic: "단일 파장이 아니라 레드와 블루를 함께 켠 경우가 많습니다. 각 색의 특성을 합쳐 이해하면 됩니다.", ev: "혼합광", mix: true },
+    { name: "핑크", c: "linear-gradient(135deg,#e5484d,#f6c1d0)", nm: "혼합광", peak: "레드 + 블루 · 화이트 등", depth: 0, topic: "제조사마다 섞는 조합이 달라 실제 파장 구성을 확인해야 합니다.", ev: "혼합광", mix: true }
+  ];
+  function ledGuide() {
+    var nLed = D.devices.filter(function (d) { return (d.danawaMethods || []).indexOf("LED광선") > -1 || d.techIds.indexOf("led") > -1; }).length;
+    return '<section class="section" id="led-colors"><p class="eyebrow">LED colors</p><h2 class="sec-h">LED 색깔별 가이드</h2>' +
+      '<p class="sec-sub">LED 기능이 표기된 제품 ' + nLed + '개. 파장이 길수록(파랑 → 빨강 → 근적외선) 더 깊이 들어갑니다.</p>' +
+      '<div class="nmbar" aria-hidden="true"><div class="nmbar__grad"></div><div class="nmbar__ticks"><span style="left:0%">400</span><span style="left:25%">550</span><span style="left:50%">700</span><span style="left:75%">850</span><span style="left:100%">1000nm</span></div><div class="nmbar__depth"><span>얕게 (표피)</span><span>깊게 →</span></div></div>' +
+      '<div class="leds">' + LED_COLORS.map(function (L) {
+        var cls = L.ev === "상대적으로 많음" ? "hi" : L.ev === "일부" ? "mid" : L.mix ? "mix" : "lo";
+        return '<article class="led"><div class="led__top"><i class="led__sw" style="background:' + L.c + '"></i><div><b>' + L.name + "</b><span>" + L.nm + " · " + (L.mix ? "" : "자주 쓰는 값 ") + L.peak + "</span></div></div>" +
+          (L.depth ? '<div class="led__depth" aria-label="상대적 도달 깊이 ' + L.depth + '/5"><small>도달 깊이</small>' + [1, 2, 3, 4, 5].map(function (i) { return "<i" + (i <= L.depth ? ' class="on"' : "") + "></i>"; }).join("") + "</div>" : "") +
+          "<p>" + esc(L.topic) + (L.note ? " " + esc(L.note) : "") + '</p><span class="led__ev led__ev--' + cls + '">연구 근거 · ' + L.ev + "</span></article>";
+      }).join("") + "</div>" +
+      '<p class="caption">파장 범위는 일반적인 물리적 구분이며 경계는 자료마다 조금씩 다릅니다. \'연구 근거\'는 그 주제로 연구된 정도를 뜻할 뿐 홈 기기의 효과를 보장하지 않습니다. 홈 LED 기기는 연구 조건보다 광량(mW/cm²)이 낮을 수 있습니다.</p></section>';
+  }
+  // 판매 표기 효과 → RE:LEV 목적 묶음
+  var EFFECT_GROUPS = [
+    { c: "lifting", items: ["탄력개선", "리프팅", "윤곽관리"] },
+    { c: "volume", items: ["주름개선"] },
+    { c: "absorption", items: ["유효성분흡수"] },
+    { c: "hydration", items: ["수분보습"] },
+    { c: "soothing", items: ["피부진정", "혈액순환"] },
+    { c: "pores", items: ["모공케어", "피지제거"] },
+    { c: "tone", items: ["피부톤개선"] },
+    { c: "cleansing", items: ["딥클렌징", "각질제거", "세안"] },
+    { c: "hair", items: ["제모"] }
+  ];
+  function effectsOf(d) { return String(d.purpose || "").split(/\s*,\s*/).filter(Boolean); }
+  function effectGuide() {
+    return '<section class="section"><p class="eyebrow">Start from your goal</p><h2 class="sec-h">원하는 효과에서 시작하기</h2>' +
+      '<p class="sec-sub">판매 페이지에 쓰인 효과 표기 15가지를 RE:LEV의 9가지 목적으로 묶었어요. 효과를 확인했다는 뜻이 아니라, 어떤 기술이 그 목적으로 \'소개되는지\'를 보여 줍니다.</p><div class="effs">' +
+      EFFECT_GROUPS.map(function (g) {
+        var ts = D.techs.filter(function (t) { return (t.concerns || []).indexOf(g.c) > -1; });
+        return '<article class="eff"><h3>' + esc(concernLabel(g.c)) + '</h3><ul class="eff__items">' + g.items.map(function (it) {
+          var n = D.devices.filter(function (d) { return effectsOf(d).indexOf(it) > -1; }).length;
+          return '<li><a href="#device" data-goto-effect="' + esc(g.c + "|" + it) + '"><span>' + esc(it) + "</span><small>" + (n ? n + "개" : "–") + '</small><i aria-hidden="true">›</i></a></li>';
+        }).join("") + "</ul>" + (ts.length ? '<p class="eff__tech"><span>주로 소개되는 기술</span>' + ts.map(function (t) { return '<a href="#science--' + t.id + '">' + esc(t.name) + "</a>"; }).join(" · ") + "</p>" : "") + "</article>";
+      }).join("") + '</div><p class="caption">숫자는 그 효과가 판매 표기에 적힌 제품 수예요. 효과의 크기나 순위를 뜻하지 않으며, 각 기술 페이지에서 근거 수준을 확인하세요.</p></section>';
   }
   function lpPicker() {
     var cur = LEARN.filter(function (x) { return (x.key || x.id) === learnPick; })[0] || LEARN[2];
@@ -320,14 +382,13 @@
       '<div class="spec-band"><div class="sb sb-dc"><b>직류</b><span>갈바닉</span><i>성분을 밀어 줌</i></div><div class="sb sb-low"><b>저주파</b><span>EMS · 수~수백 Hz</span><i>근육이 움찔</i></div><div class="sb sb-mid"><b>중주파</b><span>수 kHz</span><i>근육 자극 · 덜 따끔</i></div><div class="sb sb-high"><b>고주파 RF</b><span>수백 kHz~MHz</span><i>근육은 못 따라옴 → 열</i></div></div>' +
       '<p class="caption">세기 축은 따로: 미세전류(µA)는 주파수가 아니라 \'아주 약한 세기\', 일렉트로포레이션은 \'아주 짧고 센 펄스\'가 특징입니다. 범위는 일반적인 설명이며 제품마다 다릅니다.</p></section>' +
 
+      ledGuide() +
+      '<p class="caption nonTech">판매 표기 중 \'반영구\'(소모품 교체 없이 쓴다는 뜻), \'세기조절\' · \'타이머\' · \'앱연동\' · \'착용감지센서\'는 기술 방식이 아니라 제품 기능 · 사용 편의 표기입니다.</p>' +
       '<section class="section"><p class="eyebrow">Don\'t mix up</p><h2 class="sec-h">가장 많이 헷갈리는 다섯 쌍</h2><div class="pairs">' + PAIRS.map(function (p) {
         return '<article class="pair"><p class="pair__q">' + esc(p.q) + '</p><div class="pair__vs"><a href="#science--' + p.ta + '">' + esc(p.a) + '</a><span>vs</span><a href="#science--' + p.tb + '">' + esc(p.b) + "</a></div>" + list(p.diff) + "</article>";
       }).join("") + "</div></section>" +
 
-      '<section class="section"><p class="eyebrow">Start from your goal</p><h2 class="sec-h">원하는 것에서 시작하기</h2><div class="goals">' + (D.taxonomy.concerns || []).map(function (c) {
-        var ts = D.techs.filter(function (t) { return (t.concerns || []).indexOf(c.id) > -1; });
-        return ts.length ? '<div class="goal"><b>' + esc(c.label) + '</b><div class="chips">' + ts.map(function (t) { return chip(t.id); }).join("") + "</div></div>" : "";
-      }).join("") + '</div><p class="caption">일반적으로 소개되는 목적입니다. 효과의 크기나 순위를 뜻하지 않으며, 각 기술 페이지에서 근거 수준을 확인하세요.</p></section>' +
+      effectGuide() +
       '<p class="note">홈 디바이스와 전문 장비는 같은 이름의 기술이어도 출력 · 깊이 · 허가 범위가 다릅니다. <a href="#decode">제조사 용어 해독 보기 →</a></p>';
   }
 
@@ -883,6 +944,8 @@
         el.classList.toggle("can-r", more && el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
         el.classList.toggle("can-l", more && el.scrollLeft > 4);
       };
+      var on = el.querySelector('[aria-pressed="true"]');
+      if (on && on.offsetLeft + on.offsetWidth > el.clientWidth) el.scrollLeft = on.offsetLeft - 60;
       upd(); if (!el.dataset.hint) { el.dataset.hint = 1; el.addEventListener("scroll", upd, { passive: true }); }
     });
   }
@@ -915,7 +978,7 @@
     }
     var lt = e.target.closest("[data-learn],[data-goto-tech]");
     if (lt) {
-      if (lt.dataset.gotoTech) { listState = { q: "", c: "all", f: familyOf(lt.dataset.gotoTech) }; return; }
+      if (lt.dataset.gotoTech) { listState = { q: "", c: "all", f: familyOf(lt.dataset.gotoTech), e: "all" }; return; }
       learnPick = lt.dataset.learn;
       var x = LEARN.filter(function (y) { return (y.key || y.id) === learnPick; })[0];
       var box = document.getElementById("lp"); if (box && x) box.innerHTML = learnDetail(x);
@@ -923,10 +986,16 @@
       if (lt.closest(".energy")) document.getElementById("lp").scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+    var ef = e.target.closest("[data-effect]");
+    if (ef) { listState.e = ef.dataset.effect; view.querySelectorAll("[data-effect]").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.effect === listState.e); }); applyListFilter(); return; }
+    var gq = e.target.closest("[data-goto-q],[data-goto-effect]");
+    if (gq) { listState = { q: gq.dataset.gotoQ || "", c: "all", f: "all", e: "all" }; if (gq.dataset.gotoEffect) { var pe = gq.dataset.gotoEffect.split("|"); listState.c = pe[0]; listState.e = pe[1]; } return; }
     var cz = e.target.closest("[data-concern],[data-cgroup]");
     if (cz) {
       if (cz.dataset.cgroup) { clinicGroup = cz.dataset.cgroup; route(); return; }
-      listState.c = cz.dataset.concern; view.querySelectorAll("[data-concern]").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.concern === listState.c); }); applyListFilter(); return;
+      listState.c = cz.dataset.concern; listState.e = "all";
+      var cw = view.querySelector("[data-cwrap]"); if (cw) { cw.outerHTML = concernChips(lastConcernItems); scrollHints(); }
+      applyListFilter(); return;
     }
     var t = e.target.closest("[data-compare],[data-untray],[data-filter],[data-calc-example]");
     if (!t) return;
