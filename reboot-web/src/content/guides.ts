@@ -25,7 +25,7 @@ export interface Guide {
   reviewer?: string;
   sources?: { title: string; url: string; checkedAt: string }[];
   /** 대표 사진 (public/images) */
-  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit" | "barber" | "buzzside" | "blot" | "blot2" | "stretch" | "pushup" | "gymbag" | "shoes" | "perfume" | "laundry" | "phone" | "interview" | "washroom" | "locker";
+  image?: "wash" | "hands" | "razor" | "track" | "mirror" | "moisture" | "sunscreen" | "night" | "buzz" | "shirt" | "shirtup" | "cup" | "fogmirror" | "kit" | "barber" | "buzzside" | "blot" | "blot2" | "stretch" | "pushup" | "gymbag" | "shoes" | "perfume" | "laundry" | "phone" | "interview" | "washroom" | "locker" | `care/${string}`;
   /** 진료 · 건강 관련 내용이라 상단에 안내를 크게 띄운다 */
   medicalNotice?: boolean;
   sections: GuideSection[];
@@ -158,28 +158,8 @@ export const GUIDES: Guide[] = [
   },
 ];
 
-// 가이드별 대표 사진
-const IMAGES: Record<string, Guide["image"]> = {
-  "skin-basics": "moisture",
-  "outdoor-day": "track",
-  shaving: "razor",
-  "workout-skin": "track",
-  "next-chapter": "shirt",
-  "hair-growing": "mirror",
-  "before-enlistment": "buzzside",
-  "sleep-reset": "night",
-  px: "kit",
-  "leave-prep": "phone",
-  "dry-skin-winter": "moisture",
-  "breakout-dont": "wash",
-  "lip-care": "hands",
-  "after-shave-bumps": "razor",
-  "posture-check": "stretch",
-  "fit-check": "shirtup",
-  "outdoor-training": "track",
-  "first-leave": "barber",
-};
 GUIDES.push(...DEEP_GUIDES, ...MORE_GUIDES);
-GUIDES.forEach((g) => { if (!g.image && IMAGES[g.slug]) g.image = IMAGES[g.slug]; });
+// 아티클마다 전용 대표 이미지 (public/images/care/{slug}.webp). 각 가이드에 적힌 공용 사진보다 우선한다
+GUIDES.forEach((g) => { g.image = `care/${g.slug}`; });
 
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug);

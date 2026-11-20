@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { INGREDIENTS, getIngredient } from "@/content/ingredients";
 import { SKIN_LABEL } from "@/lib/skintype";
+import { productsFor } from "@/content/products";
+import { ProductPicks } from "@/components/product-picks";
 
 export function generateStaticParams() {
   return INGREDIENTS.map((i) => ({ slug: i.slug }));
@@ -18,6 +20,7 @@ export default async function IngredientPage({ params }: { params: Promise<{ slu
   const { slug } = await params;
   const i = getIngredient(slug);
   if (!i) notFound();
+  const products = i.level === "처방" || i.level === "과장 주의" ? [] : productsFor(i.slug);
   const related = INGREDIENTS.filter((x) => x.slug !== i.slug && x.tags.some((t) => i.tags.includes(t))).slice(0, 4);
   return (
     <article className="wrap-narrow py-10 md:py-14">
@@ -46,6 +49,13 @@ export default async function IngredientPage({ params }: { params: Promise<{ slu
         <section className="mt-8 grid gap-3 sm:grid-cols-2">
           {i.pair && <div className="card p-4"><p className="eyebrow !text-[11px]">함께 쓰면 좋아요</p><p className="mt-2 text-[15px]">{i.pair.join(" · ")}</p></div>}
           {i.avoid && <div className="card p-4"><p className="eyebrow !text-[11px]">겹쳐 쓰지 않아요</p><p className="mt-2 text-[15px]">{i.avoid.join(" · ")}</p></div>}
+        </section>
+      )}
+      {products.length > 0 && (
+        <section className="mt-10">
+          <h2 className="sec-head h3">이 성분, 이런 제품이 유명해요</h2>
+          <p className="small -mt-2 mb-3">성분을 기준으로 고른 예시예요. 위의 &lsquo;주의할 점&rsquo;을 먼저 읽어 주세요.</p>
+          <ProductPicks items={products} />
         </section>
       )}
       <div className="mt-10 rounded-[16px] bg-sand p-5">

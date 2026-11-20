@@ -109,7 +109,7 @@ export function Footer() {
           <li><Link className="hover:text-white" href="/care/">CARE 가이드</Link></li>
           <li><Link className="hover:text-white" href="/check/">30초 체크</Link></li>
           <li><Link className="hover:text-white" href="/crew/">CREW <span className="badge badge-soon ml-1">Beta 준비</span></Link></li>
-          <li><Link className="hover:text-white" href="/select/">SELECT <span className="badge badge-soon ml-1">Coming Soon</span></Link></li>
+          <li><Link className="hover:text-white" href="/select/">SELECT</Link></li>
           <li><Link className="hover:text-white" href="/about/">소개 · 운영 원칙</Link></li>
           <li><Link className="hover:text-white" href="/partnership/">협업 문의</Link></li>
         </ul>

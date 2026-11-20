@@ -172,9 +172,9 @@ export default function Home() {
           <Link href="/select/" className="t-panel t-panel-photo" data-rv style={{ ["--d" as string]: "90ms" }}>
             <div className="absolute inset-0"><Photo name="kit" alt="세면대 위에 01, 02, 03 번호가 적힌 검정 용기 세 개 (콘셉트 디자인)" className="h-full" /></div>
             <div className="relative">
-              <span className="badge badge-soon">Coming Soon</span>
+              <span className="badge badge-soon">v1 · 성분별 예시</span>
               <p className="t-lg mt-6">많이 파는 것보다,<br />맞게 고르는 것.</p>
-              <p className="mt-4 text-[14px] text-white/80">사진의 제품은 디자인 콘셉트예요. 지금 판매하는 상품은 없어요.</p>
+              <p className="mt-4 text-[14px] text-white/80">성분을 먼저 고르고, 그 성분의 대표 제품을 예시로 보여 줘요. 사진의 용기는 디자인 콘셉트예요.</p>
             </div>
           </Link>
         </div>
