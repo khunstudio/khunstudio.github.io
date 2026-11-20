@@ -571,22 +571,61 @@
   // ── 페이지: 비교 ──────────────────────────────────
   function pageCompare() {
     var sel = tray();
-    while (sel.length < 2) sel.push("");
-    var opts = function (cur) {
-      return '<option value="">— 선택 —</option>' +
-        '<optgroup label="홈 디바이스">' + D.devices.map(function (d) { var k = "device:" + d.id; return '<option value="' + k + '"' + (k === cur ? " selected" : "") + ">" + esc(d.name + " (" + d.techIds.map(tagLabel).join("+") + ")") + "</option>"; }).join("") + "</optgroup>" +
-        '<optgroup label="피부과 시술">' + D.treatments.map(function (t) { var k = "clinic:" + t.id; return '<option value="' + k + '"' + (k === cur ? " selected" : "") + ">" + esc(t.name) + "</option>"; }).join("") + "</optgroup>";
-    };
-    var slots = [0, 1, 2].map(function (i) { return '<select data-slot="' + i + '" aria-label="비교 항목 ' + (i + 1) + '">' + opts(sel[i] || "") + "</select>"; }).join("");
-    var ents = sel.map(function (k) { return k ? entity(k) : null; }).filter(Boolean);
-
+    var ents = sel.map(entity).filter(Boolean);
+    var slots = [0, 1, 2].map(function (i) {
+      var e = ents[i];
+      if (e) return '<div class="slot slot--on"><span class="slot__kind">' + (e.kind === "device" ? "홈 디바이스 · " + esc(e.rec.brand) : "시술") + "</span><b>" + esc(e.rec.name) + '</b><button class="slot__x" data-untray="' + esc(e.key) + '" aria-label="' + esc(e.rec.name) + ' 빼기">×</button></div>';
+      return '<button class="slot slot--add" data-pick' + (i > ents.length ? " disabled" : "") + '><span class="slot__plus" aria-hidden="true">+</span>' + (i === 0 ? "비교할 항목 검색" : i === 1 ? "하나 더 추가" : "세 번째 (선택)") + "</button>";
+    }).join("");
     return head("COMPARE", "비교", "제품 ↔ 제품, 제품 ↔ 시술, 시술 ↔ 시술. 같은 기준의 항목만 나란히 놓고, 비교할 수 없는 것은 왜 비교하지 않는지 알려 드립니다.") +
-      '<details class="match-wrap" open><summary>홈 디바이스 기술 ↔ 피부과 · 관리실 대응표</summary>' + bridgeTable() + '<p class="caption">같은 원리 계열을 보여 줄 뿐, 홈 디바이스가 시술을 대체한다는 뜻이 아닙니다.</p></details>' +
-      '<div class="pickers">' + slots + "</div>" +
-      (ents.length >= 2 ? compareTable(ents) : '<p class="empty">두 개 이상 선택하면 비교표가 나타납니다. 예: 써마지 ↔ 올리지오, 에이지알 유쎄라 딥 샷 ↔ 써마지</p>') +
+      '<div class="slots">' + slots + "</div>" +
+      (ents.length >= 2 ? compareTable(ents) : '<p class="empty">두 개 이상 고르면 비교표가 나타나요. 예: 써마지 ↔ 올리지오</p>') +
+      '<details class="match-wrap"><summary>홈 디바이스 기술 ↔ 피부과 · 관리실 대응표</summary>' + bridgeTable() + '<p class="caption">같은 원리 계열을 보여 줄 뿐, 홈 디바이스가 시술을 대체한다는 뜻이 아닙니다.</p></details>' +
       '<section class="section" id="calc"><p class="eyebrow">Beauty Economics</p><h2 style="margin:6px 0 8px">단순 구매비용 계산기</h2>' +
       '<p class="caption" style="margin-bottom:16px">직접 입력한 금액으로 단순 구매비용만 비교합니다. RE:LEV는 실제 제품 · 시술 가격을 넣어 두지 않았습니다.</p>' +
       calcHtml() + "</section>";
+  }
+
+  // ── 비교 항목 검색 시트 ──────────────────────────
+  var pickKind = "all";
+  function pickResults(q) {
+    q = (q || "").trim().toLowerCase();
+    var inTray = tray();
+    var devs = D.devices.map(function (d) { return { key: "device:" + d.id, kind: "device", name: d.name, sub: d.brand + " · " + (d.techIds.length ? d.techIds.map(tagLabel).join(" + ") : "기술 확인 필요"), hay: [d.name, d.fullName || "", d.brand, d.techIds.concat(d.techCandidates || []).map(tagLabel).join(" ")].join(" ").toLowerCase(), rank: (d.glowpick && d.glowpick.rank) || 999 }; });
+    var trs = D.treatments.map(function (t) { return { key: "clinic:" + t.id, kind: "clinic", name: t.name, sub: "시술 · " + t.techIds.map(tagLabel).join(" + "), hay: [t.name, t.nameEn || "", t.id, t.techIds.map(tagLabel).join(" ")].join(" ").toLowerCase(), rank: 0 }; });
+    var all = (pickKind === "device" ? devs : pickKind === "clinic" ? trs : devs.concat(trs)).filter(function (x) { return inTray.indexOf(x.key) < 0; });
+    var score = function (x) { var n = x.name.toLowerCase(); return n.indexOf(q) === 0 ? 0 : n.indexOf(q) > -1 ? 1 : 2; };
+    var hit = q ? all.filter(function (x) { return x.hay.indexOf(q) > -1; }).sort(function (a, b) { return score(a) - score(b) || (a.kind === b.kind ? a.rank - b.rank : 0); }) : null;
+    var row = function (x) { return '<button class="pick" data-pickkey="' + esc(x.key) + '"><span class="pick__badge pick__badge--' + x.kind + '">' + (x.kind === "device" ? "디바이스" : "시술") + '</span><span class="pick__t"><b>' + esc(x.name) + "</b><span>" + esc(x.sub) + '</span></span><span class="pick__add" aria-hidden="true">+</span></button>'; };
+    if (hit) return hit.length ? '<p class="psheet__h">검색 결과 ' + hit.length + "개</p>" + hit.slice(0, 40).map(row).join("") : '<p class="psheet__empty">\'' + esc(q) + "'에 맞는 항목이 없어요.<br>브랜드 · 제품명 · 기술명(예: 고주파, 갈바닉)으로 찾아보세요.</p>";
+    var out = "";
+    if (pickKind !== "clinic") out += '<p class="psheet__h">많이 찾는 디바이스</p>' + devs.filter(function (x) { return inTray.indexOf(x.key) < 0; }).sort(function (a, b) { return a.rank - b.rank; }).slice(0, pickKind === "device" ? 30 : 6).map(row).join("");
+    if (pickKind !== "device") out += '<p class="psheet__h">시술</p>' + trs.filter(function (x) { return inTray.indexOf(x.key) < 0; }).slice(0, pickKind === "clinic" ? 40 : 6).map(row).join("");
+    return out;
+  }
+  function openPicker() {
+    var sh = document.getElementById("sheet");
+    if (!sh) { sh = document.createElement("div"); sh.id = "sheet"; document.body.appendChild(sh); }
+    pickKind = "all";
+    sh.innerHTML = '<div class="psheet__bg" data-sheet-close></div><div class="psheet" role="dialog" aria-modal="true" aria-label="비교할 항목 찾기"><div class="psheet__grab" aria-hidden="true"></div>' +
+      '<div class="psheet__top"><b>비교할 항목 찾기</b><button class="psheet__close" data-sheet-close aria-label="닫기">×</button></div>' +
+      '<label class="psheet__search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input type="search" data-pickq placeholder="제품명 · 브랜드 · 기술 · 시술명" aria-label="비교할 항목 검색" autocomplete="off"></label>' +
+      '<div class="seg seg--sm" role="tablist"><button role="tab" data-pickkind="all" aria-selected="true">전체</button><button role="tab" data-pickkind="device" aria-selected="false">디바이스</button><button role="tab" data-pickkind="clinic" aria-selected="false">시술</button></div>' +
+      '<div class="psheet__list" id="pickList">' + pickResults("") + "</div></div>";
+    document.body.classList.add("sheet-open");
+    setTimeout(function () { var i = sh.querySelector("[data-pickq]"); if (i) i.focus(); }, 60);
+  }
+  function closePicker() { var sh = document.getElementById("sheet"); if (sh) sh.innerHTML = ""; document.body.classList.remove("sheet-open"); }
+
+  // ── 전체 메뉴 (모바일 '전체' 탭) ────────────────────
+  function pageMenu() {
+    var g = function (title, items) { return '<section class="mgroup"><h2>' + title + '</h2><div class="cells">' + items.map(function (x) { return '<a class="cell" href="' + x[0] + '"><span class="cell__t"><b>' + x[1] + "</b><span>" + x[2] + '</span></span><span class="cell__chev" aria-hidden="true">›</span></a>'; }).join("") + "</div></section>"; };
+    return '<div class="page-head"><h1>전체</h1></div>' +
+      '<form class="h-search" data-search role="search" style="margin:0 0 8px"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></svg><input type="search" placeholder="제품 · 기술 · 시술 검색" aria-label="통합 검색"><button type="submit">검색</button></form>' +
+      g("배우기", [["#learn", "1분 기전 가이드", "네 가지 에너지로 보는 피부관리 기술"], ["#science", "기술 백과", "기술별 원리 · 근거 · 한계"], ["#decode", "이름 해독", "'쎄라' · '에어샷' 같은 제조사 용어 풀이"]]) +
+      g("찾기", [["#device", "홈 디바이스", D.devices.length + "개 · 작용 기전별 분류"], ["#clinic", "시술 백과", D.treatments.length + "개 · 피부과 · 관리실 시술"], ["#search", "통합 검색", "제품 · 기술 · 시술을 한 번에"]]) +
+      g("도구", [["#compare", "비교", "최대 3개를 나란히"], ["#compare--calc", "비용 계산기", "직접 입력한 금액으로 단순 비교"]]) +
+      g("참여 · 정보", [["#contribute", "정보 등록 · 수정 요청", "출처와 함께 알려 주세요"], ["#about", "서비스 소개", "출처 등급 · 운영 원칙"], ["#brand", "브랜드", "RE:LEV 로고 · 컬러 · 톤"]]);
   }
   function techsOf(e) { return e.rec.techIds.length ? e.rec.techIds : (e.rec.techCandidates || []); }
   function compareTable(ents) {
@@ -818,6 +857,7 @@
       case "learn": html = pageLearn(); break;
       case "contribute": html = pageContribute(path[1], path[2]); break;
       case "search": html = pageSearch(searchQ); break;
+      case "menu": html = pageMenu(); break;
       default: html = notFound();
     }
     view.innerHTML = html;
@@ -826,7 +866,7 @@
     document.body.classList.toggle("has-phero", !!view.querySelector(".phero"));
     onScrollFx();
     document.querySelectorAll("[data-nav]").forEach(function (a) { a.classList.toggle("on", a.dataset.nav === nav); });
-    document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", learn: "learn", device: "device", clinic: "clinic", science: "learn", decode: "learn", compare: "compare" }[nav] || "")); });
+    document.querySelectorAll("[data-tab]").forEach(function (a) { a.classList.toggle("on", a.dataset.tab === ({ "": "home", learn: "learn", device: "device", clinic: "clinic", science: "learn", decode: "learn", menu: "menu", compare: "menu", about: "menu", brand: "menu", contribute: "menu", search: "menu" }[nav] || "")); });
     var h1 = view.querySelector("h1");
     document.title = (h1 && nav ? h1.textContent + " — " : "") + "RE:LEV — Re:level your skin.";
     renderTray();
@@ -856,6 +896,13 @@
       else if (j.hasAttribute("data-replay")) { var svg = j.querySelector("svg"); svg.classList.remove("play"); void svg.getBoundingClientRect(); svg.classList.add("play"); }
       else { var v = j.dataset.copy; try { navigator.clipboard.writeText(v).then(function () { j.classList.add("copied"); setTimeout(function () { j.classList.remove("copied"); }, 1200); }, function () {}); } catch (err) {} }
       return;
+    }
+    var sp = e.target.closest("[data-pick],[data-pickkey],[data-pickkind],[data-sheet-close]");
+    if (sp) {
+      if (sp.hasAttribute("data-pick")) { openPicker(); return; }
+      if (sp.hasAttribute("data-sheet-close")) { closePicker(); return; }
+      if (sp.dataset.pickkind) { pickKind = sp.dataset.pickkind; document.querySelectorAll("[data-pickkind]").forEach(function (b) { b.setAttribute("aria-selected", b.dataset.pickkind === pickKind); }); document.getElementById("pickList").innerHTML = pickResults(document.querySelector("[data-pickq]").value); return; }
+      var tr = tray(); if (tr.length < 3) tr.push(sp.dataset.pickkey); setTray(tr); closePicker(); route(); return;
     }
     var en = e.target.closest("[data-energy]");
     if (en) {
@@ -903,6 +950,7 @@
     }
   });
   document.addEventListener("input", function (e) {
+    if (e.target.hasAttribute && e.target.hasAttribute("data-pickq")) { document.getElementById("pickList").innerHTML = pickResults(e.target.value); return; }
     if (e.target.hasAttribute && e.target.hasAttribute("data-listq")) { listState.q = e.target.value; applyListFilter(); return; }
     if (e.target.dataset.calc) {
       calcState[e.target.dataset.calc] = e.target.value;
@@ -924,7 +972,8 @@
     var q = e.target.querySelector("input").value.trim();
     if (q) { searchQ = q; if (location.hash === "#search") route(); else location.hash = "#search"; }
   });
-  window.addEventListener("hashchange", function () { route(); window.scrollTo(0, 0); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePicker(); });
+  window.addEventListener("hashchange", function () { closePicker(); route(); if (location.hash === "#compare--calc") { var c = document.getElementById("calc"); if (c) { c.scrollIntoView(); return; } } window.scrollTo(0, 0); });
 
   // ── 데이터 로드 ───────────────────────────────────
   function load(name) { return fetch("data/" + name + ".json").then(function (r) { if (!r.ok) throw new Error(name); return r.json(); }); }
