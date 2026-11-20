@@ -1274,3 +1274,5 @@ body::before {
   background: rgba(255, 255, 255, .72); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9);
 }
 .hud { background: color-mix(in srgb, var(--bg) 72%, transparent); -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3); border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
+/* 다크 모드에서도 남색 로고가 보이도록, 로고 이미지가 든 가이드 칸은 밝은 바탕 */
+[data-theme="dark"] .guide .tile:not(.tile--navy):not(.tile--photo):has(> img) { background: #eef2f8; }
