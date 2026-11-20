@@ -189,8 +189,8 @@ em { font-style: italic; }
   color: var(--muted);
   text-align: left;
 }
-.hero__corner--tl { top: 72px; left: clamp(16px, 3vw, 40px); }
-.hero__corner--tr { top: 72px; right: clamp(16px, 3vw, 40px); color: var(--fg); }
+.hero__corner--tl { top: 84px; left: clamp(16px, 3vw, 40px); }
+.hero__corner--tr { top: 84px; right: clamp(16px, 3vw, 40px); color: var(--fg); }
 .hero__corner--bl { bottom: 32px; left: clamp(16px, 3vw, 40px); }
 .hero__corner--br { bottom: 32px; right: clamp(16px, 3vw, 40px); }
 
@@ -733,7 +733,7 @@ body { padding-bottom: 44px; }
 }
 @media (max-width: 700px) {
   .hud__nav { display: none; }
-  .hero__corner--tl, .hero__corner--tr { top: 60px; font-size: 10px; }
+  .hero__corner--tl, .hero__corner--tr { top: 82px; font-size: 10px; }
   .hero__corner--tl { max-width: 60%; }
   .hero__corner--br { display: none; }
   .vitalbar__where { min-width: 0; }
