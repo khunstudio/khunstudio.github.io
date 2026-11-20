@@ -308,7 +308,8 @@
     return pageHero("assets/relev/editorial/fluid-glass.webp", "50% 50%", "BASICS", "1분<br>기전 가이드", "고주파, 중주파, 집속 · 비집속 초음파, 일렉트로포레이션, LED, EMS, 갈바닉… 이름은 많아도 피부관리 기술은 결국 네 가지 에너지입니다.", "투명한 유리 리본 (AI 생성 콘셉트)") +
       '<div class="energy">' + ENERGY.map(function (e) {
         var mem = LEARN.filter(function (x) { return x.e === e.id; });
-        return '<div class="energy__card en-' + e.id + '"><span class="energy__icon">' + e.icon + '</span><p class="eyebrow">' + e.en + "</p><h2>" + e.name + '</h2><p>' + esc(e.line) + '</p><div class="chips">' + mem.map(function (x) { return '<button class="chip chip--plain" data-learn="' + (x.key || x.id) + '">' + esc(x.name) + "</button>"; }).join("") + "</div></div>";
+        return '<div class="energy__card en-' + e.id + '"><div class="ec__head"><span class="ec__icon">' + e.icon + '</span><div><h2>' + e.name + '</h2><span class="ec__count">' + mem.length + "가지 기술</span></div></div>" +
+          '<p class="ec__line">' + esc(e.line) + '</p><ul class="ec__list">' + mem.map(function (x) { return '<li><button data-learn="' + (x.key || x.id) + '"><span>' + esc(x.name) + '</span><i aria-hidden="true">›</i></button></li>'; }).join("") + "</ul></div>";
       }).join("") + "</div>" +
 
       '<section class="section"><p class="eyebrow">Pick one</p><h2 class="sec-h">피부 속 어디까지, 어떤 느낌으로?</h2>' +
