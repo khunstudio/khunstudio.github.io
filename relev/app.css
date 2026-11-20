@@ -1215,3 +1215,11 @@ body.psheet-open { overflow: hidden; }
   .phero__text p:not(.eyebrow) { font-size: 16px; color: var(--t2); }
 }
 @media (min-width: 761px) and (max-width: 1000px) { .phero { grid-template-columns: 1fr 1fr; gap: 32px; } }
+
+/* ── re:lev 워드마크 (흐르는 세리프 · 세포 콜론) ── */
+.pill__home .logo-svg { height: 26px; width: auto; }
+@media (max-width: 760px) { .pill__home .logo-svg { height: 24px; } }
+.foot2__logo .logo-svg { height: 34px; width: auto; }
+.band__slogan i { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; }
+.sym__cells { width: 22%; height: auto; color: #f3f0fa; }
+.pearl-bullet { width: 12px; height: 12px; background: radial-gradient(circle at 36% 30%, #fff 0 18%, #c9b9f6 45%, #6f57dc 100%); border-radius: 50%; }
