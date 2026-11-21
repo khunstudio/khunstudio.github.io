@@ -1223,3 +1223,5 @@ body.psheet-open { overflow: hidden; }
 .band__slogan i { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; }
 .sym__cells { width: 22%; height: auto; color: #f3f0fa; }
 .pearl-bullet { width: 12px; height: 12px; background: radial-gradient(circle at 36% 30%, #fff 0 18%, #c9b9f6 45%, #6f57dc 100%); border-radius: 50%; }
+
+.sym__swirl { width: 22%; height: auto; color: #f3f0fa; }

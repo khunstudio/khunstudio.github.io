@@ -823,6 +823,25 @@
       (bg ? '<rect width="120" height="120" rx="28" fill="#efe9ff"/>' : "") +
       cell(id, 62, 42, 19) + cell(id, 58, 84, 14) + "</svg>";
   }
+  // 스월 심볼: 세포 하나가 초승달 둘로 갈라져 비켜 도는 모양(에너지를 받은 상태). 솔리드는 작은 크기용 굵은 두 세포.
+  function swirlBody(n) {
+    var m = "cm" + n;
+    var cres = '<rect x="-60" y="-70" width="120" height="140" fill="currentColor" mask="url(#' + m + ')"/>';
+    var unit = '<g transform="translate(-4 6)">' + cres + '</g><g transform="rotate(180) translate(-12 12)">' + cres + "</g>";
+    return '<defs><mask id="' + m + '" maskUnits="userSpaceOnUse" x="-60" y="-70" width="120" height="140"><rect x="-60" y="-70" width="120" height="140" fill="#000"/><ellipse rx="38" ry="50" fill="#fff"/><ellipse cx="15" cy="-3" rx="33" ry="49" fill="#000"/></mask></defs>' +
+      '<g transform="translate(110 76) rotate(-24) scale(1.08)">' + unit + '</g><g transform="translate(92 222) rotate(-24) scale(.94)">' + unit + "</g>";
+  }
+  function swirlSvg(cls, bg, fg) {
+    var n = ++logoN;
+    if (!bg) return '<svg class="' + (cls || "") + '" viewBox="0 0 200 296" role="img" aria-label="re:lev 스월 심볼">' + swirlBody(n) + "</svg>";
+    return '<svg class="' + (cls || "") + '" viewBox="0 0 296 296" role="img" aria-label="re:lev 스월 심볼"><rect width="296" height="296" rx="68" fill="' + bg + '"/><g transform="translate(78 44) scale(.7)" style="color:' + (fg || "#fff") + '">' + swirlBody(n) + "</g></svg>";
+  }
+  function solidSvg(cls, bg, fg) {
+    var n = ++logoN, m = "sm" + n;
+    var body = '<defs><mask id="' + m + '" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="296"><rect width="200" height="296" fill="#000"/><ellipse cx="114" cy="70" rx="54" ry="60" fill="#fff" transform="rotate(-24 114 70)"/><ellipse cx="90" cy="222" rx="58" ry="64" fill="#fff" transform="rotate(-24 90 222)"/><ellipse cx="118" cy="68" rx="22" ry="36" fill="#000" transform="rotate(-24 118 68)"/><ellipse cx="88" cy="224" rx="25" ry="39" fill="#000" transform="rotate(-24 88 224)"/></mask></defs><rect width="200" height="296" fill="currentColor" mask="url(#' + m + ')"/>';
+    if (!bg) return '<svg class="' + (cls || "") + '" viewBox="0 0 200 296" aria-hidden="true">' + body + "</svg>";
+    return '<svg class="' + (cls || "") + '" viewBox="0 0 296 296" aria-hidden="true"><rect width="296" height="296" rx="68" fill="' + bg + '"/><g transform="translate(78 44) scale(.7)" style="color:' + (fg || "#fff") + '">' + body + "</g></svg>";
+  }
   // 확장 그래픽: 피부 속 세포들이 아래에서 위로 떠오르는 Cell Rise 필드
   function pearlField(cls, n, seed) {
     var id = "cell" + (++logoN), out = "", s = seed || 7;
@@ -865,12 +884,12 @@
         '<div class="sheet sheet--grad">' + logoSvg("sheet__logo") + "<span>On Derma Gradient</span></div></div>" +
         '<div class="anatomy">' + logoSvg("anatomy__logo") + '<ol><li><b>Flow</b> 이어지듯 흐르는 세리프 소문자. 부드럽지만 굵기 대비가 분명한 글자</li><li><b>Wave</b> e에서 l로 올라가는 한 줄의 가는 선 = 피부에 닿는 에너지</li><li><b>Cells</b> 콜론의 두 타원 = 피부 속 세포. 위 세포가 살짝 작고 오른쪽 위</li><li><b>Clear space</b> 세포 하나 높이만큼 사방 여백</li></ol></div>') +
 
-      sec("symbol", "Symbol", "세포 심볼", "작은 자리에서는 콜론의 두 세포만 씁니다. 로고 안에서는 단색 타원, 앱 아이콘 · 그래픽에서는 같은 세포를 반투명 유리 구로 표현합니다.",
+      sec("symbol", "Symbol", "스월 심볼", "콜론의 두 세포가 에너지를 받는 순간. 세포 하나가 초승달 둘로 갈라져 비켜 돌며, 그 회전이 곧 파동입니다. 위 세포가 조금 더 크고 두 세포는 떨어져 있어 콜론으로 읽혀요. 32px 이하에서는 굵은 두 세포(솔리드)를 씁니다.",
         '<div class="sym-row">' +
-        '<div class="sym">' + symbolSvg("sym__icon", true) + "<span>App icon · 유리 세포</span></div>" +
-        '<div class="sym">' + symbolSvg("sym__icon sym__icon--sm", true) + "<span>Favicon</span></div>" +
-        '<div class="sym sym--plain">' + cellMark("sym__cells") + "<span>Cells · 로고에서 꺼낸 단색</span></div>" +
-        '<div class="sym sym--plain">' + symbolSvg("sym__icon", false) + "<span>Glass cells · 그래픽용</span></div></div>") +
+        '<div class="sym">' + swirlSvg("sym__icon", "#3f2e8c", "#f1ecff") + "<span>App icon · 스월</span></div>" +
+        '<div class="sym">' + solidSvg("sym__icon sym__icon--sm", "#efe9ff", "#3f2e8c") + "<span>Favicon · 솔리드</span></div>" +
+        '<div class="sym sym--plain">' + swirlSvg("sym__swirl") + "<span>Swirl · 단색</span></div>" +
+        '<div class="sym sym--plain">' + cellMark("sym__cells") + "<span>Cells · 워드마크 콜론</span></div></div>") +
 
       sec("graphic", "Graphic", "Cell Rise 확장 그래픽", "피부 속 세포들이 아래에서 위로 떠오르는 흐름 하나로 배경, 구분선, 로딩, 리스트 기호까지 확장합니다. 로고는 항상 단색, 유리 세포는 그래픽에만 씁니다.",
         '<div class="gfx">' +
