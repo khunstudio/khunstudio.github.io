@@ -12,7 +12,7 @@ export type Concern =
 export type Goal = "start" | "keep" | "adapt";
 export type Slot = "am" | "pm";
 /** 나이대 (선택). 추천 분기에만 쓰고 정확한 나이는 묻지 않는다 */
-export type AgeBand = "teen" | "20e" | "20l" | "30s" | "40p";
+export type AgeBand = "teen" | "20e" | "20m" | "20l" | "30s" | "40p";
 /** 지금 생활 (선택) */
 export type Status = "student" | "jobseeker" | "worker" | "freelance" | "service" | "other";
 /** 요즘 관심사 (선택, 여러 개) */

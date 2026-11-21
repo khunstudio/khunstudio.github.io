@@ -81,8 +81,8 @@ export function situationLabel(mode: Mode, s: Situation): string {
 }
 export const SITUATION_ORDER: Situation[] = ["default", "active", "out"];
 
-export const AGES: Record<AgeBand, string> = { teen: "10대", "20e": "20대 초반", "20l": "20대 후반", "30s": "30대", "40p": "40대 이상" };
-export const AGE_ORDER: AgeBand[] = ["teen", "20e", "20l", "30s", "40p"];
+export const AGES: Record<AgeBand, string> = { teen: "10대", "20e": "20대 초반", "20m": "20대 중반", "20l": "20대 후반", "30s": "30대", "40p": "40대 이상" };
+export const AGE_ORDER: AgeBand[] = ["teen", "20e", "20m", "20l", "30s", "40p"];
 
 export const STATUSES: Record<Status, string> = { student: "학생", jobseeker: "취업 준비", worker: "직장인", freelance: "프리랜서 · 자영업", service: "군 복무 중", other: "그 외" };
 /** 생활 단계에 맞는 선택지만 보여 준다 */
