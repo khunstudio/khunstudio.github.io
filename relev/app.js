@@ -524,7 +524,7 @@
 
     return '<a class="back" href="#device">← Device</a><div class="split detail"><div>' +
       '<p class="eyebrow">' + esc(d.brand) + " · " + esc(d.form) + "</p><h1>" + esc(d.name) + "</h1>" + '<p class="sub">' + esc(d.purpose || "") + "</p>" + body + "</div>" +
-      aside([["인기 순위", g.rank ? "#" + g.rank + ' <span class="caption">뷰티 디바이스 · ' + esc(g.observedAt) + "</span>" : '<span class="caption">–</span>'], ["레코드 상태", statusBadge(d.status)], ["기술 계열", d.techIds.length ? chips(d.techIds) : na("확인 필요")], ["마지막 검증일", na("검증 전")]], "device:" + d.id) + "</div>";
+      aside([["인기 순위", g.rank ? "#" + g.rank + ' <span class="caption">뷰티 디바이스 · ' + esc(g.observedAt) + "</span>" : '<span class="caption">–</span>'], ["레코드 상태", statusBadge(d.status)], ["기술 계열", d.techIds.length ? chips(d.techIds) : na("확인 필요")], ["마지막 검증일", na("검증 전")]], "device:" + d.id, buyBlock(d)) + "</div>";
   }
 
   // ── 페이지: 시술 ──────────────────────────────────
@@ -616,8 +616,21 @@
       aside([["레코드 상태", statusBadge(t.status)], ["계열", fam ? '<span class="chip f-' + fam.id + '">' + fam.label + "</span>" : ""], ["다른 이름", esc(t.aka.join(", "))], ["검수일", na("검수 전")]]) + "</div>";
   }
 
-  function aside(rows, compareKey) {
+  // 구매 링크: data/affiliate.json에 쿠팡 파트너스 링크가 있으면 제휴 링크 + 고지 문구, 없으면 일반 쿠팡 검색 링크
+  var AFF_NOTICE = "이 링크는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.";
+  function coupangSearchUrl(d) { return "https://www.coupang.com/np/search?q=" + encodeURIComponent(d.fullName || ((d.brand ? d.brand + " " : "") + d.name)); }
+  function buyBlock(d) {
+    var aff = (D.affiliate && D.affiliate.links && D.affiliate.links[d.id]) || null;
+    if (aff) {
+      return '<div class="buy"><a class="btn buy__btn" href="' + esc(aff) + '" target="_blank" rel="sponsored noopener">쿠팡에서 보기<span class="buy__tag">제휴</span></a>' +
+        '<p class="buy__note">' + esc(AFF_NOTICE) + " 수수료는 분류 · 순위 · 설명에 영향을 주지 않습니다.</p></div>";
+    }
+    return '<div class="buy"><a class="btn btn--soft buy__btn" href="' + esc(coupangSearchUrl(d)) + '" target="_blank" rel="noopener">쿠팡에서 검색</a>' +
+      '<p class="buy__note">일반 검색 링크예요. 가격과 판매처는 쿠팡에서 직접 확인하세요.</p></div>';
+  }
+  function aside(rows, compareKey, extra) {
     return '<aside class="aside"><dl>' + rows.map(function (r) { return "<div><dt>" + r[0] + "</dt><dd>" + r[1] + "</dd></div>"; }).join("") + "</dl>" +
+      (extra || "") +
       (compareKey ? compareBtn(compareKey) : "") +
       '<a class="caption" href="#contribute--edit' + (compareKey ? "--" + compareKey.split(":")[1] : "") + '">정보 수정 요청하기 →</a></aside>';
   }
@@ -1061,9 +1074,10 @@
 
   // ── 데이터 로드 ───────────────────────────────────
   function load(name) { return fetch("data/" + name + ".json").then(function (r) { if (!r.ok) throw new Error(name); return r.json(); }); }
-  Promise.all([load("taxonomy"), load("technologies"), load("treatments"), load("devices"), load("terms")]).then(function (r) {
+  function loadOpt(name) { return fetch("data/" + name + ".json").then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; }); }
+  Promise.all([load("taxonomy"), load("technologies"), load("treatments"), load("devices"), load("terms"), loadOpt("affiliate")]).then(function (r) {
     document.querySelectorAll("[data-logo]").forEach(function (el) { el.innerHTML = logoSvg("logo-svg"); });
-    D.taxonomy = r[0]; HOME_FAMILIES = r[0].homeFamilies || []; D.techs = r[1]; D.treatments = r[2]; D.devices = r[3]; D.terms = r[4];
+    D.taxonomy = r[0]; HOME_FAMILIES = r[0].homeFamilies || []; D.techs = r[1]; D.treatments = r[2]; D.devices = r[3]; D.terms = r[4]; D.affiliate = r[5] || {};
     route();
   }).catch(function () {
     view.innerHTML = '<p class="empty">데이터를 불러오지 못했습니다. 로컬에서 열 때는 저장소 루트에서 <code>python3 -m http.server</code>로 실행하세요.</p>';
