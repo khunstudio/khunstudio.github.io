@@ -352,7 +352,7 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
   content: "";
   position: absolute;
   left: 50%;
-  bottom: .12em;
+  bottom: .4em;
   translate: -50% 0;
   width: .16em;
   height: .16em;
