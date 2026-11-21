@@ -242,7 +242,7 @@ export function HomeHero() {
         {/* 인트로 카피 */}
         <div className="sh-intro">
           <p className="sh-kicker">RE:BOOT YOURSELF.</p>
-          <h1 id="sh-title" className="sh-title">지금의 나와,<br />다음의 나 사이<span className="colon">:</span></h1>
+          <h1 id="sh-title" className="sh-title">지금의 나와,<br />다음의 나 사이<span className="sh-title-colon">:</span></h1>
           <p className="sh-sub">지금의 나를 지우지 않고, 다음의 나를 켜는 일.</p>
         </div>
 
