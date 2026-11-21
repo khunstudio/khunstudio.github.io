@@ -9,8 +9,21 @@ import "./globals.css";
 import { BottomNav, Footer, Header } from "@/components/chrome";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://reboot-psi.vercel.app"),
   title: { default: "RE:BOOT — 남자의 자기관리, 다시 켜다", template: "%s · RE:BOOT" },
   description: "피부 · 운동 · 스타일 · 생활 루틴을 30초 체크로 시작하세요. 입대 전부터 전역 후, 일상까지 이어지는 남성 자기관리 서비스. (프로토타입)",
+  openGraph: {
+    type: "website",
+    siteName: "RE:BOOT",
+    locale: "ko_KR",
+    images: [{
+      url: "/images/reboot-share.png",
+      width: 1200,
+      height: 630,
+      alt: "RE:BOOT YOURSELF. 보이고 싶은 모습부터, 다시 켜다.",
+    }],
+  },
+  twitter: { card: "summary_large_image" },
   robots: { index: false, follow: false },
 };
 
