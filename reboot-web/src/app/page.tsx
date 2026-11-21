@@ -192,13 +192,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 10. 프로젝트 상태 (정직하게) */}
+      {/* 10. 베타 안내 */}
       <section className="border-t border-line">
         <div className="wrap grid gap-6 py-12 md:grid-cols-3">
-          <div>
+          <div id="beta-feedback">
             <p className="eyebrow">PROJECT STATUS</p>
-            <p className="mt-2 text-[18px] font-bold">Prototype</p>
-            <p className="small mt-1">공개 베타 전 단계예요. 이용자 수 · 제휴 · 성과 숫자는 아직 없어요.</p>
+            <p className="mt-2 text-[18px] font-bold">베타 버전</p>
+            <p className="small mt-1">RE:BOOT는 베타 버전의 서비스입니다. 사용 경험을 자유롭게 나눠주세요.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeE_FayZHKhVpmKZeU6edk_WvMgciEqI5R_D2fBvTDfpbYqdg/viewform" className="btn btn-ghost mt-4">피드백 남기기</a>
           </div>
           <div>
             <p className="eyebrow">MADE BY</p>

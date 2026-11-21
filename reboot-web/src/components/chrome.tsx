@@ -102,7 +102,7 @@ export function Footer() {
           <p className="text-[30px] leading-none"><Wordmark /></p>
           <p className="mt-4 text-[15px] text-ink-mute">RE:BOOT YOURSELF. BACK EACH OTHER.</p>
           <p className="mt-6 max-w-sm text-[13px] leading-relaxed text-ink-mute">
-            KHUN STUDIO가 기획·운영하는 독립 프로젝트입니다. 국방부·군 공식 서비스가 아니며 어떤 기관과도 제휴 관계가 없습니다. 현재 프로토타입 단계입니다.
+            KHUN STUDIO가 기획·운영하는 독립 프로젝트입니다. 국방부·군 공식 서비스가 아니며 어떤 기관과도 제휴 관계가 없습니다. 현재 공개 베타를 운영 중입니다.
           </p>
         </div>
         <ul className="grid content-start gap-2.5 text-[14px] text-ink-mute">

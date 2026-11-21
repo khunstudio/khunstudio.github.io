@@ -30,7 +30,7 @@ export default function AboutPage() {
             <li>이용자 수 · 제휴 · 성과는 실제로 생긴 뒤에만 표시해요.</li>
           </ul>
           <h2>운영 주체와 상태</h2>
-          <p>기획 · 디자인 · 개발: KHUN STUDIO. 현재 상태는 <b>Prototype</b>이에요 (Concept → Prototype → Public Web Beta → Operational Service 순서로 진행).</p>
+          <p>기획 · 디자인 · 개발은 KHUN STUDIO가 맡고 있어요. 현재 <b>공개 베타</b>를 운영하고 있습니다.</p>
         </div>
         <div className="mt-10 flex flex-wrap gap-2">
           <Link href="/start/" className="btn btn-primary">시작하기</Link>
