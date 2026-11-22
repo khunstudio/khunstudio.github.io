@@ -392,3 +392,19 @@ body { padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom)); }
   .sh-pin { position: relative; min-height: 100svh; }
   .sh-hint, .sh-intro, .sh-mid { display: none; }
 }
+
+/* ================= CREW ================= */
+textarea.field { min-height: 160px; padding: 12px 14px; line-height: 1.65; resize: vertical; }
+.crew-item { display: block; padding: 18px 0; border-bottom: 1px solid var(--color-line); }
+.crew-item:hover .crew-title { text-decoration: underline; text-underline-offset: 3px; }
+.crew-title { font-weight: 700; font-size: 17px; line-height: 1.45; }
+.crew-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 13px; color: var(--color-mute); }
+.crew-kind { font-family: var(--font-display); font-weight: 700; font-size: 11.5px; letter-spacing: .14em; }
+.crew-solved { color: var(--color-signal-ink); font-weight: 700; }
+.crew-body { white-space: pre-wrap; line-height: 1.75; }
+.crew-dots { display: inline-grid; gap: 3px; vertical-align: middle; }
+.crew-dots i { display: block; width: 7px; height: 7px; border: 1.5px solid var(--color-ink); }
+.crew-dots i.on { background: var(--color-signal); border-color: var(--color-signal); }
+.crew-menu { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--color-mute); }
+.crew-menu button { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.crew-menu button:hover { color: var(--color-ink); }

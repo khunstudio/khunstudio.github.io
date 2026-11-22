@@ -108,10 +108,11 @@ export function Footer() {
         <ul className="grid content-start gap-2.5 text-[14px] text-ink-mute">
           <li><Link className="hover:text-white" href="/care/">CARE 가이드</Link></li>
           <li><Link className="hover:text-white" href="/check/">30초 체크</Link></li>
-          <li><Link className="hover:text-white" href="/crew/">CREW <span className="badge badge-soon ml-1">Beta 준비</span></Link></li>
+          <li><Link className="hover:text-white" href="/crew/">CREW <span className="badge badge-soon ml-1">{process.env.NEXT_PUBLIC_SUPABASE_URL ? "Beta" : "Beta 준비"}</span></Link></li>
           <li><Link className="hover:text-white" href="/select/">SELECT</Link></li>
           <li><Link className="hover:text-white" href="/about/">소개 · 운영 원칙</Link></li>
           <li><Link className="hover:text-white" href="/partnership/">협업 문의</Link></li>
+          <li><a className="hover:text-white" href="/brand/">BRAND BOOK</a></li>
         </ul>
         <ul className="grid content-start gap-2.5 text-[14px] text-ink-mute">
           <li><Link className="hover:text-white" href="/legal/privacy/">개인정보 처리 안내</Link></li>
@@ -119,6 +120,18 @@ export function Footer() {
           <li><Link className="hover:text-white" href="/legal/community/">커뮤니티 운영원칙</Link></li>
           <li><Link className="hover:text-white" href="/legal/advertising/">광고 · 제휴 표시 정책</Link></li>
         </ul>
+      </div>
+      <div className="wrap pb-10">
+        <a href="/brand/" className="group flex flex-wrap items-center justify-between gap-4 rounded-[16px] border border-ink-line px-6 py-5 transition-colors hover:border-white/40">
+          <span className="flex items-center gap-4">
+            <span className="grid gap-[5px]" aria-hidden="true"><i className="block h-3 w-3 bg-signal" /><i className="block h-3 w-3 bg-white transition-colors group-hover:bg-signal" /></span>
+            <span>
+              <span className="block font-display text-[13px] font-semibold tracking-[.2em] text-ink-mute">BRAND BOOK</span>
+              <span className="mt-1 block text-[16px] font-bold text-white">YESTERDAY : NEXT, RE:BOOT의 콜론 이야기</span>
+            </span>
+          </span>
+          <span className="text-[14px] text-ink-mute group-hover:text-white">브랜드 가이드 보기 →</span>
+        </a>
       </div>
       <div className="wrap border-t border-ink-line py-5 text-[12px] text-ink-mute">
         이 사이트의 정보는 일반적인 생활 관리 정보이며 의학적 진단이나 치료를 대신하지 않습니다.
