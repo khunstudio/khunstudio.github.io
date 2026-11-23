@@ -1,4 +1,5 @@
 "use client";
+import { crewOpen } from "@/lib/crew-config";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -108,7 +109,7 @@ export function Footer() {
         <ul className="grid content-start gap-2.5 text-[14px] text-ink-mute">
           <li><Link className="hover:text-white" href="/care/">CARE 가이드</Link></li>
           <li><Link className="hover:text-white" href="/check/">30초 체크</Link></li>
-          <li><Link className="hover:text-white" href="/crew/">CREW <span className="badge badge-soon ml-1">{process.env.NEXT_PUBLIC_SUPABASE_URL ? "Beta" : "Beta 준비"}</span></Link></li>
+          <li><Link className="hover:text-white" href="/crew/">CREW <span className="badge badge-soon ml-1">{crewOpen ? "Beta" : "Beta 준비"}</span></Link></li>
           <li><Link className="hover:text-white" href="/select/">SELECT</Link></li>
           <li><Link className="hover:text-white" href="/about/">소개 · 운영 원칙</Link></li>
           <li><Link className="hover:text-white" href="/partnership/">협업 문의</Link></li>

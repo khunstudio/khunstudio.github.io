@@ -1,3 +1,4 @@
+import { crewOpen } from "@/lib/crew-config";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { CrewFeed } from "./crew-feed";
@@ -23,7 +24,7 @@ export default function CrewPage() {
     <>
       <section className="band-ink">
         <div className="wrap py-14 md:py-20">
-          <p className="eyebrow">CREW <span className="badge badge-soon ml-2">{process.env.NEXT_PUBLIC_SUPABASE_URL ? "Beta" : "Beta 준비 중"}</span></p>
+          <p className="eyebrow">CREW <span className="badge badge-soon ml-2">{crewOpen ? "Beta" : "Beta 준비 중"}</span></p>
           <p className="display mt-5 text-[56px] sm:text-[88px]">BACK EACH<br />OTHER.</p>
           <h1 className="mt-5 text-[22px] font-extrabold tracking-tight sm:text-[28px]">서로의 편이 되어주는 커뮤니티</h1>
           <p className="lead mt-4 max-w-xl">&ldquo;내가 고생했으니 너도 해 봐라&rdquo; 대신 &ldquo;내가 겪어봤으니 너는 조금 덜 헤매도 된다.&rdquo; 경험은 물려주고, 고생은 줄이는 문화를 만들려고 해요.</p>

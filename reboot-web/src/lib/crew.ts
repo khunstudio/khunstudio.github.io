@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 // CREW 데이터 계층. 정적 사이트라 브라우저에서 Supabase에 바로 붙는다.
 // 키는 공개용(publishable) 키만 쓴다. 권한은 DB의 RLS가 지킨다 (supabase/crew.sql).
 
-const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+import { CREW_SUPABASE_PUBLISHABLE_KEY, CREW_SUPABASE_URL } from "./crew-config";
+
+const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || CREW_SUPABASE_URL;
+const KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || CREW_SUPABASE_PUBLISHABLE_KEY;
 
 export const crewReady = Boolean(SB_URL && KEY);
 

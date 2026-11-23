@@ -1,3 +1,4 @@
+import { crewOpen } from "@/lib/crew-config";
 import Link from "next/link";
 import { GUIDES } from "@/content/guides";
 import { GuideCard } from "@/components/guide-browser";
@@ -164,9 +165,9 @@ export default function Home() {
           <Link href="/crew/" className="t-panel t-panel-photo" data-rv>
             <div className="absolute inset-0"><Photo name="crew" alt="새벽 운동장 트랙에서 한 사람이 다른 사람의 어깨에 손을 얹고 나란히 선 두 남자의 뒷모습" position="50% 60%" className="h-full" /></div>
             <div className="relative">
-              <span className="badge badge-soon">{process.env.NEXT_PUBLIC_SUPABASE_URL ? "Beta" : "Beta 준비 중"}</span>
+              <span className="badge badge-soon">{crewOpen ? "Beta" : "Beta 준비 중"}</span>
               <p className="t-lg mt-6">&ldquo;내가 겪어봤으니,<br />너는 조금 덜 헤매도 된다.&rdquo;</p>
-              <p className="mt-4 text-[14px] text-white/80">{process.env.NEXT_PUBLIC_SUPABASE_URL ? "묻고(ASK), 경험으로 답하고(BACK), 물려주는(PASS IT ON) CREW." : "경험을 물려주는 CREW. 서버 연결 후 열어요."}</p>
+              <p className="mt-4 text-[14px] text-white/80">{crewOpen ? "묻고(ASK), 경험으로 답하고(BACK), 물려주는(PASS IT ON) CREW." : "경험을 물려주는 CREW. 서버 연결 후 열어요."}</p>
             </div>
           </Link>
           <Link href="/select/" className="t-panel t-panel-photo" data-rv style={{ ["--d" as string]: "90ms" }}>
