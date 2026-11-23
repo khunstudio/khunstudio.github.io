@@ -5,6 +5,7 @@
 import { createHmac } from "node:crypto";
 import { writeFileSync } from "node:fs";
 import { PRODUCTS } from "../src/content/products.ts";
+import { PARTNER_LINKS } from "../src/content/partner-links.generated.ts";
 
 const AK = process.env.COUPANG_ACCESS_KEY;
 const SK = process.env.COUPANG_SECRET_KEY;
@@ -23,7 +24,9 @@ const target = (p: (typeof PRODUCTS)[number]) =>
 
 async function main() {
   if (!AK || !SK) { console.log("[partner-links] 키가 없어 건너뜀 (일반 검색 링크 사용)"); return; }
-  const items = PRODUCTS.filter((p) => !p.partnerUrl);
+  // 직접 넣은 partnerUrl만 건너뛰고, 자동 생성 링크는 다시 만든다
+  const items = PRODUCTS.filter((p) => !p.partnerUrl || PARTNER_LINKS[p.id] === p.partnerUrl);
+  if (!items.length) { console.log("[partner-links] 만들 링크가 없어 건너뜀"); return; }
   const links: Record<string, string> = {};
   // 한 번에 최대 20개씩
   for (let i = 0; i < items.length; i += 20) {
@@ -40,6 +43,7 @@ async function main() {
       if (hit?.shortenUrl) links[p.id] = hit.shortenUrl;
     }
   }
+  if (!Object.keys(links).length) { console.log("[partner-links] 생성된 링크가 없어 기존 파일 유지"); return; }
   const body = `// 자동 생성 파일 (scripts/partner-links.mts). 직접 고치지 마세요.\n// 생성: ${new Date().toISOString()}\nexport const PARTNER_LINKS: Record<string, string> = ${JSON.stringify(links, null, 2)};\n`;
   writeFileSync(OUT, body);
   console.log(`[partner-links] ${Object.keys(links).length}/${items.length}개 링크 생성`);
