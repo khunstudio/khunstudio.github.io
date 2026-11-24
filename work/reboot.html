@@ -17,9 +17,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css">
-  <link rel="stylesheet" href="../styles.css?v=137">
+  <link rel="stylesheet" href="../styles.css?v=140">
 </head>
 <body>
   <header class="hud">
@@ -61,64 +61,65 @@
       </div>
     </section>
 
-    <section class="section" id="brand" data-vital="BRAND BOOK">
-      <header class="section__head"><span>[ 02 ]</span><h2>Brand Book</h2><i></i><span>YESTERDAY : NEXT</span></header>
+    <section class="section" id="brand" data-vital="BRAND SYSTEM">
+      <header class="section__head"><span>[ 02 ]</span><h2>Brand System</h2><i></i><span>YESTERDAY : NEXT</span></header>
+      <div class="bk bk--rb">
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
           <p class="cp-out__no">B-01</p>
           <h3>YESTERDAY : NEXT</h3>
-          <p>RE:BOOT의 콜론은 두 개의 사각형입니다. <b>흰 사각형은 지금까지 쌓아 온 어제의 나, 오렌지 사각형은 되고 싶은 다음의 나.</b> 둘이 한 줄로 서는 순간 콜론이 완성되고, 다음의 색이 어제로 번집니다. 흩어진 두 입체(SCATTER)가 평면이 되고(FLATTEN) 정렬되어(ALIGN) 정면을 본 뒤(FACE) 켜지는(BOOT) 다섯 장면이 브랜드 전체의 기준입니다.</p>
+          <p>RE:BOOT의 콜론은 두 개의 사각형입니다. <b>흰 사각형은 지금까지 쌓아 온 어제의 나, 오렌지 사각형은 되고 싶은 다음의 나.</b> 입체로 흩어진 두 큐브가 평면이 되고, 사선으로 쌓였다가, 정면을 보는 순간 콜론이 완성되며 다음의 색이 어제로 번집니다. 이 한 장면에서 로고 · 색 · 글자 · 움직임 · 말투까지 꺼냈습니다.</p>
         </div>
-        <img decoding="async" src="../assets/work/reboot/brand/brand-hero.webp" alt="RE:BOOT 브랜드북 표지 — YESTERDAY: NEXT와 다섯 장면" loading="lazy">
+        <div class="bk-stage bk-stage--rb"><canvas id="rb-stage" aria-hidden="true"></canvas>
+          <div class="bk-bar"><button class="bk-btn" id="rb-play" type="button" aria-pressed="true">PAUSE</button><input id="rb-scrub" type="range" min="0" max="1000" value="0" aria-label="장면 위치"></div>
+          <div class="bk-phases" id="rb-phases"><div class="bk-phase"><b>01 SCATTER</b><span>입체로 흩어진 어제와 다음</span></div><div class="bk-phase"><b>02 FLATTEN</b><span>음영이 빠지고 평면이 돼요</span></div><div class="bk-phase"><b>03 ALIGN</b><span>다음이 위, 어제가 아래로 쌓여요</span></div><div class="bk-phase"><b>04 FACE</b><span>사선이 펴지며 사각 콜론</span></div><div class="bk-phase"><b>05 BOOT</b><span>오렌지가 번져 어제까지 켜져요</span></div></div></div>
       </article>
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
           <p class="cp-out__no">B-02</p>
-          <h3>바꾸다가 아니라, 켜다</h3>
-          <p>어제의 나를 부정하지 않습니다. 흰 사각형은 지워지거나 교체되지 않고 다음의 색으로 물들 뿐이라, 브랜드의 기본 동사를 <b>‘바꾸다’가 아니라 ‘켜다’</b>로 정했습니다. 두 사각형의 의미는 서비스의 MY 기록(어제)과 ROUTINE · GOALS(다음)로 그대로 이어집니다.</p>
+          <h3>두 사각형은 두 사람, 둘 다 나</h3>
+          <p>어제의 나를 부정하지 않습니다. 흰 사각형은 지워지거나 교체되지 않고 다음의 색으로 물들 뿐이라, 브랜드의 기본 동사를 <b>‘바꾸다’가 아니라 ‘켜다’</b>로 정했습니다.</p>
         </div>
-        <img decoding="async" src="../assets/work/reboot/brand/story.webp" alt="두 사각형 이야기 — YESTERDAY와 NEXT" loading="lazy">
+        <div class="rb-pair"><div class="rb-who"><i class="rb-sq" style="background:#fff"></i><b>YESTERDAY</b><p>지금까지의 나. 입대 전의 생활, 복무 중의 하루, 전역 후 다시 시작하는 일상까지 쌓여 온 기록.</p><span>흰색 · 아래 · MY 기록, D+</span></div><div class="rb-mid" aria-hidden="true"><i></i><i></i></div><div class="rb-who rb-who--next"><i class="rb-sq" style="background:#ff5a1f"></i><b>NEXT</b><p>되고 싶은 나. 오늘 체크할 루틴, 이번 시즌의 목표, 다음 단계의 생활.</p><span>시그널 오렌지 · 위 · ROUTINE, GOALS</span></div></div>
+        <p class="rb-quote">타고난 건 그대로 두고,<br>오늘의 나를 다시 켜요.</p>
       </article>
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
           <p class="cp-out__no">B-03</p>
           <h3>The Mark &amp; States</h3>
-          <p>콜론은 글꼴의 문장부호 대신 정사각형 두 개로 그리고, 모든 치수를 사각형 한 변(m)에서 정했습니다. 같은 콜론이 UI에서는 <b>YESTERDAY · IN PROGRESS · BOOTED</b> 세 상태를 말합니다. 상태는 색만이 아니라 글자와 개수로도 함께 표시해 색각 이상 사용자도 읽을 수 있게 했습니다.</p>
+          <p>콜론은 글꼴의 문장부호 대신 정사각형 두 개로 그리고, 모든 치수를 사각형 한 변(m)에서 정했습니다. 공식 로고는 언제나 완성 상태(BOOTED)이고, 같은 콜론이 UI에서는 세 가지 상태를 말합니다. 상태는 색만이 아니라 글자와 개수로도 함께 표시합니다.</p>
         </div>
-        <div class="rs-pair"><figure><img decoding="async" src="../assets/work/reboot/brand/mark.webp" alt="콜론의 구조 — 모듈, 간격, 순서" loading="lazy"><figcaption>THE MARK · 콜론의 구조</figcaption></figure><figure><img decoding="async" src="../assets/work/reboot/brand/states.webp" alt="콜론의 세 상태" loading="lazy"><figcaption>STATES · 3 STATES</figcaption></figure></div>
+        <div class="rb-spec"><div class="rb-fig"><svg viewBox="0 0 360 300" role="img" aria-label="콜론 구조 도면"><defs><pattern id="rb-g" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M12 0H0V12" fill="none" stroke="#eceae5" stroke-width="1"/></pattern></defs><rect width="360" height="300" fill="url(#rb-g)"/><rect x="150" y="54" width="60" height="60" fill="#ff5a1f"/><rect x="150" y="156" width="60" height="60" fill="#111"/><g stroke="#111" stroke-width="1" fill="none"><path d="M150 238V250M210 238V250M150 244H210"/><path d="M228 114H240M228 156H240M234 114V156"/><path d="M132 54H120M132 114H120M126 54V114"/></g><g font-family="IBM Plex Mono, monospace" font-size="12" fill="#111"><text x="180" y="266" text-anchor="middle">m</text><text x="246" y="139">0.7m</text><text x="114" y="88" text-anchor="end">m</text><text x="222" y="70" fill="#c2410c">NEXT</text><text x="222" y="200" fill="#6e6d69">YESTERDAY</text></g></svg></div>
+          <dl class="rb-rules"><div><dt>모듈</dt><dd>정사각형 한 변 = m = 글자 높이의 0.17배</dd></div><div><dt>간격</dt><dd>두 사각형 사이 0.7m</dd></div><div><dt>순서</dt><dd>오렌지(다음)가 위, 어제가 아래. 뒤집지 않아요.</dd></div><div><dt>최소 크기</dt><dd>16px 아래에서는 콜론을 둘 다 오렌지로 단순화</dd></div></dl></div>
+        <div class="rb-states"><div><span class="rb-dots" aria-hidden="true"><i class=""></i><i class="day"></i></span><code>위 꺼짐 / 아래 흰색</code><b>YESTERDAY</b><p>아직 시작 전. 체크 전 루틴, 시작 전 목표.</p></div><div><span class="rb-dots" aria-hidden="true"><i class="on"></i><i class="day"></i></span><code>위 오렌지 / 아래 흰색</code><b class="rb-c">IN PROGRESS</b><p>다음이 켜졌고 어제는 그대로. 진행 중인 루틴, D-day가 남은 목표.</p></div><div><span class="rb-dots" aria-hidden="true"><i class="on"></i><i class="on"></i></span><code>위 오렌지 / 아래 오렌지</code><b>BOOTED</b><p>오늘 루틴 완료, 목표 달성, 그리고 공식 로고.</p></div></div>
       </article>
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
           <p class="cp-out__no">B-04</p>
-          <h3>Wordmark &amp; Shift Shape</h3>
-          <p>워드마크는 잉크 · 흰 바탕 · 오렌지 바탕 세 가지로, 앱 아이콘은 글자를 빼고 콜론만 씁니다. 큐브가 평면이 되는 순간의 실루엣을 <b>‘전환 중’</b>을 뜻하는 보조 형태로 만들어 로딩 · 단계 표시 · 패턴에 씁니다.</p>
+          <h3>Wordmark &amp; App Icon</h3>
+          <p>워드마크는 계기판 각인 같은 Chakra Petch에 사각형 콜론을 얹었습니다. 앱 아이콘과 파비콘은 글자를 빼고 콜론만, 잉크 바탕의 BOOTED 상태로 씁니다.</p>
         </div>
-        <div class="rs-pair"><figure><img decoding="async" src="../assets/work/reboot/brand/wordmark.webp" alt="워드마크와 앱 아이콘" loading="lazy"><figcaption>WORDMARK · APP ICON</figcaption></figure><figure><img decoding="async" src="../assets/work/reboot/brand/shift.webp" alt="사선 육각형 보조 형태" loading="lazy"><figcaption>SHIFT SHAPE</figcaption></figure></div>
+        <div class="rb-marks"><div class="rb-mark" style="background:#1a1a19;color:#fff;box-shadow:inset 0 0 0 1px #2e2e2c"><span class="rbw">RE<span class="rbc" aria-hidden="true"><i></i><i></i></span>BOOT</span><span>기본 · 잉크 바탕</span></div><div class="rb-mark" style="background:#fff;color:#111"><span class="rbw">RE<span class="rbc" aria-hidden="true"><i></i><i></i></span>BOOT</span><span>기본 · 흰 바탕</span></div><div class="rb-mark rb-mark--sig" style="background:#ff5a1f;color:#111"><span class="rbw">RE<span class="rbc" aria-hidden="true"><i></i><i></i></span>BOOT</span><span>강조 · 오렌지 바탕은 콜론을 흰색으로</span></div><div class="rb-mark" style="background:#f4f3f0;color:#111"><span class="rb-slogan"><span class="rbw">RE<span class="rbc" aria-hidden="true"><i></i><i></i></span>BOOT</span><em>YOURSELF.</em></span><span>슬로건 잠금</span></div></div>
+        <div class="rb-icons"><i class="rb-app" style="--s:112px"></i><i class="rb-app" style="--s:72px"></i><i class="rb-app" style="--s:44px"></i><p>앱 아이콘 · 잉크 바탕, BOOTED, 사각형 한 변은 아이콘 폭의 26%</p></div>
       </article>
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
           <p class="cp-out__no">B-05</p>
           <h3>Color &amp; Typography</h3>
-          <p>색은 장식이 아니라 <b>상태</b>입니다. 화면의 90%는 잉크와 흰색, 오렌지(SIGNAL #FF5A1F)는 다음의 나 · 행동 · 완료에만 3% 이하로 씁니다. 영문은 계기판 각인 같은 Chakra Petch, 한글은 단단하지만 차갑지 않은 IBM Plex Sans KR.</p>
+          <p>색은 장식이 아니라 <b>상태</b>입니다. 화면의 90%는 잉크와 흰색, 오렌지는 다음의 나 · 행동 · 완료에만 3% 이하로 씁니다. 영문은 기계처럼 각진 Chakra Petch, 한글은 단단하지만 차갑지 않은 IBM Plex Sans KR.</p>
         </div>
-        <div class="rs-pair"><figure><img decoding="async" src="../assets/work/reboot/brand/color.webp" alt="RE:BOOT 컬러 — 오렌지는 켜짐에만" loading="lazy"><figcaption>COLOR · 90 / 7 / 3</figcaption></figure><figure><img decoding="async" src="../assets/work/reboot/brand/type.webp" alt="기계의 영문, 사람의 한글 — 타이포그래피" loading="lazy"><figcaption>TYPE · Chakra Petch + IBM Plex Sans KR</figcaption></figure></div>
+        <div class="bk-sws bk-sws--5"><div class="bk-sw" style="background:#ff5a1f;color:#111"><b>SIGNAL</b><span>#FF5A1F</span><em>다음의 나 · 버튼 · 완료 · 콜론</em></div><div class="bk-sw" style="background:#111;color:#fff;box-shadow:inset 0 0 0 1px #2e2e2c"><b>INK</b><span>#111111</span><em>바탕 · 본문</em></div><div class="bk-sw" style="background:#fff;color:#111"><b>PAPER</b><span>#FFFFFF</span><em>어제의 나 · 바탕</em></div><div class="bk-sw" style="background:#f4f3f0;color:#111"><b>SAND</b><span>#F4F3F0</span><em>밝은 면 · 카드</em></div><div class="bk-sw" style="background:#c2410c;color:#fff"><b>SIGNAL INK</b><span>#C2410C</span><em>흰 바탕 위 오렌지 글자</em></div></div><div class="rb-ratio" aria-label="잉크와 흰색 90%, 샌드와 회색 7%, 오렌지 3% 이하"><i style="width:55%;background:#111"></i><i style="width:35%;background:#fff"></i><i style="width:7%;background:#9b9a95"></i><i style="width:3%;background:#ff5a1f"></i></div><p class="rb-small">잉크 · 흰색 90% / 샌드 · 회색 7% / 오렌지 3% 이하 — 한 화면에 오렌지 버튼은 하나.</p><div class="rb-type"><div><span class="bk-label">DISPLAY · LATIN</span><p class="rb-type__en">BOOT</p><p>Chakra Petch 500 · 600 · 700 — 워드마크, 영문 라벨, 숫자(D+120)에만.</p></div><div><span class="bk-label">TEXT · KOREAN</span><p class="rb-type__ko">다시 켜요</p><p>IBM Plex Sans KR 400 · 500 · 700 — 제목 700, 본문 400.</p></div></div>
       </article>
       <article class="cp-out cp-out--wide">
         <div class="cp-out__info">
           <p class="cp-out__no">B-06</p>
-          <h3>Motion &amp; Voice</h3>
-          <p>모든 움직임은 표지의 다섯 장면 중 하나를 빌려 옵니다. 말투는 <b>‘옆자리 선임처럼, 기준을 말해요’</b> — 해요체로 짧게, 겁주지 않고, 없는 숫자는 쓰지 않습니다.</p>
+          <h3>Voice &amp; Applications</h3>
+          <p>‘옆자리 선임처럼, 기준을 말해요.’ 해요체로 짧게, 겁주지 않고, 없는 숫자는 쓰지 않습니다. 서비스 안의 체크박스, D-day 막대, 진행 표시까지 모두 같은 콜론의 은유를 씁니다.</p>
         </div>
-        <div class="rs-pair"><figure><img decoding="async" src="../assets/work/reboot/brand/motion.webp" alt="움직임 규칙 표" loading="lazy"><figcaption>MOTION · 5 SCENES</figcaption></figure><figure><img decoding="async" src="../assets/work/reboot/brand/voice.webp" alt="DO와 DON&#x27;T로 정리한 보이스" loading="lazy"><figcaption>VOICE · DO / DON'T</figcaption></figure></div>
+        <div class="rb-voice"><div class="no"><span>DON'T</span><p>잘생겨지라는 게 아니에요.</p></div><div class="yes"><span>DO</span><p>타고난 건 그대로 두고, 오늘의 나를 다시 켜요.</p></div><div class="no"><span>DON'T</span><p>이 크림 하나로 모공 해결!</p></div><div class="yes"><span>DO</span><p>BHA는 모공 속 피지 정리에 근거가 있는 편이에요. 주 2~3회부터.</p></div><div class="no"><span>DON'T</span><p>이용자 1만 명이 선택한 루틴</p></div><div class="yes"><span>DO</span><p>30초 체크로 오늘 할 순서를 받아요.</p></div></div>
+        <div class="rb-apps"><div><span class="bk-label">ROUTINE · 체크</span><div class="rb-demo"><p><span class="rb-dots" aria-hidden="true"><i class="on"></i><i class="on"></i></span>아침 세안<em>완료</em></p><p><span class="rb-dots" aria-hidden="true"><i class="on"></i><i class="on"></i></span>보습<em>완료</em></p><p><span class="rb-dots" aria-hidden="true"><i class="on"></i><i class="day"></i></span>자외선 차단<em>지금</em></p><p><span class="rb-dots" aria-hidden="true"><i class=""></i><i class="day"></i></span>저녁 세안</p></div></div><div><span class="bk-label">GOALS · D-day</span><div class="rb-demo"><small>전역일까지</small><p class="rb-dd">D<span class="rb-c">-</span>128</p><div class="rb-ratio"><i style="width:62%;background:#ff5a1f"></i><i style="width:38%;background:#fff"></i></div></div></div><div><span class="bk-label">SELECT · 제휴 표시</span><div class="rb-demo"><small>디오디너리 · 세럼</small><p><b>나이아신아마이드 10% + 징크 1%</b></p><p class="rb-tags"><span>성분 · 나이아신아마이드</span><span>제휴</span></p></div></div></div>
       </article>
-      <article class="cp-out cp-out--wide">
-        <div class="cp-out__info">
-          <p class="cp-out__no">B-07</p>
-          <h3>Applications &amp; Misuse</h3>
-          <p>루틴 체크박스, 전역일 D-day 막대, 제휴 표시까지 서비스 안의 모든 UI가 같은 콜론의 은유를 씁니다. 잘못 쓰는 경우도 함께 정해 브랜드가 흐트러지지 않게 했습니다.</p>
-        </div>
-        <div class="rs-pair"><figure><img decoding="async" src="../assets/work/reboot/brand/apps.webp" alt="서비스 안의 콜론 — 루틴, D-day, 제휴 표시" loading="lazy"><figcaption>APPLICATIONS</figcaption></figure><figure><img decoding="async" src="../assets/work/reboot/brand/donts.webp" alt="하지 않아요 — 로고 오용 예시" loading="lazy"><figcaption>MISUSE</figcaption></figure></div>
-      </article>
+      </div>
     </section>
 
     <section class="section" id="service" data-vital="SERVICE">
@@ -172,6 +173,7 @@
     <span>© 2026 KHUN studio</span>
     <span>소통하고 생각하는 디자이너, 유경훈</span>
   </footer>
+  <script src="../assets/work/reboot/stage.js?v=1" defer></script>
   <script src="../vital.js?v=4" defer></script>
 </body>
 </html>
