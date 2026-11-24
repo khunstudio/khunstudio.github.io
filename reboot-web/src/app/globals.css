@@ -408,3 +408,26 @@ textarea.field { min-height: 160px; padding: 12px 14px; line-height: 1.65; resiz
 .crew-menu { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--color-mute); }
 .crew-menu button { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .crew-menu button:hover { color: var(--color-ink); }
+.crew-rich { display: grid; gap: 12px; line-height: 1.75; word-break: keep-all; overflow-wrap: anywhere; }
+.crew-rich strong { font-weight: 700; }
+.crew-list { display: grid; gap: 4px; padding-left: 1.2em; list-style: disc; }
+.crew-quote { border-left: 3px solid var(--color-signal); padding: 4px 0 4px 14px; color: #4a4945; }
+.crew-editor { border: 1.5px solid var(--color-line); border-radius: 12px; overflow: hidden; background: #fff; }
+.crew-editor:focus-within { border-color: var(--color-ink); }
+.crew-toolbar { display: flex; align-items: center; gap: 4px; padding: 6px 8px; border-bottom: 1px solid var(--color-line); background: var(--color-sand); }
+.crew-toolbar button { height: 30px; min-width: 34px; padding: 0 10px; border-radius: 8px; font-size: 13px; color: var(--color-ink); }
+.crew-toolbar button:hover { background: #fff; }
+.crew-count { margin-left: auto; font-size: 12px; color: var(--color-mute); font-variant-numeric: tabular-nums; }
+.crew-textarea { border: 0 !important; border-radius: 0; min-height: 0; }
+.crew-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.crew-gallery.one { grid-template-columns: minmax(0, 1fr); }
+.crew-shot { display: block; border-radius: 12px; overflow: hidden; background: var(--color-sand); aspect-ratio: 4 / 3; }
+.crew-gallery.one .crew-shot { aspect-ratio: auto; max-height: 520px; }
+.crew-shot img { width: 100%; height: 100%; object-fit: cover; }
+.crew-gallery.one .crew-shot img { object-fit: contain; max-height: 520px; }
+.crew-thumb { position: relative; width: 84px; height: 84px; border-radius: 10px; overflow: hidden; background: var(--color-sand); }
+.crew-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.crew-thumb button { position: absolute; top: 4px; right: 4px; width: 22px; height: 22px; border-radius: 50%; background: rgba(17,17,17,.75); color: #fff; font-size: 14px; line-height: 1; }
+.crew-add { width: 84px; height: 84px; border-radius: 10px; border: 1.5px dashed var(--color-line); display: grid; place-content: center; justify-items: center; gap: 2px; color: var(--color-mute); cursor: pointer; font-size: 20px; }
+.crew-add:hover { border-color: var(--color-ink); color: var(--color-ink); }
+.crew-add:focus-within { outline: 2px solid var(--color-signal); outline-offset: 2px; }

@@ -31,10 +31,12 @@ export const KINDS: Record<Kind, { en: string; ko: string }> = { ask: { en: "ASK
 export interface Post {
   id: string; author: string; kind: Kind; stage: Stage; topic: Topic; title: string; body: string;
   solved: boolean; hidden: boolean; answer_count: number; created_at: string;
+  images?: string[]; edited_at?: string | null;
   profiles?: { nickname: string } | null;
 }
 export interface Answer {
   id: string; post_id: string; author: string; body: string; hidden: boolean; helpful_count: number; created_at: string;
+  edited_at?: string | null;
   profiles?: { nickname: string } | null;
 }
 
@@ -50,6 +52,7 @@ export function privacyIssue(text: string): string | null {
 
 export function friendlyError(e: unknown): string {
   const m = (e as { message?: string })?.message ?? String(e);
+  if (m.includes("bad_image_path") || m.includes("images") || m.includes("Bucket not found")) return "사진 기능을 준비 중이에요. 사진 없이 올리거나 잠시 후 다시 시도해 주세요.";
   if (m.includes("rate_limit")) return "짧은 시간에 너무 많이 올렸어요. 잠시 후 다시 올려 주세요.";
   if (m.includes("duplicate key") && m.includes("nickname")) return "이미 쓰는 닉네임이에요. 다른 걸로 골라 주세요.";
   if (m.includes("duplicate key")) return "이미 처리했어요.";
@@ -96,4 +99,42 @@ export function useCrewUser() {
 export async function blockedIds(): Promise<string[]> {
   const { data } = await sb().from("blocks").select("blocked_id");
   return (data ?? []).map((r: { blocked_id: string }) => r.blocked_id);
+}
+
+/** 저장소에 올린 사진의 공개 주소 */
+export const imageUrl = (path: string) => `${SB_URL}/storage/v1/object/public/crew/${path}`;
+
+export const MAX_IMAGES = 4;
+
+/** 사진을 1600px 이하로 줄이고 다시 저장한다. 다시 저장하면서 위치 정보(EXIF GPS 등)가 사라진다. */
+export async function shrinkImage(file: File): Promise<{ blob: Blob; ext: "webp" | "jpg" }> {
+  const bmp = await createImageBitmap(file);
+  const scale = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+  const w = Math.round(bmp.width * scale), h = Math.round(bmp.height * scale);
+  const c = document.createElement("canvas");
+  c.width = w; c.height = h;
+  c.getContext("2d")!.drawImage(bmp, 0, 0, w, h);
+  bmp.close?.();
+  const toBlob = (type: string) => new Promise<Blob | null>((res) => c.toBlob(res, type, 0.82));
+  const webp = await toBlob("image/webp");
+  if (webp && webp.type === "image/webp") return { blob: webp, ext: "webp" };
+  const jpg = await toBlob("image/jpeg");
+  if (!jpg) throw new Error("사진을 처리하지 못했어요.");
+  return { blob: jpg, ext: "jpg" };
+}
+
+/** 내 폴더에 사진을 올리고 저장 경로를 돌려준다 */
+export async function uploadImage(userId: string, file: File): Promise<string> {
+  if (!file.type.startsWith("image/")) throw new Error("사진 파일만 올릴 수 있어요.");
+  const { blob, ext } = await shrinkImage(file);
+  if (blob.size > 5 * 1024 * 1024) throw new Error("사진이 너무 커요.");
+  const id = crypto.randomUUID().replace(/-/g, "");
+  const path = `${userId}/${id}.${ext}`;
+  const { error } = await sb().storage.from("crew").upload(path, blob, { contentType: blob.type, upsert: false });
+  if (error) throw error;
+  return path;
+}
+
+export async function removeImages(paths: string[]) {
+  if (paths.length) await sb().storage.from("crew").remove(paths);
 }

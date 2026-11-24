@@ -77,7 +77,7 @@ export function CrewFeed() {
             </div>
             <p className="crew-title mt-2">{p.title}</p>
             <div className="crew-meta mt-2">
-              <span>{p.profiles?.nickname ?? "알 수 없음"}</span><span>{timeAgo(p.created_at)}</span><span>BACK {p.answer_count}</span>
+              <span>{p.profiles?.nickname ?? "알 수 없음"}</span><span>{timeAgo(p.created_at)}</span><span>BACK {p.answer_count}</span>{p.images?.length ? <span>사진 {p.images.length}</span> : null}{p.edited_at ? <span>수정됨</span> : null}
               {p.hidden && <span className="badge badge-draft">신고로 가려짐 · 나에게만 보여요</span>}
             </div>
           </Link>
