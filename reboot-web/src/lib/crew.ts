@@ -138,3 +138,19 @@ export async function uploadImage(userId: string, file: File): Promise<string> {
 export async function removeImages(paths: string[]) {
   if (paths.length) await sb().storage.from("crew").remove(paths);
 }
+
+/** 계정 즉시 삭제: 내 사진 파일을 먼저 지우고, 계정(과 연결된 글 · 답 · 백업)을 지운 뒤 로그아웃 */
+export async function deleteMyAccount() {
+  const { data: u } = await sb().auth.getUser();
+  if (!u.user) throw new Error("로그인이 필요해요.");
+  const store = sb().storage.from("crew");
+  for (let i = 0; i < 20; i++) {
+    const { data: files } = await store.list(u.user.id, { limit: 100 });
+    if (!files?.length) break;
+    await store.remove(files.map((f) => `${u.user!.id}/${f.name}`));
+    if (files.length < 100) break;
+  }
+  const { error } = await sb().rpc("delete_my_account");
+  if (error) throw error;
+  await sb().auth.signOut();
+}

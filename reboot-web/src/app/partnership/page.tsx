@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { InquiryForm } from "./inquiry-form";
 
 export const metadata: Metadata = { title: "협업 문의" };
 
@@ -24,9 +25,10 @@ export default function PartnershipPage() {
           <li>치료 효과를 보장하거나 과장하는 광고</li>
         </ul>
         <h2>문의</h2>
-        <p>공식 문의 메일은 준비 중이에요. 그동안은 운영 주체인 KHUN STUDIO 포트폴리오 사이트를 통해 연락할 수 있어요.</p>
+        <p>아래 양식으로 보내 주시면 운영자가 직접 확인하고 이메일로 답장드려요.</p>
       </div>
-      <a href="https://khunstudio.github.io/" className="btn btn-dark mt-6" target="_blank" rel="noopener noreferrer">KHUN STUDIO 바로가기</a>
+      <InquiryForm />
+      <p className="small mt-6">운영 주체: <a href="https://khunstudio.github.io/" className="link" target="_blank" rel="noopener noreferrer">KHUN STUDIO</a></p>
       <p className="small mt-8">관련 정책: <Link href="/legal/advertising/" className="link">광고 · 협찬 · 제휴 표시 정책(초안)</Link></p>
     </div>
   );

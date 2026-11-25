@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { crewReady, sb, timeAgo, useCrewUser } from "@/lib/crew";
+import { crewReady, deleteMyAccount, sb, timeAgo, useCrewUser } from "@/lib/crew";
 import { disable, enable, firstEnableState, lastSynced, startAutoSync, syncEnabled, syncNow } from "@/lib/sync";
 import { loginHref } from "./account-login";
 
@@ -14,6 +14,8 @@ export function AccountCard() {
   const [ask, setAsk] = useState(false);
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
+  const [delOpen, setDelOpen] = useState(false);
+  const [delText, setDelText] = useState("");
 
   useEffect(() => { setOn(syncEnabled()); setLast(lastSynced()); }, []);
   useEffect(() => {
@@ -97,6 +99,33 @@ export function AccountCard() {
           </div>
         )}
         {msg && <p className="small mt-3" role="status">{msg}</p>}
+      </div>
+
+      <div className="mt-4 border-t border-line pt-4">
+        {!delOpen ? (
+          <button type="button" className="text-[13px] text-mute underline underline-offset-2 hover:text-ink" onClick={() => setDelOpen(true)}>계정 삭제</button>
+        ) : (
+          <div className="rounded-[12px] bg-sand p-4">
+            <p className="font-bold">계정을 삭제할까요? 되돌릴 수 없어요.</p>
+            <ul className="small mt-2 grid gap-1">
+              <li>· 바로 지워지는 것: 로그인 계정, 닉네임, CREW 글 · 답 · 첨부 사진 · &lsquo;도움 됨&rsquo;, 신고 · 차단 기록, 계정에 백업한 기록</li>
+              <li>· 남는 것: 이 기기 브라우저의 루틴 기록 (아래 &lsquo;데이터&rsquo;에서 따로 지울 수 있어요)</li>
+            </ul>
+            <label className="mt-3 grid gap-1.5"><span className="small">확인을 위해 <b>삭제</b>라고 입력해 주세요</span>
+              <input id="acct-delete-confirm" className="field max-w-[220px]" value={delText} onChange={(e) => setDelText(e.target.value)} autoComplete="off" />
+            </label>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button type="button" className="btn !min-h-10 bg-[#b91c1c] text-white disabled:opacity-40" disabled={delText.trim() !== "삭제" || busy}
+                onClick={async () => {
+                  setBusy(true); setMsg("");
+                  try { await deleteMyAccount(); disable(); setOn(false); setDelOpen(false); setMsg("계정을 삭제했어요. 그동안 함께해 줘서 고마워요."); }
+                  catch { setMsg("삭제하지 못했어요. 잠시 후 다시 시도해 주세요. 계속 안 되면 협업 문의로 알려 주세요."); }
+                  setBusy(false);
+                }}>{busy ? "삭제 중…" : "계정 영구 삭제"}</button>
+              <button type="button" className="btn btn-ghost !min-h-10" onClick={() => { setDelOpen(false); setDelText(""); }}>취소</button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
