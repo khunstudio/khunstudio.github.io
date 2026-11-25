@@ -403,7 +403,7 @@ em { font-style: italic; }
 
 /* 키비주얼 + 리플렛 */
 .kv { display: grid; gap: clamp(28px, 4vw, 56px); margin-top: 16px; }
-.kv__posters { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 28px); max-width: 1040px; }
+.kv__posters { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 28px); }
 .kv__poster { margin: 0; }
 .kv__poster figcaption { margin-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--muted); }
 .kv__poster figcaption b { margin-right: 8px; color: var(--acc); font-weight: 400; }
@@ -808,7 +808,7 @@ body { padding-bottom: 44px; }
 
 /* 큰 화면에서 내용이 끝없이 퍼지지 않게: 본문 폭 최대 1280px, 가운데 정렬 */
 .section, .cp-hero, .cp-next { padding-inline: max(var(--gutter), calc((100% - 1280px) / 2)); }
-.kv__posters { margin-inline: auto; }
+.kv__posters { margin-inline: 0; }
 @media (max-width: 700px) { .cp-cover--wide { aspect-ratio: 16 / 10; } }
 
 /* 윙스피킹 브랜드 가이드 */
@@ -1247,9 +1247,9 @@ body { padding-bottom: 44px; }
 .mg-keys span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--acc); }
 @media (max-width: 600px) { .mg-keys { grid-template-columns: 1fr; } }
 /* 모각 제품 상세페이지 3종: 브라우저 속에서 천천히 스크롤 */
-.mg-line { display: grid; grid-template-columns: repeat(3, minmax(0, 300px)); justify-content: center; gap: clamp(16px, 3vw, 48px); margin-top: 16px; }
+.mg-line { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 48px); margin-top: 16px; }
 .mg-line__item { margin: 0; }
-.mg-line .web__screen { flex: none; height: 560px; min-height: 0; }
+.mg-line .web__screen { flex: none; height: 640px; min-height: 0; }
 .cp-out .mg-line .web__screen img { animation-duration: 60s; }
 .mg-line figcaption { margin-top: 10px; font-size: 13px; line-height: 1.6; color: var(--muted); }
 .mg-line figcaption b { display: block; font-weight: 500; font-size: 15px; color: var(--fg); }
@@ -1469,3 +1469,15 @@ body::before {
 .rs-cta__btn { display: inline-flex; align-items: center; gap: 12px; margin-top: clamp(24px, 3vw, 40px); padding: clamp(16px, 1.6vw, 22px) clamp(28px, 3vw, 44px); border-radius: 999px; background: var(--acc); color: #02130a; font-size: clamp(16px, 1.4vw, 20px); font-weight: 700; text-decoration: none; transition: transform .2s, box-shadow .2s; }
 .rs-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 0 40px color-mix(in srgb, var(--acc) 55%, transparent); }
 [data-theme="light"] .rs-cta__btn { color: #fff; }
+
+/* button under the lead: closer to the lead, more air before the meta row */
+.cp-lead + .rs-go { margin-top: -8px; margin-bottom: clamp(40px, 4vw, 64px); }
+
+/* contribution cards sit on the brief's 4 columns; leftovers stretch to fill the last row */
+@media (min-width: 901px) {
+  .cp-meta__scope .scope { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cp-meta__scope .scope > li:last-child:nth-child(4n+1) { grid-column: span 4; }
+  .cp-meta__scope .scope > li:last-child:nth-child(4n+2),
+  .cp-meta__scope .scope > li:nth-last-child(2):nth-child(4n+1) { grid-column: span 2; }
+  .cp-meta__scope .scope > li:last-child:nth-child(4n+3) { grid-column: span 2; }
+}
