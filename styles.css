@@ -1448,3 +1448,24 @@ body::before {
 }
 @media (max-width: 520px) { .rb-marks { grid-template-columns: minmax(0, 1fr); } .rl-icons { gap: 8px; } }
 @media (prefers-reduced-motion: reduce) { .rl-spin, .rl-lift, .rl-ring, .rl-zap, .rl-beam, .rl-wob { animation: none; } .rl-ring { opacity: .4; } }
+
+/* RE:LEV / RE:BOOT — phones line up with the 3-col screens (6 cols, same gap) */
+.rs-phones { grid-template-columns: repeat(6, minmax(0, 1fr)); justify-content: stretch; gap: clamp(12px, 1.6vw, 24px); }
+.rs-phones img { border-radius: 14px; }
+@media (max-width: 760px) { .rs-phones { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } }
+
+/* contribution: breathing room under the meta row, and 4 cards share the brief's 4 columns */
+.cp-meta__scope { margin-top: clamp(8px, 1.2vw, 20px); padding-top: clamp(16px, 1.6vw, 24px); border-top: 1px solid var(--line); }
+@media (min-width: 901px) { .scope:has(> li:nth-child(4):last-child) { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* service links */
+.rs-go { display: inline-flex; align-items: center; gap: 14px; margin-top: clamp(18px, 2vw, 28px); padding: 14px 22px; border: 1px solid var(--acc); border-radius: 999px; background: color-mix(in srgb, var(--acc) 12%, transparent); color: var(--fg); font-size: 16px; font-weight: 600; text-decoration: none; transition: background .2s, box-shadow .2s; }
+.rs-go b { font-family: var(--mono); font-weight: 400; font-size: 13px; letter-spacing: .06em; color: var(--acc); }
+.rs-go:hover { background: color-mix(in srgb, var(--acc) 22%, transparent); box-shadow: 0 0 28px color-mix(in srgb, var(--acc) 35%, transparent); }
+.rs-cta { padding: clamp(56px, 7vw, 112px) max(var(--gutter), calc((100% - 1280px) / 2)); border-top: 1px solid var(--line); text-align: center; }
+.rs-cta__k { margin: 0 0 14px; font-family: var(--mono); font-size: 12px; letter-spacing: .16em; color: var(--acc); }
+.rs-cta__t { margin: 0; font-size: clamp(28px, 3.6vw, 52px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; word-break: keep-all; }
+.rs-cta__d { margin: 14px auto 0; max-width: 34em; color: var(--muted); font-size: clamp(14px, 1.1vw, 17px); line-height: 1.7; word-break: keep-all; }
+.rs-cta__btn { display: inline-flex; align-items: center; gap: 12px; margin-top: clamp(24px, 3vw, 40px); padding: clamp(16px, 1.6vw, 22px) clamp(28px, 3vw, 44px); border-radius: 999px; background: var(--acc); color: #02130a; font-size: clamp(16px, 1.4vw, 20px); font-weight: 700; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+.rs-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 0 40px color-mix(in srgb, var(--acc) 55%, transparent); }
+[data-theme="light"] .rs-cta__btn { color: #fff; }
