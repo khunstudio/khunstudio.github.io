@@ -1,0 +1,21 @@
+{
+  "name": "RE:BOOT — 남자의 자기관리, 다시 켜다",
+  "short_name": "RE:BOOT",
+  "description": "피부 · 운동 · 스타일 · 생활 루틴을 매일 체크하고, CREW에서 경험을 나누는 남성 자기관리 서비스",
+  "lang": "ko",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "오늘 루틴", "url": "/routine/?source=pwa", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "CREW", "url": "/crew/?source=pwa", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

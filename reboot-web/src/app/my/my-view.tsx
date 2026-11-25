@@ -9,6 +9,7 @@ import { track } from "@/lib/analytics";
 import { canvasToBlob, drawCard, type CardFormat } from "@/lib/share-card";
 import type { Mode, Store } from "@/lib/types";
 import { PersonaEditor, type PersonaValue } from "@/components/persona-editor";
+import { InstallCard } from "@/components/pwa";
 
 function download(name: string, data: BlobPart, type: string) {
   const url = URL.createObjectURL(new Blob([data], { type }));
@@ -106,6 +107,7 @@ function MyInner({ s }: { s: Store }) {
 
         <ModeSection s={s} />
         <PersonaSection s={s} />
+        <InstallCard />
         <ShareSection s={s} days={days} streakDays={st} week={week.map((d) => d.ratio)} goal={GOALS[p.goal]} />
         <DataSection s={s} />
       </div>

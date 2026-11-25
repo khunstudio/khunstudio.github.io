@@ -7,9 +7,15 @@ import "@fontsource/chakra-petch/600.css";
 import "@fontsource/chakra-petch/700.css";
 import "./globals.css";
 import { BottomNav, Footer, Header } from "@/components/chrome";
+import { RegisterSW } from "@/components/pwa";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://reboot-psi.vercel.app"),
+  metadataBase: new URL("https://re-boot.kr"),
+  applicationName: "RE:BOOT",
+  manifest: "/manifest.webmanifest",
+  icons: { icon: [{ url: "/favicon.ico", sizes: "any" }, { url: "/icons/icon-192.png", type: "image/png", sizes: "192x192" }], apple: "/icons/apple-touch-icon.png" },
+  appleWebApp: { capable: true, title: "RE:BOOT", statusBarStyle: "black-translucent" },
+  formatDetection: { telephone: false },
   title: { default: "RE:BOOT — 남자의 자기관리, 다시 켜다", template: "%s · RE:BOOT" },
   description: "피부 · 운동 · 스타일 · 생활 루틴을 30초 체크로 시작하세요. 입대 전부터 전역 후, 일상까지 이어지는 남성 자기관리 서비스. (베타)",
   openGraph: {
@@ -43,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main" className="page">{children}</main>
         <Footer />
         <BottomNav />
+        <RegisterSW />
       </body>
     </html>
   );

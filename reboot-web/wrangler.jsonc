@@ -3,6 +3,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "reboot",
   "compatibility_date": "2026-11-01",
+  "main": "./worker/index.ts",
+  // 5일마다 03:17 UTC에 Supabase 깨우기 (매달 1·6·11·16·21·26·31일)
+  "triggers": { "crons": ["17 3 */5 * *"] },
   "workers_dev": true,
   "routes": [
     { "pattern": "re-boot.kr", "custom_domain": true },
@@ -10,6 +13,7 @@
   ],
   "assets": {
     "directory": "./out",
+    "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
   }
