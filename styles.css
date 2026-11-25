@@ -1353,9 +1353,9 @@ body::before {
 .rl-spin { animation: rl-spin 4s cubic-bezier(.6,0,.3,1) infinite; transform-box: fill-box; transform-origin: center; } .rl-s2 { animation-delay: .25s; }
 @keyframes rl-spin { 0%, 15% { transform: rotate(0); } 60%, 100% { transform: rotate(180deg); } }
 .rl-energy { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.rl-en { margin: 0; border-radius: var(--r); background: #15131c; padding: 14px 14px 18px; color: #efe9ff; }
+.rl-en { margin: 0; border-radius: var(--r); background: radial-gradient(ellipse at 50% 35%, #fff 0%, #f1ecfe 55%, #e2d8fb 100%); padding: 18px 16px 20px; color: #1d1a26; text-align: center; }
 .rl-en svg { display: block; width: 100%; height: auto; }
-.rl-en figcaption b { display: block; font-size: 16px; font-weight: 600; } .rl-en figcaption span { font-size: 12.5px; color: #aaa4c4; }
+.rl-en figcaption b { display: block; margin-top: 6px; font-size: 19px; font-weight: 500; letter-spacing: .02em; color: #1d1a26; } .rl-en figcaption span { font-size: 12.5px; color: #565366; }
 .rl-lift { animation: rl-lift 3.2s cubic-bezier(.45,0,.2,1) infinite; }
 @keyframes rl-lift { 0%, 20% { transform: translateY(0); } 55%, 80% { transform: translateY(-46px); } 100% { transform: translateY(0); } }
 .rl-ring { animation: rl-ring 3.2s ease-out infinite; transform-box: fill-box; transform-origin: center; opacity: 0; } .rl-r2 { animation-delay: .4s; }
