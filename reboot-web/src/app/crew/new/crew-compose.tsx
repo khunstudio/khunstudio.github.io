@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { loginHref } from "@/components/account-login";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { KINDS, STAGES, TOPICS, crewReady, friendlyError, privacyIssue, removeImages, sb, uploadImage, useCrewUser, type Kind, type Stage, type Topic } from "@/lib/crew";
@@ -23,7 +24,7 @@ export function CrewCompose() {
 
   if (!crewReady) return <NotReady />;
   if (loading) return <p className="small">확인 중…</p>;
-  if (!user || !nickname) return <div><p className="h3">글을 쓰려면 로그인이 필요해요</p><Link href="/crew/login/" className="btn btn-primary mt-4">로그인</Link></div>;
+  if (!user || !nickname) return <div><p className="h3">글을 쓰려면 로그인이 필요해요</p><Link href={loginHref("/crew/new/")} className="btn btn-primary mt-4">로그인</Link></div>;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();

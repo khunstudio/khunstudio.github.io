@@ -10,6 +10,7 @@ import { canvasToBlob, drawCard, type CardFormat } from "@/lib/share-card";
 import type { Mode, Store } from "@/lib/types";
 import { PersonaEditor, type PersonaValue } from "@/components/persona-editor";
 import { InstallCard } from "@/components/pwa";
+import { AccountCard } from "@/components/account-card";
 
 function download(name: string, data: BlobPart, type: string) {
   const url = URL.createObjectURL(new Blob([data], { type }));
@@ -32,6 +33,8 @@ export function MyView() {
         <h1 className="h1 mt-3">아직 기록이 없어요</h1>
         <p className="lead mt-4">루틴을 만들고 체크하면 여기에 7일 · 30일 기록이 쌓여요. 생활 단계가 바뀌어도 기록은 이어져요.</p>
         <Link href="/start/" className="btn btn-primary mt-8">30초 체크 시작</Link>
+        <div className="mt-12"><AccountCard /></div>
+        <p className="small mt-3">다른 기기에서 쓰던 기록이 있다면 로그인 후 백업을 켜면 불러올 수 있어요.</p>
       </div>
     );
   }
@@ -82,7 +85,8 @@ function MyInner({ s }: { s: Store }) {
       </section>
 
       <div className="wrap-narrow py-10">
-        <section>
+        <AccountCard />
+        <section className="mt-10">
           <h2 className="sec-head h3">최근 7일</h2>
           <div className="daygrid grid-cols-7">
             {week.map((d, i) => (

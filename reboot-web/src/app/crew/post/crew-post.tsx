@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { loginHref } from "@/components/account-login";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { KINDS, blockedIds, crewReady, friendlyError, privacyIssue, removeImages, sb, timeAgo, uploadImage, useCrewUser, type Answer, type Post } from "@/lib/crew";
@@ -95,7 +96,7 @@ export function CrewPost() {
     setReply(""); load();
   }
   async function toggleHelpful(a: Answer) {
-    if (!user) { router.push("/crew/login/"); return; }
+    if (!user) { router.push(loginHref(`/crew/post/?id=${post!.id}`)); return; }
     const on = mine.includes(a.id);
     const { error } = on ? await sb().from("helpful").delete().eq("answer_id", a.id).eq("user_id", user.id) : await sb().from("helpful").insert({ answer_id: a.id });
     if (error) { setMsg(friendlyError(error)); return; }
@@ -194,7 +195,7 @@ export function CrewPost() {
           <div><button type="submit" className="btn btn-primary" disabled={busy || reply.trim().length < 2}>{busy ? "올리는 중…" : "BACK 남기기"}</button></div>
         </form>
       ) : (
-        <div className="mt-8 rounded-[12px] bg-sand p-5"><p className="font-bold">답을 남기려면 로그인해 주세요</p><Link href="/crew/login/" className="btn btn-dark mt-3 !min-h-11">로그인</Link></div>
+        <div className="mt-8 rounded-[12px] bg-sand p-5"><p className="font-bold">답을 남기려면 로그인해 주세요</p><p className="small mt-1">읽기는 누구나, 글 · 답은 로그인한 뒤에 쓸 수 있어요.</p><Link href={loginHref(`/crew/post/?id=${post.id}`)} className="btn btn-dark mt-3 !min-h-11">로그인</Link></div>
       )}
       {msg && <p className="small mt-3" role="alert">{msg}</p>}
     </article>

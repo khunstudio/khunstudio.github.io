@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { loginHref } from "@/components/account-login";
 import { useEffect, useState } from "react";
 import { KINDS, STAGES, TOPICS, blockedIds, crewReady, sb, timeAgo, useCrewUser, type Kind, type Post, type Stage, type Topic } from "@/lib/crew";
 import { NotReady, SolvedDots, Tags } from "./crew-ui";
@@ -36,11 +37,11 @@ export function CrewFeed() {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="small">
-          {loading ? "확인 중…" : user ? (nickname ? <>나는 <b className="text-ink">{nickname}</b></> : <Link href="/crew/login/" className="link">닉네임을 정해 주세요</Link>) : "읽기는 누구나, 쓰기는 로그인 후"}
+          {loading ? "확인 중…" : user ? (nickname ? <>나는 <b className="text-ink">{nickname}</b></> : <Link href={loginHref("/crew/")} className="link">닉네임을 정해 주세요</Link>) : "읽기는 누구나, 쓰기는 로그인 후"}
         </p>
         <div className="flex gap-2">
-          {!user && !loading && <Link href="/crew/login/" className="btn btn-ghost !min-h-10">로그인</Link>}
-          <Link href={user && nickname ? "/crew/new/" : "/crew/login/"} className="btn btn-primary !min-h-10">글쓰기</Link>
+          {!user && !loading && <Link href={loginHref("/crew/")} className="btn btn-ghost !min-h-10">로그인</Link>}
+          <Link href={user && nickname ? "/crew/new/" : loginHref("/crew/new/")} className="btn btn-primary !min-h-10">글쓰기</Link>
         </div>
       </div>
 

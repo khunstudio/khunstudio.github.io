@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { loginHref } from "@/components/account-login";
 import { useState } from "react";
 import { REPORT_REASONS, friendlyError, sb, type Stage, type Topic, STAGES, TOPICS } from "@/lib/crew";
 
@@ -17,7 +18,7 @@ export function Tags({ stage, topic }: { stage: Stage; topic: Topic }) {
 export function ReportBlock({ type, id, author, me, onBlocked }: { type: "post" | "answer"; id: string; author: string; me?: string; onBlocked?: () => void }) {
   const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState("");
-  if (!me) return <span className="crew-menu"><Link href="/crew/login/" className="underline underline-offset-2">로그인하고 신고</Link></span>;
+  if (!me) return <span className="crew-menu"><Link href={loginHref("/crew/")} className="underline underline-offset-2">로그인하고 신고</Link></span>;
   if (me === author) return null;
   async function report(reason: string) {
     const { error } = await sb().from("reports").insert({ target_type: type, target_id: id, reason });

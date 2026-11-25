@@ -23,15 +23,30 @@ function read(): Store {
   return cache;
 }
 
-function write(next: Store) {
+export const CHANGED_KEY = "reboot:changed";
+
+function write(next: Store, opts: { fromSync?: boolean } = {}) {
   next = syncTodayPlan(next);
   cache = next;
   try {
     localStorage.setItem(KEY, JSON.stringify(next));
+    // 계정 백업용: 이 기기에서 마지막으로 바뀐 시각 (서버에서 내려받은 건 제외)
+    if (!opts.fromSync) localStorage.setItem(CHANGED_KEY, new Date().toISOString());
   } catch {
     /* 저장 불가 환경(시크릿 모드 등): 이번 방문 동안만 유지 */
   }
   listeners.forEach((l) => l());
+  changeHooks.forEach((h) => { if (!opts.fromSync) h(); });
+}
+
+const changeHooks = new Set<() => void>();
+/** 이 기기에서 기록이 바뀔 때마다 (계정 백업 예약용) */
+export function onLocalChange(h: () => void) { changeHooks.add(h); return () => { changeHooks.delete(h); }; }
+
+/** 계정에서 내려받은 기록으로 통째로 바꾼다 */
+export function replaceStore(next: Store) {
+  if (!next || next.version !== 1) return;
+  write({ ...EMPTY, ...next }, { fromSync: true });
 }
 
 function subscribe(l: () => void) {
