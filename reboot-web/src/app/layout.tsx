@@ -30,7 +30,8 @@ export const metadata: Metadata = {
     }],
   },
   twitter: { card: "summary_large_image" },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
+  verification: { other: { "naver-site-verification": "29ea977321a9bf2b683911b08b8d31bac267537f" } },
 };
 
 export const viewport: Viewport = {
