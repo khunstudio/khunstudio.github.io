@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { INGREDIENTS } from "@/content/ingredients";
 import { PRODUCTS } from "@/content/products";
+import { BuyChecker } from "@/components/buy-checker";
 import { ProductPicks } from "@/components/product-picks";
 
 export const metadata: Metadata = { title: "SELECT", description: "성분을 기준으로 고른 예시 제품. 수수료가 아니라 성분이 먼저예요." };
@@ -24,6 +25,8 @@ export default function SelectPage() {
         <Link href="/skin/" className="btn btn-dark !min-h-11">내 피부 타입부터</Link>
         <Link href="/ingredients/" className="btn btn-ghost !min-h-11">성분 사전 보기</Link>
       </div>
+
+      <BuyChecker />
 
       <ul className="mt-12 grid gap-6 md:grid-cols-3">
         {PRINCIPLES.map(([t, d]) => (
