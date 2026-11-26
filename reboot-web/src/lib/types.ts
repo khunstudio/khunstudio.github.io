@@ -19,6 +19,16 @@ export type Status = "student" | "jobseeker" | "worker" | "freelance" | "service
 export type Focus = "looks" | "fitness" | "dating" | "career" | "health" | "money" | "study";
 /** 생활 상황. 라벨은 모드마다 다르게 보인다 (예: 복무 중이면 "야외활동이 많은 날"). */
 export type Situation = "default" | "active" | "out";
+/** 오늘 컨디션 · 생활 변수 태그 (복수 선택, 당일 루틴 자동 조정용) */
+export type ConditionTag =
+  | "outdoor_uv"
+  | "shaved"
+  | "sweat_workout"
+  | "sleep_low"
+  | "heavy_diet"
+  | "dry_cold"
+  | "sensitive_flare"
+  | "important_soon";
 
 export interface Profile {
   mode: Mode;
@@ -63,6 +73,8 @@ export interface DayRecord {
   /** 그날 계획된 항목 id (체크한 순간의 활성 항목 기준) */
   planned: string[];
   done: string[];
+  /** 그날 선택한 컨디션 · 생활 변수 태그 */
+  conditions?: ConditionTag[];
 }
 
 export interface SkinRecord {

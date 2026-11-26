@@ -1,8 +1,8 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { buildRoutine, dayKey, syncTodayPlan, visibleItems } from "./engine.ts";
-import type { Anchor, CheckAnswers, LifeGoal, Mode, Profile, Routine, RoutineItem, SkinRecord, Slot, Situation, Store } from "./types.ts";
+import { buildRoutine, dayKey, plannedItems, syncTodayPlan } from "./engine.ts";
+import type { Anchor, CheckAnswers, ConditionTag, LifeGoal, Mode, Profile, Routine, RoutineItem, SkinRecord, Slot, Situation, Store } from "./types.ts";
 
 // 저장 어댑터: 지금은 localStorage. 계정을 도입하면 이 파일의 read/write만 서버 동기화로 교체한다.
 const KEY = "reboot:v1";
@@ -101,6 +101,20 @@ export const actions = {
     write({ ...s, routine: { ...s.routine, situation, updatedAt: now() } });
   },
 
+  /** 오늘 컨디션 · 생활 변수 태그 토글 (복수 선택, 당일 기록에만 저장) */
+  toggleCondition(tag: ConditionTag) {
+    const s = read();
+    if (!s.routine) return;
+    const key = dayKey();
+    const prevRec = s.records[key];
+    const prevTags = prevRec?.conditions ?? [];
+    const conditions = prevTags.includes(tag) ? prevTags.filter((t) => t !== tag) : [...prevTags, tag];
+    const planned = plannedItems(s.routine.items, s.routine.situation, conditions).map((i) => i.id);
+    const done = prevRec?.done ?? [];
+    const nextRecord = conditions.length > 0 ? { planned, done, conditions } : { planned, done };
+    write({ ...s, records: { ...s.records, [key]: nextRecord } });
+  },
+
   toggleEnabled(id: string) {
     const s = read();
     if (!s.routine) return;
@@ -108,15 +122,18 @@ export const actions = {
     write({ ...s, routine: { ...s.routine, items, updatedAt: now() } });
   },
 
-  /** 오늘 항목 체크/해제. planned는 지금 보이는 항목으로 갱신한다. */
+  /** 오늘 항목 체크/해제. planned는 컨디션 조정을 반영한 활성 항목으로 갱신한다. */
   toggleDone(id: string) {
     const s = read();
     if (!s.routine) return;
     const key = dayKey();
-    const planned = visibleItems(s.routine.items, s.routine.situation).map((i) => i.id);
-    const prev = s.records[key]?.done ?? [];
+    const prevRec = s.records[key];
+    const conditions = prevRec?.conditions;
+    const planned = plannedItems(s.routine.items, s.routine.situation, conditions).map((i) => i.id);
+    const prev = prevRec?.done ?? [];
     const done = prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id];
-    write({ ...s, records: { ...s.records, [key]: { planned, done } } });
+    const nextRecord = conditions && conditions.length > 0 ? { planned, done, conditions } : { planned, done };
+    write({ ...s, records: { ...s.records, [key]: nextRecord } });
   },
 
   /** 내가 직접 정한 항목을 루틴에 추가한다 (예: 아침 비타민 C) */

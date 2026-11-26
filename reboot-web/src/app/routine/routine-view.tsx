@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Check } from "@/components/chrome";
+import { CONDITION_ORDER, CONDITIONS, evaluateConditions } from "@/lib/conditions";
 import { dayKey, dPlus, visibleItems } from "@/lib/engine";
 import { situationLabel, SITUATION_ORDER } from "@/lib/labels";
 import { actions, useStore } from "@/lib/store";
@@ -31,8 +32,13 @@ export function RoutineView() {
   const { routine, profile } = s;
   const today = s.records[dayKey()];
   const visible = visibleItems(routine.items, routine.situation);
-  const done = (today?.done ?? []).filter((id) => visible.some((v) => v.id === id));
-  const pct = visible.length ? Math.round((done.length / visible.length) * 100) : 0;
+  const todayConditions = today?.conditions ?? [];
+  const adj = evaluateConditions(todayConditions, visible);
+  const pausedSet = new Set(adj.pausedItemIds);
+  const emphasizedSet = new Set(adj.emphasizedItemIds);
+  const activeVisible = visible.filter((v) => !pausedSet.has(v.id));
+  const done = (today?.done ?? []).filter((id) => activeVisible.some((v) => v.id === id));
+  const pct = activeVisible.length ? Math.round((done.length / activeVisible.length) * 100) : 0;
   const excluded = routine.items.filter((i) => !i.enabled && (!i.situations || i.situations.includes(routine.situation)));
   const date = new Date();
   const dateLabel = `${date.getMonth() + 1}월 ${date.getDate()}일 ${"일월화수목금토"[date.getDay()]}요일`;
@@ -52,7 +58,11 @@ export function RoutineView() {
         </div>
       </div>
       <div className="bar mt-4" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="오늘 충전"><i style={{ width: `${pct}%` }} /></div>
-      <p className="small mt-2">{visible.length}개 중 {done.length}개 완료 · 충전은 계획한 항목 중 실천한 비율이에요.</p>
+      <p className="small mt-2">
+        {activeVisible.length}개 중 {done.length}개 완료
+        {adj.pausedItemIds.length > 0 ? ` · 자극 항목 ${adj.pausedItemIds.length}개는 오늘 쉬어요` : ""}
+        {" · 충전은 계획한 항목 중 실천한 비율이에요."}
+      </p>
 
       <div className="mt-8">
         <p className="small mb-2 font-semibold !text-ink">오늘은 어떤 날인가요?</p>
@@ -65,15 +75,57 @@ export function RoutineView() {
         </div>
       </div>
 
+      <div className="mt-5">
+        <p className="small mb-2 font-semibold !text-ink">오늘 컨디션 · 생활 변수 <span className="font-normal text-mute">(해당하는 걸 켜면 오늘 루틴이 맞춰져요)</span></p>
+        <div className="flex flex-wrap gap-2" role="group" aria-label="오늘 컨디션 태그">
+          {CONDITION_ORDER.map((tag) => {
+            const on = todayConditions.includes(tag);
+            return (
+              <button key={tag} type="button" className="chip" aria-pressed={on} onClick={() => actions.toggleCondition(tag)}>
+                {CONDITIONS[tag].label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {adj.tags.length > 0 && (
+        <section className={`mt-5 rounded-[12px] border p-4 fade-in ${adj.tone === "minimal" ? "border-ink bg-paper" : "border-line bg-paper"}`} aria-label="오늘 루틴 조정 안내">
+          <p className="eyebrow !text-[11px]">{adj.tone === "minimal" ? "MINIMAL CARE · 자극 쉬기" : "TODAY ADJUSTED"}</p>
+          <p className="mt-1.5 text-[14.5px] font-semibold leading-snug text-ink">{adj.summary}</p>
+          {adj.tips.length > 0 && (
+            <ul className="mt-2 grid gap-1 text-[13.5px] leading-relaxed text-[#3d3d3a]">
+              {adj.tips.map((tip) => <li key={tip}>· {tip}</li>)}
+            </ul>
+          )}
+          {adj.showDermNotice && (
+            <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-line pt-2.5 text-[13px]">
+              <Link href="/care/leave-prep/" className="link">피부과 상담 전 정리해 갈 것 →</Link>
+              <Link href="/care/breakout-dont/" className="link">예민할 때 피할 행동 →</Link>
+            </div>
+          )}
+        </section>
+      )}
+
       {(["am", "pm"] as const).map((slot) => {
         const list = visible.filter((i) => i.slot === slot);
         if (!list.length) return null;
+        const activeMin = list.filter((i) => !pausedSet.has(i.id)).reduce((n, i) => n + i.minutes, 0);
         return (
           <section key={slot} className="mt-10">
-            <h2 className="sec-head h3">{slot === "am" ? "아침" : "저녁"}<span className="small ml-1 font-normal">{fmtMin(list.reduce((n, i) => n + i.minutes, 0))}</span></h2>
+            <h2 className="sec-head h3">{slot === "am" ? "아침" : "저녁"}<span className="small ml-1 font-normal">{fmtMin(activeMin)}</span></h2>
             <ul>
               {list.map((it) => (
-                <Item key={it.id} it={it} done={done.includes(it.id)} edit={edit} onToggle={() => toggle(it.id)} onExclude={() => (it.templateId === "custom" ? actions.removeCustom(it.id) : actions.toggleEnabled(it.id))} />
+                <Item
+                  key={it.id}
+                  it={it}
+                  done={done.includes(it.id)}
+                  edit={edit}
+                  pausedReasons={adj.pauseReasons[it.id]}
+                  emphasized={emphasizedSet.has(it.id)}
+                  onToggle={() => toggle(it.id)}
+                  onExclude={() => (it.templateId === "custom" ? actions.removeCustom(it.id) : actions.toggleEnabled(it.id))}
+                />
               ))}
             </ul>
           </section>
@@ -140,18 +192,47 @@ export function RoutineView() {
   );
 }
 
-function Item({ it, done, edit, onToggle, onExclude }: { it: RoutineItem; done: boolean; edit: boolean; onToggle: () => void; onExclude: () => void }) {
+function Item({
+  it,
+  done,
+  edit,
+  pausedReasons,
+  emphasized,
+  onToggle,
+  onExclude,
+}: {
+  it: RoutineItem;
+  done: boolean;
+  edit: boolean;
+  pausedReasons?: string[];
+  emphasized?: boolean;
+  onToggle: () => void;
+  onExclude: () => void;
+}) {
+  const paused = !!(pausedReasons && pausedReasons.length > 0);
   return (
-    <li className={`ritem ${done ? "done" : ""}`}>
-      <button type="button" className="rcheck" aria-pressed={done} aria-label={`${it.title} ${done ? "완료 취소" : "완료"}`} onClick={onToggle}>
+    <li className={`ritem ${done && !paused ? "done" : ""} ${paused ? "opacity-60" : ""}`}>
+      <button
+        type="button"
+        className="rcheck"
+        disabled={paused}
+        aria-pressed={!paused && done}
+        aria-label={paused ? `${it.title} 오늘은 쉬기` : `${it.title} ${done ? "완료 취소" : "완료"}`}
+        onClick={onToggle}
+      >
         <Check />
       </button>
       <div className="min-w-0">
-        <p className="rtitle text-[16px] font-semibold tracking-tight">
+        <p className={`rtitle text-[16px] font-semibold tracking-tight ${paused ? "line-through text-mute" : ""}`}>
           {it.title}
+          {paused && <span className="badge badge-draft ml-2">오늘 쉬기</span>}
+          {!paused && emphasized && <span className="badge ml-2">오늘 강조</span>}
           {it.situations && <span className="badge badge-draft ml-2">오늘 상황</span>}
           {it.templateId === "custom" && <span className="badge badge-draft ml-2">내 항목</span>}
         </p>
+        {paused && (
+          <p className="small mt-1">{pausedReasons!.join(" · ")} 때문에 오늘 밤은 쉬어요.</p>
+        )}
         <details className="group mt-1">
           <summary className="small cursor-pointer list-none select-none">
             <span className="group-open:hidden">왜 · 어떻게 ▾</span><span className="hidden group-open:inline">접기 ▴</span>
@@ -164,7 +245,7 @@ function Item({ it, done, edit, onToggle, onExclude }: { it: RoutineItem; done: 
         </details>
       </div>
       <div className="flex flex-col items-end gap-1">
-        <span className="small tabular-nums">{fmtMin(it.minutes)}</span>
+        <span className="small tabular-nums">{paused ? "휴식" : fmtMin(it.minutes)}</span>
         {edit && <button type="button" className="text-[12.5px] font-semibold text-signal-ink underline underline-offset-2" onClick={onExclude}>{it.templateId === "custom" ? "삭제" : "빼기"}</button>}
       </div>
     </li>

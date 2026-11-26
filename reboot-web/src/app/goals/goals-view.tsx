@@ -5,7 +5,8 @@ import { useState } from "react";
 import { Check } from "@/components/chrome";
 import { dPlus } from "@/lib/engine";
 import {
-  ANCHOR_LABEL, bucketFor, personalizePhase, anchorKindFor, daysUntil, googleCalendarUrl, newGoal, phaseFor, toICS, ymd,
+  ANCHOR_LABEL, bucketFor, personalizePhase, anchorKindFor, daysUntil, googleCalendarUrl, GROOMING_TEMPLATE_ORDER, GROOMING_TEMPLATES, newGoal, newTimelineGoal, phaseFor, toICS, ymd,
+  type GroomingTemplateId,
 } from "@/lib/goals";
 import { MODES } from "@/lib/labels";
 import { actions, useStore } from "@/lib/store";
@@ -27,6 +28,9 @@ export function GoalsView() {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [anchorDate, setAnchorDate] = useState("");
+  const [tlKind, setTlKind] = useState<GroomingTemplateId>("leave");
+  const [tlDate, setTlDate] = useState("");
+  const [tlAdded, setTlAdded] = useState<string | null>(null);
 
   if (!s) return <div className="wrap-narrow py-14 small">불러오는 중…</div>;
 
@@ -107,6 +111,45 @@ export function GoalsView() {
           <p className="small mt-2">남은 기간에 따라 구간이 바뀌면 추천도 바뀌어요. 규칙 기반 추천이에요.</p>
         </section>
       )}
+
+      {/* 휴가 · 전역 그루밍 타임라인 */} 
+      <section className="mt-12 rounded-[16px] border border-line p-5" aria-label="휴가·전역 그루밍 타임라인">
+        <p className="eyebrow !text-[11px]">TIMELINE TEMPLATE</p>
+        <h2 className="h3 mt-1">휴가 · 전역 그루밍 타임라인</h2>
+        <p className="small mt-1">{GROOMING_TEMPLATES[tlKind].desc}</p>
+        <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="타임라인 종류">
+          {GROOMING_TEMPLATE_ORDER.map((id) => (
+            <button key={id} type="button" className="chip" aria-pressed={tlKind === id} onClick={() => setTlKind(id)}>
+              {GROOMING_TEMPLATES[id].shortLabel}
+            </button>
+          ))}
+        </div>
+        <ul className="mt-3 grid gap-1 text-[13.5px] leading-relaxed text-[#3d3d3a]">
+          {GROOMING_TEMPLATES[tlKind].steps.map((st) => (
+            <li key={st.daysBefore}>· {st.label}</li>
+          ))}
+        </ul>
+        <form
+          className="mt-4 flex flex-wrap items-center gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!tlDate) return;
+            const g = newTimelineGoal(tlKind, tlDate);
+            actions.addGoal(g);
+            setTlAdded(`${g.title} (${fmtDate(tlDate)})`);
+            setTlDate("");
+          }}
+        >
+          <label className="sr-only" htmlFor="tl-date">기준 날짜</label>
+          <input id="tl-date" type="date" className="field max-w-[180px]" value={tlDate} min={today} onChange={(e) => setTlDate(e.target.value)} />
+          {anchor && anchor.date >= today && (
+            <button type="button" className="chip" onClick={() => setTlDate(anchor.date)}>{ANCHOR_LABEL[kind]} 쓰기</button>
+          )}
+          <button type="submit" className="btn btn-dark !min-h-11" disabled={!tlDate}>내 목표에 추가</button>
+        </form>
+        {tlAdded && <p className="small mt-2" role="status">&lsquo;{tlAdded}&rsquo; 일정을 넣었어요. 아래 내 목표에서 캘린더로 보낼 수 있어요.</p>}
+        <p className="small mt-2">시술이나 특정 관리를 권유하지 않아요. 이미 계획한 일정이 있다면 회복·정착 기간을 감안해 역산하는 참고용이에요.</p>
+      </section>
 
       {/* 내 목표 */}
       <section className="mt-12">

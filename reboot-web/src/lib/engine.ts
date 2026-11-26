@@ -1,5 +1,6 @@
+import { evaluateConditions } from "./conditions.ts";
 import { TEMPLATES, type Template } from "./templates.ts";
-import type { Area, CheckAnswers, DayRecord, RoutineItem, Situation, Store } from "./types.ts";
+import type { Area, CheckAnswers, ConditionTag, DayRecord, RoutineItem, Situation, Store } from "./types.ts";
 
 // 규칙 기반 루틴 엔진. 순수 함수만 두어 테스트하기 쉽게 한다.
 
@@ -168,12 +169,22 @@ export function visibleItems(items: RoutineItem[], situation: Situation): Routin
   return items.filter((i) => i.enabled && (!i.situations || i.situations.includes(situation)));
 }
 
+/** 컨디션 태그로 '오늘 쉬기' 처리된 항목을 제외한 오늘의 계획 항목 */
+export function plannedItems(items: RoutineItem[], situation: Situation, conditions?: ConditionTag[]): RoutineItem[] {
+  const visible = visibleItems(items, situation);
+  if (!conditions || conditions.length === 0) return visible;
+  const adj = evaluateConditions(conditions, visible);
+  if (adj.pausedItemIds.length === 0) return visible;
+  const paused = new Set(adj.pausedItemIds);
+  return visible.filter((i) => !paused.has(i.id));
+}
+
 /** 오늘의 계획만 현재 루틴과 맞춘다. 지난 기록과 숨겨진 완료 항목은 보존한다. */
 export function syncTodayPlan(store: Store, today = new Date()): Store {
   const key = dayKey(today);
   const record = store.records[key];
   if (!store.routine || !record) return store;
-  const planned = visibleItems(store.routine.items, store.routine.situation).map((i) => i.id);
+  const planned = plannedItems(store.routine.items, store.routine.situation, record.conditions).map((i) => i.id);
   return { ...store, records: { ...store.records, [key]: { ...record, planned } } };
 }
 

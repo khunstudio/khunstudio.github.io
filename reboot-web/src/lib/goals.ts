@@ -115,6 +115,85 @@ export function newGoal(title: string, source: LifeGoal["source"], date?: string
   };
 }
 
+export type GroomingTemplateId = "leave" | "discharge";
+
+export interface GroomingStep {
+  daysBefore: number;
+  label: string;
+}
+
+export interface GroomingTemplate {
+  id: GroomingTemplateId;
+  title: string;
+  shortLabel: string;
+  desc: string;
+  steps: GroomingStep[];
+}
+
+/** 휴가 · 전역 그루밍 타임라인 템플릿 (시술 권유 없음 · 회복/정착 기간을 감안한 일정 참고용) */
+export const GROOMING_TEMPLATES: Record<GroomingTemplateId, GroomingTemplate> = {
+  leave: {
+    id: "leave",
+    title: "휴가 · 외출 그루밍 타임라인",
+    shortLabel: "휴가 · 외출 (D-14)",
+    desc: "외출·휴가 날짜에서 역산해 머리 정리와 보습 리듬을 미리 맞춰요.",
+    steps: [
+      { daysBefore: 14, label: "D-14 · 피부과 상담이나 회복 기간이 필요한 관리 계획이 있다면 여유 있게 일정 확인" },
+      { daysBefore: 7, label: "D-7 · 새 제품·자극 성분을 새로 켜지 않고 익숙한 보습 루틴만 유지" },
+      { daysBefore: 3, label: "D-3 · 헤어 커트·정리 (자연스럽게 자리 잡을 여유 확보)" },
+      { daysBefore: 1, label: "D-1 · 순한 보습·진정, 손톱·입술 정리, 외출복 점검" },
+    ],
+  },
+  discharge: {
+    id: "discharge",
+    title: "전역 · 중요한 날 그루밍 타임라인",
+    shortLabel: "전역 · 중요한 날 (D-30)",
+    desc: "전역이나 중요한 일정을 앞두고 피부·헤어·옷장 준비를 순서대로 나눠요.",
+    steps: [
+      { daysBefore: 30, label: "D-30 · 바뀔 생활 리듬에 맞춘 루틴·헤어·사복 계획 정리" },
+      { daysBefore: 14, label: "D-14 · 피부과 상담이나 회복 기간이 필요한 관리 계획이 있다면 미리 확인" },
+      { daysBefore: 7, label: "D-7 · 새 기능성 성분 시도 중단, 보습·자외선 차단 기본기 안정 유지" },
+      { daysBefore: 3, label: "D-3 · 헤어 정리 및 만남·사진용 사복 최종 점검" },
+      { daysBefore: 1, label: "D-1 · 충분한 수면, 저자극 보습, 손톱·면도 도구·외출 준비 마무리" },
+    ],
+  },
+};
+
+export const GROOMING_TEMPLATE_ORDER: GroomingTemplateId[] = ["leave", "discharge"];
+
+/** 휴가 · 전역 그루밍 타임라인 목표 생성 (이미 지난 체크포인트는 제외) */
+export function newTimelineGoal(
+  templateId: GroomingTemplateId,
+  date: string,
+  customTitle?: string,
+  today = new Date(),
+): LifeGoal {
+  const tpl = GROOMING_TEMPLATES[templateId];
+  const title = (customTitle?.trim() || tpl.title).slice(0, 60);
+  const left = daysUntil(date, today);
+  const checkpoints: Checkpoint[] = [];
+  for (const step of tpl.steps) {
+    if (step.daysBefore >= left && left > 0) continue;
+    if (left <= 0) continue;
+    const d = new Date(toDate(date).getTime() - step.daysBefore * DAY);
+    checkpoints.push({
+      id: `gt-${templateId}-${step.daysBefore}`,
+      title: `${title} · ${step.label}`,
+      date: ymd(d),
+      done: false,
+    });
+  }
+  return {
+    id: `g-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`,
+    title,
+    date,
+    done: false,
+    source: "suggest",
+    checkpoints,
+    createdAt: new Date().toISOString(),
+  };
+}
+
 /** 로그인 없이 구글 캘린더 '일정 추가' 화면을 여는 링크 (종일 일정) */
 export function googleCalendarUrl(title: string, date: string, details = "RE:BOOT에서 추가한 일정"): string {
   const start = date.replaceAll("-", "");
