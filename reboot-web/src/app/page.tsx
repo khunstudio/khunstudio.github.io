@@ -11,9 +11,9 @@ import { Photo } from "@/components/photo";
 import { MODES, MODE_ORDER } from "@/lib/labels";
 
 const AREAS_PHOTO = [
-  { a: "skin", en: "SKIN", ko: "피부", d: "세안 · 보습 · 자외선 · 면도", photo: "sunscreen" as const, alt: "현관 창가에서 귀 뒤와 목에 선크림을 바르는 짧은 머리 남자" },
-  { a: "body", en: "BODY", ko: "운동", d: "스트레칭 · 땀 관리", photo: "track" as const, alt: "해 뜨는 운동장에서 스트레칭하는 짧은 머리의 남자" },
-  { a: "style", en: "STYLE", ko: "헤어 · 스타일", d: "헤어 · 옷 · 외출 준비", photo: "shirtup" as const, alt: "창가에서 흰 셔츠 깃을 여미며 위를 바라보는 짧은 머리 남자" },
+  { a: "skin", en: "SKIN", ko: "피부 · 중심 루틴", d: "세안 · 보습 · 자외선 · 면도", photo: "sunscreen" as const, alt: "현관 창가에서 귀 뒤와 목에 선크림을 바르는 짧은 머리 남자" },
+  { a: "body", en: "BODY", ko: "운동 · 땀 관리", d: "체력 · 땀 · 피부 컨디션 연결", photo: "track" as const, alt: "해 뜨는 운동장에서 스트레칭하는 짧은 머리의 남자" },
+  { a: "style", en: "STYLE", ko: "헤어 · 그루밍", d: "헤어 · 면도 · 외출 전 타임라인", photo: "shirtup" as const, alt: "창가에서 흰 셔츠 깃을 여미며 위를 바라보는 짧은 머리 남자" },
 ];
 
 export default function Home() {
@@ -100,11 +100,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. CARE */}
+      {/* 6. CARE (피부 중심 허브) */}
       <section className="t-sec">
         <div className="wrap">
-          <p className="t-k" data-rv>CARE</p>
-          <h2 className="t-xl mt-4" data-rv>어렵지 않은 순서로<br />정리했어요.</h2>
+          <p className="t-k" data-rv>CARE · SKIN HUB</p>
+          <h2 className="t-xl mt-4" data-rv>피부를 중심으로,<br />생활까지 이어서.</h2>
+          <p className="t-sub mt-4 max-w-xl" data-rv>운동과 땀, 면도와 헤어, 수면과 식습관은 결국 피부 컨디션으로 이어져요. SKIN을 바탕으로 나머지 영역을 함께 챙겨요.</p>
           <ul className="mt-12 grid grid-cols-2 gap-3 lg:grid-cols-4">
             {AREAS_PHOTO.map((x, i) => (
               <li key={x.a} data-rv style={{ ["--d" as string]: `${i * 90}ms` }}>
@@ -124,8 +125,8 @@ export default function Home() {
                   <p className="display mt-6 text-center text-[clamp(34px,9vw,60px)] whitespace-nowrap">06<span className="colon">:</span>00</p>
                   <div>
                     <p className="display text-[34px]">LIFE</p>
-                    <p className="mt-1 text-[14px] font-bold">생활습관</p>
-                    <p className="text-[12.5px] text-white/70">수면 · 수분 · 하루 정리</p>
+                    <p className="mt-1 text-[14px] font-bold">생활습관 · 장벽 리듬</p>
+                    <p className="text-[12.5px] text-white/70">수면 · 수분 · 식습관 → 피부 연결</p>
                   </div>
                 </div>
               </Link>
@@ -173,9 +174,9 @@ export default function Home() {
           <Link href="/select/" className="t-panel t-panel-photo" data-rv style={{ ["--d" as string]: "90ms" }}>
             <div className="absolute inset-0"><Photo name="kit" alt="세면대 위에 01, 02, 03 번호가 적힌 검정 용기 세 개 (콘셉트 디자인)" className="h-full" /></div>
             <div className="relative">
-              <span className="badge badge-soon">v1 · 성분별 예시</span>
+              <span className="badge badge-soon">v1 · 성분 판정기</span>
               <p className="t-lg mt-6">많이 파는 것보다,<br />맞게 고르는 것.</p>
-              <p className="mt-4 text-[14px] text-white/80">성분을 먼저 고르고, 그 성분의 대표 제품을 예시로 보여 줘요. 사진의 용기는 디자인 콘셉트예요.</p>
+              <p className="mt-4 text-[14px] text-white/80">성분을 초성으로 검색해 내 피부·루틴과 겹치지 않는지 먼저 확인하고 예시 제품을 봐요. 사진의 용기는 디자인 콘셉트예요.</p>
             </div>
           </Link>
         </div>

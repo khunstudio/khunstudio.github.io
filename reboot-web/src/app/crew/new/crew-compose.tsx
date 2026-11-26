@@ -7,6 +7,7 @@ import { useState } from "react";
 import { KINDS, STAGES, TOPICS, crewReady, friendlyError, privacyIssue, removeImages, sb, uploadImage, useCrewUser, type Kind, type Stage, type Topic } from "@/lib/crew";
 import { Editor, ImagePicker, type Draft } from "../rich";
 import { getStore } from "@/lib/store";
+import { SKIN_PROFILES } from "@/lib/skintype";
 import { NotReady } from "../crew-ui";
 
 export function CrewCompose() {
@@ -62,7 +63,24 @@ export function CrewCompose() {
         <label className="grid gap-1.5"><span className="small">제목 ({title.length}/80)</span>
           <input id="crew-title" className="field" maxLength={80} value={title} onChange={(e) => setTitle(e.target.value)} placeholder={kind === "ask" ? "예: 훈련소 가기 전 피부 관리, 뭐부터 챙길까요?" : "예: 일병 때 알았으면 좋았을 면도 순서"} />
         </label>
-        <div className="grid gap-1.5"><label htmlFor="crew-body" className="small">내용</label>
+        <div className="grid gap-1.5">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <label htmlFor="crew-body" className="small">내용</label>
+            <button
+              type="button"
+              className="chip !min-h-8 !px-3 !text-[12.5px]"
+              onClick={() => {
+                const skin = (() => { try { return getStore().skin; } catch { return undefined; } })();
+                const skinText = skin ? `${SKIN_PROFILES[skin.type].ko}${skin.sensitive ? " (예민)" : ""}` : "예: 지성 / 복합성 / 예민";
+                const tpl = kind === "ask"
+                  ? `- 피부 타입: ${skinText}\n- 생활 단계: ${STAGES[stage]}\n- 현재 쓰는 제품 종류 · 성분: \n- 월 예산대 (선택): \n- 궁금한 점: `
+                  : `- 피부 타입: ${skinText}\n- 생활 단계: ${STAGES[stage]}\n- 써 본 제품 종류 · 성분: \n- 월 예산대 (선택): \n- 겪어본 점 · 팁: `;
+                setBody((prev) => (prev.trim() ? `${prev.trim()}\n\n${tpl}` : tpl));
+              }}
+            >
+              + 피부 · 루틴 양식 넣기
+            </button>
+          </div>
           <Editor id="crew-body" max={3000} value={body} onChange={setBody} placeholder={kind === "ask" ? "상황을 조금 적어 주면 더 맞는 답을 받을 수 있어요. (피부 타입, 쓰는 제품, 시간 등)" : "언제, 무엇을 해 봤고, 뭐가 달라졌는지 적어 주세요."} />
         </div>
         <div className="grid gap-1.5"><span className="small">사진 (선택)</span><ImagePicker items={photos} onChange={setPhotos} /></div>
