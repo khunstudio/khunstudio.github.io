@@ -1481,3 +1481,8 @@ body::before {
   .cp-meta__scope .scope > li:nth-last-child(2):nth-child(4n+1) { grid-column: span 2; }
   .cp-meta__scope .scope > li:last-child:nth-child(4n+3) { grid-column: span 2; }
 }
+.cp-out .rl-banner { border-radius: 22px; border: 0; }
+.rl-iconreal { display: flex; align-items: center; gap: 20px; }
+.cp-out .rl-iconreal img { width: clamp(120px, 14vw, 180px); flex: none; border: 0; border-radius: 22%; box-shadow: 0 16px 40px rgba(58, 36, 140, .35); }
+.cp-out .rl-iconreal p { margin: 0 !important; font-size: 14px !important; color: #565366 !important; line-height: 1.7; }
+.cp-out .rl-iconreal b { display: block; color: #6a52d9 !important; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: #6a52d9; font-weight: 500; margin-bottom: 4px; }
